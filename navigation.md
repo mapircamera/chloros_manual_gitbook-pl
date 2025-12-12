@@ -14,7 +14,9 @@ Z poziomu menu głównego można rozpocząć nowy projekt, otworzyć istniejący
 
 Po włączeniu przycisk startu przetwarzania uruchamia proces przetwarzania obrazu.
 
-### <img src=".gitbook/assets/image (4).png" alt="" data-size="line"> Pasek postępu <img src=".gitbook/assets/image (5).png" alt="" data-size="line">W bezpłatnym trybie Chloros, który przetwarza wszystkie pliki sekwencyjnie, pasek postępu pokazuje 2 etapy: wykrywanie celu i przetwarzanie.
+### <img src=".gitbook/assets/image (4).png" alt="" data-size="line"> Pasek postępu <img src=".gitbook/assets/image (5).png" alt="" data-size="line">
+
+W bezpłatnym trybie Chloros, który przetwarza wszystkie pliki sekwencyjnie, pasek postępu pokazuje 2 etapy: wykrywanie celu i przetwarzanie.
 
 W płatnym trybie Chloros+ z licencją, który przetwarza wszystkie pliki jednocześnie, pasek postępu pokazuje 4 etapy: wykrywanie, analizowanie, kalibrowanie, eksportowanie. Po najechaniu kursorem myszy na pasek postępu Chloros+ rozwinie się rozszerzony panel z 4 paskami postępu, dzięki czemu można śledzić postępy. Kliknięcie górnego paska postępu spowoduje zamrożenie panelu rozwijanego, a ponowne kliknięcie spowoduje jego odblokowanie.
 
