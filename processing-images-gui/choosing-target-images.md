@@ -1,6 +1,6 @@
 # Wybór obrazów docelowych
 
-Oznaczenie obrazów zawierających cele kalibracyjne jest kluczowym krokiem, który znacznie przyspiesza przetwarzanie w ramach procesu Chloros. Dzięki wstępnemu wybraniu obrazów docelowych eliminuje się konieczność skanowania przez Chloros każdego obrazu w zbiorze danych w celu znalezienia celów kalibracyjnych.
+Oznaczenie obrazów zawierających cele kalibracyjne jest kluczowym krokiem, który znacznie przyspiesza przetwarzanie w ramach procesu Chloros. Dzięki wstępnej selekcji obrazów docelowych eliminuje się konieczność skanowania przez Chloros każdego obrazu w zbiorze danych w celu znalezienia celów kalibracyjnych.
 
 ## Dlaczego warto oznaczać obrazy docelowe?
 
@@ -23,7 +23,7 @@ Po zaznaczeniu kolumny Docelowe dla określonych obrazów:
 * Całkowity czas przetwarzania ulega znacznemu skróceniu
 
 {% hint style=&quot;success&quot; %}
-**Zwiększenie szybkości**: Zaznaczenie 2-3 obrazów docelowych w zbiorze danych zawierającym 500 obrazów może skrócić czas wykrywania docelowego z ponad 30 minut do mniej niż 1 minuty.
+**Zwiększenie szybkości**: Zaznaczenie 2-3 obrazów docelowych w zbiorze danych zawierającym 500 obrazów może skrócić czas wykrywania celów z ponad 30 minut do mniej niż 1 minuty.
 {% endhint %}
 
 ***
@@ -67,34 +67,34 @@ Przed przetworzeniem sprawdź:
 **Czas:**
 
 * Przechwytuj obrazy docelowe bezpośrednio przed sesją przechwytywania i w jej trakcie
-* W takich samych warunkach oświetleniowych, jak czujnik światła DAQ
-* Aby uzyskać najlepsze wyniki, najlepiej rejestruj obrazy docelowe tak często, jak to możliwe. W przeciwnym razie dane z czujnika światła zostaną wykorzystane do dostosowania kalibracji w miarę upływu czasu.
+* W tych samych warunkach oświetleniowych, co czujnik światła DAQ
+* Aby uzyskać najlepsze wyniki, najlepiej rejestruj obrazy celów tak często, jak to możliwe. W przeciwnym razie dane z czujnika światła zostaną wykorzystane do dostosowania kalibracji w miarę upływu czasu.
 
-**Pozycja aparatu:**
+**Pozycja kamery:**
 
-* Trzymaj aparat nad celem tak, aby był wyśrodkowany i zajmował około 40–60% środka obrazu.
-* Utrzymuj aparat równolegle/nadir do powierzchni celu
+* Trzymaj kamerę nad celem tak, aby był on wyśrodkowany i zajmował około 40–60% środka obrazu.
+* Utrzymuj kamerę równolegle/nadir do powierzchni celu
 
 **Oświetlenie:**
 
-* Takie samo oświetlenie otoczenia jak czujnik światła DAQ.
+* Takie samo oświetlenie otoczenia jak w przypadku czujnika światła DAQ.
 * Unikaj cieni na powierzchniach docelowych.
 * Nie zasłaniaj źródła światła swoim ciałem, pojazdem lub roślinnością.
-* Warunki pochmurne zapewniają najbardziej spójne wyniki.
+* Najbardziej spójne wyniki zapewniają warunki pochmurne.
 
-**Stan celu:**
+**Stan docelowy:**
 
-* Utrzymuj panele docelowe w czystości i suchości.
+* Panele docelowe powinny być czyste i suche.
 * Wszystkie 4 panele powinny być wyraźnie widoczne i niezasłonięte.
-* Cele powinny być ustawione prostopadle/nadir względem źródła światła, jeśli to możliwe.
+* Jeśli to możliwe, cele powinny być ustawione prostopadle/nadir względem źródła światła.
 
 ### Ile obrazów docelowych?
 
-**Minimum:** 1 obraz docelowy na sesję. **Zalecane:** 3–5 obrazów docelowych na sesję.
+**Minimum:** 1 obraz docelowy na sesję. **Zalecane:** 3-5 obrazów docelowych na sesję.
 
 **Najlepszy harmonogram:**
 
-* 3–5 obrazów uchwyconych wkrótce po rozpoczęciu rejestracji przez czujnik światła
+* 3-5 obrazów uchwyconych wkrótce po rozpoczęciu rejestracji przez czujnik światła
 * Aby uzyskać najlepsze wyniki, należy obracać kamerę między kolejnymi ujęciami
 * Opcjonalnie: okresowo w trakcie sesji, jeśli warunki oświetleniowe ulegają ciągłym zmianom
 
@@ -133,7 +133,7 @@ Jeśli Chloros nie wykrywa prawidłowo celów, dostosuj te ustawienia w [Ustawie
 **Minimalny obszar próbki kalibracji:**
 
 * **Domyślnie**: 25 pikseli
-* **Zwiększ**, jeśli pojawiają się fałszywe wykrycia małych artefaktów
+* **Zwiększ**, jeśli występują fałszywe wykrycia małych artefaktów
 * **Zmniejsz**, jeśli cele nie są wykrywane
 
 **Minimalna klasteryzacja celów:**
@@ -162,7 +162,7 @@ Jeśli Chloros nie wykrywa prawidłowo celów, dostosuj te ustawienia w [Ustawie
 3. Jeśli jakość jest słaba, ponownie uchwyć cele
 4. W razie potrzeby dostosuj ustawienia wykrywania celów
 
-### Problem: Fałszywe wykrycia celów
+### Problem: Fałszywe wykrycie celów
 
 **Możliwe przyczyny:**
 
@@ -202,10 +202,10 @@ Chociaż nie jest to zalecane w przypadku prac naukowych, można przetwarzać da
 1. Pozostaw wszystkie pola wyboru w kolumnie „Cel” niezaznaczone
 2. **Wyłącz** „Kalibrację odbicia” w ustawieniach projektu
 3. Korekcja winietowania będzie nadal stosowana.
-4. Wynik nie będzie skalibrowany pod kątem odbicia absolutnego.
+4. Wynik nie będzie skalibrowany pod kątem absolutnego współczynnika odbicia.
 
 {% hint style=&quot;warning&quot; %}
-**Nie zalecane**: Bez kalibracji odbicia wartości pikseli reprezentują jedynie względną jasność, a nie naukowe pomiary odbicia. Aby uzyskać dokładne, powtarzalne wyniki, należy używać celów kalibracyjnych.
+**Nie zalecane**: Bez kalibracji współczynnika odbicia wartości pikseli reprezentują jedynie względną jasność, a nie naukowe pomiary współczynnika odbicia. Aby uzyskać dokładne, powtarzalne wyniki, należy używać celów kalibracyjnych.
 {% endhint %}
 
 ***

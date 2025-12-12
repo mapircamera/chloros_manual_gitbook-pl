@@ -9,7 +9,7 @@ Przed kliknięciem przycisku Start sprawdź, czy wszystko jest gotowe:
 * [ ] **Pliki zaimportowane** — wszystkie obrazy pojawiają się w przeglądarce plików
 * [ ] **Obrazy docelowe zaznaczone** — kolumna docelowa sprawdzona pod kątem obrazów kalibracyjnych
 * [ ] **Wykryte modele aparatów** — kolumna „Model aparatu” pokazuje prawidłowe aparaty
-* [ ] **Skonfigurowane ustawienia** — sprawdzone i dostosowane ustawienia projektu
+* [ ] **Skonfigurowane ustawienia** — ustawienia projektu sprawdzone i dostosowane
 * [ ] **Wybrane indeksy** — dodane żądane indeksy wielospektralne (w razie potrzeby)
 * [ ] **Wybrany format eksportu** — format wyjściowy odpowiedni dla Twojego przepływu pracy
 
@@ -23,9 +23,9 @@ Przed kliknięciem przycisku Start sprawdź, czy wszystko jest gotowe:
 
 ### Znajdź przycisk Start
 
-Przycisk Start/Odtwórz znajduje się w górnym pasku nagłówkowym Chloros:
+Przycisk Start/Odtwórz znajduje się w górnym pasku nagłówka Chloros:
 
-* Położenie: w górnej środkowej części okna
+* Położenie: górna część środkowa okna
 * Ikona: **Przycisk Odtwórz/Start** <img src="../.gitbook/assets/image (2).png" alt="" data-size="line">
 * Status: Przycisk jest aktywny (jasny), gdy program jest gotowy do przetwarzania
 
@@ -37,12 +37,12 @@ Przycisk Start/Odtwórz znajduje się w górnym pasku nagłówkowym Chloros:
 4. Pasek postępu aktualizuje się, pokazując status przetwarzania
 
 {% hint style=&quot;success&quot; %}
-**Rozpoczęto przetwarzanie**: Po kliknięciu Chloros automatycznie obsługuje wszystkie etapy przetwarzania — wykrywanie celu, debayering, kalibrację, obliczanie indeksu i eksport.
+**Rozpoczęcie przetwarzania**: Po kliknięciu Chloros automatycznie obsługuje wszystkie etapy przetwarzania — wykrywanie celu, debayering, kalibrację, obliczanie indeksu i eksport.
 {% endhint %}
 
 ***
 
-## Informacje o trybach przetwarzania
+## Omówienie trybów przetwarzania
 
 Chloros działa w dwóch różnych trybach przetwarzania w zależności od posiadanej licencji:
 
@@ -87,13 +87,13 @@ Chloros działa w dwóch różnych trybach przetwarzania w zależności od posia
 **Interakcja z paskiem postępu:**
 
 * **Najedź myszką** na pasek, aby wyświetlić szczegółowy panel rozwijany z 4 etapami
-* **Kliknij** pasek postępu, aby zamrozić panel rozwijany w miejscu
+* **Kliknij** pasek postępu, aby zamrozić panel rozwijany
 * **Kliknij ponownie**, aby odblokować i ukryć panel
 
 **Czas przetwarzania:**
 
 * Znacznie szybszy niż w trybie darmowym
-* Skalowalny w zależności od liczby rdzeni procesora
+* Skaluje się wraz z liczbą rdzeni procesora
 * Przyspieszenie GPU dodatkowo poprawia szybkość
 
 {% hint style=&quot;info&quot; %}
@@ -108,16 +108,16 @@ Chloros działa w dwóch różnych trybach przetwarzania w zależności od posia
 
 **Co robi Chloros:**
 
-* Skanuje zaznaczone obrazy docelowe (lub wszystkie obrazy, jeśli żadne nie są zaznaczone)
+* Skanuje zaznaczone obrazy docelowe (lub wszystkie obrazy, jeśli żadne nie zostało zaznaczone)
 * Identyfikuje 4 panele kalibracyjne w każdym celu
-* Wyodrębnia wartości odbicia od paneli docelowych
-* Rejestruje sygnatury czasowe celów do planowania kalibracji
+* Wyodrębnia wartości odbicia z paneli docelowych
+* Rejestruje sygnatury czasowe celów w celu zaplanowania kalibracji
 
-**Czas trwania:** 1–30 sekund (z zaznaczonymi celami), 5–30+ minut (bez zaznaczenia)
+**Czas trwania:** 1–30 sekund (w przypadku zaznaczonych celów), 5–30+ minut (w przypadku niezaznaczonych celów)
 
 ### Etap 2: Debayering (konwersja RAW)
 
-**Co robi Chloros:**
+**Czym zajmuje się Chloros:**
 
 * Konwertuje dane RAW w formacie Bayer na pełne obrazy RGB
 * Stosuje wysokiej jakości algorytm demosaicingu
@@ -185,7 +185,7 @@ Po uruchomieniu cały proces przebiega automatycznie:
 * Należy unikać uruchamiania innych zadań wymagających dużej mocy obliczeniowej procesora
 
 {% hint style=&quot;warning&quot; %}
-**Wskazówka dotycząca wydajności**: Aby uzyskać najlepszą wydajność Chloros+, zamknij inne aplikacje i pozwól Chloros korzystać z pełnych zasobów systemu.
+**Wskazówka dotycząca wydajności**: Aby uzyskać najlepszą wydajność Chloros+, zamknij inne aplikacje i pozwól Chloros korzystać z pełnych zasobów systemowych.
 {% endhint %}
 
 ### Przetwarzania nie można wstrzymać
@@ -236,9 +236,9 @@ Jeśli chcesz zatrzymać przetwarzanie:
 
 **Po anulowaniu:**
 
-* Sprawdź i napraw wszelkie problemy
+* Przejrzyj i napraw wszelkie problemy
 * Dostosuj ustawienia zgodnie z potrzebami
-* Uruchom przetwarzanie od początku
+* Ponownie uruchom przetwarzanie od początku
 * Aby uzyskać najlepsze wyniki, całkowicie zamknij Chloros i uruchom ponownie
 
 {% hint style=&quot;warning&quot; %}
@@ -254,7 +254,7 @@ Rzeczywisty czas przetwarzania różni się znacznie w zależności od:
 * Liczby obrazów
 * Rozdzielczości obrazów
 * Formatu wejściowego RAW lub JPG
-* Trybu przetwarzania (Free vs Chloros+)
+* Trybu przetwarzania (Free lub Chloros+)
 * Szybkości procesora i liczby rdzeni
 * Dostępności procesora graficznego (tylko Chloros+)
 * Liczby indeksów do obliczenia
@@ -307,10 +307,10 @@ Rzeczywisty czas przetwarzania różni się znacznie w zależności od:
 
 1. Sprawdź dziennik debugowania <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> pod kątem komunikatów o błędach
 2. Sprawdź dostępną przestrzeń dyskową
-3. Spróbuj przetworzyć mniejszą podgrupę obrazów
+3. Spróbuj przetworzyć mniejszy podzbiór obrazów
 4. Sprawdź, czy obrazy nie są uszkodzone
 
-### Ostrzeżenie „Nie wykryto celów”
+### Ostrzeżenie „Nie wykryto żadnych celów”
 
 **Możliwe przyczyny:**
 

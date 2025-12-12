@@ -25,7 +25,7 @@ W przypadku typowych procesów pracy z kamerą MAPIR Survey3 dobrze sprawdzają 
 * ✅ **Metoda debayeringu**: Wysoka jakość (szybsza)
 * ✅ **Format eksportu**: TIFF (16-bitowy)
 
-Wystarczy zaimportować obrazy i rozpocząć przetwarzanie przy użyciu tych ustawień domyślnych.
+Wystarczy zaimportować obrazy i rozpocząć przetwarzanie przy użyciu tych domyślnych ustawień.
 
 ***
 
@@ -56,7 +56,7 @@ Główne opcje przetwarzania obrazu i kalibracji.
 
 * **Korekcja winietowania**: kompensuje zaciemnienie obiektywu na krawędziach ✅ Zalecane
 * **Kalibracja odbicia**: normalizuje wartości przy użyciu celów kalibracyjnych ✅ Zalecane
-* **Metoda Debayera**: algorytm konwersji RAW do 3-kanałowego obrazu wielospektralnego
+* **Metoda Debayera**: algorytm konwersji RAW do 3-kanałowego multispektralnego
 * **Minimalny interwał ponownej kalibracji**: czas między użyciem celów kalibracyjnych (0 = użyj wszystkich)
 
 **Ustawienia zaawansowane:**
@@ -156,9 +156,9 @@ W przypadku korzystania z rejestratorów MAPIR DAQ z GPS w celu precyzyjnej geol
 
 ### Kroki konfiguracji
 
-1. Umieść plik dziennika .daq w folderze projektu.
-2. W ustawieniach projektu zaznacz pole wyboru **„Zastosuj korekty PPK”**.
-3. W razie potrzeby ustaw **„Przesunięcie strefy czasowej czujnika światła”** (domyślnie: 0 dla UTC).
+1. Umieść plik dziennika .daq w folderze projektu
+2. W ustawieniach projektu zaznacz pole wyboru **„Zastosuj korekty PPK”**
+3. W razie potrzeby ustaw **„Przesunięcie strefy czasowej czujnika światła”** (domyślnie: 0 dla UTC)
 4. Przypisz kamery do pinów ekspozycji:
    * **Pojedyncza kamera**: Automatycznie przypisana do pinu 1
    * **Dwie kamery**: Ręcznie przypisz każdą kamerę do odpowiedniego pinu
@@ -216,7 +216,7 @@ Przed rozpoczęciem przetwarzania sprawdź następujące kluczowe ustawienia:
 * [ ] Model aparatu prawidłowo wykryty w przeglądarce plików
 * [ ] Włączona korekcja winietowania
 * [ ] Włączona kalibracja odbicia
-* [ ] Zaimportowano co najmniej jeden obraz kalibracyjny
+* [ ] Zaimportowano co najmniej jeden obraz docelowy kalibracji
 * [ ] Dodano żądane indeksy wielospektralne
 * [ ] Format eksportu odpowiedni dla Twojego przepływu pracy
 * [ ] Skonfigurowano ustawienia PPK (w przypadku korzystania z .daq z wydarzeniami ekspozycji)

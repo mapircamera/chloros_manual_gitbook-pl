@@ -6,7 +6,7 @@ Po rozpoczęciu przetwarzania Chloros oferuje kilka sposobów monitorowania post
 
 Pasek postępu w górnym nagłówku pokazuje status przetwarzania w czasie rzeczywistym oraz procent ukończenia.
 
-### Pasek postępu w trybie darmowym
+### Pasek postępu w trybie bezpłatnym
 
 Dla użytkowników bez licencji Chloros+:
 
@@ -18,8 +18,8 @@ Dla użytkowników bez licencji Chloros+:
 **Pasek postępu pokazuje:**
 
 * Ogólny procent ukończenia (0-100%)
-* Nazwę bieżącego etapu
-* Proste wizualizacje w postaci poziomych pasków
+* Nazwa bieżącego etapu
+* Prosta wizualizacja w postaci poziomego paska
 
 ### Pasek postępu Chloros+
 
@@ -29,14 +29,14 @@ Dla użytkowników posiadających licencję Chloros+:
 
 1. **Wykrywanie** — wyszukiwanie celów kalibracji
 2. **Analiza** — badanie obrazów i przygotowywanie potoku
-3. **Kalibracja** — stosowanie korekt winietowania i odbicia
+3. **Kalibracja** — stosowanie korekcji winietowania i odbicia
 4. **Eksportowanie** — zapisywanie przetworzonych plików
 
 **Funkcje interaktywne:**
 
 * **Najedź kursorem** na pasek postępu, aby wyświetlić rozszerzony 4-etapowy panel
 * **Kliknij** pasek postępu, aby zamrozić/przypiąć rozszerzony panel
-* **Kliknij ponownie**, aby odmrozić i automatycznie ukryć po odsunięciu myszy
+* **Kliknij ponownie**, aby odblokować i automatycznie ukryć po odsunięciu myszy
 * Każdy etap pokazuje indywidualny postęp (0-100%)
 
 ***
@@ -47,7 +47,7 @@ Dla użytkowników posiadających licencję Chloros+:
 
 **Co się dzieje:**
 
-* Chloros skanuje obrazy oznaczone polem wyboru Cel
+* Chloros skanuje obrazy zaznaczone polem wyboru Cel
 * Algorytmy wizji komputerowej identyfikują 4 panele kalibracyjne
 * Wartości odbicia wyodrębnione z każdego panelu
 * Znaczniki czasu celów zarejestrowane w celu prawidłowego planowania kalibracji
@@ -112,13 +112,13 @@ Dla użytkowników posiadających licencję Chloros+:
 
 * **Tryb swobodny**: przetwarza po jednym obrazie na raz
 * **Tryb Chloros+**: przetwarza do 16 obrazów jednocześnie
-* **Przyspieszenie GPU**: Znacznie przyspiesza ten etap.
+* **Przyspieszenie GPU**: Znacznie przyspiesza ten etap
 
 **Na co należy zwrócić uwagę:**
 
-* Stały postęp w zakresie liczby obrazów.
-* Sprawdź dziennik debugowania pod kątem komunikatów o zakończeniu przetwarzania poszczególnych obrazów.
-* Ostrzeżenia dotyczące jakości obrazu lub problemów z kalibracją.
+* Stały postęp w zakresie liczby obrazów
+* Sprawdź dziennik debugowania pod kątem komunikatów o zakończeniu przetwarzania poszczególnych obrazów
+* Ostrzeżenia dotyczące jakości obrazu lub problemów z kalibracją
 
 ### Etap 4: Eksportowanie
 
@@ -151,8 +151,8 @@ Dziennik debugowania zawiera szczegółowe informacje na temat postępu przetwar
 
 ### Dostęp do dziennika debugowania
 
-1. Kliknij ikonę **Dziennik debugowania** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> na lewym pasku bocznym
-2. Otworzy się panel dziennika z komunikatami dotyczącymi przetwarzania w czasie rzeczywistym
+1. Kliknij ikonę **Dziennik debugowania** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> na pasku bocznym po lewej stronie
+2. Otworzy się panel dziennika zawierający komunikaty dotyczące przetwarzania w czasie rzeczywistym
 3. Automatyczne przewijanie w celu wyświetlenia najnowszych komunikatów
 
 ### Rozumienie komunikatów dziennika
@@ -202,7 +202,7 @@ Krytyczne problemy, które mogą spowodować niepowodzenie przetwarzania:
 | „Nie znaleziono celów”               | Nie wykryto celów kalibracji        | Zaznacz obrazy celów lub wyłącz kalibrację odbicia |
 | „Niewystarczająca ilość miejsca na dysku”        | Niewystarczająca ilość miejsca na dysku na dane wyjściowe          | Zwolnij miejsce na dysku                                    |
 | „Pomijanie uszkodzonego pliku”        | Plik obrazu jest uszkodzony                  | Skopiuj ponownie plik z karty SD                             |
-| „Zastosowano dane PPK”               | Zastosowano korekty GPS z pliku .daq | Brak — normalnie                                         |
+| „Zastosowano dane PPK”               | Zastosowano poprawki GPS z pliku .daq | Brak — normalnie                                         |
 
 ### Kopiowanie danych dziennika
 
@@ -254,7 +254,7 @@ Aby skopiować dziennik w celu rozwiązania problemów lub uzyskania pomocy tech
 
 ### Wykorzystanie GPU (Chloros+ z CUDA)
 
-Gdy włączone jest przyspieszenie GPU:
+Gdy przyspieszenie GPU jest włączone:
 
 * GPU NVIDIA wykazuje wysokie wykorzystanie (60–90%).
 * Wzrasta wykorzystanie pamięci VRAM (wymagane 4 GB+ VRAM)
@@ -277,8 +277,8 @@ Gdy włączone jest przyspieszenie GPU:
 **Wskazówka dotycząca wydajności:**
 
 * Jeśli to możliwe, używaj dysku SSD dla folderu projektu
-* Unikaj dysków sieciowych dla dużych zbiorów danych
-* Upewnij się, że dysk nie jest prawie pełny (wpływa to na szybkość zapisu)
+* Unikaj dysków sieciowych dla dużych zestawów danych
+* Upewnij się, że dysk nie jest prawie zapełniony (wpływa to na szybkość zapisu)
 
 ***
 
@@ -306,12 +306,12 @@ Gdy włączone jest przyspieszenie GPU:
 
 ### Kiedy przerwać przetwarzanie
 
-Przerwij przetwarzanie, jeśli widzisz:
+Przerwij przetwarzanie, jeśli zauważysz:
 
 * ❌ Błędy „Dysk pełny” lub „Nie można zapisać pliku”
 * ❌ Powtarzające się błędy uszkodzenia plików obrazów
 * ❌ Całkowite zawieszenie systemu (brak reakcji)
-* ❌ Stwierdzenie nieprawidłowych ustawień
+* ❌ Uświadomienie sobie, że skonfigurowano nieprawidłowe ustawienia
 * ❌ Importowanie nieprawidłowych obrazów
 
 **Jak zatrzymać:**
@@ -329,7 +329,7 @@ Przerwij przetwarzanie, jeśli widzisz:
 **Możliwe przyczyny:**
 
 * Nieoznaczone obrazy docelowe (skanowanie wszystkich obrazów)
-* Dysk twardy zamiast dysku SSD
+* Dysk twardy zamiast pamięci SSD
 * Niewystarczające zasoby systemowe
 * Skonfigurowano wiele indeksów
 * Dostęp do dysku sieciowego
@@ -337,7 +337,7 @@ Przerwij przetwarzanie, jeśli widzisz:
 **Rozwiązania:**
 
 1. Jeśli proces właśnie się rozpoczął i znajduje się w fazie wykrywania: anuluj, zaznacz cele, uruchom ponownie
-2. Na przyszłość: użyj dysku SSD, zmniejsz liczbę indeksów, zmodernizuj sprzęt
+2. Na przyszłość: użyj dysku SSD, zmniejsz liczbę indeksów, zaktualizuj sprzęt
 3. Rozważ użycie CLI do przetwarzania wsadowego dużych zbiorów danych
 
 ### Ostrzeżenia dotyczące „miejsca na dysku”
@@ -358,7 +358,7 @@ Przerwij przetwarzanie, jeśli widzisz:
 3. Usuń uszkodzone pliki z projektu.
 4. Kontynuuj przetwarzanie pozostałych obrazów.
 
-### Przegrzanie systemu / ograniczanie wydajności
+### Przegrzanie systemu / dławienie
 
 **Rozwiązania:**
 

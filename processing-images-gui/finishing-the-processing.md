@@ -1,12 +1,12 @@
 # Zakończenie przetwarzania
 
-Po zakończeniu przetwarzania przez Chloros nadszedł czas, aby przejrzeć wyniki, sprawdzić jakość wyjściową i przygotować przetworzone obrazy do wykorzystania w przepływie pracy. Ta strona zawiera instrukcje dotyczące ostatnich kroków i kolejnych działań.
+Po zakończeniu przetwarzania przez Chloros nadszedł czas, aby przejrzeć wyniki, sprawdzić jakość wyjściową i przygotować przetworzone obrazy do wykorzystania w przepływie pracy. Ta strona zawiera instrukcje dotyczące ostatnich kroków i kolejnych czynności.
 
 ## Wskazanie zakończenia przetwarzania
 
 Po pomyślnym zakończeniu przetwarzania pojawi się kilka wskaźników:
 
-* ✅ **Pasek postępu**: osiąga 100% zakończenia
+* ✅ **Pasek postępu**: osiąga 100%
 * ✅ **Dziennik debugowania**: wyświetla komunikat „Przetwarzanie zakończone”
 * ✅ **Przycisk Start**: ponownie staje się aktywny (gotowy do następnego przetwarzania)
 * ✅ **Pliki wyjściowe**: wszystkie przetworzone obrazy zapisane w podfolderze modelu aparatu
@@ -54,7 +54,7 @@ Aby uzyskać zaawansowaną wizualizację, użyj wbudowanej przeglądarki obrazó
 3. Kliknij kartę **Przeglądarka obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> na pasku bocznym po lewej stronie.
 4. Użyj [Index/LUT Sandbox](../image-viewer-gui/index-lut-sandbox.md) do interaktywnej analizy.
 
-Szczegółowe instrukcje znajdziesz w [Image Viewer](../image-viewer-gui/opening-an-image-full-screen.md).
+Szczegółowe instrukcje znajdziesz w sekcji [Przeglądarka obrazów](../image-viewer-gui/opening-an-image-full-screen.md).
 
 ***
 
@@ -85,16 +85,16 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 
 **Możliwe przyczyny:**
 
-* Pliki nie spełniały kryteriów przetwarzania.
-* Obrazy tylko docelowe (wykluczone z eksportu).
-* Podczas eksportu zabrakło miejsca na dysku.
-* Uszkodzenie plików podczas przetwarzania.
+* Pliki nie spełniały kryteriów przetwarzania
+* Obrazy tylko docelowe (wykluczone z eksportu)
+* Podczas eksportu zabrakło miejsca na dysku
+* Uszkodzenie plików podczas przetwarzania
 
 **Rozwiązania:**
 
-1. Sprawdź dziennik debugowania pod kątem komunikatów o pominięciu/błędach.
-2. Sprawdź, czy na dysku było wystarczająco dużo miejsca.
-3. Policz pliki: Powinny się zgadzać (oryginalna liczba – liczba docelowa) × (indeksy + 1)
+1. Sprawdź dziennik debugowania pod kątem komunikatów o pominięciu/błędach
+2. Sprawdź, czy na dysku było wystarczająco dużo miejsca
+3. Policz pliki: Powinny się zgadzać (oryginalna liczba - liczba docelowa) × (indeksy + 1)
 4. Ponownie zaimportuj i przetwórz brakujące pliki.
 
 ### Problem: Ciemne lub jasne krawędzie (nadal widoczne winietowanie)
@@ -108,7 +108,7 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 **Rozwiązania:**
 
 1. Sprawdź, czy korekcja winietowania została włączona w ustawieniach projektu.
-2. Sprawdź, czy model aparatu został poprawnie wykryty.
+2. Sprawdź, czy model aparatu został prawidłowo wykryty.
 3. Jeśli winietowanie nadal występuje, skontaktuj się z pomocą techniczną MAPIR.
 
 ### Problem: Nieprawidłowe kolory lub wartości
@@ -125,7 +125,7 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 1. Sprawdź, czy kalibracja odbicia została włączona.
 2. Sprawdź komunikaty „Znaleziono cel” w dzienniku debugowania.
 3. Sprawdź jakość obrazu celu.
-4. Przetwórz ponownie, zaznaczając odpowiednie cele.
+4. Przetwórz ponownie z zaznaczonymi odpowiednimi celami.
 
 ### Problem: Wartości NDVI wydają się nieprawidłowe.
 
@@ -148,7 +148,7 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 
 ## Korzystanie z przetworzonych obrazów
 
-### Do fotogrametrii / tworzenia ortomosaiki
+### Do fotogrametrii / tworzenia ortomosaików
 
 **Zalecany przebieg pracy:**
 
@@ -158,9 +158,9 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
    * DroneDeploy
    * WebODM
 2. **Zachowaj metadane EXIF**: upewnij się, że dane GPS zostały zachowane do geotagowania
-3. **Skalibrowane przepływy pracy**: użyj obrazów odbicia, aby uzyskać naukową dokładność
+3. **Skalibrowane przepływy pracy**: używaj obrazów odbicia dla zapewnienia dokładności naukowej
 4. **Przetwarzaj mozaiki indeksowe**: Utwórz ortomosaiki NDVI z poszczególnych obrazów indeksowych
-5. **Eksportuj georeferencjonowane GeoTIFF**: Do wykorzystania w aplikacjach GIS
+5. **Eksportuj georeferencyjne GeoTIFF**: Do wykorzystania w aplikacjach GIS
 
 ### Do analizy GIS
 
@@ -170,14 +170,14 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 2. **Użyj 16-bitowych obrazów odbicia TIFF** do analizy wielopasmowej
 3. **Użyj obrazów indeksowych** (NDVI, NDRE) jako gotowych do użycia warstw roślinności
 4. **Kalkulator rastrowy**: Połącz pasma w celu przeprowadzenia niestandardowej analizy
-5. **Eksportuj**: Twórz mapy klasyfikacyjne, wykrywaj zmiany, twórz mapy stanu roślinności
+5. **Eksportuj**: Twórz mapy klasyfikacyjne, wykrywaj zmiany, twórz mapy stanu roślinności.
 
 ### Do bezpośredniej analizy / raportowania
 
 **Zalecany przebieg pracy:**
 
-1. **Użyj obrazów indeksowych z kolorami LUT** do tworzenia raportów wizualnych
-2. **Wyodrębnij statystyki**: Średnia NDVI na pole/działkę
+1. **Użyj obrazów indeksowych z kolorami LUT** do tworzenia raportów wizualnych.
+2. **Wyodrębnij statystyki**: Średnia NDVI na pole/działkę.
 3. **Szeregi czasowe**: porównaj indeksy z wielu sesji
 4. **Generuj raporty**: dołącz mapy, statystyki i wizualizacje
 
@@ -198,8 +198,8 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 **Zalecenia dotyczące przechowywania:**
 
 * **Natychmiastowa kopia zapasowa**: zewnętrzny dysk twardy
-* **Archiwizacja długoterminowa**: przechowywanie w chmurze (Google Drive, Dropbox itp.)
-* **Dane krytyczne**: przechowuj 2-3 kopie w różnych lokalizacjach
+* **Archiwizacja długoterminowa**: pamięć w chmurze (Google Drive, Dropbox itp.)
+* **Dane krytyczne**: przechowuj 2–3 kopie w różnych lokalizacjach
 
 ***
 
@@ -244,7 +244,7 @@ W przypadku wielu sesji/zestawów danych:
 
 Jeśli wyniki nie są zadowalające:
 
-1. Zachowaj oryginalne obrazy (nigdy nie usuwaj)
+1. Zachowaj oryginalne obrazy (nigdy ich nie usuwaj)
 2. Otwórz ten sam projekt w Chloros
 3. Dostosuj ustawienia w panelu Ustawienia projektu
 4. Przetwórz ponownie — wyniki zastąpią poprzednie wyniki
@@ -260,7 +260,7 @@ Aby ponownie przetworzyć tylko określone obrazy:
 
 ### Pomoc
 
-W przypadku problemów:
+Jeśli napotkasz problemy:
 
 * 📧 **E-mail**: info@mapir.camera (dołącz dziennik debugowania)
 * 🌐 **Pomoc techniczna**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
@@ -269,9 +269,9 @@ W przypadku problemów:
 
 ***
 
-## Podsumowanie: kompletny przepływ pracy
+## Podsumowanie: Cały proces
 
-Właśnie zakończyłeś pełny przebieg pracy Chloros:
+Właśnie ukończyłeś pełny przepływ pracy Chloros:
 
 1. ✅ **Utworzono projekt** — zobacz [Projekty](../projects.md)
 2. ✅ **Dodano pliki** — zobacz [Dodawanie plików](adding-files-to-a-project.md)
@@ -291,7 +291,7 @@ Właśnie zakończyłeś pełny przebieg pracy Chloros:
 
 * [**Przeglądarka obrazów**](../image-viewer-gui/opening-an-image-full-screen.md) — interaktywna wizualizacja i analiza
 * [**Sandbox indeksów/LUT**](../image-viewer-gui/index-lut-sandbox.md) — testowanie niestandardowych indeksów
-* [**Wzory indeksów wielospektralnych**](../project-settings/multispectral-index-formulas.md) – kompletne odniesienia indeksów
+* [**Wzory indeksów wielospektralnych**](../project-settings/multispectral-index-formulas.md) – kompletne odniesienia do indeksów
 
 ### Automatyzacja i integracja
 
@@ -301,6 +301,6 @@ Właśnie zakończyłeś pełny przebieg pracy Chloros:
 
 ### Pomoc techniczna i nauka
 
-* [**FAQ**](../faq.md) — odpowiedzi na najczęściej zadawane pytania
-* [**Cele kalibracji**](../calibration-targets.md) — zrozumienie kalibracji odbicia
-* [**Obsługiwane aparaty fotograficzne**](../supported-cameras.md) — kompatybilny sprzęt
+* [**FAQ**](../faq.md) – odpowiedzi na najczęściej zadawane pytania
+* [**Cele kalibracji**](../calibration-targets.md) – zrozumienie kalibracji odbicia
+* [**Obsługiwane aparaty fotograficzne**](../supported-cameras.md) – Kompatybilny sprzęt
