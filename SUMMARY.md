@@ -16,7 +16,7 @@
 ## Przetwarzanie obrazów (GUI)
 
 * [Dostosowywanie ustawień projektu](processing-images-gui/adjusting-project-settings.md)
-* [Dodawanie plików do projektu](processing-images-gui/page-1.md)
+* [Dodawanie plików do projektu](processing-images-gui/adding-files-to-a-project.md)
 * [Wybieranie obrazów docelowych](processing-images-gui/choosing-target-images.md)
 * [Rozpoczęcie przetwarzania](processing-images-gui/starting-the-processing.md)
 * [Monitorowanie przetwarzania](processing-images-gui/monitoring-the-processing.md)
@@ -24,11 +24,11 @@
 
 ## USTAWIENIA PROJEKTU
 
-* [Ustawienia projektu](project-settings/page-2.md)
+* [Ustawienia projektu](project-settings/project-settings.md)
 * [Formuły indeksu wielospektralnego](project-settings/multispectral-index-formulas.md)
 
 ## PRZEGLĄDARKA OBRAZÓW (GUI)
 
-* [Otwieranie obrazu na pełnym ekranie](image-viewer-gui/page-3.md)
+* [Otwieranie obrazu na pełnym ekranie](image-viewer-gui/opening-an-image-full-screen.md)
 * [Warstwy obrazu](image-viewer-gui/image-layers.md)
 * [Indeks/LUT Piaskownica](image-viewer-gui/index-lut-sandbox.md)
