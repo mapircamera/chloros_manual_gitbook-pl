@@ -9,11 +9,15 @@ metaLinks:
 
 MAPIR oferuje różne cele kalibracyjne, które mogą być wykorzystywane w wielu zastosowaniach. Kompaktowy model T4-R50, widoczny poniżej, zawiera 4 panele, które zostały zmierzone pod kątem odbicia światła w zakresie od 250 do 2500 nm.
 
-<figure><img src=".gitbook/assets/t4-r50_2.jpg" alt=""><figcaption><p>MAPIR T4-R50</p></figcaption></figure>Rozproszone cele referencyjne T4 mają następujące krzywe odbicia, [pobierz dane tutaj](https://cdn.shopify.com/s/files/1/0972/5566/files/MAPIR_Diffuse_Reflectance_Standard_Calibration_Target_Data_T4.xlsx?v=1741759157):
+<figure><img src=".gitbook/assets/t4-r50_2.jpg" alt=""><figcaption><p>MAPIR T4-R50</p></figcaption></figure>
+
+Rozproszone cele referencyjne T4 mają następujące krzywe odbicia, [pobierz dane tutaj](https://cdn.shopify.com/s/files/1/0972/5566/files/MAPIR_Diffuse_Reflectance_Standard_Calibration_Target_Data_T4.xlsx?v=1741759157):
 
 <figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4 (250-2500nm).png" alt=""><figcaption><p>MAPIR T4 Odbicie :: 250–2500 nm</p></figcaption></figure>
 
-<figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4 (400-1000nm).png" alt=""><figcaption><p>MAPIR T4 Odbicie :: 400–1000 nm</p></figcaption></figure>Patrząc na wykres odbicia, można zauważyć, że wartości są długością fali (oś x) w stosunku do procentowego odbicia (oś y). Kiedy robimy zdjęcie wzorca kalibracyjnego, tworzymy związek między wartością pikseli a procentowym odbiciem w zakresie widma, na które wrażliwe są pasma czujnika aparatu.
+<figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4 (400-1000nm).png" alt=""><figcaption><p>MAPIR T4 Odbicie :: 400–1000 nm</p></figcaption></figure>
+
+Patrząc na wykres odbicia, można zauważyć, że wartości są długością fali (oś x) w stosunku do procentowego odbicia (oś y). Kiedy robimy zdjęcie wzorca kalibracyjnego, tworzymy związek między wartością pikseli a procentowym odbiciem w zakresie widma, na które wrażliwe są pasma czujnika aparatu.
 
 Oznacza to, że do każdego obrazu zarejestrowanego naszymi kamerami można użyć zdjęcia naszych celów odbicia, takich jak [T4-R50](https://www.mapir.camera/collections/calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t3-r50) lub [T4-R125](https://www.mapir.camera/collections/multispectral-reflectance-reference-calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t4-r125), aby skalibrować obrazy pod kątem odbicia. Po kalibracji każdy piksel obrazu jest równy procentowej wartości odbicia.
 
