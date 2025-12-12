@@ -9,9 +9,9 @@ Przeglądarka obrazów Chloros zapewnia dedykowany interfejs pełnoekranowy do p
 Najpopularniejszy sposób otwierania obrazu w przeglądarce obrazów:
 
 1. Upewnij się, że znajdujesz się w zakładce **Przeglądarka plików**. <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line">
-2. Kliknij dowolną **miniaturę obrazu** w siatce obrazów.
-3. Obraz otworzy się w **głównym obszarze podglądu** (środek ekranu).
-4. Obraz został załadowany i jest gotowy do wyświetlenia na pełnym ekranie.
+2. Kliknij dowolną **miniaturę obrazu** w siatce obrazów
+3. Obraz otworzy się w **głównym obszarze podglądu** (na środku ekranu)
+4. Obraz został załadowany i jest gotowy do wyświetlenia na pełnym ekranie
 
 ### Otwieranie karty przeglądarki obrazów
 
@@ -46,7 +46,7 @@ Poruszaj się po zestawie obrazów za pomocą skrótów klawiaturowych lub przyc
 
 * **Następny obraz**: kliknij przycisk → lub naciśnij klawisz **→** (strzałka w prawo)
 * **Poprzedni obraz**: kliknij przycisk ← lub naciśnij klawisz **←** (strzałka w lewo)
-* **Przejdź do określonego obrazu**: wróć do przeglądarki plików i kliknij żądaną miniaturę
+* **Przejdź do konkretnego obrazu**: wróć do przeglądarki plików i kliknij żądaną miniaturę
 
 #### Elementy sterujące powiększaniem
 
@@ -56,13 +56,13 @@ Dostosuj powiększenie, aby sprawdzić szczegóły obrazu:
 
 * Kliknij przycisk **+** (plus)
 * Naciśnij klawisz **+** lub **=**
-* Przesuń kółko myszy **w górę**
+* Przewiń kółkiem myszy **w górę**
 
 **Pomniejsz:**
 
 * Kliknij przycisk **−** (minus)
 * Naciśnij klawisz **−** (minus)
-* Przesuń kółko myszy **w dół**
+* Przewiń kółkiem myszy **w dół**
 
 **Dopasuj do ekranu:**
 
@@ -85,11 +85,11 @@ Po powiększeniu ponad rozmiar ekranu:
 
 ## Sprawdzanie wartości pikseli
 
-### Wyświetlanie wartości pikseli pod kursorem
+### Wyświetlanie wartości pikseli w miejscu kursora
 
 Gdy przesuwasz kursor myszy nad obrazem, wartości pikseli są wyświetlane w czasie rzeczywistym:
 
-**Lokalizacja wyświetlania wartości:**
+**Miejsce wyświetlania wartości:**
 
 * **Liczba zmiennoprzecinkowa i czerwona linia w legendzie gradientu indeksu LUT po prawej stronie**
 * **Po dalszym powiększeniu wartość zmiennoprzecinkowa w pobliżu kursora i podświetlonego piksela**
@@ -100,12 +100,12 @@ Gdy przesuwasz kursor myszy nad obrazem, wartości pikseli są wyświetlane w cz
 
 ## Typy obrazów, które można wyświetlać
 
-### Obrazy oryginalne (przed przetwarzaniem)
+### Obrazy oryginalne (przed przetworzeniem)
 
 **Obrazy RAW + JPG z aparatu:**
 
 * Wyświetlanie danych RAW jako podgląd
-* Wyświetlanie oryginalnych, nieskorygowanych wartości
+* Wyświetlanie oryginalnych, niepoprawionych wartości
 * Przydatne do sprawdzania jakości obrazu przed przetwarzaniem
 
 ### Skalibrowane obrazy odbicia
@@ -121,7 +121,7 @@ Gdy przesuwasz kursor myszy nad obrazem, wartości pikseli są wyświetlane w cz
 
 **NDVI, NDRE, GNDVI itp. (pliki \_NDVI.tif):**
 
-* Obrazy w skali szarości w jednym paśmie
+* Obrazy jednopasmowe w skali szarości
 * Wartości pikseli reprezentują wyniki obliczeń indeksu
 * Zakres zazwyczaj od -1 do +1 dla indeksów znormalizowanych
 * Możliwość zastosowania kolorowych tabel LUT do wizualizacji
@@ -151,7 +151,7 @@ Szczegółowe instrukcje można znaleźć w sekcji [Index/LUT Sandbox](index-lut
 * **Home**: pierwszy obraz na liście
 * **End**: Ostatni obraz na liście
 
-### Powiększanie
+### Powiększenie
 
 * **+** lub **=**: Powiększ
 * **−**: Pomniejsz
@@ -160,13 +160,13 @@ Szczegółowe instrukcje można znaleźć w sekcji [Index/LUT Sandbox](index-lut
 
 ### Elementy sterujące widokiem
 
-* **P**: Przełącz tryb procentowy pikseli
-* **L**: Przełącz panel warstw
-* **Esc**: Zamknij tryb pełnoekranowy lub wróć do przeglądarki plików
+* **P**: Przełączanie trybu procentowego pikseli
+* **L**: Przełączanie panelu warstw
+* **Esc**: Zamknięcie trybu pełnoekranowego lub powrót do przeglądarki plików
 
 ### Inne
 
-* **Ctrl+S**: Zapisz bieżący obraz
+* **Ctrl+S**: Zapisanie bieżącego obrazu
 * **F**: Tryb pełnoekranowy (jeśli dostępny)
 
 ***
@@ -203,7 +203,7 @@ Sprawdź, czy indeksy zostały obliczone poprawnie:
 3. Zamknij inne aplikacje, aby zwolnić pamięć
 4. Spróbuj otworzyć mniejszy/inny obraz
 
-### Obraz wyświetlany jest czarno-biały
+### Wyświetlanie czarnego lub białego obrazu
 
 **Możliwe przyczyny:**
 
@@ -240,7 +240,7 @@ Teraz, gdy możesz wyświetlać obrazy na pełnym ekranie:
 
 * [**Warstwy obrazu**](image-layers.md) — dowiedz się więcej o wizualizacji wielopasmowej
 * [**Sandbox indeksów/LUT**](index-lut-sandbox.md) — zastosuj niestandardowe indeksy i mapowanie kolorów
-* [**Wzory indeksów wielospektralnych**](../project-settings/multispectral-index-formulas.md) — zrozum dostępne indeksy
+* [**Wzory indeksów wielospektralnych**](../project-settings/multispectral-index-formulas.md) — zrozumienie dostępnych indeksów
 
 Aby zapoznać się z procesem przetwarzania, zobacz:
 
