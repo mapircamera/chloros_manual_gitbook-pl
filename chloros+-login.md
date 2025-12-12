@@ -1,43 +1,43 @@
-# Chloros+ Login
+# Chloros+ Zaloguj się
 
-## Chloros and Chloros (Browser) Login
+## Chloros i Chloros (Przeglądarka) Logowanie
 
-The user <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> sidebar menu allows you to log into your Chloros+ account and unlock additional features.
+Menu paska bocznego użytkownika <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> umożliwia zalogowanie się na konto Chloros+ i odblokowanie dodatkowych funkcji.
 
-When logged in your account details will be shown:
+Po zalogowaniu wyświetlą się dane Twojego konta:
 
 <figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>
 
-## CLI Login
+## Logowanie do CLI
 
-Login with your Chloros+ credentials to enable CLI processing.
+Zaloguj się przy użyciu danych uwierzytelniających Chloros+, aby umożliwić przetwarzanie CLI.
 
-**Syntax:**
+**Składnia:**
 
 ```bash
 chloros-cli login <email> <password>
 ```
 
-**Example:**
+**Przykład:**
 
 ```powershell
 chloros-cli login user@example.com 'MyP@ssw0rd123'
 ```
 
-{% hint style="warning" %}
-**Special Characters**: Use single quotes around passwords containing characters like `$`, `!`, or spaces.
-{% endhint %}
+{% styl podpowiedzi="ostrzeżenie"%}
+**Znaki specjalne**: Używaj cudzysłowów wokół haseł zawierających znaki takie jak __KOD_0__, __KOD_1__ lub spacje.
+{%podpowiedź końcowa%}
 
-**Output:**
+**Wyjście:**
 
 <figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>
 
-### Plan Expiration
+### Wygaśnięcie planu
 
-The plan expiration in the GUI shows when your license will become invalid. For recurring monthly subscriptions the expiration is at the end of the month. For yearly subscriptions it is a year after you started the subscription. The license check requires a monthly internet connection to verify, with a 30 day grace period.
+Wygaśnięcie planu w graficznym interfejsie użytkownika pokazuje, kiedy licencja utraci ważność. W przypadku subskrypcji cyklicznych miesięcznych wygaśnięcie następuje z końcem miesiąca. W przypadku subskrypcji rocznych jest to rok od rozpoczęcia subskrypcji. Sprawdzenie licencji wymaga miesięcznego połączenia internetowego z 30-dniowym okresem karencji.
 
-### Device Limit
+### Limit urządzenia
 
-Each Chloros+ plan offers a different number of registered devices. Each device you log into with a Chloros+ account will count towards your number of registered devices. You can rename and remove a device on your MAPIR Cloud account page.
+Każdy plan Chloros+ oferuje inną liczbę zarejestrowanych urządzeń. Każde urządzenie, na które zalogujesz się za pomocą konta Chloros+, będzie wliczane do Twojej liczby zarejestrowanych urządzeń. Możesz zmienić nazwę i usunąć urządzenie na stronie konta MAPIR Cloud.
 
-<table><thead><tr><th width="168.5999755859375" align="right">Chloros+ Plan</th><th align="center">COPPER</th><th align="center">BRONZE</th><th align="center">SILVER</th><th align="center">GOLD</th></tr></thead><tbody><tr><td align="right">Devices Supported</td><td align="center">2</td><td align="center">2</td><td align="center">5</td><td align="center">10</td></tr></tbody></table>
+<table><thead><tr><th width="168.5999755859375" align="right">Chloros+ Plan</th><th align="center">MIEDZIANA</th><th align="center">BRĄZ</th><th align="center">SREBRNY</th><th align="center">ZŁOTY</th></tr></thead><tbody><tr><td align="right">Urządzenia Obsługiwane</td><td align="center">2</td><td align="center">2</td><td align="center">5</td><td align="center">10</td></tr></tbody></table>
