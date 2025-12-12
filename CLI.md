@@ -8,7 +8,7 @@
 * 🔗 **Integracja** — osadzenie w istniejących przepływach pracy i potokach
 * 💻 **Praca bez interfejsu graficznego** — działanie bez GUI
 * 🌍 **Wielojęzyczność** — obsługa 38 języków
-* ⚡ **Równoległe przetwarzanie** — dynamiczne skalowanie do mocy procesora (do 16 równoległych procesów)
+* ⚡ **Równoległe przetwarzanie** — dynamiczne skalowanie do procesora (do 16 równoległych procesów)
 
 ### Wymagania
 
@@ -137,9 +137,9 @@ chloros-cli login user@example.com 'MyP@ssw0rd123'
 
 <figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>***
 
-### `logout` — wyczyść dane logowania
+### `logout` — Wyczyść dane uwierzytelniające
 
-Wyczyść zapisane dane logowania i wyloguj się z konta.
+Wyczyść zapisane dane uwierzytelniające i wyloguj się z konta.
 
 **Składnia:**
 
@@ -164,7 +164,7 @@ chloros-cli logout
 
 ### `status` — sprawdź status licencji
 
-Wyświetl aktualny status licencji i uwierzytelnienia.
+Wyświetl aktualną licencję i status uwierzytelnienia.
 
 **Składnia:**
 
@@ -337,9 +337,9 @@ chloros-cli get-project-folder
 
 ***
 
-### `reset-project-folder` — przywróć domyślne ustawienia
+### `reset-project-folder` — resetuj do wartości domyślnej
 
-Przywróć domyślną lokalizację folderu projektu.
+Resetuje folder projektu do lokalizacji domyślnej.
 
 **Składnia:**
 
@@ -353,7 +353,7 @@ chloros-cli reset-project-folder
 
 Te opcje mają zastosowanie do wszystkich poleceń:
 
-| Opcja          | Typ    | Domyślne       | Opis                                      |
+| Opcja          | Typ    | Domyślna       | Opis                                      |
 | --------------- | ------- | ------------- | ------------------------------------------------ |
 | `--backend-exe` | Ścieżka    | Wykrywana automatycznie | Ścieżka do pliku wykonywalnego backendu                       |
 | `--port`        | Liczba całkowita | 5000          | Numer portu backendu API                          |
@@ -378,7 +378,7 @@ Chloros+ CLI **automatycznie skaluje** przetwarzanie równoległe, aby dopasowa�
 **Jak to działa:**
 
 * Wykrywa rdzenie procesora i pamięć RAM
-* Przydziela procesy robocze: **2× rdzenie procesora** (wykorzystuje technologię hiperwątkowości)
+* Przydziela procesy robocze: **2× rdzenie procesora** (wykorzystuje technologię hyperthreading)
 * **Maksymalnie: 16 równoległych procesów roboczych** (dla stabilności)
 
 **Poziomy systemu:**
@@ -403,7 +403,7 @@ CLI używa **Wysoka jakość (szybsza)** jako domyślnego i zalecanego algorytmu
 
 ### Korekcja winietowania
 
-**Funkcja:** Koryguje spadek jasności na krawędziach obrazu (ciemniejsze rogi często występujące w obrazach z aparatu).
+**Funkcja:** Koryguje spadek jasności na krawędziach obrazu (ciemniejsze rogi, często występujące w obrazach z kamer).
 
 * **Włączone domyślnie** — większość użytkowników powinna pozostawić tę opcję włączoną
 * Aby wyłączyć, użyj `--no-vignette`
@@ -577,11 +577,11 @@ if __name__ == '__main__':
 ### Standardowy przepływ pracy
 
 1. **Dane wejściowe**: Folder zawierający pary obrazów RAW/JPG
-2. **Wykrywanie**: CLI automatycznie skanuje w poszukiwaniu obsługiwanych plików obrazów
-3. **Przetwarzanie**: Tryb równoległy skaluje się do liczby rdzeni procesora (Chloros+)
+2. **Wykrywanie**: CLI automatycznie skanuje obsługiwane pliki obrazów
+3. **Przetwarzanie**: Tryb równoległy skaluje się do rdzeni procesora (Chloros+)
 4. **Wynik**: Tworzy podfoldery modeli aparatów z przetworzonymi obrazami
 
-### Przykładowa struktura wyniku
+### Przykładowa struktura wyników
 
 ```
 MyProject/
@@ -859,7 +859,7 @@ chloros-cli language --help
 
 ### Przykład 1: Podstawowe przetwarzanie
 
-Przetwarzanie przy użyciu ustawień domyślnych (winieta, współczynnik odbicia):
+Przetwarzanie przy użyciu ustawień domyślnych (winieta, odbicie):
 
 ```powershell
 chloros-cli process "C:\Datasets\Field_A_2025_01_15"
@@ -937,7 +937,7 @@ chloros-cli logout
 
 ***
 
-### Przykład 7: Użycie wielu języków
+### Przykład 7: Korzystanie z wielu języków
 
 Zmień język interfejsu:
 

@@ -49,7 +49,7 @@ Pobierz najnowszą wersję Chloros dla Windows, aby rozpocząć przetwarzanie ob
 6. Zaloguj się na swoje konto MAPIR Cloud Chloros+ (lub kontynuuj korzystanie z wersji bezpłatnej).
 
 {% hint style=&quot;success&quot; %}
-Instalator automatycznie dodaje `chloros-cli` do ścieżki PATH systemu, aby umożliwić dostęp z poziomu wiersza poleceń.
+Instalator automatycznie dodaje `chloros-cli` do ścieżki PATH systemu, aby umożliwić dostęp z wiersza poleceń.
 {% endhint %}
 
 ***
@@ -75,10 +75,10 @@ pip install chloros-sdk
 Instalacja Chloros zawiera:
 
 * ✅ **Chloros Desktop GUI** — w pełni funkcjonalny interfejs graficzny
-* ✅ **Chloros (przeglądarka)** — interfejs internetowy dla systemów o niższej specyfikacji
+* ✅ **Chloros (przeglądarka)** — interfejs internetowy dla systemów o niższych parametrach
 * ✅ **Chloros CLI** – interfejs wiersza poleceń (wymaga licencji Chloros+)
 * ✅ **Silnik zaplecza** – potok przetwarzania obrazu
-* ✅ **Profile kamer** – wstępnie skonfigurowane szablony kamer MAPIR
+* ✅ **Profile kamer** - Wstępnie skonfigurowane szablony kamer MAPIR
 
 ***
 
@@ -86,7 +86,7 @@ Instalacja Chloros zawiera:
 
 Odblokuj zaawansowane funkcje dzięki subskrypcji Chloros+:
 
-* 🚀 **Przetwarzanie wielowątkowe** – równoległe przetwarzanie obrazów
+* 🚀 **Przetwarzanie wielowątkowe** — równoległe przetwarzanie obrazów
 * ⚡ **Przyspieszenie GPU (CUDA)** — wykorzystaj moc procesorów graficznych NVIDIA
 * 💻 **Dostęp do CLI** — automatyzacja za pomocą narzędzi wiersza poleceń
 * 🐍 **Python SDK** – programowy dostęp do API
@@ -131,7 +131,7 @@ Potrzebujesz pomocy przy instalacji lub konfiguracji?
 
 ***
 
-## Lista zmian
+## Dziennik zmian
 
 <details>
 

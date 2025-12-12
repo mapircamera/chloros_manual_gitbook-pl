@@ -6,9 +6,7 @@ Menu <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> na pasku 
 
 Po zalogowaniu się wyświetlą się szczegóły konta:
 
-<figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>
-
-## CLI Logowanie
+<figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>## CLI Logowanie
 
 Zaloguj się przy użyciu danych logowania Chloros+, aby włączyć przetwarzanie CLI.
 
@@ -30,9 +28,7 @@ chloros-cli login user@example.com 'MyP@ssw0rd123'
 
 **Wynik:**
 
-<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>
-
-### Wygaśnięcie planu
+<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>### Wygaśnięcie planu
 
 Wygaśnięcie planu w GUI pokazuje, kiedy licencja straci ważność. W przypadku cyklicznych subskrypcji miesięcznych wygaśnięcie następuje z końcem miesiąca. W przypadku subskrypcji rocznych wygaśnięcie następuje po upływie roku od rozpoczęcia subskrypcji. Sprawdzanie licencji wymaga comiesięcznego połączenia z Internetem w celu weryfikacji, z 30-dniowym okresem karencji.
 
