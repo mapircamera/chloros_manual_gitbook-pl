@@ -1,10 +1,9 @@
 ---
-description: Frequently Asked Questions
+description: Często zadawane pytania
 metaLinks:
   alternates:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/faq
 ---
-
 # Często zadawane pytania
 
 <details>
@@ -51,7 +50,7 @@ Nie. Obsługiwane są tylko pojedyncze obrazy z aparatu MAPIR, a nie obrazy poł
 
 <summary>Jak mogę przyspieszyć etap wykrywania celu w Chloros?</summary>
 
-W tabeli przeglądarki plików należy wstępnie wybrać obrazy docelowe w prawej kolumnie, co spowoduje, że Chloros będzie szukać celów kalibracji tylko w tych obrazach, co znacznie przyspieszy przetwarzanie.
+W tabeli przeglądarki plików wstępny wybór obrazów docelowych w prawej kolumnie spowoduje, że Chloros będzie szukał celów kalibracji tylko w tych obrazach, co znacznie przyspieszy przetwarzanie.
 
 </details>
 
