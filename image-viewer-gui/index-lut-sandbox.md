@@ -54,7 +54,7 @@ Piaskownica umożliwia:
 Dostęp do piaskownicy indeksów/LUT można uzyskać w zakładce **Przeglądarka obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> :
 
 1. Kliknij obraz w siatce obrazów przeglądarki plików, aby otworzyć go w zakładce **Przeglądarka obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> .
-2. Kliknij zakładkę **Przeglądarka obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> , aby otworzyć lewy wysuwany pasek boczny, jeśli nie jest on jeszcze otwarty
+2. Kliknij zakładkę **Przeglądarka obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> , aby otworzyć lewy wysuwany pasek boczny, jeśli nie jest jeszcze otwarty
 
 ### Wybieranie obrazu, do którego ma zostać zastosowany indeks/LUT
 
@@ -104,19 +104,19 @@ Pełna dokumentacja formuł indeksu znajduje się w sekcji [Formuły indeksów w
 
 ### Co to jest LUT?
 
-**Tabela Look-Up (LUT)** mapuje numeryczne wartości indeksów na kolory w celu wizualizacji:
+**Tabela Look-Up Table (LUT)** mapuje numeryczne wartości indeksów na kolory w celu wizualizacji:
 
 * **Wejście**: wartość pikseli indeksu (np. NDVI 0,65)
 * **Wyjście**: kolor RGB (np. jasnozielony)
-* **Cel**: ułatwienie dostrzegania i interpretacji wzorców
+* **Cel**: ułatwienie dostrzegania i interpretacji wzorów
 
 **Tabela LUT w skali szarości a tabela LUT w kolorze:**
 
 * Skala szarości: naukowa i neutralna, pokazuje surowe dane
-* Tabela LUT w kolorze: intuicyjna i efektowna, podkreśla wzorce i różnice
+* Tabela LUT w kolorze: intuicyjna i efektowna, podkreśla wzory i różnice
 
 {% hint style=&quot;success&quot; %}
-**Możliwości wizualizacji**: Zastosowanie kolorowej tabeli LUT do obrazu indeksowego w skali szarości znacznie ułatwia identyfikację wzorów, anomalii i obszarów zainteresowania na pierwszy rzut oka.
+**Możliwości wizualizacji**: Zastosowanie kolorowej tabeli LUT do obrazu indeksowego w skali szarości znacznie ułatwia identyfikację wzorców, anomalii i obszarów zainteresowania na pierwszy rzut oka.
 {% endhint %}
 
 ### Zastosowanie tabeli LUT do obrazu indeksowego
@@ -127,16 +127,16 @@ Po uzyskaniu obrazu indeksowego przedstawiającego
 2. Wybierz gradient kolorów
 3. Dostosuj minimalne/maksymalne punkty końcowe przycinania
 4. Dostosuj tryb przycinania
-5. Zaznacz pole Indeks w **przeglądarce obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> , aby zastosować LUT.
+5. Zaznacz pole Indeks w pasku bocznym **Przeglądarki obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> , aby zastosować LUT.
 
 ### Wybór gradientu kolorów
 
 **Wybór gradientu:**
 
-1. W panelu LUT znajdź **kolorowy pasek gradientu**
-2. Najedź na niego kursorem myszy, aby wyświetlić dostępne ustawienia wstępne gradientu
-3. Wybierz żądany gradient
-4. Obraz **zostanie natychmiast zaktualizowany** o nowe kolory po zaznaczeniu pola Indeks
+1. W panelu LUT znajdź **kolorowy pasek gradientu**.
+2. Najedź na niego myszką, aby wyświetlić dostępne ustawienia wstępne gradientu.
+3. Wybierz żądany gradient.
+4. Obraz **zostanie natychmiast zaktualizowany** o nowe kolory po zaznaczeniu pola Indeks.
 
 {% hint style=&quot;success&quot; %}
 **Najlepsza praktyka**: W przypadku wskaźników roślinności, takich jak NDVI, gradient Red-Yellow-Green jest najbardziej intuicyjny, ponieważ odpowiada naturalnym skojarzeniom kolorystycznym (zielony = zdrowy, żółty = umiarkowany, czerwony = zestresowany).
@@ -144,14 +144,14 @@ Po uzyskaniu obrazu indeksowego przedstawiającego
 
 ### Dostosowywanie klas kolorów
 
-**Kontrola klas** określa, ile odrębnych stopni kolorów pojawia się w gradiencie:
+**Kontrolka klas** określa, ile odrębnych stopni kolorów pojawi się w gradiencie:
 
 **Opcje liczby klas:**
 
-* **2–5 klas**: Bardzo szerokie kategorie, wyraźne strefy
-* **6–10 klas**: Zrównoważone, dobre do klasyfikacji
-* **11–20 klas**: Płynne gradienty, ciągły wygląd
-* **20+ klas**: Prawie ciągłe, maksymalna płynność
+* **2–5 klas**: bardzo szerokie kategorie, wyraźne strefy
+* **6–10 klas**: zrównoważone, dobre do klasyfikacji
+* **11–20 klas**: płynne gradienty, ciągły wygląd
+* **20+ klas**: prawie ciągłe, maksymalna płynność
 
 **Jak dostosować:**
 
@@ -174,9 +174,9 @@ Po uzyskaniu obrazu indeksowego przedstawiającego
 
 ### Precyzyjne dostosowywanie zakresów wartości
 
-**Kontrolki zakresu wartości** określają, które wartości indeksu są przypisane do poszczególnych kolorów w gradiencie:
+**Elementy sterujące zakresem wartości** określają, które wartości indeksu są przypisane do poszczególnych kolorów w gradiencie:
 
-**Kontrolki zakresu w panelu LUT:**
+**Elementy sterujące zakresem w panelu LUT:**
 
 * **Wartość minimalna**: Dolna granica skali kolorów
 * **Wartość maksymalna**: górna granica skali kolorów
@@ -186,12 +186,12 @@ Po uzyskaniu obrazu indeksowego przedstawiającego
 
 **Aby dostosować zakresy wartości:**
 
-1. W panelu LUT znajdź pola wprowadzania danych **Wartość minimalna** i **Wartość maksymalna**
-2. Kliknij pole **Wartość minimalna**
-3. Wpisz żądaną wartość minimalną (np. `0.2`)
-4. Naciśnij klawisz **Enter** lub kliknij poza polem
-5. Powtórz tę czynność dla pola **Wartość maksymalna** (np. `0.9`)
-6. Wizualizacja **zostanie natychmiast zaktualizowana**
+1. W panelu LUT znajdź pola wprowadzania danych **Wartość minimalna** i **Wartość maksymalna**.
+2. Kliknij pole **Wartość minimalna**.
+3. Wpisz żądaną wartość minimalną (np. `0.2`).
+4. Naciśnij klawisz **Enter** lub kliknij poza polem.
+5. Powtórz tę czynność dla pola **Wartość maksymalna** (np. `0.9`).
+6. Wizualizacja **zostanie natychmiast zaktualizowana**.
 
 {% hint style=&quot;info&quot; %}
 **Automatyczne skalowanie**: Po pierwszym zastosowaniu tablicy LUT program Chloros automatycznie ustawia wartości minimalną i maksymalną zgodnie z rzeczywistym zakresem danych w obrazie. Następnie można zawęzić ten zakres, aby skupić się na konkretnych zakresach wartości, które są przedmiotem zainteresowania.
@@ -199,11 +199,11 @@ Po uzyskaniu obrazu indeksowego przedstawiającego
 
 **Przykładowe dostosowania zakresu NDVI:**
 
-* **Pełny zakres**: od `-1.0` do `1.0` (wyświetl wszystkie możliwe wartości)
-* **Skupienie się na roślinności**: od `0.2` do `0.9` (wykluczanie gołej gleby i wody)
-* **Tylko zdrowa roślinność**: od `0.5` do `0.9` (podkreślanie tylko bujnych roślin)
+* **Pełny zakres**: `-1.0` do `1.0` (pokazanie wszystkich możliwych wartości)
+* **Skupienie na roślinności**: `0.2` do `0.9` (wykluczenie gołej gleby i wody)
+* **Tylko zdrowa roślinność**: od `0.5` do `0.9` (podkreśl tylko bujne rośliny)
 * **Wykrywanie stresu**: od `0.2` do `0.5` (podkreślanie obszarów problemowych)
-* **Zakres niestandardowy**: dostosowanie na podstawie obserwowanych wartości pikseli
+* **Zakres niestandardowy**: dostosuj na podstawie obserwowanych wartości pikseli
 
 **Dlaczego warto dostosowywać zakresy?**
 
@@ -221,27 +221,27 @@ Gdy wartości pikseli wykraczają poza zdefiniowany zakres min/max, można kontr
 #### 1. Minimum i maksimum
 
 * Piksele **poniżej minimum** → wyświetlanie przy użyciu **pierwszego koloru** w gradiencie (np. czerwony)
-* Piksele **powyżej maksymalnej wartości** → wyświetlanie przy użyciu **ostatniego koloru** w gradiencie (np. zielonego)
-* **Przykład zastosowania**: Podkreślanie wartości skrajnych, pokazywanie pełnego zakresu danych za pomocą nasyconych kolorów na granicach
-* **Przykład**: Wszystkie wartości NDVI poniżej 0,2 są wyświetlane na czerwono, a wszystkie wartości powyżej 0,9 są wyświetlane na zielono
+* Piksele **powyżej maksymalnej wartości** → wyświetlanie przy użyciu **ostatniego koloru** w gradiencie (np. zielony)
+* **Przykład zastosowania**: podkreślanie wartości skrajnych, pokazywanie pełnego zakresu danych przy użyciu nasyconych kolorów na granicach
+* **Przykład**: wartości NDVI poniżej 0,2 są wyświetlane na czerwono, a wartości powyżej 0,9 są wyświetlane na zielono
 
 #### 2. Przezroczyste tło
 
 * Piksele **poza zakresem** stają się **całkowicie przezroczyste**
 * Tylko piksele **w zakresie** pokazują gradient kolorów
 * **Przykład zastosowania**: nakładka GIS, izolowanie określonych zakresów wartości, podkreślanie tylko obszarów zainteresowania
-* **Przykład**: Pokaż tylko NDVI 0,4-0,7 w kolorze, wszystko inne przezroczyste
+* **Przykład**: Wyświetlanie tylko NDVI 0,4-0,7 w kolorze, wszystko inne przezroczyste
 
 {% hint style=&quot;warning&quot; %}
-**Ograniczenie przezroczystości**: Przezroczyste piksele będą wyświetlane jako kolor tła w przeglądarce. Podczas eksportowania w trakcie przetwarzania przezroczystość jest zachowywana w formacie PNG, ale nie w formacie JPG.
+**Ograniczenie przezroczystości**: Przezroczyste piksele będą wyświetlane jako kolor tła w przeglądarce. Podczas eksportowania w trakcie przetwarzania przezroczystość jest zachowana w formacie PNG, ale nie w formacie JPG.
 {% endhint %}
 
 #### 3. Tło indeksu
 
-* Piksele **poza zakresem** wyświetlane są w **skali szarości** (pokazując surowe wartości indeksu)
+* Piksele **poza zakresem** są wyświetlane w **skali szarości** (pokazując surowe wartości indeksu)
 * Piksele **w zakresie** pokazują **gradient kolorów**
-* **Przykład zastosowania**: subtelne podświetlenie, zachowanie kontekstu przy jednoczesnym podkreśleniu obszarów zainteresowania
-* **Przykład**: podświetlenie kolorami stresowanej roślinności (NDVI 0,3-0,5) przy jednoczesnym pokazaniu zdrowych obszarów w kolorze szarym
+* **Przykład użycia**: Subtelne podświetlenie, zachowanie kontekstu przy jednoczesnym podkreśleniu obszarów zainteresowania
+* **Przykład**: Podświetlenie kolorami stresowanej roślinności (NDVI 0,3-0,5) przy jednoczesnym pokazaniu zdrowych obszarów w kolorze szarym
 
 #### 4. Oryginalne tło
 
@@ -255,20 +255,20 @@ Gdy wartości pikseli wykraczają poza zdefiniowany zakres min/max, można kontr
 | Tryb przycinania              | Najlepszy dla                                   | Styl wizualizacji          |
 | -------------------------- | ------------------------------------------ | ---------------------------- |
 | **Minimum i maksimum**    | Pełne wyświetlanie danych, analiza naukowa     | Wszystkie piksele pokolorowane           |
-| **Przezroczyste tło** | Nakładki GIS, izolowanie określonych zakresów    | Kolor w zakresie, poza nim pusto |
-| **Tło indeksowe**       | Subtelne podkreślenie, zachowanie kontekstu danych  | Kolor w zakresie, poza nim szarość  |
-| **Oryginalne tło**    | Raporty, prezentacje, intuicyjna analiza | Kolor w zakresie, poza nim zdjęcie |
+| **Przezroczyste tło** | Nakładki GIS, izolowanie określonych zakresów    | Kolor w zakresie, puste poza nim |
+| **Tło indeksowe**       | Subtelne podkreślenie, zachowanie kontekstu danych  | Kolor w zakresie, szarość poza nim  |
+| **Oryginalne tło**    | Raporty, prezentacje, intuicyjna analiza | Kolor w zakresie, zdjęcie poza nim |
 
 ### Tworzenie niestandardowych kolorów LUT
 
-Aby uzyskać pełną kontrolę nad wizualizacją, można tworzyć **niestandardowe gradienty kolorów**, edytując poszczególne punkty zatrzymania koloru.
+Aby uzyskać pełną kontrolę nad wizualizacją, można tworzyć **niestandardowe gradienty kolorów**, edytując poszczególne punkty kolorów.
 
 **Aby utworzyć niestandardowy gradient:**
 
-1. W panelu LUT znajdź **pasek podglądu gradientu**
-2. Poszukaj **kwadratów próbek kolorów** poniżej gradientu
-3. **Kliknij punkt koloru**, aby go wybrać
-4. Otworzy się **próbnik kolorów**
+1. W panelu LUT znajdź **pasek podglądu gradientu**.
+2. Poszukaj **kwadratów próbek kolorów** poniżej gradientu.
+3. **Kliknij punkt koloru**, aby go wybrać.
+4. Otworzy się **próbnik kolorów**.
 5. Wybierz nowy kolor za pomocą:
    * **Koła kolorów**: wizualny wybór koloru
    * **Suwaków RGB/HSV**: precyzyjna kontrola koloru
@@ -283,14 +283,14 @@ Aby uzyskać pełną kontrolę nad wizualizacją, można tworzyć **niestandardo
 
 **Strategie dostosowywania:**
 
-* **Odwróć gradient**: Odwróć kolejność kolorów, aby odwrócić znaczenie (np. zielony = niski, czerwony = wysoki).
-* **Kolory marki**: Dopasuj paletę kolorów swojej organizacji do raportów.
-* **Przyjazne dla osób z daltonizmem**: użyj kombinacji pomarańczowo-niebieskiej lub fioletowo-żółtej
-* **Optymalizacja drukowania**: wybierz kolory, które sprawdzają się zarówno w drukowaniu kolorowym, jak i w skali szarości
-* **Wiele progów**: użyj różnych kolorów przy określonych progach wartości do klasyfikacji
+* **Odwróć gradient**: Odwróć kolejność kolorów, aby odwrócić znaczenie (np. zielony = niski, czerwony = wysoki)
+* **Kolory marki**: Dopasuj paletę kolorów swojej organizacji do raportów
+* **Przyjazne dla osób z daltonizmem**: Używaj kombinacji pomarańczowo-niebieskiej lub fioletowo-żółtej
+* **Optymalizacja druku**: Wybierz kolory, które sprawdzają się zarówno w druku kolorowym, jak i w skali szarości
+* **Wiele progów**: użyj różnych kolorów dla określonych progów wartości w celu klasyfikacji.
 
 {% hint style=&quot;info&quot; %}
-**Zapisywanie niestandardowych gradientów**: Niestandardowe gradienty można zapisać i ponownie wykorzystać. Kliknij ikonę zapisu w panelu LUT, aby zachować niestandardowe schematy kolorów do wykorzystania w przyszłości.
+**Zapisywanie niestandardowych gradientów**: niestandardowe gradienty można zapisać i ponownie wykorzystać. Kliknij ikonę zapisu w panelu LUT, aby zachować niestandardowe schematy kolorów do wykorzystania w przyszłości.
 {% endhint %}
 
 ***
@@ -306,9 +306,9 @@ Wszystkie zmiany LUT w piaskownicy aktualizują obraz **natychmiastowo i interak
 * **Dostosuj zakres wartości** → Kontrast zmienia się w czasie rzeczywistym
 * **Zmień klasy** → Płynność gradientu aktualizuje się natychmiast
 * **Modyfikuj przycinanie** → Wyświetlanie tła zmienia się natychmiast
-* **Edytuj kolory** → Niestandardowy gradient zostanie zastosowany natychmiast
+* **Edytuj kolory** → Niestandardowy gradient stosuje się natychmiast
 
-**Nie jest potrzebny przycisk „Zastosuj”** — wszystkie zmiany są wprowadzane na żywo i interaktywnie!
+**Nie jest potrzebny przycisk „Zastosuj”** — wszystkie zmiany są na żywo i interaktywne!
 
 {% hint style=&quot;success&quot; %}
 **Informacje zwrotne na żywo**: Natychmiastowe informacje zwrotne pozwalają szybko eksperymentować z różnymi ustawieniami, aż do znalezienia optymalnej wizualizacji dla potrzeb analizy.
@@ -319,13 +319,13 @@ Wszystkie zmiany LUT w piaskownicy aktualizują obraz **natychmiastowo i interak
 **Typowy proces optymalizacji LUT:**
 
 1. **Wybierz warstwę indeksu** (np. RAW (odbicie))
-2. **Zastosuj indeks** — wybierz filtr aparatu i formułę indeksu, przeciągnij kolorowe kółka do odpowiedniej lokalizacji w formule indeksu
+2. **Zastosuj indeks** — wybierz filtr aparatu i formułę indeksu, przeciągnij kolorowe kółka do odpowiedniego miejsca w formule indeksu
 3. **Zastosuj gradient LUT** — zacznij od ustawienia wstępnego Red-Yellow-Green
-4. **Sprawdź wartości pikseli** — przesuń kursor, zwróć uwagę na zakresy wartości
-5. **Dostosuj min/max** — zawęź, aby skupić się na roślinności (np. 0,2 do 0,9)
-6. **Wybierz przycinanie** — wypróbuj „Oryginalne tło” dla kontekstu
-7. **Udoskonal kolory** — dostosuj gradient, jeśli to konieczne, aby uzyskać określony efekt
-8. **Sfinalizuj ustawienia** — udokumentuj ustawienia i skopiuj je do ustawień projektu w celu przetworzenia eksportu
+4. **Sprawdź wartości pikseli** — przesuń kursor i zwróć uwagę na zakresy wartości
+5. **Dostosuj wartości minimalne/maksymalne** — zawęź zakres, aby skupić się na roślinności (np. od 0,2 do 0,9)
+6. **Wybierz przycinanie** - Wypróbuj „Oryginalne tło” dla kontekstu
+7. **Dopracuj kolory** - W razie potrzeby dostosuj gradient, aby uzyskać określony efekt
+8. **Sfinalizuj ustawienia** - Udokumentuj ustawienia i skopiuj je do ustawień projektu w celu przetworzenia eksportu
 
 ### Sprawdzanie wartości pikseli
 
@@ -333,14 +333,14 @@ Zrozumienie rzeczywistych wartości pikseli ma kluczowe znaczenie dla ustawienia
 
 **Jak sprawdzić wartości:**
 
-1. Wartości pikseli są wyświetlane, gdy obraz ma zaznaczone pole Indeks lub zarówno Indeks, jak i LUT.
-2. **Przesuń kursor** nad różne obszary obrazu
-3. **Obserwuj wartości pikseli** wyświetlane w legendzie po najechaniu kursorem
-4. Powiększ, aby zobaczyć poszczególne piksele podświetlone wartością zmienną
+1. Wartości pikseli są wyświetlane, gdy obraz ma zaznaczone **pola Indeks lub zarówno Indeks, jak i LUT**.
+2. **Przesuń kursor** nad różne obszary obrazu.
+3. **Obserwuj wartości pikseli** wyświetlane w legendzie po najechaniu kursorem.
+4. Powiększ, aby zobaczyć poszczególne piksele podświetlone wartością zmienną.
 5. **Zrób notatki** dotyczące zakresów wartości dla różnych cech:
    * **Zdrowa roślinność**: np. NDVI 0,55-0,85
-   * **Zagrożona roślinność**: np. NDVI 0,30-0,50
-   * **Goła gleba**: np. NDVI 0,05-0,25
+   * **Roślinność zestresowana**: np. NDVI 0,30-0,50
+   * **Goła gleba**: np. NDVI 0,05–0,25
    * **Woda** (jeśli występuje): np. NDVI -0,05 do 0,10
 
 **Używanie wartości pikseli do ustawiania zakresów LUT:**
@@ -351,12 +351,12 @@ Po sprawdzeniu wartości pikseli dostosuj odpowiednio minimalną/maksymalną war
 
 * **Obserwacja**: Wartości gleby = 0,05–0,25, stres = 0,25–0,50, zdrowie = 0,50–0,85
 * **Cel**: Wizualizacja wyłącznie stanu zdrowia roślin (z wyłączeniem gleby)
-* **Ustawienia LUT**: Min = `0.25`, Maks = `0.85`
+* **Ustawienia LUT**: Min = `0.25`, Max = `0.85`
 * **Przycinanie**: „Oryginalne tło”, aby zobaczyć glebę w naturalnym kolorze
-* **Wynik**: Gradient kolorów dotyczy tylko roślinności, gleba jest wyświetlana jako oryginalny obraz
+* **Wynik**: Gradient kolorów dotyczy wyłącznie roślinności, gleba jest wyświetlana jako oryginalny obraz
 
 {% hint style=&quot;info&quot; %}
-**Zakres dynamiczny**: różne uprawy, pory roku i etapy wzrostu będą miały różne zakresy wartości. Przed ustawieniem zakresów LUT należy zawsze sprawdzić wartości pikseli w konkretnym zestawie danych.
+**Zakres dynamiczny**: Różne uprawy, pory roku i etapy wzrostu będą miały różne zakresy wartości. Przed ustawieniem zakresów LUT należy zawsze sprawdzić wartości pikseli w konkretnym zestawie danych.
 {% endhint %}
 
 ***
@@ -366,7 +366,7 @@ Po sprawdzeniu wartości pikseli dostosuj odpowiednio minimalną/maksymalną war
 ### Tworzenie niestandardowych formuł indeksów
 
 {% hint style=&quot;info&quot; %}
-**Gdzie tworzyć**: Indeksy niestandardowe można skonfigurować w **Ustawieniach projektu** przed przetwarzaniem, a także na pasku bocznym piaskownicy przeglądarki obrazów.
+**Gdzie tworzyć**: Niestandardowe indeksy można skonfigurować w **Ustawieniach projektu** przed przetwarzaniem, a także w pasku bocznym piaskownicy przeglądarki obrazów.
 {% endhint %}
 
 **Aby utworzyć indeks niestandardowy:**
@@ -399,18 +399,18 @@ Exponential index:
 ```
 
 {% hint style=&quot;warning&quot; %}
-**Walidacja formuły**: Upewnij się, że formuła wykorzystuje pasma dostępne w Twojej kamerze. Na przykład RedEdge jest dostępne tylko w kamerach z filtrem RedEdge.
+**Walidacja formuły**: Upewnij się, że formuła wykorzystuje pasma dostępne w aparacie. Na przykład RedEdge jest dostępne tylko w kamerach z filtrem RedEdge.
 {% endhint %}
 
 ***
 
 ## Kolejne kroki
 
-Teraz, gdy rozumiesz już działanie piaskownicy indeksów/LUT:
+Teraz, gdy rozumiesz już działanie piaskownicy indeksów/tablic LUT:
 
 * **Zastosuj do przetwarzania**: użyj odkrytych ustawień w [Ustawieniach projektu](../project-settings/project-settings.md)
 * **Przetwarzanie wsadowe**: zastosuj zoptymalizowane indeksy do pełnych zestawów danych
-* **Więcej informacji**: przeczytaj [Wzory indeksów wielospektralnych](../project-settings/multispectral-index-formulas.md)
+* **Dowiedz się więcej**: przeczytaj [Wzory indeksów wielospektralnych](../project-settings/multispectral-index-formulas.md)
 
 Powiązana dokumentacja:
 

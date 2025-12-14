@@ -1,12 +1,12 @@
 # Zakończenie przetwarzania
 
-Po zakończeniu przetwarzania przez Chloros nadszedł czas, aby przejrzeć wyniki, sprawdzić jakość wyjściową i przygotować przetworzone obrazy do wykorzystania w przepływie pracy. Ta strona zawiera instrukcje dotyczące ostatnich kroków i kolejnych czynności.
+Po zakończeniu przetwarzania przez Chloros nadszedł czas, aby przejrzeć wyniki, sprawdzić jakość wyjściową i przygotować przetworzone obrazy do wykorzystania w przepływie pracy. Ta strona zawiera instrukcje dotyczące ostatnich kroków i kolejnych działań.
 
 ## Wskazanie zakończenia przetwarzania
 
 Po pomyślnym zakończeniu przetwarzania pojawi się kilka wskaźników:
 
-* ✅ **Pasek postępu**: osiąga 100%
+* ✅ **Pasek postępu**: osiąga 100% zakończenia
 * ✅ **Dziennik debugowania**: wyświetla komunikat „Przetwarzanie zakończone”
 * ✅ **Przycisk Start**: ponownie staje się aktywny (gotowy do następnego przetwarzania)
 * ✅ **Pliki wyjściowe**: wszystkie przetworzone obrazy zapisane w podfolderze modelu aparatu
@@ -19,8 +19,8 @@ Po pomyślnym zakończeniu przetwarzania pojawi się kilka wskaźników:
 
 1. Kliknij ikonę **Menu główne** <img src="../.gitbook/assets/image (1) (1).png" alt="" data-size="line"> (w lewym górnym rogu)
 2. Wybierz **„Otwórz folder projektu”**
-3. Otworzy się eksplorator plików w katalogu projektu
-4. Znajdź swój projekt według nazwy
+3. Otworzy się eksplorator plików z katalogiem projektu
+4. Znajdź projekt według nazwy
 
 ***
 
@@ -85,16 +85,16 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 
 **Możliwe przyczyny:**
 
-* Pliki nie spełniały kryteriów przetwarzania
-* Obrazy tylko docelowe (wykluczone z eksportu)
-* Podczas eksportu zabrakło miejsca na dysku
-* Uszkodzenie plików podczas przetwarzania
+* Pliki nie spełniały kryteriów przetwarzania.
+* Obrazy tylko docelowe (wykluczone z eksportu).
+* Podczas eksportu zabrakło miejsca na dysku.
+* Uszkodzenie plików podczas przetwarzania.
 
 **Rozwiązania:**
 
-1. Sprawdź dziennik debugowania pod kątem komunikatów o pominięciu/błędach
-2. Sprawdź, czy na dysku było wystarczająco dużo miejsca
-3. Policz pliki: Powinny się zgadzać (oryginalna liczba - liczba docelowa) × (indeksy + 1)
+1. Sprawdź dziennik debugowania pod kątem komunikatów o pominięciu/błędach.
+2. Sprawdź, czy na dysku było wystarczająco dużo miejsca.
+3. Policz pliki: powinny się zgadzać (oryginalna liczba – liczba docelowa) × (indeksy + 1)
 4. Ponownie zaimportuj i przetwórz brakujące pliki.
 
 ### Problem: Ciemne lub jasne krawędzie (nadal widoczne winietowanie)
@@ -108,7 +108,7 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 **Rozwiązania:**
 
 1. Sprawdź, czy korekcja winietowania została włączona w ustawieniach projektu.
-2. Sprawdź, czy model aparatu został prawidłowo wykryty.
+2. Sprawdź, czy model aparatu został poprawnie wykryty.
 3. Jeśli winietowanie nadal występuje, skontaktuj się z pomocą techniczną MAPIR.
 
 ### Problem: Nieprawidłowe kolory lub wartości
@@ -117,7 +117,7 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 
 * Nie wykryto żadnych celów kalibracji.
 * Wybrano niewłaściwy model celu kalibracji.
-* Kalibracja odbicia została wyłączona.
+* Kalibracja odbicia jest wyłączona.
 * Obrazy celów są niskiej jakości.
 
 **Rozwiązania:**
@@ -125,7 +125,7 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 1. Sprawdź, czy kalibracja odbicia została włączona.
 2. Sprawdź komunikaty „Znaleziono cel” w dzienniku debugowania.
 3. Sprawdź jakość obrazu celu.
-4. Przetwórz ponownie z zaznaczonymi odpowiednimi celami.
+4. Przetwórz ponownie, zaznaczając odpowiednie cele.
 
 ### Problem: Wartości NDVI wydają się nieprawidłowe.
 
@@ -148,7 +148,7 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 
 ## Korzystanie z przetworzonych obrazów
 
-### Do fotogrametrii / tworzenia ortomosaików
+### Do fotogrametrii / tworzenia ortomosaiki
 
 **Zalecany przebieg pracy:**
 
@@ -158,7 +158,7 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
    * DroneDeploy
    * WebODM
 2. **Zachowaj metadane EXIF**: upewnij się, że dane GPS zostały zachowane do geotagowania
-3. **Skalibrowane przepływy pracy**: używaj obrazów odbicia dla zapewnienia dokładności naukowej
+3. **Skalibrowane przepływy pracy**: używaj obrazów odbicia, aby uzyskać naukową dokładność
 4. **Przetwarzaj mozaiki indeksowe**: Utwórz ortomosaiki NDVI z poszczególnych obrazów indeksowych
 5. **Eksportuj georeferencyjne GeoTIFF**: Do wykorzystania w aplikacjach GIS
 
@@ -198,8 +198,8 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 **Zalecenia dotyczące przechowywania:**
 
 * **Natychmiastowa kopia zapasowa**: zewnętrzny dysk twardy
-* **Archiwizacja długoterminowa**: pamięć w chmurze (Google Drive, Dropbox itp.)
-* **Dane krytyczne**: przechowuj 2–3 kopie w różnych lokalizacjach
+* **Archiwizacja długoterminowa**: przechowywanie w chmurze (Google Drive, Dropbox itp.)
+* **Dane krytyczne**: przechowuj 2-3 kopie w różnych lokalizacjach
 
 ***
 
@@ -222,7 +222,7 @@ W przypadku wielu sesji/zestawów danych:
 
 * Utwórz oddzielny projekt dla każdej sesji.
 * Użyj spójnych ustawień szablonu.
-* Przetwarzaj po jednym na raz.
+* Przetwarzaj pojedynczo.
 
 **Opcja 2: Chloros CLI (tylko Chloros+)**
 
@@ -269,14 +269,14 @@ Jeśli napotkasz problemy:
 
 ***
 
-## Podsumowanie: Cały proces
+## Podsumowanie: kompletny przepływ pracy
 
-Właśnie ukończyłeś pełny przepływ pracy Chloros:
+Właśnie ukończyłeś kompletny przepływ pracy związany z przetwarzaniem Chloros:
 
 1. ✅ **Utworzono projekt** — zobacz [Projekty](../projects.md)
 2. ✅ **Dodano pliki** — zobacz [Dodawanie plików](adding-files-to-a-project.md)
 3. ✅ **Dostosowano ustawienia** — zobacz [Dostosowywanie ustawień projektu](adjusting-project-settings.md)
-4. ✅ **Oznaczone cele** — zobacz [Wybór obrazów docelowych](choosing-target-images.md)
+4. ✅ **Zaznaczone cele** — zobacz [Wybór obrazów docelowych](choosing-target-images.md)
 5. ✅ **Rozpoczęto przetwarzanie** — zobacz [Rozpoczęcie przetwarzania](starting-the-processing.md)
 6. ✅ **Monitorowany postęp** — zobacz [Monitorowanie przetwarzania](monitoring-the-processing.md)
 7. ✅ **Sprawdzone wyniki** — ta strona
@@ -291,7 +291,7 @@ Właśnie ukończyłeś pełny przepływ pracy Chloros:
 
 * [**Przeglądarka obrazów**](../image-viewer-gui/opening-an-image-full-screen.md) — interaktywna wizualizacja i analiza
 * [**Sandbox indeksów/LUT**](../image-viewer-gui/index-lut-sandbox.md) — testowanie niestandardowych indeksów
-* [**Wzory indeksów wielospektralnych**](../project-settings/multispectral-index-formulas.md) – kompletne odniesienia do indeksów
+* [**Wzory indeksów wielospektralnych**](../project-settings/multispectral-index-formulas.md) – kompletne odniesienia indeksów
 
 ### Automatyzacja i integracja
 
@@ -301,6 +301,6 @@ Właśnie ukończyłeś pełny przepływ pracy Chloros:
 
 ### Pomoc techniczna i nauka
 
-* [**FAQ**](../faq.md) – odpowiedzi na najczęściej zadawane pytania
-* [**Cele kalibracji**](../calibration-targets.md) – zrozumienie kalibracji odbicia
-* [**Obsługiwane aparaty fotograficzne**](../supported-cameras.md) – Kompatybilny sprzęt
+* [**FAQ**](../faq.md) — odpowiedzi na najczęściej zadawane pytania
+* [**Cele kalibracji**](../calibration-targets.md) — zrozumienie kalibracji odbicia
+* [**Obsługiwane aparaty fotograficzne**](../supported-cameras.md) — kompatybilny sprzęt

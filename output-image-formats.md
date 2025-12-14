@@ -3,7 +3,6 @@ metaLinks:
   alternates:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/output-image-formats
 ---
-
 # Formaty obrazów wyjściowych
 
 ### TIFF (16-bitowy)
@@ -16,7 +15,7 @@ metaLinks:
 
 ### **JPG (8-bitowy)**
 
-8-bitowy (liczba cyfrowa pikseli 0–255) format wyjściowy JPG (.jpg).
+8-bitowy (piksel cyfrowy 0–255) format wyjściowy JPG (.jpg).
 
 ### **PNG (8-bitowy)**
 

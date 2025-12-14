@@ -1,7 +1,6 @@
 ---
 metaLinks: {}
 ---
-
 # Pierwsze kroki
 
 <div data-full-width="false"><figure><img src=".gitbook/assets/chloros_logo_transparent.png" alt=""><figcaption></figcaption></figure></div>
@@ -10,9 +9,9 @@ Chloros to aplikacja firmy [MAPIR](https://www.mapir.camera) służąca do przet
 
 ***
 
-Chloros jest dostępny w 4 trybach aplikacji:
+Chloros jest dostępny w 4 trybach działania:
 
-## Chloros: aplikacja GUI na komputer stacjonarny
+## Chloros: aplikacja GUI na komputery stacjonarne
 
 \[Zalecane] Samodzielne, oddzielne okno z wszystkimi funkcjami.
 
@@ -22,17 +21,17 @@ Działa w przeglądarce internetowej (Chrome/Edge). Najlepsze rozwiązanie dla w
 
 ## [Chloros CLI: Interfejs wiersza poleceń](CLI.md)
 
-Przetwarzanie wsadowe z wiersza poleceń. Idealny do automatyzacji, tworzenia skryptów i zaawansowanych przepływów pracy. _CLI wymaga licencji Chloros+ w celu uzyskania dostępu._
+Przetwarzanie wsadowe z wiersza poleceń. Idealne rozwiązanie do automatyzacji, tworzenia skryptów i zaawansowanych przepływów pracy. _CLI wymaga licencji Chloros+ w celu uzyskania dostępu._
 
 ## [Chloros API: Python SDK](api-python-sdk.md)
 
-Programowy interfejs Python do automatyzacji i niestandardowych przepływów pracy. Idealny do procesów badawczych, integracji z istniejącymi aplikacjami Python i tworzenia niestandardowych narzędzi. _API wymaga licencji Chloros+ w celu uzyskania dostępu._
+Programowy interfejs Python do automatyzacji i niestandardowych przepływów pracy. Idealny do procesów badawczych, integracji z istniejącymi aplikacjami Python i tworzenia niestandardowych narzędzi. _Aby uzyskać dostęp do API, wymagana jest licencja Chloros+._
 
 ***
 
 ## Chloros+
 
-Chociaż Chloros jest bezpłatny w przypadku większości zadań, może się okazać, że potrzebujesz czegoś więcej. W takim przypadku opłacona licencja na Chloros+ może okazać się bardzo przydatna. Dzięki licencji Chloros+ można odblokować nowe funkcje, takie jak:
+Chociaż Chloros jest bezpłatny w przypadku większości zadań, może się okazać, że potrzebujesz czegoś więcej. W takim przypadku opłacona licencja na Chloros+ może być dla Ciebie korzystna. Dzięki licencji Chloros+ można odblokować nowe funkcje, takie jak:
 
 * **Przetwarzanie wielowątkowe**: znacznie przyspiesza przetwarzanie obrazów w przypadku większych projektów poprzez jednoczesne przetwarzanie obrazów w ramach potoku.
 * **Przyspieszenie GPU (CUDA)**: wykorzystaj dzisiejsze opcje pamięci GPU o większej pojemności, aby jeszcze bardziej przyspieszyć przetwarzanie obrazów. Aby uzyskać najlepsze wyniki, zalecamy 4 GB lub więcej pamięci VRAM.

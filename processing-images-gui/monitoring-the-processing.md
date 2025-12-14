@@ -29,14 +29,14 @@ Dla użytkowników posiadających licencję Chloros+:
 
 1. **Wykrywanie** — wyszukiwanie celów kalibracji
 2. **Analiza** — badanie obrazów i przygotowywanie potoku
-3. **Kalibracja** — stosowanie korekcji winietowania i odbicia
+3. **Kalibracja** — stosowanie korekt winietowania i odbicia
 4. **Eksportowanie** — zapisywanie przetworzonych plików
 
 **Funkcje interaktywne:**
 
 * **Najedź kursorem** na pasek postępu, aby wyświetlić rozszerzony 4-etapowy panel
 * **Kliknij** pasek postępu, aby zamrozić/przypiąć rozszerzony panel
-* **Kliknij ponownie**, aby odblokować i automatycznie ukryć po odsunięciu myszy
+* **Kliknij ponownie**, aby odmrozić i automatycznie ukryć po odsunięciu myszy
 * Każdy etap pokazuje indywidualny postęp (0-100%)
 
 ***
@@ -50,7 +50,7 @@ Dla użytkowników posiadających licencję Chloros+:
 * Chloros skanuje obrazy zaznaczone polem wyboru Cel
 * Algorytmy wizji komputerowej identyfikują 4 panele kalibracyjne
 * Wartości odbicia wyodrębnione z każdego panelu
-* Znaczniki czasu celów zarejestrowane w celu prawidłowego planowania kalibracji
+* Znaczniki czasu celów zapisane w celu prawidłowego planowania kalibracji
 
 **Czas trwania:**
 
@@ -96,7 +96,7 @@ Dla użytkowników posiadających licencję Chloros+:
 
 * **Debayering**: Konwersja wzorca RAW Bayer na 3 kanały
 * **Korekcja winietowania**: usuwanie ciemnych krawędzi obiektywu
-* **Kalibracja odbicia**: normalizacja za pomocą wartości docelowych
+* **Kalibracja odbicia**: normalizacja przy użyciu wartości docelowych
 * **Obliczanie indeksu**: obliczanie indeksów wielospektralnych
 * Przetwarzanie każdego obrazu w pełnym procesie
 
@@ -110,15 +110,15 @@ Dla użytkowników posiadających licencję Chloros+:
 
 **Zachowanie podczas przetwarzania:**
 
-* **Tryb swobodny**: przetwarza po jednym obrazie na raz
+* **Tryb swobodny**: przetwarza po jednym obrazie na raz w kolejności
 * **Tryb Chloros+**: przetwarza do 16 obrazów jednocześnie
-* **Przyspieszenie GPU**: Znacznie przyspiesza ten etap
+* **Przyspieszenie GPU**: Znacznie przyspiesza ten etap.
 
 **Na co należy zwrócić uwagę:**
 
-* Stały postęp w zakresie liczby obrazów
-* Sprawdź dziennik debugowania pod kątem komunikatów o zakończeniu przetwarzania poszczególnych obrazów
-* Ostrzeżenia dotyczące jakości obrazu lub problemów z kalibracją
+* Stały postęp w zakresie liczby obrazów.
+* Sprawdź dziennik debugowania pod kątem komunikatów dotyczących ukończenia poszczególnych obrazów.
+* Ostrzeżenia dotyczące jakości obrazu lub problemów z kalibracją.
 
 ### Etap 4: Eksportowanie
 
@@ -152,7 +152,7 @@ Dziennik debugowania zawiera szczegółowe informacje na temat postępu przetwar
 ### Dostęp do dziennika debugowania
 
 1. Kliknij ikonę **Dziennik debugowania** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> na pasku bocznym po lewej stronie
-2. Otworzy się panel dziennika zawierający komunikaty dotyczące przetwarzania w czasie rzeczywistym
+2. Otworzy się panel dziennika z komunikatami przetwarzania w czasie rzeczywistym
 3. Automatyczne przewijanie w celu wyświetlenia najnowszych komunikatów
 
 ### Rozumienie komunikatów dziennika
@@ -202,7 +202,7 @@ Krytyczne problemy, które mogą spowodować niepowodzenie przetwarzania:
 | „Nie znaleziono celów”               | Nie wykryto celów kalibracji        | Zaznacz obrazy celów lub wyłącz kalibrację odbicia |
 | „Niewystarczająca ilość miejsca na dysku”        | Niewystarczająca ilość miejsca na dysku na dane wyjściowe          | Zwolnij miejsce na dysku                                    |
 | „Pomijanie uszkodzonego pliku”        | Plik obrazu jest uszkodzony                  | Skopiuj ponownie plik z karty SD                             |
-| „Zastosowano dane PPK”               | Zastosowano poprawki GPS z pliku .daq | Brak — normalnie                                         |
+| „Zastosowano dane PPK”               | Zastosowano korekty GPS z pliku .daq | Brak — normalnie                                         |
 
 ### Kopiowanie danych dziennika
 
@@ -252,11 +252,11 @@ Aby skopiować dziennik w celu rozwiązania problemów lub uzyskania pomocy tech
 * Zamknij inne aplikacje.
 * Zwiększ ilość pamięci RAM, jeśli regularnie przetwarzasz duże zbiory danych.
 
-### Wykorzystanie GPU (Chloros+ z CUDA)
+### Wykorzystanie procesora graficznego (Chloros+ z CUDA)
 
-Gdy przyspieszenie GPU jest włączone:
+Gdy włączone jest przyspieszenie procesora graficznego:
 
-* GPU NVIDIA wykazuje wysokie wykorzystanie (60–90%).
+* Procesor graficzny NVIDIA wykazuje wysokie wykorzystanie (60–90%).
 * Wzrasta wykorzystanie pamięci VRAM (wymagane 4 GB+ VRAM)
 * Etap kalibracji przebiega znacznie szybciej
 
@@ -329,7 +329,7 @@ Przerwij przetwarzanie, jeśli zauważysz:
 **Możliwe przyczyny:**
 
 * Nieoznaczone obrazy docelowe (skanowanie wszystkich obrazów)
-* Dysk twardy zamiast pamięci SSD
+* Dysk twardy zamiast dysku SSD
 * Niewystarczające zasoby systemowe
 * Skonfigurowano wiele indeksów
 * Dostęp do dysku sieciowego

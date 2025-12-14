@@ -3,7 +3,6 @@ metaLinks:
   alternates:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/download
 ---
-
 # Pobierz
 
 Pobierz najnowszą wersję Chloros dla Windows, aby rozpocząć przetwarzanie obrazów wielospektralnych.
@@ -58,7 +57,7 @@ Instalator automatycznie dodaje `chloros-cli` do ścieżki PATH systemu, aby umo
 
 ### Python SDK
 
-Dla programistów i automatyzacji przepływu pracy należy zainstalować Chloros Python SDK:
+Dla programistów i automatyzacji przepływu pracy zainstaluj Chloros Python SDK:
 
 ```bash
 pip install chloros-sdk
@@ -78,7 +77,7 @@ Instalacja Chloros zawiera:
 * ✅ **Chloros (przeglądarka)** — interfejs internetowy dla systemów o niższych parametrach
 * ✅ **Chloros CLI** – interfejs wiersza poleceń (wymaga licencji Chloros+)
 * ✅ **Silnik zaplecza** – potok przetwarzania obrazu
-* ✅ **Profile kamer** - Wstępnie skonfigurowane szablony kamer MAPIR
+* ✅ **Profile kamer** – wstępnie skonfigurowane szablony kamer MAPIR
 
 ***
 
@@ -86,7 +85,7 @@ Instalacja Chloros zawiera:
 
 Odblokuj zaawansowane funkcje dzięki subskrypcji Chloros+:
 
-* 🚀 **Przetwarzanie wielowątkowe** — równoległe przetwarzanie obrazów
+* 🚀 **Przetwarzanie wielowątkowe** – równoległe przetwarzanie obrazów
 * ⚡ **Przyspieszenie GPU (CUDA)** — wykorzystaj moc procesorów graficznych NVIDIA
 * 💻 **Dostęp do CLI** — automatyzacja za pomocą narzędzi wiersza poleceń
 * 🐍 **Python SDK** – programowy dostęp do API
@@ -166,3 +165,5 @@ Niedozwolone jest nieautoryzowane używanie, dystrybucja lub modyfikacja.
 **Wersja bezpłatna**: dostępna do użytku osobistego i komercyjnego z ograniczeniami funkcji.
 
 **Chloros+**: licencja oparta na subskrypcji, umożliwiająca korzystanie z zaawansowanych funkcji i wdrożeń komercyjnych.
+
+<figure><img src=".gitbook/assets/t3-125_2.jpg" alt=""><figcaption></figcaption></figure>

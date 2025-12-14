@@ -8,7 +8,7 @@ Przed kliknięciem przycisku Start sprawdź, czy wszystko jest gotowe:
 
 * [ ] **Pliki zaimportowane** — wszystkie obrazy pojawiają się w przeglądarce plików
 * [ ] **Obrazy docelowe zaznaczone** — kolumna docelowa sprawdzona pod kątem obrazów kalibracyjnych
-* [ ] **Wykryte modele aparatów** — kolumna „Model aparatu” pokazuje prawidłowe aparaty
+* [ ] **Wykryte modele kamer** — kolumna Model kamery pokazuje prawidłowe kamery
 * [ ] **Skonfigurowane ustawienia** — ustawienia projektu sprawdzone i dostosowane
 * [ ] **Wybrane indeksy** — dodane żądane indeksy wielospektralne (w razie potrzeby)
 * [ ] **Wybrany format eksportu** — format wyjściowy odpowiedni dla Twojego przepływu pracy
@@ -25,19 +25,19 @@ Przed kliknięciem przycisku Start sprawdź, czy wszystko jest gotowe:
 
 Przycisk Start/Odtwórz znajduje się w górnym pasku nagłówka Chloros:
 
-* Położenie: górna część środkowa okna
+* Położenie: w górnej środkowej części okna
 * Ikona: **Przycisk Odtwórz/Start** <img src="../.gitbook/assets/image (2).png" alt="" data-size="line">
-* Status: Przycisk jest aktywny (jasny), gdy program jest gotowy do przetwarzania
+* Status: Przycisk jest aktywny (jasny), gdy jest gotowy do przetwarzania
 
 ### Kliknij, aby rozpocząć
 
-1. Kliknij **przycisk Odtwórz/Start** w górnym pasku nagłówkowym
+1. Kliknij **przycisk Odtwórz/Start** w górnym nagłówku
 2. Przetwarzanie rozpocznie się natychmiast
 3. Podczas przetwarzania przycisk staje się nieaktywny (szary)
 4. Pasek postępu aktualizuje się, pokazując status przetwarzania
 
 {% hint style=&quot;success&quot; %}
-**Rozpoczęcie przetwarzania**: Po kliknięciu Chloros automatycznie obsługuje wszystkie etapy przetwarzania — wykrywanie celu, debayering, kalibrację, obliczanie indeksu i eksport.
+**Rozpoczęto przetwarzanie**: Po kliknięciu Chloros automatycznie obsługuje wszystkie etapy przetwarzania — wykrywanie celu, debayering, kalibrację, obliczanie indeksu i eksport.
 {% endhint %}
 
 ***
@@ -75,18 +75,18 @@ Chloros działa w dwóch różnych trybach przetwarzania w zależności od posia
 * Przetwarza wiele obrazów jednocześnie
 * Działanie wielowątkowe (do 16 równoległych procesów)
 * Wykorzystuje wiele rdzeni procesora
-* Opcjonalne przyspieszenie GPU (CUDA) dzięki kartom graficznym NVIDIA
+* Opcjonalne przyspieszenie GPU (CUDA) z kartami graficznymi NVIDIA
 
 **Pasek postępu pokazuje 4 etapy:**
 
 1. **Wykrywanie** — wyszukiwanie celów kalibracji
-2. **Analiza** — badanie metadanych obrazu i przygotowanie potoku
-3. **Kalibracja** — stosowanie korekt i kalibracji
-4. **Eksportowanie** — zapisywanie przetworzonych obrazów i indeksów
+2. **Analiza** – badanie metadanych obrazu i przygotowanie potoku
+3. **Kalibracja** – stosowanie korekt i kalibracji
+4. **Eksportowanie** – zapisywanie przetworzonych obrazów i indeksów
 
 **Interakcja z paskiem postępu:**
 
-* **Najedź myszką** na pasek, aby wyświetlić szczegółowy panel rozwijany z 4 etapami
+* **Najedź myszką** na pasek, aby wyświetlić szczegółowy 4-etapowy panel rozwijany
 * **Kliknij** pasek postępu, aby zamrozić panel rozwijany
 * **Kliknij ponownie**, aby odblokować i ukryć panel
 
@@ -104,20 +104,20 @@ Chloros działa w dwóch różnych trybach przetwarzania w zależności od posia
 
 ## Co dzieje się podczas przetwarzania
 
-### Etap 1: Wykrywanie celu
+### Etap 1: Wykrywanie celów
 
 **Co robi Chloros:**
 
-* Skanuje zaznaczone obrazy docelowe (lub wszystkie obrazy, jeśli żadne nie zostało zaznaczone)
+* Skanuje zaznaczone obrazy celów (lub wszystkie obrazy, jeśli żadne nie są zaznaczone)
 * Identyfikuje 4 panele kalibracyjne w każdym celu
-* Wyodrębnia wartości odbicia z paneli docelowych
-* Rejestruje sygnatury czasowe celów w celu zaplanowania kalibracji
+* Wyodrębnia wartości odbicia od paneli docelowych
+* Rejestruje sygnatury czasowe celów do planowania kalibracji
 
-**Czas trwania:** 1–30 sekund (w przypadku zaznaczonych celów), 5–30+ minut (w przypadku niezaznaczonych celów)
+**Czas trwania:** 1–30 sekund (z zaznaczonymi celami), 5–30+ minut (bez zaznaczenia)
 
 ### Etap 2: Debayering (konwersja RAW)
 
-**Czym zajmuje się Chloros:**
+**Co robi Chloros:**
 
 * Konwertuje dane RAW w formacie Bayer na pełne obrazy RGB
 * Stosuje wysokiej jakości algorytm demosaicingu
@@ -127,7 +127,7 @@ Chloros działa w dwóch różnych trybach przetwarzania w zależności od posia
 
 ### Etap 3: Kalibracja
 
-**Co robi Chloros:**
+**Czym zajmuje się Chloros:**
 
 * **Korekcja winietowania**: usuwa zaciemnienie obiektywu na krawędziach
 * **Kalibracja odbicia**: normalizuje przy użyciu docelowych wartości odbicia
@@ -148,7 +148,7 @@ Chloros działa w dwóch różnych trybach przetwarzania w zależności od posia
 
 ### Etap 5: Eksport
 
-**Czynności wykonywane przez Chloros:**
+**Czym zajmuje się Chloros:**
 
 * Zapisuje skalibrowane obrazy w wybranym formacie
 * Eksportuje obrazy indeksowe z skonfigurowanymi kolorami LUT
@@ -182,7 +182,7 @@ Po uruchomieniu cały proces przebiega automatycznie:
 * Wysokie zużycie procesora (wielowątkowe, do 16 rdzeni)
 * Z przyspieszeniem GPU: wysokie zużycie GPU
 * Komputer może być mniej responsywny podczas przetwarzania
-* Należy unikać uruchamiania innych zadań wymagających dużej mocy obliczeniowej procesora
+* Należy unikać uruchamiania innych zadań intensywnie wykorzystujących procesor
 
 {% hint style=&quot;warning&quot; %}
 **Wskazówka dotycząca wydajności**: Aby uzyskać najlepszą wydajność Chloros+, zamknij inne aplikacje i pozwól Chloros korzystać z pełnych zasobów systemowych.
@@ -205,10 +205,10 @@ Po uruchomieniu cały proces przebiega automatycznie:
 
 Podczas przetwarzania można:
 
-* **Obserwować pasek postępu** — sprawdzić ogólny procent ukończenia.
-* **Wyświetlić bieżący etap** — wykrywanie, analiza, kalibracja lub eksport.
-* **Sprawdzić kartę dziennika** — wyświetlić szczegółowe komunikaty i ostrzeżenia dotyczące przetwarzania.
-* **Wyświetlić podgląd ukończonych obrazów** — niektóre pliki eksportowe mogą pojawić się podczas przetwarzania.
+* **Obserwować pasek postępu** — sprawdzić ogólny procent ukończenia
+* **Wyświetlić bieżący etap** — wykrywanie, analiza, kalibracja lub eksportowanie
+* **Sprawdzić kartę dziennika** — wyświetlić szczegółowe komunikaty i ostrzeżenia dotyczące przetwarzania
+* **Wyświetlić podgląd ukończonych obrazów** — niektóre pliki eksportowe mogą pojawić się podczas przetwarzania
 
 Szczegółowe informacje na temat monitorowania można znaleźć w sekcji [Monitorowanie przetwarzania](monitoring-the-processing.md).
 
@@ -230,13 +230,13 @@ Jeśli chcesz zatrzymać przetwarzanie:
 **Uzasadnione powody anulowania:**
 
 * Użyto nieprawidłowych ustawień
-* Zapomniano o zaznaczeniu obrazów docelowych
+* Zapomniano oznaczyć obrazy docelowe
 * Zaimportowano nieprawidłowe obrazy
 * System działa zbyt wolno lub nie odpowiada
 
 **Po anulowaniu:**
 
-* Przejrzyj i napraw wszelkie problemy
+* Sprawdź i napraw wszelkie problemy
 * Dostosuj ustawienia zgodnie z potrzebami
 * Ponownie uruchom przetwarzanie od początku
 * Aby uzyskać najlepsze wyniki, całkowicie zamknij Chloros i uruchom ponownie
@@ -249,7 +249,7 @@ Jeśli chcesz zatrzymać przetwarzanie:
 
 ## Szacowany czas przetwarzania
 
-Rzeczywisty czas przetwarzania różni się znacznie w zależności od:
+Rzeczywisty czas przetwarzania zależy w dużej mierze od:
 
 * Liczby obrazów
 * Rozdzielczości obrazów
@@ -271,7 +271,7 @@ Rzeczywisty czas przetwarzania różni się znacznie w zależności od:
 | 1000 zdjęć | 4-6 godz.   | 1,5-2 godz.      | 40-60 min      |
 
 {% hint style=&quot;info&quot; %}
-**Pierwsze uruchomienie**: Początkowe przetwarzanie może potrwać dłużej, ponieważ Chloros tworzy pamięć podręczną i profile. Kolejne przetwarzanie podobnych zestawów danych będzie przebiegało szybciej.
+**Pierwsze uruchomienie**: Wstępne przetwarzanie może potrwać dłużej, ponieważ Chloros tworzy pamięć podręczną i profile. Kolejne przetwarzanie podobnych zestawów danych będzie przebiegało szybciej.
 {% endhint %}
 
 ***
@@ -307,14 +307,14 @@ Rzeczywisty czas przetwarzania różni się znacznie w zależności od:
 
 1. Sprawdź dziennik debugowania <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> pod kątem komunikatów o błędach
 2. Sprawdź dostępną przestrzeń dyskową
-3. Spróbuj przetworzyć mniejszy podzbiór obrazów
+3. Spróbuj przetworzyć mniejszą podgrupę obrazów
 4. Sprawdź, czy obrazy nie są uszkodzone
 
-### Ostrzeżenie „Nie wykryto żadnych celów”
+### Ostrzeżenie „Nie wykryto celów”
 
 **Możliwe przyczyny:**
 
-* Zapomniano oznaczyć obrazy docelowe
+* Zapomniano oznaczac obrazy docelowe
 * Obrazy docelowe nie zawierają widocznych celów
 * Ustawienia wykrywania celów są zbyt rygorystyczne
 
@@ -350,8 +350,8 @@ W przypadku korzystania z przyspieszenia GPU NVIDIA:
 
 1. Zaktualizuj sterowniki NVIDIA do najnowszej wersji.
 2. Upewnij się, że GPU ma co najmniej 4 GB pamięci VRAM.
-3. Zamknij aplikacje intensywnie wykorzystujące GPU (gry, edycja wideo).
-4. Monitoruj temperaturę GPU (zapewnij odpowiednie chłodzenie).
+3. Zamknij aplikacje intensywnie wykorzystujące procesor graficzny (gry, edycja wideo).
+4. Monitoruj temperaturę procesora graficznego (zapewnij odpowiednie chłodzenie).
 
 ***
 

@@ -6,7 +6,7 @@ Rozwijane menu Warstwy obrazu w przeglądarce obrazów Chloros pozwala szybko pr
 
 W programie Chloros **warstwy** odnoszą się do różnych wyników obrazu dostępnych dla jednego obrazu źródłowego. Podczas przetwarzania obrazów program Chloros tworzy wiele wersji:
 
-* **Oryginalne obrazy** (pliki JPG i RAW z aparatu)
+* **Obrazy oryginalne** (pliki JPG i RAW z aparatu)
 * **Wyniki z kalibracją odbicia** (jeśli kalibracja odbicia była włączona)
 * **Obrazy docelowe** (jeśli obraz zawiera cele kalibracyjne)
 * **Obrazy indeksowe** (NDVI, NDRE, GNDVI itp., jeśli skonfigurowano indeksy)
@@ -63,9 +63,9 @@ W programie Chloros **warstwy** odnoszą się do różnych wyników obrazu dost�
 * Skalibrowany obraz odbicia
 * Korekcja winietowania (jeśli włączona podczas przetwarzania)
 * Odbicie skalibrowane przy użyciu danych docelowych (jeśli włączone)
-* Wielopasmowy TIFF ze wszystkimi kanałami aparatu
-* Wartości pikseli reprezentują procent odbicia (w trybie procentowym)
-* Gotowy do manipulacji za pomocą [Index/LUT Sandbox](index-lut-sandbox.md)
+* Wielopasmowe TIFF ze wszystkimi kanałami kamery
+* Wartości pikseli reprezentują procent odbicia (w przypadku korzystania z trybu procentowego)
+* Gotowe do manipulacji za pomocą [Index/LUT Sandbox](index-lut-sandbox.md)
 
 **Kiedy wyświetlać:**
 
@@ -75,15 +75,15 @@ W programie Chloros **warstwy** odnoszą się do różnych wyników obrazu dost�
 * Porównanie z oryginałem w celu sprawdzenia efektów kalibracji
 
 {% hint style=&quot;success&quot; %}
-**Zalecane**: Podczas sprawdzania wartości pikseli do pomiarów naukowych i analiz należy używać warstwy RAW (odbicie).
+**Zalecane**: Użyj warstwy RAW (odbicie) podczas sprawdzania wartości pikseli do pomiarów naukowych i analizy.
 {% endhint %}
 
-### RAW (NDVI Index)... i podobne
+### RAW (NDVI Indeks)... i podobne
 
 * Obliczony obraz indeksu wegetacji (w tym przykładzie NDVI)
-* Nazwa indeksu zmienia się w zależności od tego, który indeks został skonfigurowany podczas przetwarzania
+* Nazwa indeksu zmienia się w zależności od tego, który indeks został skonfigurowany podczas przetwarzania.
 * Przykłady: RAW (NDVI Index), RAW (NDRE Index), RAW (GNDVI Index) itp.
-* Jednopasmowy obraz w skali szarości przedstawiający wyniki obliczeń indeksu
+* Obraz w skali szarości z jednym pasmem pokazujący wyniki obliczeń indeksu
 * Dla każdego indeksu skonfigurowanego w ustawieniach projektu pojawia się jedna warstwa
 
 **Możliwe nazwy indeksów:**
@@ -123,7 +123,7 @@ W programie Chloros **warstwy** odnoszą się do różnych wyników obrazu dost�
 
 **Szybkie przełączanie:**
 
-* Rozwijane menu zapamiętuje ostatni wybór.
+* Menu rozwijane zapamiętuje ostatni wybór.
 * Podczas przechodzenia do następnego obrazu Chloros próbuje wyświetlić ten sam typ warstwy.
 * Jeśli ta warstwa nie istnieje na następnym obrazie, domyślnie wyświetlana jest warstwa JPG.
 
@@ -137,7 +137,7 @@ Nie wszystkie warstwy są dostępne dla każdego obrazu:
 
 **Dostępne warunkowo:**
 
-* ⚠️ RAW (oryginalny) — tylko jeśli obraz został zarejestrowany w trybie RAW lub RAW+JPG
+* ⚠️ RAW (oryginał) — tylko jeśli obraz został zarejestrowany w trybie RAW lub RAW+JPG
 * ⚠️ RAW (cel) — tylko jeśli obraz zawiera wykryte cele kalibracyjne
 * ⚠️ RAW (odbicie) — tylko po przetworzeniu z włączoną kalibracją odbicia
 * ⚠️ RAW (\[Indeks] Indeks) — tylko po przetworzeniu z skonfigurowanymi indeksami
@@ -154,7 +154,7 @@ Podczas przechodzenia do innego obrazu (za pomocą klawiszy strzałek lub klikni
 
 * Jeśli wyświetlasz „RAW (Reflektancja)”, następny obraz pokazuje „RAW (Reflektancja)” (jeśli jest dostępny)
 * Jeśli wyświetlasz „RAW (NDVI Indeks)”, następny obraz pokazuje „RAW (NDVI Indeks)” (jeśli jest dostępny)
-* Jeśli ta sama warstwa nie istnieje, domyślnie wyświetla się JPG
+* Jeśli ta sama warstwa nie istnieje, domyślnie wyświetlany jest plik JPG
 
 **Przykładowy przebieg pracy:**
 
@@ -162,13 +162,13 @@ Podczas przechodzenia do innego obrazu (za pomocą klawiszy strzałek lub klikni
 2. Naciśnij →, aby wyświetlić obraz 2
 3. Obraz 2 automatycznie wyświetla warstwę RAW (NDVI Index)
 4. Kontynuuj nawigację — wszystkie obrazy wyświetlają warstwę NDVI.
-5. Bardzo wydajne rozwiązanie do przeglądania wyników indeksowania wielu obrazów.
+5. Bardzo wydajne narzędzie do przeglądania wyników indeksowania wielu obrazów.
 
 ***
 
 ## Typowe przepływy pracy
 
-### Przepływ pracy 1: Porównanie przed/po
+### Przepływ pracy 1: Porównanie przed i po
 
 **Cel**: Porównanie obrazu oryginalnego z obrazem skalibrowanym.
 
@@ -195,20 +195,20 @@ Podczas przechodzenia do innego obrazu (za pomocą klawiszy strzałek lub klikni
 
 1. Przejść do obrazu docelowego
 2. Wybrać **RAW (Target)** z menu rozwijanego
-3. Sprawdzić, czy cele kalibracyjne są wyraźnie widoczne i wykryte
-4. Przejdź do następnego obrazu docelowego
-5. Powtórz weryfikację dla wszystkich celów
+3. Sprawdź, czy cele kalibracyjne są wyraźnie widoczne i wykryte.
+4. Przejdź do następnego obrazu docelowego.
+5. Powtórz weryfikację dla wszystkich celów.
 
 ### Przebieg pracy 4: Kontrola wartości pikseli
 
-**Cel**: Sprawdź wartości odbicia pod kątem dokładności naukowej
+**Cel**: Sprawdź wartości odbicia pod kątem dokładności naukowej.
 
-1. Otwórz przetworzony obraz
-2. Wybierz warstwę **RAW (Odbicie)**
+1. Otwórz przetworzony obraz.
+2. Wybierz warstwę **RAW (Odbicie)**.
 3. Włącz tryb **Procent pikseli** (przycisk w prawym górnym pasku narzędzi)
-4. Przesuń kursor nad obszary roślinności.
-5. Sprawdź, czy wartości pikseli mieszczą się w oczekiwanych zakresach (30–70% dla NIR, 5–15% dla Red).
-6. Sprawdź, czy wartości dla obszarów gleby i wody są odpowiednie.
+4. Przesuń kursor nad obszary roślinności
+5. Sprawdź, czy wartości pikseli mieszczą się w oczekiwanych zakresach (30–70% dla NIR, 5–15% dla Red)
+6. Sprawdź, czy wartości dla obszarów gleby i wody są odpowiednie
 
 ***
 
@@ -222,9 +222,9 @@ Różne warstwy pokazują różne zakresy wartości pikseli:
 * **Znaczenie**: Wyświetlane wartości, skorygowane pod kątem gamma
 * **Zastosowanie**: Tylko do kontroli wzrokowej, nie do pomiarów naukowych
 
-### RAW (oryginalne)
+### RAW (oryginalny)
 
-* **Zakres**: 0-65535 (16-bitowy)
+* **Zakres**: 0-65535 (16 bitów)
 * **Znaczenie**: surowe wartości cyfrowe czujnika
 * **Zastosowanie**: sprawdzanie działania czujnika, niekalibrowane
 
@@ -243,7 +243,7 @@ Różne warstwy pokazują różne zakresy wartości pikseli:
 * **Przykłady**:
   * NDVI: od -1 do +1 (roślinność zazwyczaj od 0,4 do 0,9)
   * NDRE: od -1 do +1 (wykrywanie stresu)
-  * EVI: od 0 do 1 (ulepszona roślinność)
+  * EVI: od 0 do 1 (wzbogacona roślinność)
 
 ***
 
@@ -264,9 +264,9 @@ Różne warstwy pokazują różne zakresy wartości pikseli:
 
 ### Weryfikacja jakości
 
-* **Zawsze sprawdzaj RAW (oryginał)**: Zanim zaufasz przetworzonym wynikom, sprawdź jakość danych źródłowych.
-* **Porównaj warstwy**: użyj przełączania warstw, aby sprawdzić, czy przetwarzanie przebiegło poprawnie.
-* **Sprawdź zakresy indeksów**: użyj trybu procentu pikseli z warstwami indeksowymi, aby sprawdzić, czy wartości są rozsądne.
+* **Zawsze sprawdzaj RAW (oryginał)**: przed zaufaniem przetworzonym wynikom sprawdź jakość danych źródłowych
+* **Porównaj warstwy**: użyj przełączania warstw, aby sprawdzić, czy przetwarzanie przebiegło poprawnie
+* **Sprawdź zakresy indeksów**: użyj trybu procentu pikseli z warstwami indeksowymi, aby sprawdzić, czy wartości są rozsądne
 
 ***
 
@@ -274,26 +274,26 @@ Różne warstwy pokazują różne zakresy wartości pikseli:
 
 ### Warstwa niedostępna
 
-**Problem**: oczekiwana warstwa nie pojawia się w menu rozwijanym.
+**Problem**: Oczekiwana warstwa nie pojawia się w menu rozwijanym
 
 **Możliwe przyczyny:**
 
-* Obraz nie został przetworzony (dostępne są tylko pliki JPG i RAW (oryginalne))
+* Obraz nie został przetworzony (dostępne są tylko formaty JPG i RAW (oryginalny))
 * Kalibracja odbicia została wyłączona podczas przetwarzania
 * W ustawieniach projektu nie skonfigurowano określonego indeksu
 * Obraz jest obrazem tylko dla celów (nie wygenerowano indeksów dla celów)
 
 **Rozwiązania:**
 
-1. Sprawdź, czy obraz został przetworzony (sprawdź folder wyjściowy pod kątem przetworzonych plików)
-2. Sprawdź ustawienia projektu, aby potwierdzić, że indeksy zostały skonfigurowane
+1. Sprawdź, czy obraz został przetworzony (sprawdź folder wyjściowy pod kątem przetworzonych plików).
+2. Sprawdź ustawienia projektu, aby potwierdzić, że indeksy zostały skonfigurowane.
 3. Przetwórz ponownie z włączonymi żądanymi indeksami.
 
 ### Wyświetlana jest niewłaściwa warstwa
 
 **Problem**: Obraz otwiera się w nieoczekiwanej warstwie.
 
-**Przyczyna**: Preferencje warstwy z poprzedniego obrazu zostały przeniesione, ale ta warstwa nie istnieje w bieżącym obrazie.
+**Przyczyna**: Preferencje warstwy z poprzedniego obrazu zostały przeniesione, ale ta warstwa nie istnieje na bieżącym obrazie.
 
 **Rozwiązanie**: Chloros automatycznie przechodzi do formatu JPG, gdy preferowana warstwa jest niedostępna — jest to normalne zachowanie.
 
@@ -309,7 +309,7 @@ Różne warstwy pokazują różne zakresy wartości pikseli:
 
 **Rozwiązania:**
 
-1. Sprawdź dziennik debugowania pod kątem komunikatów „Target found” (Wykryto cel).
+1. Sprawdź dziennik debugowania pod kątem komunikatów „Target found” (Znaleziono cel).
 2. Sprawdź, czy obraz faktycznie zawiera widoczne cele kalibracyjne.
 3. Dostosuj ustawienia wykrywania celów w ustawieniach projektu.
 4. Zobacz [Wybieranie obrazów docelowych](../processing-images-gui/choosing-target-images.md).
@@ -322,21 +322,21 @@ Różne warstwy pokazują różne zakresy wartości pikseli:
 
 Podczas przeglądania dowolnej warstwy można używać:
 
-* **Elementów sterujących powiększeniem**: powiększ, aby sprawdzić szczegóły.
-* **Przesuwania**: Kliknij i przeciągnij, aby przesuwać powiększony obraz
-* **Sprawdzanie wartości pikseli**: Zobacz wartości w miejscu kursora
-* **Strzałki nawigacyjne**: Przechodź między obrazami, zachowując warstwę
-* **Tryb procentowy pikseli**: Przełączaj między wyświetlaniem DN a procentowym
+* **Elementy sterujące powiększeniem**: powiększ, aby sprawdzić szczegóły
+* **Przesuwanie**: kliknij i przeciągnij, aby przesuwać powiększony obraz
+* **Sprawdzanie wartości pikseli**: zobacz wartości w miejscu kursora
+* **Strzałki nawigacyjne**: przechodź między obrazami, zachowując warstwę
+* **Tryb procentowy pikseli**: przełączaj między wyświetlaniem DN a procentowym
 
-Zobacz [Otwieranie obrazu na pełnym ekranie](opening-an-image-full-screen.md), aby uzyskać pełną dokumentację przeglądarki obrazów.
+Pełna dokumentacja przeglądarki obrazów znajduje się w sekcji [Otwieranie obrazu na pełnym ekranie](opening-an-image-full-screen.md).
 
-### Sandbox indeksu/LUT
+### Indeks/LUT Sandbox
 
-Do interaktywnego testowania indeksu i wizualizacji:
+Do interaktywnego testowania indeksów i wizualizacji:
 
-* **Obliczanie indeksu w czasie rzeczywistym**: testuj różne formuły indeksu
-* **Mapowanie kolorów LUT**: stosuj gradienty kolorów do indeksów w skali szarości
-* **Eksportuj wizualizacje**: zapisuj kolorowe obrazy indeksu
+* **Obliczanie indeksu w czasie rzeczywistym**: testuj różne formuły indeksów
+* **Mapowanie kolorów LUT**: stosuj gradienty kolorów do indeksów skali szarości
+* **Eksportuj wizualizacje**: zapisuj kolorowe obrazy indeksów
 
 Szczegółowe informacje można znaleźć w sekcji [Sandbox indeksu/LUT](index-lut-sandbox.md).
 

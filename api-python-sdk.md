@@ -1,6 +1,6 @@
 # API : Python SDK
 
-**Chloros Python SDK** zapewnia programowy dostęp do silnika przetwarzania obrazów Chloros, umożliwiając automatyzację, dostosowanie przepływu pracy oraz płynną integrację z aplikacjami Python i procesami badawczymi.
+**Chloros Python SDK** zapewnia programowy dostęp do silnika przetwarzania obrazów Chloros, umożliwiając automatyzację, dostosowywanie przepływów pracy oraz płynną integrację z aplikacjami Python i procesami badawczymi.
 
 ### Najważniejsze cechy
 
@@ -19,7 +19,7 @@
 | **Licencja**          | Chloros+ ([wymagany płatny plan](https://cloud.mapir.camera/pricing)) |
 | **System operacyjny** | Windows 10/11 (64-bitowy)                                              |
 | **Python**           | Python 3.7 lub nowszy                                                |
-| **Pamięć**           | Minimum 8 GB RAM (zalecane 16 GB)                                  |
+| **Pamięć**           | Minimum 8 GB pamięci RAM (zalecane 16 GB)                                  |
 | **Internet**         | Wymagany do aktywacji licencji                                     |
 
 {% hint style=&quot;warning&quot; %}
@@ -87,8 +87,8 @@ chloros.process(mode="parallel", wait=True)
 Przed zainstalowaniem SDK upewnij się, że masz:
 
 1. Zainstalowany **Chloros Desktop** ([pobierz](download.md))
-2. Zainstalowany program **Python 3.7+** ([python.org](https://www.python.org))
-3. **Aktywna licencja Chloros+** ([aktualizacja](https://cloud.mapir.camera/pricing))
+2. **Python 3.7+** ([python.org](https://www.python.org))
+3. **Aktywną licencję Chloros+** ([aktualizacja](https://cloud.mapir.camera/pricing))
 
 ### Instalacja za pomocą pip
 
@@ -128,11 +128,11 @@ print(f"Chloros SDK version: {chloros_sdk.__version__}")
 SDK korzysta z tej samej licencji co Chloros, Chloros (przeglądarka) i Chloros CLI. Aktywuj raz za pomocą GUI lub CLI:
 
 1. Otwórz **Chloros lub Chloros (przeglądarka)** i zaloguj się na karcie użytkownika <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> . Lub otwórz **CLI**.
-2. Wprowadź swoje dane uwierzytelniające Chloros+ i zaloguj się
-3. Licencja jest buforowana lokalnie (utrzymuje się po ponownym uruchomieniu)
+2. Wprowadź swoje dane logowania Chloros+ i zaloguj się
+3. Licencja jest buforowana lokalnie (utrzymuje się po ponownym uruchomieniu komputera)
 
 {% hint style=&quot;success&quot; %}
-**Jednorazowa konfiguracja**: Po zalogowaniu się za pośrednictwem GUI lub CLI, SDK automatycznie korzysta z buforowanej licencji. Nie jest wymagane dodatkowe uwierzytelnianie!
+**Jednorazowa konfiguracja**: Po zalogowaniu się za pośrednictwem GUI lub CLI, SDK automatycznie korzysta z zapisanej w pamięci podręcznej licencji. Nie jest wymagane dodatkowe uwierzytelnianie!
 {% endhint %}
 
 ### Test połączenia
@@ -175,10 +175,10 @@ ChlorosLocal(
 | Parametr                 | Typ | Domyślny                   | Opis                           |
 | ------------------------- | ---- | ------------------------- | ------------------------------------- |
 | `api_url`                 | str  | `"http://localhost:5000"` | URL lokalnego backendu Chloros          |
-| `auto_start_backend`      | bool | `True`                    | Automatyczne uruchamianie zaplecza w razie potrzeby |
-| `backend_exe`             | str  | `None` (automatyczne wykrywanie)      | Ścieżka do pliku wykonywalnego backendu            |
+| `auto_start_backend`      | bool | `True`                    | Automatyczne uruchomienie zaplecza w razie potrzeby |
+| `backend_exe`             | str  | `None` (automatyczne wykrywanie)      | Ścieżka do pliku wykonywalnego zaplecza            |
 | `timeout`                 | int  | `30`                      | Limit czasu żądania w sekundach            |
-| `backend_startup_timeout` | int  | `60`                      | Limit czasu uruchomienia backendu (w sekundach) |
+| `backend_startup_timeout` | int  | `60`                      | Limit czasu uruchamiania backendu (sekundy) |
 
 **Przykłady:**
 
@@ -211,7 +211,7 @@ Utwórz nowy projekt Chloros.
 | `project_name` | str  | Tak      | Nazwa projektu                                     |
 | `camera`       | str  | Nie       | Szablon kamery (np. „Survey3N\_RGN”, „Survey3W\_OCN”) |
 
-**Zwraca:** `dict` — odpowiedź dotycząca utworzenia projektu.
+**Zwraca:** `dict` — odpowiedź dotycząca utworzenia projektu
 
 **Przykład:**
 
@@ -227,7 +227,7 @@ chloros.create_project("DroneField_A", camera="Survey3N_RGN")
 
 #### `import_images(folder_path, recursive=False)`
 
-Importowanie obrazów z folderu.
+Importuj obrazy z folderu.
 
 **Parametry:**
 
@@ -236,7 +236,7 @@ Importowanie obrazów z folderu.
 | `folder_path` | str/Path | Tak      | Ścieżka do folderu z obrazami         |
 | `recursive`   | bool     | Nie       | Przeszukaj podfoldery (domyślnie: Fałsz) |
 
-**Zwraca:** `dict` — wyniki importu z liczbą plików
+**Zwraca:** `dict` — Wyniki importu z liczbą plików
 
 **Przykład:**
 
@@ -252,7 +252,7 @@ chloros.import_images("C:\\DroneImages", recursive=True)
 
 #### `configure(**settings)`
 
-Skonfiguruj ustawienia przetwarzania.
+Konfiguracja ustawień przetwarzania.
 
 **Parametry:**
 
@@ -268,7 +268,7 @@ Skonfiguruj ustawienia przetwarzania.
 
 **Formaty eksportu:**
 
-* `"TIFF (16-bit)"` — zalecane dla GIS/fotogrametrii
+* `"TIFF (16-bit)"` — zalecany dla GIS/fotogrametrii
 * `"TIFF (32-bit, Percent)"` — analiza naukowa
 * `"PNG (8-bit)"` — kontrola wzrokowa
 * `"JPG (8-bit)"` — skompresowane dane wyjściowe
@@ -345,7 +345,7 @@ chloros.process(wait=False)
 
 Pobierz aktualną konfigurację projektu.
 
-**Zwraca:** `dict` — aktualną konfigurację projektu
+**Zwraca:** `dict` — aktualną konfigurację projektu.
 
 **Przykład:**
 
@@ -374,7 +374,7 @@ print(f"URL: {status['url']}")
 
 #### `shutdown_backend()`
 
-Wyłącza zaplecze (jeśli zostało uruchomione przez SDK).
+Wyłącza backend (jeśli został uruchomiony przez SDK).
 
 **Przykład:**
 
@@ -402,9 +402,9 @@ Jednowierszowa funkcja pomocnicza do przetwarzania folderu.
 | `reflectance_calibration` | bool     | `True`          | Włącz kalibrację odbicia |
 | `export_format`           | str      | „TIFF (16-bit)” | Format wyjściowy                  |
 | `mode`                    | str      | `"parallel"`    | Tryb przetwarzania                |
-| `progress_callback`       | callable | `None`          | Wywołanie zwrotne postępu              |
+| `progress_callback`       | wywoływalny | `None`          | Wywołanie zwrotne postępu              |
 
-**Zwraca:** `dict` — wyniki przetwarzania
+**Zwraca:** `dict` — Wyniki przetwarzania
 
 **Przykład:**
 
@@ -512,9 +512,9 @@ print("Processing complete!")
 
 ***
 
-### Przykład 3: Przetwarzanie wielu folderów wsadowo
+### Przykład 3: Przetwarzanie wsadowe wielu folderów
 
-Przetwarzanie wielu zestawów danych lotów:
+Przetwarzanie wielu zestawów danych lotniczych:
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -660,7 +660,7 @@ logging.info("Processing complete!")
 
 ### Przykład 6: Obsługa błędów
 
-Solidna obsługa błędów do użytku produkcyjnego:
+Solidne obsługiwanie błędów do użytku produkcyjnego:
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -775,7 +775,7 @@ if __name__ == '__main__':
     sys.exit(main())
 ```
 
-**Zastosowanie:**
+**Sposób użycia:**
 
 ```bash
 python my_processor.py "C:\Flight001" "C:\Flight002" --indices NDVI NDRE GNDVI
@@ -905,7 +905,7 @@ print(f"Backend exists: {os.path.exists(backend_path)}")
 ```
 
 2. Sprawdź, czy zapora Windows nie blokuje połączenia
-3. Spróbuj ręcznie wprowadzić ścieżkę do zaplecza:
+3. Spróbuj ręcznie podać ścieżkę do zaplecza:
 
 ```python
 chloros = ChlorosLocal(backend_exe="C:\\Path\\To\\chloros-backend.exe")
@@ -967,7 +967,7 @@ python -c "import sys; print(sys.path)"
 chloros = ChlorosLocal(timeout=120)  # 2 minutes
 ```
 
-2. Przetwarzaj mniejsze partie
+2. Przetwarzaj mniejsze partie danych
 3. Sprawdź dostępną przestrzeń dyskową
 4. Monitoruj zasoby systemowe
 
@@ -1123,7 +1123,7 @@ chloros.process(progress_callback=notebook_progress)
 
 ### P: Czy SDK wymaga połączenia z Internetem?
 
-**O:** Tylko do początkowej aktywacji licencji. Po zalogowaniu się za pośrednictwem Chloros, Chloros (przeglądarka) lub Chloros CLI licencja jest buforowana lokalnie i działa w trybie offline przez 30 dni.
+**O:** Tylko do początkowej aktywacji licencji. Po zalogowaniu się za pomocą Chloros, Chloros (przeglądarka) lub Chloros CLI licencja jest buforowana lokalnie i działa w trybie offline przez 30 dni.
 
 ***
 
@@ -1142,7 +1142,7 @@ chloros.process(progress_callback=notebook_progress)
 | Funkcja         | Desktop GUI | CLI Command Line | Python SDK  |
 | --------------- | ----------- | ---------------- | ----------- |
 | **Interfejs**   | Punkt-klik | Polecenie          | Python API  |
-| **Najlepsze dla**    | Praca wizualna | Skrypty        | Integracja |
+| **Najlepsze do**    | Pracy wizualnej | Skryptów        | Integracji |
 | **Automatyzacja**  | Ograniczona     | Dobra             | Doskonała   |
 | **Elastyczność** | Podstawowa       | Dobra             | Maksymalna     |
 | **Licencja**     | Chloros+    | Chloros+         | Chloros+    |
@@ -1153,9 +1153,9 @@ chloros.process(progress_callback=notebook_progress)
 
 **O:** Kod SDK można zintegrować z aplikacjami, ale:
 
-* Użytkownicy końcowi muszą mieć zainstalowany Chloros.
-* Użytkownicy końcowi muszą posiadać aktywne licencje Chloros+.
-* Dystrybucja komercyjna wymaga licencji OEM.
+* Użytkownicy końcowi muszą mieć zainstalowany Chloros
+* Użytkownicy końcowi muszą posiadać aktywne licencje Chloros+
+* Dystrybucja komercyjna wymaga licencji OEM
 
 W sprawie pytań dotyczących licencji OEM prosimy o kontakt z info@mapir.camera.
 
@@ -1199,7 +1199,7 @@ Zaplanuj codzienne uruchamianie za pomocą harmonogramu zadań.
 
 ### P: Czy SDK obsługuje async/await?
 
-**O:** Obecna wersja jest synchroniczna. Aby uzyskać zachowanie asynchroniczne, użyj `wait=False` lub uruchom w osobnym wątku:
+**O:** Obecna wersja jest synchroniczna. Aby uzyskać zachowanie asynchroniczne, użyj `wait=False` lub uruchom w oddzielnym wątku:
 
 ```python
 import threading
@@ -1221,7 +1221,7 @@ thread.start()
 
 * **API Reference**: Ta strona
 
-### Kanały wsparcia
+### Kanały pomocy technicznej
 
 * **E-mail**: info@mapir.camera
 * **Strona internetowa**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)

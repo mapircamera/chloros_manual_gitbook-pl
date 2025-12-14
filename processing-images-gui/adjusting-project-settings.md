@@ -22,10 +22,10 @@ W przypadku typowych procesów pracy z kamerą MAPIR Survey3 dobrze sprawdzają 
 
 * ✅ **Korekcja winietowania**: włączona
 * ✅ **Kalibracja odbicia**: włączona (wymaga obrazów celów MAPIR)
-* ✅ **Metoda debayeringu**: Wysoka jakość (szybsza)
+* ✅ **Metoda debayera**: Wysoka jakość (szybsza)
 * ✅ **Format eksportu**: TIFF (16-bitowy)
 
-Wystarczy zaimportować obrazy i rozpocząć przetwarzanie przy użyciu tych domyślnych ustawień.
+Wystarczy zaimportować obrazy i rozpocząć przetwarzanie przy użyciu tych ustawień domyślnych.
 
 ***
 
@@ -33,9 +33,9 @@ Wystarczy zaimportować obrazy i rozpocząć przetwarzanie przy użyciu tych dom
 
 Panel ustawień projektu jest podzielony na kilka kategorii. Poniżej znajduje się podsumowanie każdej sekcji. Pełna dokumentacja znajduje się w sekcji [Ustawienia projektu](../project-settings/project-settings.md).
 
-### Wykrywanie obiektów docelowych
+### Wykrywanie celów
 
-Kontroluje sposób, w jaki Chloros identyfikuje obiekty kalibracyjne na obrazach.
+Kontroluje sposób, w jaki Chloros identyfikuje cele kalibracyjne na obrazach.
 
 **Kluczowe ustawienia:**
 
@@ -56,7 +56,7 @@ Główne opcje przetwarzania obrazu i kalibracji.
 
 * **Korekcja winietowania**: kompensuje zaciemnienie obiektywu na krawędziach ✅ Zalecane
 * **Kalibracja odbicia**: normalizuje wartości przy użyciu celów kalibracyjnych ✅ Zalecane
-* **Metoda Debayera**: algorytm konwersji RAW do 3-kanałowego multispektralnego
+* **Metoda Debayera**: algorytm konwersji RAW do 3-kanałowego obrazu wielospektralnego
 * **Minimalny interwał ponownej kalibracji**: czas między użyciem celów kalibracyjnych (0 = użyj wszystkich)
 
 **Ustawienia zaawansowane:**
@@ -74,13 +74,13 @@ Skonfiguruj, które indeksy roślinności mają być obliczane i eksportowane.
 1. Kliknij przycisk **„Dodaj indeks”**
 2. Wybierz indeks z menu rozwijanego (NDVI, NDRE, GNDVI itp.)
 3. Skonfiguruj ustawienia wizualizacji (kolory LUT, zakresy wartości)
-4. Dodaj wiele indeksów w razie potrzeby
+4. Dodaj wiele indeksów zgodnie z potrzebami
 
 **Popularne indeksy:**
 
 * **NDVI**: Ogólny stan zdrowia roślinności (najczęściej stosowany)
 * **NDRE**: Wczesne wykrywanie stresu za pomocą RedEdge
-* **GNDVI**: Wrażliwy na stężenie chlorofilu
+* **GNDVI**: Wrażliwość na stężenie chlorofilu
 * **OSAVI**: Działa dobrze w przypadku widocznej gleby
 * **EVI**: Regiony o wysokim wskaźniku powierzchni liści (LAI)
 
@@ -170,7 +170,7 @@ W przypadku korzystania z rejestratorów MAPIR DAQ z GPS w celu precyzyjnej geol
 * Ta sama kamera nie może być przypisana do obu pinów
 
 {% hint style=&quot;warning&quot; %}
-**Ważne**: Piny ekspozycji muszą być prawidłowo przypisane do odpowiednich kamer. Nieprawidłowe przypisanie spowoduje wygenerowanie błędnych danych geolokalizacyjnych.
+**Ważne**: Piny ekspozycji muszą być prawidłowo przypisane do odpowiednich kamer. Nieprawidłowe przypisanie spowoduje błędne dane geolokalizacyjne.
 {% endhint %}
 
 ***
@@ -216,8 +216,8 @@ Przed rozpoczęciem przetwarzania sprawdź następujące kluczowe ustawienia:
 * [ ] Model aparatu prawidłowo wykryty w przeglądarce plików
 * [ ] Włączona korekcja winietowania
 * [ ] Włączona kalibracja odbicia
-* [ ] Zaimportowano co najmniej jeden obraz docelowy kalibracji
-* [ ] Dodano żądane indeksy wielospektralne
+* [ ] Zaimportowano co najmniej jeden obraz kalibracyjny
+* [ ] Dodano żądane wskaźniki wielospektralne
 * [ ] Format eksportu odpowiedni dla Twojego przepływu pracy
 * [ ] Skonfigurowano ustawienia PPK (w przypadku korzystania z .daq z wydarzeniami ekspozycji)
 

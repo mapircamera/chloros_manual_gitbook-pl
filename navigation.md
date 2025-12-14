@@ -18,7 +18,7 @@ Po włączeniu przycisk startu przetwarzania uruchamia proces przetwarzania obra
 
 W bezpłatnym trybie Chloros, który przetwarza wszystkie pliki sekwencyjnie, pasek postępu pokazuje 2 etapy: wykrywanie celu i przetwarzanie.
 
-W płatnym trybie Chloros+ z licencją, który przetwarza wszystkie pliki jednocześnie, pasek postępu pokazuje 4 etapy: wykrywanie, analizowanie, kalibrowanie, eksportowanie. Po najechaniu kursorem myszy na pasek postępu Chloros+ rozwinie się rozszerzony panel z 4 paskami postępu, dzięki czemu można śledzić postępy. Kliknięcie górnego paska postępu spowoduje zamrożenie panelu rozwijanego, a ponowne kliknięcie spowoduje jego odblokowanie.
+W płatnym trybie licencjonowanym Chloros+, który przetwarza wszystkie pliki jednocześnie, pasek postępu pokazuje 4 etapy: wykrywanie, analizowanie, kalibrowanie, eksportowanie. Po najechaniu kursorem myszy na pasek postępu Chloros+ rozwinie się rozszerzony panel z 4 paskami postępu, dzięki czemu można śledzić postępy. Kliknięcie górnego paska postępu spowoduje zamrożenie panelu rozwijanego, a ponowne kliknięcie spowoduje jego odblokowanie.
 
 <figure><img src=".gitbook/assets/plus_prog.JPG" alt=""><figcaption></figcaption></figure>
 
@@ -40,7 +40,7 @@ Po kliknięciu obrazu w głównej przeglądarce obrazów zostanie on otwarty na 
 
 #### <img src=".gitbook/assets/icon_log.JPG" alt="" data-size="line"> Dziennik debugowania
 
-W przypadku wystąpienia problemów należy przejrzeć dziennik w poszukiwaniu wydruków debugowania. Skopiuj/pobierz dziennik i wyślij go do [MAPIR Support](https://www.mapir.camera/community/contact) w celu uzyskania pomocy.
+W przypadku wystąpienia problemów przejrzyj dziennik pod kątem wydruków debugowania. Skopiuj/pobierz dziennik i wyślij go do [MAPIR Support](https://www.mapir.camera/community/contact) w celu uzyskania pomocy.
 
 #### <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> [Logowanie użytkownika](chloros+-login.md)
 
