@@ -6,7 +6,7 @@ Menu <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> na pasku 
 
 Po zalogowaniu się wyświetlą się szczegóły konta:
 
-<figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>## CLI Logowanie
+<figure><img src=".gitbook/assets/user_account.JPG" alt="" data-size="line"><figcaption></figcaption></figure>## CLI Logowanie
 
 Zaloguj się przy użyciu danych logowania Chloros+, aby włączyć przetwarzanie CLI.
 

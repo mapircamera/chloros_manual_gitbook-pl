@@ -88,7 +88,7 @@ Karta Mapa obsługuje dwóch dostawców kafelków dla obrazów mapy tła:
 
 Możesz wybrać typ warstwy mapy (od lewej do prawej):
 
- <img src="../.gitbook/assets/image (23).png" alt="" data-size="original">### Teren
+ <img src="../.gitbook/assets/image (23).png" alt="" data-size="line">### Teren
 
 Wyświetla profile wysokościowe i kafelki mapy ze szczegółami (drogi itp.)
 
