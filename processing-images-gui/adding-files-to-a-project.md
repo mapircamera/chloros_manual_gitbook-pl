@@ -5,11 +5,11 @@ Po utworzeniu lub otwarciu projektu w Chloros, następnym krokiem jest dodanie o
 ## Dostęp do przeglądarki plików
 
 1. Otwórz lub utwórz projekt w Chloros
-2. Kliknij ikonę **Przeglądarka plików** <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> na lewym pasku bocznym
+2. Kliknij ikonę **Przeglądarka plików** <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> na pasku bocznym po lewej stronie
 3. Panel przeglądarki plików wyświetli listę plików projektu
 
 {% hint style=&quot;info&quot; %}
-**Obsługiwane typy plików**: Chloros obsługuje pliki obrazów RAW+JPG i JPG z aparatów MAPIR Survey3W i Survey3N. Zalecane są wyłącznie pliki RAW+JPG.
+**Obsługiwane typy plików**: Chloros obsługuje pliki obrazów RAW+JPG i JPG z aparatów MAPIR Survey3W i Survey3N. Zalecane są tylko pliki RAW+JPG.
 {% endhint %}
 
 ***
@@ -22,48 +22,41 @@ Istnieją dwa podstawowe sposoby dodawania obrazów do projektu:
 
 Użyj tej opcji, aby zaimportować pojedyncze pliki obrazów lub niewielką grupę plików.
 
-1. Kliknij przycisk **„Dodaj pliki”** u góry panelu przeglądarki plików.
-2. Przejdź do folderu zawierającego obrazy.
-3. Wybierz jeden lub więcej plików obrazów (przytrzymaj klawisz **Ctrl**, aby wybrać wiele plików).
-4. Kliknij **„Otwórz”**, aby zaimportować wybrane pliki.
+1. Kliknij przycisk **„Dodaj pliki”** <img src="../.gitbook/assets/image.png" alt="" data-size="line"> w górnej części panelu przeglądarki plików
+2. Przejdź do folderu zawierającego obrazy
+3. Wybierz jeden lub więcej plików obrazów (przytrzymaj klawisz **Ctrl**, aby wybrać wiele plików)
+4. Kliknij **„Otwórz”**, aby zaimportować wybrane pliki
 
 ### Metoda 2: Dodaj folder
 
 Użyj tej opcji, aby zaimportować wszystkie obrazy z folderu jednocześnie.
 
-1. Kliknij przycisk **„Dodaj folder”** u góry panelu przeglądarki plików.
+1. Kliknij przycisk **„Dodaj folder”** <img src="../.gitbook/assets/image (1).png" alt="" data-size="line"> u góry panelu przeglądarki plików.
 2. Przejdź do folderu zawierającego obrazy z sesji przechwytywania i wybierz go.
-3. Kliknij **„Wybierz folder”**, aby zaimportować wszystkie obsługiwane obrazy z tego folderu.
+3. Kliknij przycisk **„Wybierz folder”**, aby zaimportować wszystkie obsługiwane obrazy z tego folderu.***
 
-***
-
-## Omówienie tabeli przeglądarki plików
+## Informacje o tabeli przeglądarki plików
 
 Po zaimportowaniu obrazy pojawiają się w tabeli zawierającej następujące kolumny:
 
-### Miniatura
-
-* Mały podgląd każdego obrazu.
-* Kliknij miniaturę, aby wyświetlić pełny obraz w głównym obszarze podglądu.
-
 ### Nazwa pliku
 
-* Oryginalna nazwa pliku z aparatu.
-* Zachowuje konwencję nazewniczą aparatu (np. IMG\_0001.RAW).
+* Oryginalna nazwa pliku z aparatu
+* Zachowuje konwencję nazewniczą aparatu (np. IMG\_0001.RAW)
 
 ### Sygnatura czasowa
 
-* Data i godzina wykonania zdjęcia.
-* Wyodrębniona z metadanych EXIF obrazu.
-* Używany do synchronizacji PPK i wykrywania celów kalibracji
+* Data i godzina wykonania zdjęcia
+* Wyodrębniona z metadanych EXIF obrazu
+* Używana do synchronizacji PPK i wykrywania celu kalibracji
 
 ### Model aparatu
 
 * Automatycznie wykryta konfiguracja aparatu i filtra
 * Przykłady: Survey3W\_RGN, Survey3N\_OCN, Survey3W\_RGB
-* Używany do zastosowania prawidłowych profili przetwarzania
+* Służy do stosowania prawidłowych profili przetwarzania
 
-### Kolumna celu (pole wyboru)
+### Kolumna docelowa (pole wyboru)
 
 * Zaznacz to pole dla obrazów zawierających cele kalibracyjne
 * Znacznie przyspiesza wykrywanie celów podczas przetwarzania
@@ -78,16 +71,14 @@ Po zaimportowaniu obrazy pojawiają się w tabeli zawierającej następujące ko
 Aby usunąć niechciane obrazy z projektu:
 
 1. Wybierz jeden lub więcej obrazów w tabeli przeglądarki plików
-2. Kliknij przycisk **„Usuń wybrane”**
-3. Potwierdź usunięcie (pliki nie są usuwane z dysku, a jedynie z projektu)
+2. Kliknij przycisk **„Usuń wybrane”** <img src="../.gitbook/assets/image (2).png" alt="" data-size="line"> .
+3. Potwierdź usunięcie (pliki nie są usuwane z dysku, a jedynie z projektu).
 
 ### Sortowanie i filtrowanie
 
-* **Sortuj według kolumny**: kliknij dowolny nagłówek kolumny, aby posortować obrazy
+* **Sortuj według kolumny**: kliknij dowolny nagłówek kolumny, aby posortować obrazy.
 * **Sortowanie według daty**: przydatne do porządkowania sekwencji zdjęć w porządku chronologicznym.
-* **Filtr modelu aparatu**: grupuj obrazy według typu aparatu, jeśli używasz wielu aparatów.
-
-***
+* **Filtr modelu aparatu**: grupuj obrazy według typu aparatu, jeśli używasz wielu aparatów***
 
 ## Podgląd obrazu
 
@@ -95,8 +86,8 @@ Aby usunąć niechciane obrazy z projektu:
 
 Kliknij dowolną miniaturę obrazu w przeglądarce plików, aby wyświetlić go w głównym obszarze podglądu:
 
-1. Obraz pojawi się w środkowym panelu podglądu.
-2. Użyj elementów sterujących powiększaniem, aby sprawdzić szczegóły obrazu.
+1. Obraz pojawi się w środkowym panelu podglądu
+2. Użyj elementów sterujących powiększaniem, aby sprawdzić szczegóły obrazu
 3. Przechodź między obrazami za pomocą klawiszy strzałek
 
 ### Szybka nawigacja
@@ -104,20 +95,18 @@ Kliknij dowolną miniaturę obrazu w przeglądarce plików, aby wyświetlić go 
 * **Poprzedni obraz**: kliknij strzałkę w lewo lub naciśnij klawisz ←
 * **Następny obraz**: kliknij strzałkę w prawo lub naciśnij klawisz →
 * **Powiększ/pomniejsz**: użyj kółka myszy lub przycisków powiększania
-* **Przesuwanie**: kliknij i przeciągnij obraz po powiększeniu
-
-***
+* **Przesuwanie**: kliknij i przeciągnij obraz po powiększeniu***
 
 ## Obsługa zduplikowanych plików
 
 Chloros automatycznie wykrywa i ignoruje zduplikowane pliki:
 
 * Pliki o identycznych nazwach są pomijane.
-* Zapobiega przypadkowemu podwójnemu przetwarzaniu.
+* Zapobiega to przypadkowemu podwójnemu przetwarzaniu.
 * W przypadku wykrycia duplikatów wyświetlany jest komunikat ostrzegawczy.
 
 {% hint style=&quot;warning&quot; %}
-**Ważne**: Nie zmieniaj nazw ani nie modyfikuj oryginalnych plików obrazów przed importem. Chloros opiera się na oryginalnych nazwach plików i metadanych w celu prawidłowego przetwarzania.
+**Ważne**: Nie zmieniaj nazw ani nie modyfikuj oryginalnych plików obrazów przed importowaniem. Chloros opiera się na oryginalnych nazwach plików i metadanych w celu prawidłowego przetwarzania.
 {% endhint %}
 
 ***
@@ -131,9 +120,7 @@ Jeśli projekt zawiera obrazy z wielu kamer MAPIR:
 3. Przeglądarka plików wyświetla model kamery w kolumnie Model kamery.
 4. Podczas przetwarzania stosowane są prawidłowe ustawienia dla każdego typu kamery.
 
-**Przykładowy scenariusz**: Survey3W RGN + Survey3N OCN konfiguracja z dwoma kamerami.
-
-***
+**Przykładowy scenariusz**: Survey3W RGN + Survey3N OCN konfiguracja z dwoma kamerami.***
 
 ## Najlepsze praktyki
 
@@ -152,9 +139,9 @@ Jeśli projekt zawiera obrazy z wielu kamer MAPIR:
 ### Obrazy kalibracyjne
 
 * Zawsze dołączaj 1-2 obrazy kalibracyjne na sesję.
-* Przechwytuj obrazy kalibracyjne przed i po sesji przechwytywania.
-* Umieść obrazy kalibracyjne w takich samych warunkach oświetleniowych jak obszar przechwytywania.
-* Zaznacz obrazy kalibracyjne za pomocą pola wyboru Target, aby przyspieszyć przetwarzanie.
+* Przechwytuj cele przed i po sesji przechwytywania.
+* Umieść cele w takich samych warunkach oświetleniowych jak obszar przechwytywania.
+* Zaznacz obrazy celów za pomocą pola wyboru Cel, aby przyspieszyć przetwarzanie.
 
 ***
 
@@ -187,9 +174,7 @@ Jeśli projekt zawiera obrazy z wielu kamer MAPIR:
 * Nieprawidłowe ustawienie zegara aparatu
 * Dane EXIF usunięte przez oprogramowanie zewnętrzne
 
-**Rozwiązanie**: Sprawdź, czy ustawienia czasu aparatu były prawidłowe podczas robienia zdjęć
-
-***
+**Rozwiązanie**: Sprawdź, czy ustawienia czasu aparatu były prawidłowe podczas robienia zdjęć***
 
 ## Kolejne kroki
 

@@ -6,7 +6,7 @@
 * [CLI: Wiersz poleceń](CLI.md)
 * [API: Python SDK](api-python-sdk.md)
 * [Obsługiwane aparaty fotograficzne](supported-cameras.md)
-* [Formaty wyjściowe obrazów](output-image-formats.md)
+* [Formaty obrazów wyjściowych](output-image-formats.md)
 * [Chloros+ Logowanie](chloros+-login.md)
 * [Cele kalibracji](calibration-targets.md)
 * [Obsługiwane języki](supported-languages.md)
@@ -29,6 +29,8 @@
 
 ## PRZEGLĄDARKĄ OBRAZÓW (GUI)
 
+* [Siatka obrazów](image-viewer-gui/image-grid.md)
 * [Otwieranie obrazu na pełnym ekranie](image-viewer-gui/opening-an-image-full-screen.md)
 * [Warstwy obrazu](image-viewer-gui/image-layers.md)
-* [Sandbox indeksu/LUT](image-viewer-gui/index-lut-sandbox.md)
+* [Piaskownica indeksów/LUT](image-viewer-gui/index-lut-sandbox.md)
+* [Znaczniki mapy](image-viewer-gui/map-markers.md)

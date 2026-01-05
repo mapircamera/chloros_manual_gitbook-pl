@@ -8,7 +8,7 @@
 * 🔗 **Integracja** — osadzenie w istniejących przepływach pracy i potokach
 * 💻 **Praca bez interfejsu graficznego** — działanie bez GUI
 * 🌍 **Wielojęzyczność** — obsługa 38 języków
-* ⚡ **Równoległe przetwarzanie** — dynamiczne skalowanie do procesora (do 16 równoległych procesów)
+* ⚡ **Równoległe przetwarzanie** — dynamiczna skalowalność do mocy procesora (do 16 równoległych procesów)
 
 ### Wymagania
 
@@ -16,7 +16,7 @@
 | -------------------- | ------------------------------------------------------------------- |
 | **System operacyjny** | Windows 10/11 (64-bitowy)                                              |
 | **Licencja**          | Chloros+ ([wymagany płatny plan](https://cloud.mapir.camera/pricing)) |
-| **Pamięć**           | Minimum 8 GB RAM (zalecane 16 GB)                                  |
+| **Pamięć**           | Minimum 8 GB pamięci RAM (zalecane 16 GB)                                  |
 | **Internet**         | Wymagany do aktywacji licencji                                     |
 | **Miejsce na dysku**       | Zależy od wielkości projektu                                              |
 
@@ -31,6 +31,7 @@
 CLI jest automatycznie dołączany do instalatora Chloros:
 
 1. Pobierz i uruchom **Chloros Installer.exe**
+
 2. Ukończ kreatora instalacji
 3. CLI zainstalowany w: `C:\Program Files\Chloros\resources\cli\chloros-cli.exe`
 
@@ -108,7 +109,7 @@ chloros-cli process "C:\Datasets\Survey_001" --vignette --reflectance
 | `--target-clustering` | Liczba całkowita | Auto           | Próg grupowania docelowego (0-100)                                                    |
 | `--exposure-pin-1`    | Ciąg znaków  | Brak           | Blokada ekspozycji dla modelu kamery (pin 1)                                                 |
 | `--exposure-pin-2`    | Ciąg znaków  | Brak           | Blokada ekspozycji dla modelu kamery (pin 2)                                                 |
-| `--recal-interval`    | Liczba całkowita | Auto           | Interwał ponownej kalibracji w sekundach                                                      |
+| `--recal-interval`    | Liczba całkowita | Auto           | Interwał rekalibracji w sekundach                                                      |
 | `--timezone-offset`   | Liczba całkowita | 0              | Przesunięcie strefy czasowej w godzinach                                                               |
 
 ***
@@ -130,16 +131,14 @@ chloros-cli login user@example.com 'MyP@ssw0rd123'
 ```
 
 {% hint style=&quot;warning&quot; %}
-**Znaki specjalne**: Użyj pojedynczych cudzysłowów wokół haseł zawierających znaki takie jak `$`, `!` lub spacje.
+**Znaki specjalne**: Używaj pojedynczych cudzysłowów wokół haseł zawierających znaki takie jak `$`, `!` lub spacje.
 {% endhint %}
 
-**Wynik:**
+**Wynik:**<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>***
 
-<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>***
+### `logout` — Wyczyść dane logowania
 
-### `logout` — Wyczyść dane uwierzytelniające
-
-Wyczyść zapisane dane uwierzytelniające i wyloguj się z konta.
+Wyczyść zapisane dane logowania i wyloguj się ze swojego konta.
 
 **Składnia:**
 
@@ -160,11 +159,15 @@ chloros-cli logout
 ℹ Credentials cleared from cache
 ```
 
+{% hint style=&quot;info&quot; %}
+**Użytkownicy SDK**: Python SDK udostępnia również programową metodę `logout()` do czyszczenia poświadczeń w skryptach Python. Szczegółowe informacje można znaleźć w [dokumentacji Python SDK](api-python-sdk.md#logout).
+{% endhint %}
+
 ***
 
-### `status` — sprawdź status licencji
+### `status` — sprawdzanie statusu licencji
 
-Wyświetl aktualną licencję i status uwierzytelnienia.
+Wyświetla aktualny status licencji i uwierzytelnienia.
 
 **Składnia:**
 
@@ -195,7 +198,7 @@ chloros-cli status
 
 ### `export-status` — sprawdzanie postępu eksportu
 
-Monitorowanie postępu eksportu wątku 4 podczas lub po przetwarzaniu.
+Monitorowanie postępu eksportu wątku 4 podczas przetwarzania lub po jego zakończeniu.
 
 **Składnia:**
 
@@ -209,13 +212,11 @@ chloros-cli export-status
 chloros-cli export-status
 ```
 
-**Przykład użycia:** Wywołaj to polecenie podczas przetwarzania, aby sprawdzić postęp eksportu.
-
-***
+**Przykład użycia:** Wywołaj to polecenie podczas przetwarzania, aby sprawdzić postęp eksportu.***
 
 ### `language` — zarządzanie językiem interfejsu
 
-Wyświetlanie lub zmiana języka interfejsu CLI.
+Wyświetl lub zmień język interfejsu CLI.
 
 **Składnia:**
 
@@ -286,11 +287,11 @@ chloros-cli language ja
 | `hr`    | Chorwacki              | Hrvatski         |
 | `lt`    | Litewski            | Lietuvių         |
 | `lv`    | Łotewski               | Latviešu         |
-| `et`    | Estoński              | Eesti            |
-| `sl`    | Słoweński             | Slovenščina      |
+| `et`    | estoński              | Eesti            |
+| `sl`    | słoweński             | Slovenščina      |
 
 {% hint style=&quot;success&quot; %}
-**Automatyczna trwałość**: Twoje preferencje językowe są zapisywane w `~/.chloros/cli_language.json` i pozostają niezmienne we wszystkich sesjach.
+**Automatyczne zachowanie**: Twoje preferencje językowe są zapisywane w `~/.chloros/cli_language.json` i zachowywane we wszystkich sesjach.
 {% endhint %}
 
 ***
@@ -315,7 +316,7 @@ chloros-cli set-project-folder "C:\Projects\2025"
 
 ### `get-project-folder` — Pokaż folder projektu
 
-Wyświetla bieżącą lokalizację domyślnego folderu projektu.
+Wyświetla bieżącą domyślną lokalizację folderu projektu.
 
 **Składnia:**
 
@@ -337,9 +338,9 @@ chloros-cli get-project-folder
 
 ***
 
-### `reset-project-folder` — resetuj do wartości domyślnej
+### `reset-project-folder` — przywróć domyślne ustawienia
 
-Resetuje folder projektu do lokalizacji domyślnej.
+Przywróć domyślną lokalizację folderu projektu.
 
 **Składnia:**
 
@@ -355,9 +356,9 @@ Te opcje mają zastosowanie do wszystkich poleceń:
 
 | Opcja          | Typ    | Domyślna       | Opis                                      |
 | --------------- | ------- | ------------- | ------------------------------------------------ |
-| `--backend-exe` | Ścieżka    | Wykrywana automatycznie | Ścieżka do pliku wykonywalnego backendu                       |
-| `--port`        | Liczba całkowita | 5000          | Numer portu backendu API                          |
-| `--restart`     | Flaga    | -             | Wymuś ponowne uruchomienie zaplecza (zabija istniejące procesy) |
+| `--backend-exe` | Ścieżka    | Wykrywana automatycznie | Ścieżka do pliku wykonywalnego zaplecza                       |
+| `--port`        | Liczba całkowita | 5000          | Numer portu zaplecza API                          |
+| `--restart`     | Flaga    | -             | Wymuś ponowne uruchomienie backendu (zabija istniejące procesy) |
 | `--version`     | Flaga    | -             | Pokaż informacje o wersji i zamknij                |
 | `--help`        | Flaga    | -             | Pokaż informacje pomocy i zamknij                   |
 
@@ -373,21 +374,17 @@ chloros-cli --port 5001 process "C:\Datasets\Survey_001"
 
 ### Przetwarzanie równoległe
 
-Chloros+ CLI **automatycznie skaluje** przetwarzanie równoległe, aby dopasować je do możliwości komputera:
-
-**Jak to działa:**
+Chloros+ CLI **automatycznie skaluje**przetwarzanie równoległe, aby dopasować je do możliwości komputera:**Jak to działa:**
 
 * Wykrywa rdzenie procesora i pamięć RAM
 * Przydziela procesy robocze: **2× rdzenie procesora** (wykorzystuje technologię hyperthreading)
-* **Maksymalnie: 16 równoległych procesów roboczych** (dla stabilności)
-
-**Poziomy systemu:**
+* **Maksymalnie: 16 równoległych procesów roboczych** (dla stabilności)**Poziomy systemu:**
 
 | Typ systemu   | Procesor        | Pamięć RAM      | Procesy robocze  | Wydajność     |
 | ------------- | ---------- | -------- | -------- | --------------- |
 | **Wysoka klasy**  | 16+ rdzeni  | 32+ GB   | Do 16 | Maksymalna prędkość   |
-| **Średni**   | 8–15 rdzeni  | 16–31 GB   | 8–16     | Doskonała prędkość  |
-| **Niski**   | 4–7 rdzeni  | 8–15 GB  | 4–8      | Dobra prędkość  |
+| **Średni** | 8–15 rdzeni | 16–31 GB | 8–16     | Doskonała prędkość |
+| **Niski**   | 4–7 rdzeni  | 8–15 GB  | 4–8      | Dobra prędkość      |
 
 {% hint style=&quot;success&quot; %}
 **Automatyczna optymalizacja**: CLI automatycznie wykrywa specyfikację systemu i konfiguruje optymalne przetwarzanie równoległe. Nie jest wymagana ręczna konfiguracja!
@@ -395,7 +392,7 @@ Chloros+ CLI **automatycznie skaluje** przetwarzanie równoległe, aby dopasowa�
 
 ### Metody debayerowania
 
-CLI używa **Wysoka jakość (szybsza)** jako domyślnego i zalecanego algorytmu debayerowania:
+CLI używa **Wysokiej jakości (szybszej)** jako domyślnego i zalecanego algorytmu debayerowania:
 
 | Metoda                      | Jakość | Szybkość | Opis                                 |
 | --------------------------- | ------- | ----- | ------------------------------------------- |
@@ -417,7 +414,7 @@ CLI używa **Wysoka jakość (szybsza)** jako domyślnego i zalecanego algorytmu
 Konwertuje surowe wartości czujnika na znormalizowane wartości procentowe odbicia za pomocą paneli kalibracyjnych.
 
 * **Włączone domyślnie** — niezbędne do analizy roślinności.
-* Wymaga paneli kalibracyjnych na obrazach.
+* Wymaga paneli kalibracyjnych w obrazach.
 * Aby wyłączyć, użyj `--no-reflectance`.
 
 {% hint style=&quot;info&quot; %}
@@ -434,7 +431,7 @@ Konwertuje surowe wartości czujnika na znormalizowane wartości procentowe odbi
 
 ### Formaty wyjściowe
 
-<table><thead><tr><th width="197">Format</th><th width="130.20001220703125">Głębia bitowa</th><th width="116.5999755859375">Rozmiar pliku</th><th>Najlepszy dla</th></tr></thead><tbody><tr><td><strong>TIFF (16-bitowy)</strong> ⭐</td><td>16-bitowa liczba całkowita</td><td>Duże</td><td>Analiza GIS, fotogrametria (zalecane)</td></tr><tr><td><strong>TIFF (32-bitowy, procentowy)</strong></td><td>32-bitowa zmiennoprzecinkowa</td><td>Bardzo duża</td><td>Analiza naukowa, badania</td></tr><tr><td><strong>PNG (8-bitowy)</strong></td><td>8-bitowa liczba całkowita</td><td>Średni</td><td>Kontrola wzrokowa, udostępnianie w sieci</td></tr><tr><td><strong>JPG (8-bit)</strong></td><td>8-bitowa liczba całkowita</td><td>Mały</td><td>Szybki podgląd, skompresowane dane wyjściowe</td></tr></tbody></table>***
+<table><thead><tr><th width="197">Format</th><th width="130.20001220703125">Głębia bitowa</th><th width="116.5999755859375">Rozmiar pliku</th><th>Najlepszy dla</th></tr></thead><tbody><tr><td><strong>TIFF (16-bitowy)</strong> ⭐</td><td>16-bitowa liczba całkowita</td><td>Duże</td><td>Analiza GIS, fotogrametria (zalecane)</td></tr><tr><td><strong>TIFF (32-bitowa, procentowa)</strong></td><td>32-bitowa liczba zmiennoprzecinkowa</td><td>Bardzo duża</td><td>Analiza naukowa, badania</td></tr><tr><td><strong>PNG (8-bitowy)</strong></td><td>8-bitowa liczba całkowita</td><td>Średni</td><td>Kontrola wzrokowa, udostępnianie w sieci</td></tr><tr><td><strong>JPG (8-bit)</strong></td><td>8-bitowa liczba całkowita</td><td>Mały</td><td>Szybki podgląd, skompresowane dane wyjściowe</td></tr></tbody></table>***
 
 ## Automatyzacja i skrypty
 
@@ -577,13 +574,14 @@ if __name__ == '__main__':
 ### Standardowy przepływ pracy
 
 1. **Dane wejściowe**: Folder zawierający pary obrazów RAW/JPG
-2. **Wykrywanie**: CLI automatycznie skanuje obsługiwane pliki obrazów
-3. **Przetwarzanie**: Tryb równoległy skaluje się do rdzeni procesora (Chloros+)
+2. **Wykrywanie**: CLI automatycznie skanuje w poszukiwaniu obsługiwanych plików obrazów
+3. **Przetwarzanie**: Tryb równoległy skaluje się do liczby rdzeni procesora (Chloros+)
 4. **Wynik**: Tworzy podfoldery modeli aparatów z przetworzonymi obrazami
 
 ### Przykładowa struktura wyników
 
 ```
+
 MyProject/
 ├── project.json                             # Project metadata
 ├── 2025_0203_193056_008.JPG                # Original JPG
@@ -600,7 +598,7 @@ Typowy czas przetwarzania 100 obrazów (każdy o rozdzielczości 12 MP):
 
 | Tryb              | Czas      | Sprzęt                                     |
 | ----------------- | --------- | -------------------------------------------- |
-| **Tryb równoległy** | 5–10 min  | i7/Ryzen 7, 16 GB pamięci RAM, dysk SSD (do 16 pracowników) |
+| **Tryb równoległy** | 5–10 min  | i7/Ryzen 7, 16 GB pamięci RAM, dysk SSD (do 16 procesorów) |
 | **Tryb równoległy** | 10–15 min | i5/Ryzen 5, 8 GB pamięci RAM, dysk twardy (do 8 procesorów)   |
 
 {% hint style=&quot;info&quot; %}
@@ -641,11 +639,10 @@ dir "C:\Program Files\Chloros\resources\cli\chloros-cli.exe"
 
 ***
 
-### Nie udało się uruchomić zaplecza
-
-**Błąd:**
+### Nie udało się uruchomić zaplecza**Błąd:**
 
 ```
+
 Backend failed to start within 30 seconds
 ```
 
@@ -667,11 +664,10 @@ chloros-cli --restart process "C:\Datasets\Field_A"
 
 ***
 
-### Problemy z licencją / uwierzytelnianiem
-
-**Błąd:**
+### Problemy z licencją / uwierzytelnianiem**Błąd:**
 
 ```
+
 Chloros+ license required for CLI access
 ```
 
@@ -694,11 +690,10 @@ chloros-cli status
 
 ***
 
-### Nie znaleziono obrazów
-
-**Błąd:**
+### Nie znaleziono obrazów**Błąd:**
 
 ```
+
 No images found in the specified folder
 ```
 
@@ -711,9 +706,7 @@ No images found in the specified folder
 
 ***
 
-### Przetwarzanie zatrzymuje się lub zawiesza
-
-**Rozwiązania:**
+### Przetwarzanie zatrzymuje się lub zawiesza**Rozwiązania:**
 
 1. Sprawdź dostępną przestrzeń dyskową (upewnij się, że jest wystarczająca do przetworzenia danych).
 2. Zamknij inne aplikacje, aby zwolnić pamięć.
@@ -721,11 +714,10 @@ No images found in the specified folder
 
 ***
 
-### Port jest już używany
-
-**Błąd:**
+### Port jest już używany**Błąd:**
 
 ```
+
 Port 5000 is already in use
 ```
 
@@ -743,7 +735,7 @@ chloros-cli --port 5001 process "C:\Datasets\Field_A"
 
 ### P: Czy potrzebuję licencji na CLI?
 
-**O:** Tak! CLI wymaga płatnej **licencji Chloros+**.
+**O:**Tak! CLI wymaga płatnej**licencji Chloros+**.
 
 * ❌ Plan standardowy (bezpłatny): CLI wyłączony
 * ✅ Plany Chloros+ (płatne): CLI w pełni włączony
@@ -752,9 +744,7 @@ Subskrybuj na: [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/p
 
 ***
 
-### P: Czy mogę używać CLI na serwerze bez GUI?
-
-**O:** Tak! CLI działa całkowicie bez interfejsu graficznego. Wymagania:
+### P: Czy mogę używać CLI na serwerze bez GUI?**O:** Tak! CLI działa całkowicie bez interfejsu graficznego. Wymagania:
 
 * Windows Server 2016 lub nowszy
 * Zainstalowany pakiet Visual C++ Redistributable
@@ -763,9 +753,7 @@ Subskrybuj na: [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/p
 
 ***
 
-### P: Gdzie są zapisywane przetworzone obrazy?
-
-**O:** Domyślnie przetworzone obrazy są zapisywane w **tym samym folderze co dane wejściowe** w podfolderach modeli kamer (np. `Survey3N_RGN/`).
+### P: Gdzie są zapisywane przetworzone obrazy?**O:**Domyślnie przetworzone obrazy są zapisywane w**tym samym folderze co dane wejściowe** w podfolderach modeli kamer (np. `Survey3N_RGN/`).
 
 Aby określić inny folder wyjściowy, użyj opcji `-o`:
 
@@ -775,15 +763,9 @@ chloros-cli process "C:\Input" -o "D:\Output"
 
 ***
 
-### P: Czy mogę przetwarzać wiele folderów jednocześnie?
+### P: Czy mogę przetwarzać wiele folderów jednocześnie?**O:** Nie bezpośrednio za pomocą jednego polecenia, ale można użyć skryptów do przetwarzania folderów sekwencyjnie. Zobacz sekcję [Automatyzacja i skrypty](CLI.md#automation--scripting).***
 
-**O:** Nie bezpośrednio za pomocą jednego polecenia, ale można użyć skryptów do przetwarzania folderów sekwencyjnie. Zobacz sekcję [Automatyzacja i skrypty](CLI.md#automation--scripting).
-
-***
-
-### P: Jak zapisać dane wyjściowe CLI w pliku dziennika?
-
-**PowerShell:**
+### P: Jak zapisać dane wyjściowe CLI w pliku dziennika?**PowerShell:**
 
 ```powershell
 chloros-cli process "C:\Datasets\Field_A" | Tee-Object -FilePath "processing.log"
@@ -797,9 +779,7 @@ chloros-cli process "C:\Datasets\Field_A" > processing.log 2>&1
 
 ***
 
-### P: Co się stanie, jeśli podczas przetwarzania naciśnę klawisze Ctrl+C?
-
-**O:** CLI:
+### P: Co się stanie, jeśli podczas przetwarzania naciśnę klawisze Ctrl+C?**O:** CLI:
 
 1. Płynnie zatrzyma przetwarzanie
 2. Wyłączy backend
@@ -809,15 +789,9 @@ Częściowo przetworzone obrazy mogą pozostać w folderze wyjściowym.
 
 ***
 
-### P: Czy mogę zautomatyzować przetwarzanie CLI?
+### P: Czy mogę zautomatyzować przetwarzanie CLI?**O:** Oczywiście! CLI jest przeznaczony do automatyzacji. Przykłady dla PowerShell, Batch i Python można znaleźć w sekcji [Automatyzacja i skrypty](CLI.md#automation--scripting).***
 
-**O:** Oczywiście! CLI jest przeznaczony do automatyzacji. Zobacz [Automatyzacja i skrypty](CLI.md#automation--scripting), aby zapoznać się z przykładami dla PowerShell, Batch i Python.
-
-***
-
-### P: Jak sprawdzić wersję CLI?
-
-**O:**
+### P: Jak sprawdzić wersję CLI?**O:**
 
 ```powershell
 chloros-cli --version
@@ -826,6 +800,7 @@ chloros-cli --version
 **Wynik:**
 
 ```
+
 Chloros CLI 1.0.2
 ```
 
@@ -851,15 +826,13 @@ chloros-cli language --help
 
 * **E-mail**: info@mapir.camera
 * **Strona internetowa**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
-* **Ceny**: [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing)
-
-***
+* **Ceny**: [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing)***
 
 ## Kompletne przykłady
 
 ### Przykład 1: Podstawowe przetwarzanie
 
-Przetwarzanie przy użyciu ustawień domyślnych (winieta, odbicie):
+Przetwarzanie z ustawieniami domyślnymi (winieta, współczynnik odbicia):
 
 ```powershell
 chloros-cli process "C:\Datasets\Field_A_2025_01_15"
@@ -869,7 +842,7 @@ chloros-cli process "C:\Datasets\Field_A_2025_01_15"
 
 ### Przykład 2: Wysokiej jakości wyniki naukowe
 
-32-bitowa zmiennoprzecinkowa TIFF:
+32-bitowy zmiennoprzecinkowy TIFF:
 
 ```powershell
 chloros-cli process "C:\Datasets\Field_A" ^
@@ -882,7 +855,7 @@ chloros-cli process "C:\Datasets\Field_A" ^
 
 ### Przykład 3: Szybkie przetwarzanie podglądu
 
-8-bitowa PNG bez kalibracji do szybkiego przeglądu:
+8-bitowy PNG bez kalibracji do szybkiego przeglądu:
 
 ```powershell
 chloros-cli process "C:\Datasets\Field_A" ^
@@ -937,7 +910,7 @@ chloros-cli logout
 
 ***
 
-### Przykład 7: Korzystanie z wielu języków
+### Przykład 7: Użycie wielu języków
 
 Zmień język interfejsu:
 

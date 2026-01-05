@@ -9,18 +9,17 @@ Po pomyślnym zakończeniu przetwarzania pojawi się kilka wskaźników:
 * ✅ **Pasek postępu**: osiąga 100% zakończenia
 * ✅ **Dziennik debugowania**: wyświetla komunikat „Przetwarzanie zakończone”
 * ✅ **Przycisk Start**: ponownie staje się aktywny (gotowy do następnego przetwarzania)
-* ✅ **Pliki wyjściowe**: wszystkie przetworzone obrazy zapisane w podfolderze modelu aparatu
-
-***
+* ✅ **Pliki wyjściowe**: wszystkie przetworzone obrazy zapisane w podfolderze modelu aparatu***
 
 ## Lokalizowanie przetworzonych obrazów
 
 ### Otwieranie folderu wyjściowego
 
-1. Kliknij ikonę **Menu główne** <img src="../.gitbook/assets/image (1) (1).png" alt="" data-size="line"> (w lewym górnym rogu)
+1. Kliknij ikonę **Menu główne** <img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt="" data-size="line"> (w lewym górnym rogu)
 2. Wybierz **„Otwórz folder projektu”**
-3. Otworzy się eksplorator plików z katalogiem projektu
-4. Znajdź projekt według nazwy
+
+3. Otworzy się eksplorator plików w katalogu projektu
+4. Znajdź swój projekt według nazwy
 
 ***
 
@@ -37,9 +36,7 @@ Po pomyślnym zakończeniu przetwarzania pojawi się kilka wskaźników:
 
 ### Podgląd w zewnętrznych przeglądarkach obrazów
 
-**Zalecane przeglądarki:**
-
-* **QGIS** — bezpłatne oprogramowanie GIS (najlepsze do analizy wielospektralnej z georeferencjami)
+**Zalecane przeglądarki:*** **QGIS** — bezpłatne oprogramowanie GIS (najlepsze do analizy wielospektralnej z georeferencjami)
 * **IrfanView** — szybka, lekka przeglądarka obrazów (obsługuje TIFF)
 * **Adobe Photoshop** — profesjonalna edycja (obsługa TIFF)
 * **GIMP** — bezpłatna alternatywa dla programu Photoshop
@@ -54,7 +51,7 @@ Aby uzyskać zaawansowaną wizualizację, użyj wbudowanej przeglądarki obrazó
 3. Kliknij kartę **Przeglądarka obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> na pasku bocznym po lewej stronie.
 4. Użyj [Index/LUT Sandbox](../image-viewer-gui/index-lut-sandbox.md) do interaktywnej analizy.
 
-Szczegółowe instrukcje znajdziesz w sekcji [Przeglądarka obrazów](../image-viewer-gui/opening-an-image-full-screen.md).
+Szczegółowe instrukcje znajdziesz w [Image Viewer](../image-viewer-gui/opening-an-image-full-screen.md).
 
 ***
 
@@ -72,7 +69,7 @@ Szczegółowe instrukcje znajdziesz w sekcji [Przeglądarka obrazów](../image-v
 
 Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 
-1. Kliknij przycisk **„Kopiuj”** lub **„Pobierz”**.
+1. Kliknij przycisk **„Kopiuj”**lub**„Pobierz”**.
 2. Zapisz jako plik tekstowy w folderze projektu.
 3. Dołącz do dokumentacji projektu.
 4. Wyślij do pomocy technicznej MAPIR, jeśli napotkasz problemy.
@@ -94,7 +91,7 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 
 1. Sprawdź dziennik debugowania pod kątem komunikatów o pominięciu/błędach.
 2. Sprawdź, czy na dysku było wystarczająco dużo miejsca.
-3. Policz pliki: powinny się zgadzać (oryginalna liczba – liczba docelowa) × (indeksy + 1)
+3. Policz pliki: Powinny się zgadzać (oryginalna liczba - liczba docelowa) × (indeksy + 1)
 4. Ponownie zaimportuj i przetwórz brakujące pliki.
 
 ### Problem: Ciemne lub jasne krawędzie (nadal widoczne winietowanie)
@@ -117,7 +114,7 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 
 * Nie wykryto żadnych celów kalibracji.
 * Wybrano niewłaściwy model celu kalibracji.
-* Kalibracja odbicia jest wyłączona.
+* Kalibracja odbicia została wyłączona.
 * Obrazy celów są niskiej jakości.
 
 **Rozwiązania:**
@@ -129,14 +126,10 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 
 ### Problem: Wartości NDVI wydają się nieprawidłowe.
 
-**Oczekiwane zakresy NDVI:**
-
-* **Woda, skały, gleba**: od -0,1 do 0,2
+**Oczekiwane zakresy NDVI:*** **Woda, skały, gleba**: od -0,1 do 0,2
 * **Rzadka/niezdrowa roślinność**: od 0,2 do 0,4
 * **Umiarkowana roślinność**: od 0,4 do 0,6
-* **Zdrowa, gęsta roślinność**: od 0,6 do 0,9
-
-**Jeśli wartości wykraczają poza te zakresy:**
+* **Zdrowa, gęsta roślinność**: od 0,6 do 0,9**Jeśli wartości wykraczają poza te zakresy:**
 
 1. Sprawdź, czy zastosowano kalibrację odbicia.
 2. Sprawdź, czy dołączono dziennik czujnika światła.
@@ -148,11 +141,11 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 
 ## Korzystanie z przetworzonych obrazów
 
-### Do fotogrametrii / tworzenia ortomosaiki
+### Do fotogrametrii / tworzenia ortomosaików
 
 **Zalecany przebieg pracy:**
 
-1. **Zaimportuj skalibrowane obrazy odbicia** do oprogramowania fotogrametrycznego:
+1.**Zaimportuj skalibrowane obrazy odbicia** do oprogramowania fotogrametrycznego:
    * Pix4Dmapper
    * Agisoft Metashape
    * DroneDeploy
@@ -166,42 +159,33 @@ Aby zachować zapis przetwarzania lub wysłać go do pomocy technicznej MAPIR:
 
 **Zalecany przebieg pracy:**
 
-1. **Załaduj do QGIS, ArcGIS lub podobnego**
-2. **Użyj 16-bitowych obrazów odbicia TIFF** do analizy wielopasmowej
+1.**Załaduj do QGIS, ArcGIS lub podobnego**
+
+2.**Użyj 16-bitowych obrazów odbicia TIFF** do analizy wielopasmowej
 3. **Użyj obrazów indeksowych** (NDVI, NDRE) jako gotowych do użycia warstw roślinności
 4. **Kalkulator rastrowy**: Połącz pasma w celu przeprowadzenia niestandardowej analizy
-5. **Eksportuj**: Twórz mapy klasyfikacyjne, wykrywaj zmiany, twórz mapy stanu roślinności.
+5. **Eksportuj**: Twórz mapy klasyfikacyjne, wykrywaj zmiany, twórz mapy stanu roślinności
 
 ### Do bezpośredniej analizy / raportowania
 
 **Zalecany przebieg pracy:**
 
-1. **Użyj obrazów indeksowych z kolorami LUT** do tworzenia raportów wizualnych.
-2. **Wyodrębnij statystyki**: Średnia NDVI na pole/działkę.
+1.**Użyj obrazów indeksowych z kolorami LUT** do tworzenia raportów wizualnych
+2. **Wyodrębnij statystyki**: Średnia NDVI na pole/działkę
 3. **Szeregi czasowe**: porównaj indeksy z wielu sesji
-4. **Generuj raporty**: dołącz mapy, statystyki i wizualizacje
-
-***
+4. **Generuj raporty**: dołącz mapy, statystyki i wizualizacje***
 
 ## Archiwizacja i tworzenie kopii zapasowych
 
 ### Zalecana strategia tworzenia kopii zapasowych
 
-**Co należy zapisać:**
-
-* ✅ **Oryginalne obrazy RAW/JPG** — archiwizuj na oddzielnym dysku/w chmurze
+**Co należy zapisać:*** ✅ **Oryginalne obrazy RAW/JPG** — archiwizuj na oddzielnym dysku/w chmurze
 * ✅ **Przetworzone wyniki** – zachowaj skalibrowane obrazy i indeksy
 * ✅ **Plik projektu** – zawiera wszystkie ustawienia do ponownego przetworzenia w razie potrzeby
 * ✅ **Dziennik debugowania** – dokumentuje szczegóły przetwarzania
-* ✅ **Obrazy docelowe kalibracji** – do weryfikacji i ponownego przetworzenia
-
-**Zalecenia dotyczące przechowywania:**
-
-* **Natychmiastowa kopia zapasowa**: zewnętrzny dysk twardy
+* ✅ **Obrazy docelowe kalibracji** – do weryfikacji i ponownego przetworzenia**Zalecenia dotyczące przechowywania:*** **Natychmiastowa kopia zapasowa**: zewnętrzny dysk twardy
 * **Archiwizacja długoterminowa**: przechowywanie w chmurze (Google Drive, Dropbox itp.)
-* **Dane krytyczne**: przechowuj 2-3 kopie w różnych lokalizacjach
-
-***
+* **Dane krytyczne**: przechowuj 2-3 kopie w różnych lokalizacjach***
 
 ## Kolejne przetwarzanie
 
@@ -212,17 +196,16 @@ W przypadku przetwarzania podobnych zestawów danych w przyszłości:
 1. **Zapisz szablon projektu** (jeśli jeszcze tego nie zrobiłeś)
 2. **Utwórz nowy projekt** przy użyciu zapisanego szablonu
 3. **Zaimportuj nowe obrazy**
-4. **Przetwórz** przy użyciu identycznych ustawień w celu zachowania spójności
+
+4.**Przetwórz**przy użyciu identycznych ustawień w celu zachowania spójności
 
 ### Przetwarzanie wsadowe wielu sesji
 
-W przypadku wielu sesji/zestawów danych:
-
-**Opcja 1: GUI — wiele projektów**
+W przypadku wielu sesji/zestawów danych:**Opcja 1: GUI — wiele projektów**
 
 * Utwórz oddzielny projekt dla każdej sesji.
 * Użyj spójnych ustawień szablonu.
-* Przetwarzaj pojedynczo.
+* Przetwarzaj po jednym na raz.
 
 **Opcja 2: Chloros CLI (tylko Chloros+)**
 
@@ -265,23 +248,19 @@ Jeśli napotkasz problemy:
 * 📧 **E-mail**: info@mapir.camera (dołącz dziennik debugowania)
 * 🌐 **Pomoc techniczna**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
 * 📚 **FAQ**: [Często zadawane pytania](../faq.md)
-* 📖 **Dokumentacja**: [Podręcznik Chloros](../)
+* 📖 **Dokumentacja**: [Podręcznik Chloros](../)***
 
-***
+## Podsumowanie: Cały proces
 
-## Podsumowanie: kompletny przepływ pracy
-
-Właśnie ukończyłeś kompletny przepływ pracy związany z przetwarzaniem Chloros:
+Właśnie zakończyłeś pełny przepływ pracy Chloros:
 
 1. ✅ **Utworzono projekt** — zobacz [Projekty](../projects.md)
 2. ✅ **Dodano pliki** — zobacz [Dodawanie plików](adding-files-to-a-project.md)
 3. ✅ **Dostosowano ustawienia** — zobacz [Dostosowywanie ustawień projektu](adjusting-project-settings.md)
-4. ✅ **Zaznaczone cele** — zobacz [Wybór obrazów docelowych](choosing-target-images.md)
+4. ✅ **Oznaczono cele** — zobacz [Wybieranie obrazów docelowych](choosing-target-images.md)
 5. ✅ **Rozpoczęto przetwarzanie** — zobacz [Rozpoczęcie przetwarzania](starting-the-processing.md)
-6. ✅ **Monitorowany postęp** — zobacz [Monitorowanie przetwarzania](monitoring-the-processing.md)
-7. ✅ **Sprawdzone wyniki** — ta strona
-
-**Skalibrowane, skorygowane pod kątem odbicia obrazy wielospektralne są gotowe do analizy!**
+6. ✅ **Monitorowano postęp** — zobacz [Monitorowanie przetwarzania](monitoring-the-processing.md)
+7. ✅ **Sprawdzone wyniki** – ta strona**Skalibrowane, skorygowane pod kątem odbicia obrazy wielospektralne są gotowe do analizy!**
 
 ***
 
@@ -289,9 +268,9 @@ Właśnie ukończyłeś kompletny przepływ pracy związany z przetwarzaniem Chl
 
 ### Funkcje zaawansowane
 
-* [**Przeglądarka obrazów**](../image-viewer-gui/opening-an-image-full-screen.md) — interaktywna wizualizacja i analiza
-* [**Sandbox indeksów/LUT**](../image-viewer-gui/index-lut-sandbox.md) — testowanie niestandardowych indeksów
-* [**Wzory indeksów wielospektralnych**](../project-settings/multispectral-index-formulas.md) – kompletne odniesienia indeksów
+* [**Przeglądarka obrazów**](../image-viewer-gui/opening-an-image-full-screen.md) – interaktywna wizualizacja i analiza
+* [**Sandbox indeksu/LUT**](../image-viewer-gui/index-lut-sandbox.md) — testowanie niestandardowego indeksu
+* [**Wzory indeksu wielospektralnego**](../project-settings/multispectral-index-formulas.md) — kompletne odniesienie do indeksu
 
 ### Automatyzacja i integracja
 
