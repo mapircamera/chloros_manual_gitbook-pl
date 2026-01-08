@@ -2,22 +2,24 @@
 
 Zakładka Mapa wyświetla obrazy na interaktywnej mapie 2D na podstawie ich współrzędnych GPS. Zapewnia to geograficzny przegląd sesji przechwytywania i pomaga wizualizować zasięg przestrzenny. Jest to również przydatne podczas pierwszego importowania obrazów, aby szybko usunąć te, które nie wymagają przetwarzania.
 
-## Dostęp do zakładki Mapa
+<figure><img src="../.gitbook/assets/chloros_map_markers.gif" alt=""><figcaption></figcaption></figure>
+
+## Dostęp do zakładki „Mapa”
 
 1. Otwórz lub utwórz projekt w Chloros.
 2. Zaimportuj obrazy zawierające metadane GPS.
-3. Kliknij zakładkę **Mapa** <img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> na pasku bocznym po lewej stronie
+3. Kliknij zakładkę **Mapa** <img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> na lewym pasku bocznym
 4. Mapa wyświetli znaczniki w lokalizacji GPS każdego zdjęcia
 
-{% hint style=&quot;info&quot; %}
-**Wymagane GPS**: Na mapie pojawią się tylko obrazy z wbudowanymi współrzędnymi GPS w metadanych EXIF. Upewnij się, że podczas robienia zdjęć w aparacie włączona jest funkcja GPS.
+{% hint style="info" %}
+**Wymagany GPS**: Na mapie pojawią się tylko obrazy z wbudowanymi współrzędnymi GPS w metadanych EXIF. Upewnij się, że podczas robienia zdjęć w aparacie włączona jest funkcja GPS.
 {% endhint %}
 
 ***
 
-## Dostosowywanie obrazów z zakładki Mapa
+## Dostosowywanie obrazów z karty „Mapa”
 
-Zakładka **Mapa**<img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> ma te same opcje dodawania  <img src="../.gitbook/assets/image.png" alt="" data-size="line">   <img src="../.gitbook/assets/image (1).png" alt="" data-size="line">  i usuwania  <img src="../.gitbook/assets/image (2).png" alt="" data-size="line">  jak zakładka [**Przeglądarka plików**](../processing-images-gui/adding-files-to-a-project.md) <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> . Wyświetla również tę samą listę plików projektu, ale z innymi nagłówkami kolumn:
+Karta **Mapa** <img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> ma te same opcje dodawania  <img src="../.gitbook/assets/image.png" alt="" data-size="line">   <img src="../.gitbook/assets/image (1).png" alt="" data-size="line">  i usuwania  <img src="../.gitbook/assets/image (2).png" alt="" data-size="line">  przyciski plików, co zakładka [**Przeglądarka plików**](../processing-images-gui/adding-files-to-a-project.md) <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> . Wyświetla również tę samą listę plików projektu, ale z innymi nagłówkami kolumn:
 
 ### Nazwa pliku
 
@@ -26,17 +28,17 @@ Zakładka **Mapa**<img src="../.gitbook/assets/image (3).png" alt="" data-size="
 
 ### Szerokość geograficzna
 
-* Szerokość geograficzna obrazu
+* Szerokość geograficzna zdjęcia
 
 ### Długość geograficzna
 
-* Długość geograficzna obrazu
+* Długość geograficzna zdjęcia
 
 ### Wysokość
 
 * Wysokość obrazu
 
-{% hint style=&quot;info&quot; %}
+{% hint style="info" %}
 Kliknięcie nagłówków kolumn tabeli powoduje również posortowanie danych w wierszach.
 {% endhint %}
 
@@ -52,21 +54,21 @@ Każdy obraz z danymi GPS jest reprezentowany przez znacznik na mapie:
 * Znaczniki mogą być zgrupowane po pomniejszeniu widoku.
 * Powiększ widok, aby zobaczyć lokalizacje poszczególnych obrazów.
 
-{% hint style=&quot;success&quot; %}
-SUPER-ZOOM: Po osiągnięciu maksymalnego poziomu powiększenia dostarczanego przez dostawcę kafelków mapy, kafelek jest powiększany przy dalszym powiększaniu, co pozwala zobaczyć znaczniki, które znajdują się blisko siebie.
+{% hint style="success" %}
+SUPER-ZOOM: Po osiągnięciu maksymalnego poziomu powiększenia dostarczanego przez dostawcę kafelków mapy, kafelek jest powiększany po dalszym powiększeniu, co pozwala zobaczyć znaczniki, które znajdują się blisko siebie.
 {% endhint %}
 
 ### Podgląd po najechaniu kursorem
 
-* **Najedź myszką** na dowolny znacznik, aby wyświetlić miniaturę podglądu tego obrazu.
-* Pozwala to na szybką identyfikację wizualną bez opuszczania widoku mapy.
-* Przydatne do lokalizowania konkretnych obrazów w ramach dużej sesji przechwytywania.
+* **Najedź kursorem myszy** na dowolny znacznik, aby wyświetlić miniaturę podglądu tego zdjęcia.
+* Umożliwia to szybką identyfikację wizualną bez opuszczania widoku mapy.
+* Przydatne do lokalizowania konkretnych zdjęć w ramach dużej sesji fotografowania.
 
 ***
 
 ## Dostawcy kafelków map
 
-{% hint style=&quot;success&quot; %}
+{% hint style="success" %}
 **Automatyczny wybór**: Chloros automatycznie wybiera usługę kafelków, która zapewnia najlepszy poziom powiększenia dla aktualnej lokalizacji na mapie. W razie potrzeby można ręcznie przełączać się między dostawcami.
 {% endhint %}
 
@@ -115,7 +117,9 @@ Wyświetla kafelki mapy satelitarnej z dodatkowymi szczegółami (drogi itp.)
 
 ### Elementy sterujące przesuwaniem
 
-* **Przesuwanie**: kliknij i przeciągnij, aby przesuwać mapę***
+* **Przesuwanie**: kliknij i przeciągnij, aby przesuwać mapę
+
+***
 
 ## Przykłady zastosowań
 
@@ -156,6 +160,6 @@ Wyświetla kafelki mapy satelitarnej z dodatkowymi szczegółami (drogi itp.)
 **Możliwe przyczyny:**
 
 * GPS aparatu miał słaby sygnał satelitarny.
-* Drift GPS podczas rejestrowania.
+* Drift GPS podczas rejestracji.
 
-**Rozwiązanie**: Jest to zazwyczaj problem związany z czasem rejestrowania; rozważ użycie GPS PPK/RTK do zastosowań wymagających precyzji.
+**Rozwiązanie**: Jest to zazwyczaj problem związany z czasem rejestracji; rozważ użycie GPS PPK/RTK do zastosowań wymagających precyzji.
