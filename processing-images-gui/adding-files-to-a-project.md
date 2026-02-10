@@ -33,9 +33,7 @@ Użyj tej opcji, aby zaimportować wszystkie obrazy z folderu jednocześnie.
 
 1. Kliknij przycisk **„Dodaj folder”** <img src="../.gitbook/assets/image (1).png" alt="" data-size="line"> u góry panelu przeglądarki plików.
 2. Przejdź do folderu zawierającego obrazy z sesji przechwytywania i wybierz go.
-3. Kliknij przycisk **„Wybierz folder”**, aby zaimportować wszystkie obsługiwane obrazy z tego folderu.
-
-***
+3. Kliknij przycisk **„Wybierz folder”**, aby zaimportować wszystkie obsługiwane obrazy z tego folderu.***
 
 ## Informacje o tabeli przeglądarki plików
 
@@ -56,7 +54,7 @@ Po zaimportowaniu obrazy pojawiają się w tabeli zawierającej następujące ko
 
 * Automatycznie wykryta konfiguracja aparatu i filtra
 * Przykłady: Survey3W\_RGN, Survey3N\_OCN, Survey3W\_RGB
-* Służy do zastosowania prawidłowych profili przetwarzania
+* Używany do zastosowania prawidłowych profili przetwarzania
 
 ### Kolumna celu (pole wyboru)
 
@@ -76,7 +74,7 @@ Kliknięcie przycisku przełączającego w prawym górnym rogu nad tabelą powod
 
 ### Usuwanie plików
 
-Aby usunąć niepotrzebne obrazy z projektu:
+Aby usunąć niechciane obrazy z projektu:
 
 1. Wybierz jeden lub więcej obrazów w tabeli przeglądarki plików
 2. Kliknij przycisk **„Usuń wybrane”** <img src="../.gitbook/assets/image (2).png" alt="" data-size="line"> .
@@ -86,9 +84,7 @@ Aby usunąć niepotrzebne obrazy z projektu:
 
 * **Sortuj według kolumny**: kliknij dowolny nagłówek kolumny, aby posortować obrazy.
 * **Sortowanie według daty**: przydatne do organizowania sekwencji zdjęć w porządku chronologicznym.
-* **Filtr modelu aparatu**: grupuj obrazy według typu aparatu, jeśli używasz wielu aparatów.
-
-***
+* **Filtr modelu aparatu**: grupuj obrazy według typu aparatu, jeśli używasz wielu aparatów.***
 
 ## Podgląd obrazu
 
@@ -96,18 +92,16 @@ Aby usunąć niepotrzebne obrazy z projektu:
 
 Kliknij dowolną miniaturę obrazu w przeglądarce plików, aby wyświetlić go w głównym obszarze podglądu:
 
-1. Obraz pojawi się w środkowym panelu podglądu.
-2. Użyj elementów sterujących powiększaniem, aby sprawdzić szczegóły obrazu.
-3. Przechodź między obrazami za pomocą klawiszy strzałek.
+1. Obraz pojawi się w środkowym panelu podglądu
+2. Użyj elementów sterujących powiększaniem, aby sprawdzić szczegóły obrazu
+3. Przechodź między obrazami za pomocą klawiszy strzałek
 
 ### Szybka nawigacja
 
-* **Poprzedni obraz**: kliknij strzałkę w lewo lub naciśnij klawisz ←.
+* **Poprzedni obraz**: kliknij strzałkę w lewo lub naciśnij klawisz ←
 * **Następny obraz**: kliknij strzałkę w prawo lub naciśnij klawisz →.
 * **Powiększ/pomniejsz**: użyj kółka myszy lub przycisków powiększania.
-* **Przesuwanie**: kliknij i przeciągnij obraz po powiększeniu.
-
-***
+* **Przesuwanie**: kliknij i przeciągnij obraz po powiększeniu.***
 
 ## Obsługa zduplikowanych plików
 
@@ -115,10 +109,10 @@ Chloros automatycznie wykrywa i ignoruje zduplikowane pliki:
 
 * Pliki o identycznych nazwach są pomijane
 * Zapobiega przypadkowemu podwójnemu przetwarzaniu
-* W przypadku wykrycia duplikatów wyświetlany jest komunikat ostrzegawczy
+* W przypadku wykrycia duplikatów wyświetlane jest ostrzeżenie
 
 {% hint style="warning" %}
-**Ważne**: Nie zmieniaj nazw ani nie modyfikuj oryginalnych plików obrazów przed importem. Chloros wykorzystuje oryginalne nazwy plików i metadane do prawidłowego przetwarzania.
+**Ważne**: Nie zmieniaj nazw ani nie modyfikuj oryginalnych plików obrazów przed importowaniem. Chloros wykorzystuje oryginalne nazwy plików i metadane do prawidłowego przetwarzania.
 {% endhint %}
 
 ***
@@ -132,9 +126,7 @@ Jeśli projekt zawiera obrazy z wielu kamer MAPIR:
 3. Przeglądarka plików wyświetla model aparatu w kolumnie Model aparatu.
 4. Przetwarzanie stosuje prawidłowe ustawienia dla każdego typu aparatu.
 
-**Przykładowy scenariusz**: Survey3W RGN + Survey3N OCN konfiguracja z dwoma aparatami.
-
-***
+**Przykładowy scenariusz**: Survey3W RGN + Survey3N OCN konfiguracja z dwoma aparatami.***
 
 ## Najlepsze praktyki
 
@@ -188,15 +180,13 @@ Jeśli projekt zawiera obrazy z wielu kamer MAPIR:
 * Nieprawidłowe ustawienie zegara aparatu
 * Usunięcie danych EXIF przez oprogramowanie zewnętrzne
 
-**Rozwiązanie**: Sprawdź, czy ustawienia czasu aparatu były prawidłowe podczas robienia zdjęć
-
-***
+**Rozwiązanie**: Sprawdź, czy ustawienia czasu aparatu były prawidłowe podczas przechwytywania***
 
 ## Kolejne kroki
 
 Po zaimportowaniu plików:
 
-1. **Przejrzyj listę plików** — upewnij się, że wszystkie zdjęcia zostały załadowane poprawnie
+1. **Przejrzyj listę plików** — upewnij się, że wszystkie obrazy zostały załadowane poprawnie
 2. **Sprawdź modele aparatów** — upewnij się, że aparaty zostały poprawnie wykryte
 3. **Zaznacz docelowe zdjęcia** — zobacz [Wybieranie docelowych zdjęć](choosing-target-images.md)
 4. **Dostosuj ustawienia** — skonfiguruj opcje przetwarzania w [Ustawieniach projektu](adjusting-project-settings.md)

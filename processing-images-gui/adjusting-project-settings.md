@@ -8,28 +8,28 @@ Przed przetworzeniem obrazów należy skonfigurować ustawienia projektu zgodnie
 2. Kliknij ikonę **Ustawienia projektu** <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> na lewym pasku bocznym
 3. Panel Ustawienia projektu wyświetla wszystkie opcje konfiguracyjne
 
-{% hint style=&quot;info&quot; %}
-**Ustawienia są zapisywane automatycznie** wraz z projektem. Po ponownym otwarciu projektu wszystkie ustawienia zostaną przywrócone.
+{% hint style="info" %}
+**Ustawienia są zapisywane automatycznie** wraz z projektem. Po ponownym otwarciu projektu wszystkie ustawienia są przywracane.
 {% endhint %}
 
 ***
 
-## Szybka konfiguracja dla typowych procesów roboczych
+## Szybka konfiguracja dla typowych przepływów pracy
 
 ### Ustawienia domyślne (zalecane dla większości użytkowników)
 
-W przypadku typowych procesów pracy z kamerą MAPIR Survey3 dobrze sprawdzają się ustawienia domyślne:
+W przypadku typowych przepływów pracy z kamerą MAPIR Survey3 dobrze sprawdzają się ustawienia domyślne:
 
 * ✅ **Korekcja winietowania**: włączona
 * ✅ **Kalibracja odbicia**: włączona (wymaga obrazów celów MAPIR)
-* ✅ **Metoda debayera**: Wysoka jakość (szybsza)
+* ✅ **Metoda debayeringu**: Standardowa (szybka, średnia jakość)
 * ✅ **Format eksportu**: TIFF (16-bitowy)
 
 Wystarczy zaimportować obrazy i rozpocząć przetwarzanie przy użyciu tych ustawień domyślnych.
 
 ***
 
-## Omówienie ustawień projektu
+## Przegląd ustawień projektu
 
 Panel ustawień projektu jest podzielony na kilka kategorii. Poniżej znajduje się podsumowanie każdej sekcji. Pełna dokumentacja znajduje się w sekcji [Ustawienia projektu](../project-settings/project-settings.md).
 
@@ -37,33 +37,35 @@ Panel ustawień projektu jest podzielony na kilka kategorii. Poniżej znajduje s
 
 Kontroluje sposób, w jaki Chloros identyfikuje cele kalibracyjne na obrazach.
 
-**Kluczowe ustawienia:**
+**Kluczowe ustawienia:*** **Minimalny obszar próbki kalibracji**: próg rozmiaru dla wykrywania celów (domyślnie: 25 pikseli)
+* **Minimalne grupowanie celów**: próg podobieństwa dla grupowania obszarów docelowych (domyślnie: 60)**Kiedy dostosować:**
 
-* **Minimalny obszar próbki kalibracji**: próg rozmiaru dla wykrywania celów (domyślnie: 25 pikseli)
-* **Minimalne grupowanie celów**: próg podobieństwa dla grupowania obszarów docelowych (domyślnie: 60)
-
-**Kiedy dostosować:**
-
-* Zwiększ obszar próbki, jeśli pojawiają się fałszywe wykrycia.
-* Zmniejsz, jeśli cele nie są wykrywane.
-* Dostosuj grupowanie, jeśli cele są dzielone na wiele wykryć.
+* Zwiększ obszar próbki, jeśli pojawiają się fałszywe wykrycia
+* Zmniejsz, jeśli cele nie są wykrywane
+* Dostosuj grupowanie, jeśli cele są dzielone na wiele wykryć
 
 ### Przetwarzanie
 
 Główne opcje przetwarzania obrazu i kalibracji.
 
-**Kluczowe ustawienia:**
+**Kluczowe ustawienia:*** **Korekcja winietowania**: Kompensuje zaciemnienie obiektywu na krawędziach ✅ Zalecane
+* **Kalibracja odbicia**: Normalizuje wartości przy użyciu celów kalibracyjnych ✅ Zalecane
+* **Metoda Debayera**: algorytm konwersji RAW na 3-kanałowy obraz wielospektralny
+* **Minimalny interwał ponownej kalibracji**: czas między użyciem celów kalibracyjnych (0 = użyj wszystkich)**Ustawienia zaawansowane:*** **Przesunięcie strefy czasowej czujnika światła**: do synchronizacji czasu PPK (domyślnie: 0)
+* **Zastosuj korekty PPK**: Wykorzystuje dane GPS/ekspozycji z plików .daq
+* **Ekspozycja 1/2**: Przypisuje kamery do pinów ekspozycji w przypadku konfiguracji z dwiema kamerami
 
-* **Korekcja winietowania**: kompensuje zaciemnienie obiektywu na krawędziach ✅ Zalecane
-* **Kalibracja odbicia**: normalizuje wartości przy użyciu celów kalibracyjnych ✅ Zalecane
-* **Metoda Debayera**: algorytm konwersji RAW do 3-kanałowego obrazu wielospektralnego
-* **Minimalny interwał ponownej kalibracji**: czas między użyciem celów kalibracyjnych (0 = użyj wszystkich)
+### Metoda Debayera
 
-**Ustawienia zaawansowane:**
+Obecnie oferujemy 2 metody debayera w Chloros:
 
-* **Przesunięcie strefy czasowej czujnika światła**: do synchronizacji czasu PPK (domyślnie: 0)
-* **Zastosuj korekty PPK**: wykorzystuje dane GPS/pin ekspozycji z plików .daq
-* **Pin ekspozycji 1/2**: przypisuje kamery do pinów ekspozycji w przypadku konfiguracji z dwoma kamerami
+#### Standardowa (szybka, średnia jakość)
+
+Standardowa metoda debayerowania działa szybko, ale powoduje pojawienie się szumu kolorowego, co skutkuje mniej dokładnymi i bardziej zaszumionymi obrazami.
+
+#### Texture Aware (wolna, najwyższa jakość) \[Tylko Chloros+]
+
+Metoda Texture Aware wykorzystuje wysokiej jakości debayerowanie z uwzględnieniem krawędzi w połączeniu z modelem redukcji szumu AI/ML, który usuwa prawie cały szum debayerowania. Model uwzględniający teksturę wymaga pamięci GPU (VRAM) do działania. Zalecamy korzystanie z niego, gdy masz dostępne &gt;4 GB pamięci VRAM, aby przyspieszyć przetwarzanie.
 
 ### Indeks (indeksy wielospektralne)
 
@@ -71,20 +73,17 @@ Skonfiguruj, które indeksy roślinności mają być obliczane i eksportowane.
 
 **Jak dodać indeksy:**
 
-1. Kliknij przycisk **„Dodaj indeks”**
-2. Wybierz indeks z menu rozwijanego (NDVI, NDRE, GNDVI itp.)
-3. Skonfiguruj ustawienia wizualizacji (kolory LUT, zakresy wartości)
-4. Dodaj wiele indeksów zgodnie z potrzebami
+1. Kliknij przycisk**„Dodaj indeks”**
 
-**Popularne indeksy:**
+2. Wybierz indeks z menu rozwijanego (NDVI, NDRE, GNDVI itp.).
+3. Skonfiguruj ustawienia wizualizacji (kolory LUT, zakresy wartości).
+4. Dodaj wiele indeksów zgodnie z potrzebami.
 
-* **NDVI**: Ogólny stan zdrowia roślinności (najczęściej stosowany)
+**Popularne indeksy:*** **NDVI**: Ogólny stan zdrowia roślinności (najczęściej stosowany)
 * **NDRE**: Wczesne wykrywanie stresu za pomocą RedEdge
-* **GNDVI**: Wrażliwość na stężenie chlorofilu
+* **GNDVI**: Czuły na stężenie chlorofilu
 * **OSAVI**: Działa dobrze w przypadku widocznej gleby
-* **EVI**: Regiony o wysokim wskaźniku powierzchni liści (LAI)
-
-**Formuły niestandardowe (tylko Chloros+):**
+* **EVI**: Regiony o wysokim wskaźniku powierzchni liści (LAI)**Formuły niestandardowe (tylko Chloros+):**
 
 * Tworzenie niestandardowych formuł indeksów wielospektralnych
 * Wykorzystanie matematyki pasmowej we wszystkich kanałach obrazu
@@ -96,14 +95,10 @@ Wszystkie dostępne indeksy i formuły można znaleźć w sekcji [Formuły indek
 
 Kontroluje format i jakość pliku wyjściowego.
 
-**Dostępne formaty:**
-
-* **TIFF (16-bitowy)**: zalecany do GIS i analiz naukowych (zakres 0–65 535)
+**Dostępne formaty:*** **TIFF (16-bitowy)**: zalecany do GIS i analiz naukowych (zakres 0–65 535)
 * **TIFF (32-bitowy, procentowy)**: wartości odbicia w systemie zmiennoprzecinkowym (zakres 0,0–1,0)
 * **PNG (8-bitowy)**: bezstratna kompresja do wizualizacji (zakres 0–255)
-* **JPG (8-bitowy)**: najmniejsze pliki, kompresja stratna (zakres 0–255)
-
-***
+* **JPG (8-bitowy)**: najmniejsze pliki, kompresja stratna (zakres 0–255)***
 
 ## Zapisywanie i wczytywanie ustawień
 
@@ -112,15 +107,15 @@ Kontroluje format i jakość pliku wyjściowego.
 Utwórz szablony wielokrotnego użytku, aby zapewnić spójność przepływu pracy:
 
 1. Skonfiguruj wszystkie żądane ustawienia w panelu Ustawienia projektu.
-2. Przewiń do sekcji **„Zapisz szablon projektu”** u dołu.
+2. Przewiń do sekcji **„Zapisz szablon projektu”** na dole.
 3. Wprowadź opisową nazwę szablonu (np. „Survey3N\_RGN\_Agriculture”).
 4. Kliknij ikonę zapisu.
 
 **Korzyści:**
 
-* Zastosuj identyczne ustawienia w wielu projektach.
-* Udostępniaj konfiguracje członkom zespołu.
-* Zachowaj spójność w przypadku powtarzających się ankiet.
+* Zastosowanie identycznych ustawień w wielu projektach.
+* Udostępnianie konfiguracji członkom zespołu.
+* Zachowanie spójności w przypadku powtarzających się badań.
 
 ### Wczytaj szablon do nowego projektu
 
@@ -146,7 +141,7 @@ Ustawienie **„Zapisz folder projektu”** określa domyślną lokalizację two
 
 ## Konfiguracja PPK (Post-Processed Kinematic)
 
-W przypadku korzystania z rejestratorów MAPIR DAQ z GPS w celu precyzyjnej geolokalizacji:
+W przypadku korzystania z rejestratorów MAPIR DAQ z GPS do precyzyjnej geolokalizacji:
 
 ### Wymagania wstępne
 
@@ -158,19 +153,16 @@ W przypadku korzystania z rejestratorów MAPIR DAQ z GPS w celu precyzyjnej geol
 
 1. Umieść plik dziennika .daq w folderze projektu
 2. W ustawieniach projektu zaznacz pole wyboru **„Zastosuj korekty PPK”**
-3. W razie potrzeby ustaw **„Przesunięcie strefy czasowej czujnika światła”** (domyślnie: 0 dla UTC)
+
+3. W razie potrzeby ustaw**„Przesunięcie strefy czasowej czujnika światła”** (domyślnie: 0 dla UTC)
 4. Przypisz kamery do pinów ekspozycji:
-   * **Pojedyncza kamera**: Automatycznie przypisana do pinu 1
-   * **Dwie kamery**: Ręcznie przypisz każdą kamerę do odpowiedniego pinu
-
-**Przypisanie pinów ekspozycji:**
-
-* **Pin ekspozycji 1**: Wybierz model kamery z listy rozwijanej
-* **Pin ekspozycji 2**: Wybierz drugą kamerę lub „Nie używaj”
+   * **Pojedyncza kamera**: automatycznie przypisana do pinu 1
+   * **Podwójne kamery**: ręcznie przypisz każdą kamerę do odpowiedniego pinu**Przypisanie pinów ekspozycji:*** **Pin ekspozycji 1**: wybierz model kamery z listy rozwijanej
+* **Pin ekspozycji 2**: wybierz drugą kamerę lub opcję „Nie używaj”
 * Ta sama kamera nie może być przypisana do obu pinów
 
-{% hint style=&quot;warning&quot; %}
-**Ważne**: Piny ekspozycji muszą być prawidłowo przypisane do odpowiednich kamer. Nieprawidłowe przypisanie spowoduje błędne dane geolokalizacyjne.
+{% hint style="warning" %}
+**Ważne**: Piny ekspozycji muszą być prawidłowo przypisane do odpowiednich kamer. Nieprawidłowe przypisanie spowoduje uzyskanie błędnych danych geolokalizacyjnych.
 {% endhint %}
 
 ***
@@ -186,7 +178,7 @@ Podczas przetwarzania obrazów z wielu kamer MAPIR w jednym projekcie:
 3. PPK: ręcznie przypisz każdą kamerę do odpowiedniego pinów ekspozycji
 4. Wszystkie kamery używają tego samego formatu eksportu i indeksów
 
-**Przykład**: Survey3W RGN + Survey3N OCN zestaw dwóch kamer
+**Przykład**: Survey3W RGN + Survey3N OCN zestaw z dwiema kamerami
 
 ### Badania poklatkowe lub wielodniowe
 
@@ -213,13 +205,13 @@ W przypadku projektów zawierających wiele obrazów (ponad 500):
 
 Przed rozpoczęciem przetwarzania sprawdź następujące kluczowe ustawienia:
 
-* [ ] Model aparatu prawidłowo wykryty w przeglądarce plików
+* [ ] Model kamery prawidłowo wykryty w przeglądarce plików
 * [ ] Włączona korekcja winietowania
 * [ ] Włączona kalibracja odbicia
 * [ ] Zaimportowano co najmniej jeden obraz kalibracyjny
-* [ ] Dodano żądane wskaźniki wielospektralne
+* [ ] Dodano żądane indeksy wielospektralne
 * [ ] Format eksportu odpowiedni dla Twojego przepływu pracy
-* [ ] Skonfigurowano ustawienia PPK (w przypadku korzystania z .daq z wydarzeniami ekspozycji)
+* [ ] Skonfigurowane ustawienia PPK (w przypadku korzystania z .daq z wydarzeniami ekspozycji)
 
 ***
 

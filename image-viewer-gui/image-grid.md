@@ -12,9 +12,9 @@ W miarę przetwarzania obrazów w lewym górnym rogu obszaru siatki pojawiają s
 
 * **JPG** — oryginalne miniatury JPG z aparatu
 * **Cele** — obrazy zawierające wykryte cele kalibracyjne
-* **Odbicie** — skalibrowane obrazy odbicia
+* **Odblaskowość** — skalibrowane obrazy odblaskowości
 * **RWA (indeks/LUT)** — obliczone obrazy indeksu wielospektralnego z gradientem kolorów LUT
 
-Kliknięcie miniatury obrazu w siatce powoduje otwarcie pełnoekranowego [przeglądarki obrazów](opening-an-image-full-screen.md). Jeśli tryb wyświetlania w siatce jest ustawiony na konkretny eksport, taki jak „Cele”, po kliknięciu miniatury w siatce otworzy się pełnoekranowy eksportowany obraz celu.
+Kliknięcie miniatury obrazu w siatce powoduje otwarcie pełnoekranowego [przeglądarki obrazów](opening-an-image-full-screen.md). Jeśli tryb wyświetlania w siatce jest ustawiony na konkretny eksport, np. „Cele”, kliknięcie miniatury w siatce spowoduje otwarcie eksportowanego obrazu celu na pełnym ekranie.
 
 <figure><img src="../.gitbook/assets/chloros_grid_mode.gif" alt=""><figcaption></figcaption></figure>

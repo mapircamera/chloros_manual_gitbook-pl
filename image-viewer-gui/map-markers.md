@@ -1,25 +1,25 @@
 # Znaczniki mapy
 
-Zakładka Mapa wyświetla obrazy na interaktywnej mapie 2D na podstawie ich współrzędnych GPS. Zapewnia to geograficzny przegląd sesji przechwytywania i pomaga wizualizować zasięg przestrzenny. Jest to również przydatne podczas pierwszego importowania obrazów, aby szybko usunąć te, które nie wymagają przetwarzania.
+Zakładka „Mapa” wyświetla obrazy na interaktywnej mapie 2D na podstawie ich współrzędnych GPS. Zapewnia to geograficzny przegląd sesji przechwytywania i pomaga wizualizować zasięg przestrzenny. Jest to również przydatne podczas pierwszego importowania obrazów, aby szybko usunąć te, których nie trzeba przetwarzać.
 
 <figure><img src="../.gitbook/assets/chloros_map_markers.gif" alt=""><figcaption></figcaption></figure>
 
-## Dostęp do zakładki „Mapa”
+## Dostęp do zakładki Mapa
 
-1. Otwórz lub utwórz projekt w Chloros.
-2. Zaimportuj obrazy zawierające metadane GPS.
-3. Kliknij zakładkę **Mapa** <img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> na lewym pasku bocznym
-4. Mapa wyświetli znaczniki w lokalizacji GPS każdego zdjęcia
+1. Otwórz lub utwórz projekt w Chloros
+2. Zaimportuj obrazy zawierające metadane GPS
+3. Kliknij zakładkę **Mapa** <img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> na lewym pasku bocznym.
+4. Na mapie zostaną wyświetlone znaczniki w lokalizacji GPS każdego zdjęcia.
 
 {% hint style="info" %}
-**Wymagany GPS**: Na mapie pojawią się tylko obrazy z wbudowanymi współrzędnymi GPS w metadanych EXIF. Upewnij się, że podczas robienia zdjęć w aparacie włączona jest funkcja GPS.
+**Wymagane GPS**: Na mapie pojawią się tylko obrazy z wbudowanymi współrzędnymi GPS w metadanych EXIF. Upewnij się, że podczas robienia zdjęć w aparacie włączona jest funkcja GPS.
 {% endhint %}
 
 ***
 
 ## Dostosowywanie obrazów z karty „Mapa”
 
-Karta **Mapa** <img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> ma te same opcje dodawania  <img src="../.gitbook/assets/image.png" alt="" data-size="line">   <img src="../.gitbook/assets/image (1).png" alt="" data-size="line">  i usuwania  <img src="../.gitbook/assets/image (2).png" alt="" data-size="line">  przyciski plików, co zakładka [**Przeglądarka plików**](../processing-images-gui/adding-files-to-a-project.md) <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> . Wyświetla również tę samą listę plików projektu, ale z innymi nagłówkami kolumn:
+Karta **Mapa**<img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> ma te same opcje dodawania  <img src="../.gitbook/assets/image.png" alt="" data-size="line">   <img src="../.gitbook/assets/image (1).png" alt="" data-size="line">  i usuwania  <img src="../.gitbook/assets/image (2).png" alt="" data-size="line">  przyciski plików, co zakładka [**Przeglądarka plików**](../processing-images-gui/adding-files-to-a-project.md) <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> . Wyświetla również tę samą listę plików projektu, ale z innymi nagłówkami kolumn:
 
 ### Nazwa pliku
 
@@ -28,18 +28,18 @@ Karta **Mapa** <img src="../.gitbook/assets/image (3).png" alt="" data-size="lin
 
 ### Szerokość geograficzna
 
-* Szerokość geograficzna zdjęcia
+* Szerokość geograficzna obrazu
 
 ### Długość geograficzna
 
-* Długość geograficzna zdjęcia
+* Długość geograficzna obrazu
 
 ### Wysokość
 
 * Wysokość obrazu
 
 {% hint style="info" %}
-Kliknięcie nagłówków kolumn tabeli powoduje również posortowanie danych w wierszach.
+Kliknięcie nagłówków kolumn tabeli powoduje również posortowanie danych wierszy.
 {% endhint %}
 
 ***
@@ -90,7 +90,7 @@ Karta Mapa obsługuje dwóch dostawców kafelków dla obrazów mapy tła:
 
 Możesz wybrać typ warstwy mapy (od lewej do prawej):
 
- <img src="../.gitbook/assets/image (23).png" alt="" data-size="line">### Teren
+ <img src="../.gitbook/assets/image (23).png" alt="" data-size="original">### Teren
 
 Wyświetla profile wysokościowe i kafelki mapy ze szczegółami (drogi itp.)
 
@@ -117,9 +117,7 @@ Wyświetla kafelki mapy satelitarnej z dodatkowymi szczegółami (drogi itp.)
 
 ### Elementy sterujące przesuwaniem
 
-* **Przesuwanie**: kliknij i przeciągnij, aby przesuwać mapę
-
-***
+* **Przesuwanie**: kliknij i przeciągnij, aby przesuwać mapę***
 
 ## Przykłady zastosowań
 
@@ -160,6 +158,6 @@ Wyświetla kafelki mapy satelitarnej z dodatkowymi szczegółami (drogi itp.)
 **Możliwe przyczyny:**
 
 * GPS aparatu miał słaby sygnał satelitarny.
-* Drift GPS podczas rejestracji.
+* Drift GPS podczas rejestrowania.
 
-**Rozwiązanie**: Jest to zazwyczaj problem związany z czasem rejestracji; rozważ użycie GPS PPK/RTK do zastosowań wymagających precyzji.
+**Rozwiązanie**: Jest to zazwyczaj problem związany z czasem rejestrowania; rozważ użycie GPS PPK/RTK do zastosowań wymagających precyzji.

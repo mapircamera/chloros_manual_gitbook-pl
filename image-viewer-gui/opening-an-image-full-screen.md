@@ -32,9 +32,7 @@ Największa część ekranu pokazuje obraz:
 * **Pełna rozdzielczość**: obrazy wyświetlane w natywnej rozdzielczości.
 * **Możliwość powiększania**: użyj elementów sterujących lub kółka myszy, aby powiększyć obraz
 * **Możliwość przesuwania**: kliknij i przeciągnij, aby przesuwać obraz po powiększeniu
-* **Zachowanie proporcji**: obrazy są skalowane proporcjonalnie
-
-***
+* **Zachowanie proporcji**: obrazy są skalowane proporcjonalnie***
 
 ## Opcje przeglądania
 
@@ -44,23 +42,18 @@ Największa część ekranu pokazuje obraz:
 
 Poruszaj się po zestawie obrazów za pomocą skrótów klawiaturowych lub przycisków:
 
-* **Następny obraz**: kliknij przycisk → lub naciśnij klawisz **→** (strzałka w prawo)
-* **Poprzedni obraz**: kliknij przycisk ← lub naciśnij klawisz **←** (strzałka w lewo)
-* **Przejdź do określonego obrazu**: wróć do przeglądarki plików i kliknij żądaną miniaturę
+* **Następny obraz**: kliknij przycisk → lub naciśnij klawisz**→** (strzałka w prawo)
+* **Poprzedni obraz**: kliknij przycisk ← lub naciśnij klawisz**←** (strzałka w lewo)
+* **Przejdź do konkretnego obrazu**: wróć do przeglądarki plików i kliknij żądaną miniaturę
 
 #### Elementy sterujące powiększaniem
 
 Dostosuj powiększenie, aby sprawdzić szczegóły obrazu:
 
-**Powiększ:**
+**Powiększ:*** Kliknij przycisk **+** (plus)
+* Naciśnij klawisz **+**lub**=*** Przewiń kółkiem myszy **w górę**
 
-* Kliknij przycisk **+** (plus)
-* Naciśnij klawisz **+** lub **=**
-* Przewiń kółkiem myszy **w górę**
-
-**Pomniejsz:**
-
-* Kliknij przycisk **−** (minus)
+**Pomniejsz:*** Kliknij przycisk **−** (minus)
 * Naciśnij klawisz **−** (minus)
 * Przewiń kółkiem myszy **w dół**
 
@@ -73,22 +66,13 @@ Po powiększeniu ponad rozmiar ekranu:
 3. **Przeciągnij**, aby przesunąć obraz.
 4. Zwolnij przycisk, aby zatrzymać przesuwanie.
 
-**Alternatywa**: użyj klawiszy strzałek, aby przesuwać obraz małymi krokami.
-
-***
+**Alternatywa**: Użyj klawiszy strzałek, aby przesuwać obraz małymi krokami.***
 
 ## Sprawdzanie wartości pikseli
 
 ### Wyświetlanie wartości pikseli w miejscu kursora
 
-Podczas przesuwania kursora myszy nad obrazem wartości pikseli są wyświetlane w czasie rzeczywistym:
-
-**Miejsce wyświetlania wartości:**
-
-* **Liczba zmiennoprzecinkowa i czerwona linia w legendzie gradientu indeksu LUT po prawej stronie**
-* **Po dalszym powiększeniu wartość zmiennoprzecinkowa w pobliżu kursora i podświetlonego piksela**
-* Wyświetla wartości pikseli **pod kursorem lub podświetlonych**
-* Aktualizacje podczas przesuwania myszy
+Podczas przesuwania kursora myszy nad obrazem wartości pikseli są wyświetlane w czasie rzeczywistym:**Miejsce wyświetlania wartości:*** **Liczba zmiennoprzecinkowa i czerwona linia w legendzie gradientu indeksu LUT po prawej stronie*** **Po dalszym powiększeniu wartość zmiennoprzecinkowa w pobliżu kursora i podświetlonego piksela*** Wyświetla wartości pikseli **pod kursorem lub podświetlonych*** Aktualizacje podczas przesuwania myszy
 
 ***
 
@@ -128,7 +112,7 @@ Podczas przesuwania kursora myszy nad obrazem wartości pikseli są wyświetlane
 
 Zastosowanie indeksów wielospektralnych i kolorowych tabel LUT:
 
-1. Znajdź **Index/LUT Sandbox** w **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> na pasku bocznym
+1. Znajdź **Index/LUT Sandbox**w**Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> na pasku bocznym
 2. Wybierz indeks roślinności (NDVI, NDRE itp.)
 3. Wybierz formułę wielospektralną lub utwórz własną (tylko Chloros+)
 4. Zastosuj gradient kolorów LUT do wizualizacji
@@ -149,11 +133,9 @@ Szczegółowe instrukcje można znaleźć w sekcji [Index/LUT Sandbox](index-lut
 
 ### Powiększanie
 
-* **+** lub **=**: powiększanie
+* **+**lub**=**: powiększanie
 * **−**: pomniejszanie
-* **Kółko myszy**: powiększanie/pomniejszanie
-
-***
+* **Kółko myszy**: powiększanie/pomniejszanie***
 
 ### Sprawdzanie obliczeń indeksu
 
@@ -166,9 +148,7 @@ Sprawdź, czy indeksy zostały obliczone poprawnie:
    * **GNDVI**: Podobnie jak NDVI, ale wrażliwy na chlorofil
 3. Sprawdź obszary bez roślinności:
    * **Gleba**: Wartość bliska 0 lub lekko ujemna
-   * **Woda**: Wartości ujemne (od -0,5 do 0)
-
-***
+   * **Woda**: Wartości ujemne (od -0,5 do 0)***
 
 ## Rozwiązywanie problemów z wyświetlaniem
 
@@ -183,11 +163,11 @@ Sprawdź, czy indeksy zostały obliczone poprawnie:
 **Rozwiązania:**
 
 1. Spróbuj otworzyć plik w zewnętrznej przeglądarce, aby sprawdzić jego integralność.
-2. Sprawdź, czy format pliku jest zgodny z oczekiwanym typem.
+2. Sprawdź, czy format pliku odpowiada oczekiwanemu typowi.
 3. Zamknij inne aplikacje, aby zwolnić pamięć.
 4. Spróbuj otworzyć mniejszy/inny obraz.
 
-### Obraz wyświetlany jest czarno-biały.
+### Obraz wyświetlany jest czarno-biały
 
 **Możliwe przyczyny:**
 
@@ -224,7 +204,7 @@ Teraz, gdy możesz wyświetlać obrazy na pełnym ekranie:
 
 * [**Warstwy obrazu**](image-layers.md) — dowiedz się więcej o wizualizacji wielopasmowej
 * [**Sandbox indeksów/LUT**](index-lut-sandbox.md) — zastosuj niestandardowe indeksy i mapowanie kolorów
-* [**Wzory indeksów wielospektralnych**](../project-settings/multispectral-index-formulas.md) — zrozumienie dostępnych indeksów
+* [**Wzory indeksów wielospektralnych**](../project-settings/multispectral-index-formulas.md) — zrozum dostępne indeksy
 
 Aby zapoznać się z procesem przetwarzania, zobacz:
 

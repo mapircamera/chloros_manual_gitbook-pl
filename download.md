@@ -10,18 +10,18 @@ Pobierz najnowszą wersję Chloros, aby rozpocząć przetwarzanie obrazów wielo
 
 ### Wymagania systemowe
 
-| Wymagania          | Minimalne                         | Zalecane                     |
-| -------------------- | ------------------------------- | ------------------------------- |
-| **System operacyjny** | Windows 10 (64-bitowy)             | Windows 11 (64-bitowy)             |
-| **Procesor**        | Intel Core i5 lub równoważny     | Intel Core i7 lub lepszy         |
-| **Pamięć (RAM)**     | 8 GB                             | 16 GB lub więcej                    |
-| **Karta graficzna**    | Zgodna z DirectX 11           | Procesor graficzny NVIDIA z 4 GB+ pamięci VRAM       |
-| **Pamięć masowa**          | 6 GB wolnego miejsca                  | Dysk SSD z 10 GB+ wolnego miejsca       |
-| **Wyświetlacz**          | 1920 x 1080                       | 2560 x 1440 lub wyższa             |
-| **Internet**         | Wymagany do aktywacji licencji | Wymagany do aktywacji licencji |
+| Wymagania          | Minimalne                                              | Zalecane                                          |
+| -------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| **System operacyjny** | Windows 10 (64-bitowy)                                  | Windows 11 (64-bitowy)                                  |
+| **Procesor**        | Intel Core i5 lub równoważny                          | Intel Core i7 lub lepszy                              |
+| **Pamięć (RAM)**     | 8 GB                                                  | 16 GB lub więcej                                         |
+| **Karta graficzna**    | Zgodna z DirectX 11                                | Procesor graficzny NVIDIA z 4 GB+ pamięci VRAM                            |
+| **Pamięć masowa**          | 6 GB wolnego miejsca                                       | Dysk SSD z 10 GB+ wolnego miejsca                            |
+| **Wyświetlacz**          | 1920 x 1080                                            | 2560 x 1440 lub wyższa                                  |
+| **Internet**         | Wymagany do [opcjonalnej] aktywacji licencji Chloros+ | Wymagany do [opcjonalnej] aktywacji licencji Chloros+ |
 
-{% hint style=&quot;info&quot; %}
-**Przyspieszenie GPU**: Użytkownicy Chloros+ z procesorami graficznymi NVIDIA (4 GB+ VRAM) mogą korzystać z przyspieszenia CUDA, aby znacznie przyspieszyć przetwarzanie. Użytkownicy Chloros+ zyskują również możliwość przetwarzania wielowątkowego, zapewniającego maksymalną prędkość.
+{% hint style="info" %}
+**Przyspieszenie GPU**: Użytkownicy Chloros+ z procesorami graficznymi NVIDIA mogą korzystać z przyspieszenia CUDA, aby znacznie przyspieszyć przetwarzanie. Użytkownicy Chloros+ zyskują również możliwość przetwarzania wielowątkowego, zapewniającego maksymalną prędkość.
 {% endhint %}
 
 ***
@@ -32,9 +32,9 @@ Pobierz najnowszą wersję Chloros, aby rozpocząć przetwarzanie obrazów wielo
 
 ### Najnowsza stabilna wersja
 
-**Chloros Instalator dla Windows*** **Wersja**: 1.0.4
-* **Data wydania**: 5 stycznia 2026 r.
-* **Rozmiar pliku (pobieranie)**: 1,8 GB
+**Instalator Chloros dla Windows*** **Wersja**: 1.0.5
+* **Data wydania**: 10 lutego 2026 r.
+* **Rozmiar pliku (pobieranie)**: 1,6 GB
 * **Rozmiar pliku (po zainstalowaniu)**: 5,7 GB
 * **Typ pliku**: .exe (instalator Windows)
 
@@ -44,10 +44,10 @@ Pobierz najnowszą wersję Chloros, aby rozpocząć przetwarzanie obrazów wielo
 2. Kliknij dwukrotnie instalator, aby rozpocząć instalację
 3. Postępuj zgodnie z instrukcjami kreatora instalacji
 4. Wybierz katalog instalacyjny (domyślnie: `C:\Program Files\[USER]\Chloros\`)
-5. Zakończ instalację i uruchom Chloros, Chloros (przeglądarka) lub Chloros CLI
+5. Zakończ instalację i uruchom Chloros lub Chloros CLI
 6. Zaloguj się na swoje konto [MAPIR Cloud Chloros+](https://cloud.mapir.camera/pricing) (lub kontynuuj korzystanie z wersji bezpłatnej).
 
-{% hint style=&quot;success&quot; %}
+{% hint style="success" %}
 Instalator automatycznie dodaje `chloros-cli` do ścieżki PATH systemu, aby umożliwić dostęp z wiersza poleceń.
 {% endhint %}
 
@@ -69,24 +69,24 @@ pip install chloros-sdk
 
 Instalacja Chloros zawiera:
 
-* ✅ **Chloros** — w pełni funkcjonalny interfejs graficzny
-* ✅ **Chloros (przeglądarka)** — interfejs internetowy dla systemów o niższej specyfikacji
-* ✅ **Chloros CLI** – interfejs wiersza poleceń (wymaga licencji Chloros+)
-* ✅ **Chloros SDK** - Python API (wymaga licencji Chloros+)
-* ✅ **Profile kamer** - Wstępnie skonfigurowane szablony kamer MAPIR***
+* ✅ **Chloros** — w pełni funkcjonalny interfejs graficzny (GUI)
+* ✅ **Chloros CLI** — interfejs wiersza poleceń (wymaga licencji Chloros+)
+* ✅ **Chloros SDK** – Python API (wymaga licencji Chloros+)
+* ✅ **Profile kamer** – wstępnie skonfigurowane szablony kamer MAPIR***
 
 ## Aktualizacja do Chloros+
 
 Odblokuj zaawansowane funkcje dzięki subskrypcji Chloros+:
 
 * 🚀 **Przetwarzanie wielowątkowe** — przetwarzaj obrazy równolegle
-* ⚡ **Przyspieszenie GPU (CUDA)** — wykorzystaj moc procesora graficznego NVIDIA
+* ⚡ **Przyspieszenie GPU (CUDA)** — wykorzystaj moc procesorów graficznych NVIDIA
 * 💻 **Dostęp do CLI** — automatyzacja za pomocą narzędzi wiersza poleceń
 * 🐍 **Python SDK** — programowy dostęp do API
 * 📱 **Wiele urządzeń** — możliwość korzystania na 2–10+ urządzeniach (w zależności od planu)
+* **🐻 Zaawansowana metoda debayeringu z uwzględnieniem tekstury** — wysokiej jakości debayering z uwzględnieniem krawędzi w połączeniu z modelem redukcji szumów AI/ML, który usuwa prawie wszystkie szumy związane z debayeringiem. 
 * 🧮 **Formuły niestandardowe** — tworzenie niestandardowych indeksów wielospektralnych
 
-<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">Zobacz plany i ceny Chloros</a></p>***
+<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">Zobacz plany i ceny Chloros+</a></p>***
 
 ## Pomoc dotycząca instalacji
 
@@ -100,7 +100,6 @@ Odblokuj zaawansowane funkcje dzięki subskrypcji Chloros+:
 
 **Aplikacja nie uruchamia się:**
 
-* Wypróbuj wersję Chloros (przeglądarka)
 * Sprawdź, czy zainstalowano Windows 10/11 (64-bit)
 * Zaktualizuj sterowniki graficzne
 * Sprawdź Windows Podgląd zdarzeń, aby uzyskać szczegółowe informacje o błędzie
@@ -126,9 +125,20 @@ Potrzebujesz pomocy przy instalacji lub konfiguracji?
 
 <details>
 
+<summary>Wersja 1.0.5</summary>
+
+#### **Data wydania**: 10 lutego 2026 r.**Nowe funkcje*** **Metoda debayeringu z uwzględnieniem tekstury \[Chloros+ Only] -** Texture Aware wykorzystuje wysokiej jakości debayering z uwzględnieniem krawędzi w połączeniu z modelem AI/ML do usuwania szumów, który eliminuje prawie wszystkie szumy związane z debayeringiem.
+* **Obsługa celów kalibracji T4P*** **Szybsze przetwarzanie GPU Chloros+, lepsze zarządzanie pamięcią**
+
+**Poprawki błędów*** Całkowicie nowy interfejs użytkownika (GUI), powinien teraz działać na wszystkich komputerach Windows.
+
+</details>
+
+<details>
+
 <summary>Wersja 1.0.4</summary>
 
-#### **Data wydania**: 5 stycznia 2026 r.**Nowe funkcje*** **Przełącznik obrazu/metadanych**: Dodano przełącznik w przeglądarce plików, aby wyświetlać metadane wybranego obrazu w tabeli zamiast w siatce obrazów
+#### **Data wydania**: 5 stycznia 2026 r.**Nowe funkcje*** **Przełączanie obrazu/metadanych**: Dodano przełącznik w przeglądarce plików, aby wyświetlać metadane wybranego obrazu w tabeli zamiast w siatce obrazów
 * **Suwak powiększania siatki obrazów**: Nowy suwak interfejsu użytkownika do regulacji rozmiaru miniatur (obsługuje również kombinację klawiszy CTRL + kółko myszy).
 * **Przyciski eksportu siatki obrazów**: przyciski w górnym rzędzie służące do przełączania miniatur z formatu JPG na przetworzone eksporty (cele, odbicie, indeks, LUT).
 * **Zakładka Mapa**: nowa interaktywna mapa 2D pokazująca znaczniki lokalizacji GPS obrazów.
@@ -153,8 +163,8 @@ Potrzebujesz pomocy przy instalacji lub konfiguracji?
 
 </details>***
 
-## Umowa licencyjna**Oprogramowanie zastrzeżone** — Copyright (c) 2025 MAPIR Inc.
+## Umowa licencyjna**Oprogramowanie zastrzeżone** — Copyright (c) 2026 MAPIR Inc.
 
-Niedozwolone jest nieautoryzowane użytkowanie, dystrybucja lub modyfikacja.
+Niedozwolone jest nieautoryzowane używanie, dystrybucja lub modyfikacja.
 
 **Wersja bezpłatna**: dostępna do użytku osobistego i komercyjnego z ograniczeniami funkcji.**Chloros+**: licencja oparta na subskrypcji, umożliwiająca korzystanie z zaawansowanych funkcji i wdrożeń komercyjnych.
