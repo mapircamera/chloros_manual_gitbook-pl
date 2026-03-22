@@ -1,25 +1,25 @@
-# Znaczniki mapy
+# Znaczniki na mapie
 
-Zakładka „Mapa” wyświetla obrazy na interaktywnej mapie 2D na podstawie ich współrzędnych GPS. Zapewnia to geograficzny przegląd sesji przechwytywania i pomaga wizualizować zasięg przestrzenny. Jest to również przydatne podczas pierwszego importowania obrazów, aby szybko usunąć te, których nie trzeba przetwarzać.
+Zakładka „Mapa” wyświetla zdjęcia na interaktywnej mapie 2D na podstawie ich współrzędnych GPS. Zapewnia to przegląd geograficzny sesji zdjęciowej i pomaga w wizualizacji zasięgu przestrzennego. Jest to również przydatne podczas pierwszego importowania zdjęć, aby szybko usunąć te, których nie trzeba przetwarzać.
 
 <figure><img src="../.gitbook/assets/chloros_map_markers.gif" alt=""><figcaption></figcaption></figure>
 
-## Dostęp do zakładki Mapa
+## Dostęp do zakładki „Mapa”
 
 1. Otwórz lub utwórz projekt w Chloros
-2. Zaimportuj obrazy zawierające metadane GPS
-3. Kliknij zakładkę **Mapa** <img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> na lewym pasku bocznym.
-4. Na mapie zostaną wyświetlone znaczniki w lokalizacji GPS każdego zdjęcia.
+2. Zaimportuj zdjęcia zawierające metadane GPS
+3. Kliknij zakładkę **Mapa** <img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> na lewym pasku bocznym
+4. Na mapie pojawią się znaczniki w lokalizacjach GPS poszczególnych zdjęć
 
 {% hint style="info" %}
-**Wymagane GPS**: Na mapie pojawią się tylko obrazy z wbudowanymi współrzędnymi GPS w metadanych EXIF. Upewnij się, że podczas robienia zdjęć w aparacie włączona jest funkcja GPS.
+**Wymagany GPS**: Na mapie pojawią się tylko zdjęcia z wbudowanymi współrzędnymi GPS w metadanych EXIF. Upewnij się, że podczas robienia zdjęć w aparacie włączona jest funkcja GPS.
 {% endhint %}
 
 ***
 
-## Dostosowywanie obrazów z karty „Mapa”
+## Dostosowywanie zdjęć z zakładki Mapa
 
-Karta **Mapa**<img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> ma te same opcje dodawania  <img src="../.gitbook/assets/image.png" alt="" data-size="line">   <img src="../.gitbook/assets/image (1).png" alt="" data-size="line">  i usuwania  <img src="../.gitbook/assets/image (2).png" alt="" data-size="line">  przyciski plików, co zakładka [**Przeglądarka plików**](../processing-images-gui/adding-files-to-a-project.md) <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> . Wyświetla również tę samą listę plików projektu, ale z innymi nagłówkami kolumn:
+Zakładka **Mapa**<img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> ma tę samą funkcję dodawania  <img src="../.gitbook/assets/image.png" alt="" data-size="line">   <img src="../.gitbook/assets/image (1).png" alt="" data-size="line">  i usuwania  <img src="../.gitbook/assets/image (2).png" alt="" data-size="line">  jak zakładka [**Przeglądarka plików**](../processing-images-gui/adding-files-to-a-project.md) <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> . Wyświetla również tę samą listę plików projektu, ale z innymi nagłówkami kolumn:
 
 ### Nazwa pliku
 
@@ -28,61 +28,61 @@ Karta **Mapa**<img src="../.gitbook/assets/image (3).png" alt="" data-size="line
 
 ### Szerokość geograficzna
 
-* Szerokość geograficzna obrazu
+* Szerokość geograficzna zdjęcia
 
 ### Długość geograficzna
 
-* Długość geograficzna obrazu
+* Długość geograficzna zdjęcia
 
 ### Wysokość
 
-* Wysokość obrazu
+* Wysokość zdjęcia
 
 {% hint style="info" %}
-Kliknięcie nagłówków kolumn tabeli powoduje również posortowanie danych wierszy.
+Kliknięcie nagłówków kolumn tabeli powoduje również sortowanie danych w wierszach
 {% endhint %}
 
 ***
 
-## Znaczniki obrazów
+## Znaczniki zdjęć
 
-Każdy obraz z danymi GPS jest reprezentowany przez znacznik na mapie:
+Każde zdjęcie z danymi GPS jest reprezentowane przez znacznik na mapie:
 
 ### Wyświetlanie znaczników
 
-* Znaczniki wskazują dokładne współrzędne GPS, w których każdy obraz został zarejestrowany.
-* Znaczniki mogą być zgrupowane po pomniejszeniu widoku.
-* Powiększ widok, aby zobaczyć lokalizacje poszczególnych obrazów.
+* Znaczniki wskazują dokładne współrzędne GPS miejsca, w którym zostało zrobione dane zdjęcie
+* Znaczniki mogą się grupować przy pomniejszeniu widoku
+* Powiększ, aby zobaczyć lokalizacje poszczególnych zdjęć
 
 {% hint style="success" %}
-SUPER-ZOOM: Po osiągnięciu maksymalnego poziomu powiększenia dostarczanego przez dostawcę kafelków mapy, kafelek jest powiększany po dalszym powiększeniu, co pozwala zobaczyć znaczniki, które znajdują się blisko siebie.
+SUPER-ZOOM: Po osiągnięciu maksymalnego poziomu powiększenia oferowanego przez dostawcę kafelków mapy, kafelek jest powiększany przy dalszym powiększaniu, co pozwala zobaczyć znaczniki znajdujące się blisko siebie.
 {% endhint %}
 
 ### Podgląd po najechaniu kursorem
 
-* **Najedź kursorem myszy** na dowolny znacznik, aby wyświetlić miniaturę podglądu tego zdjęcia.
-* Umożliwia to szybką identyfikację wizualną bez opuszczania widoku mapy.
-* Przydatne do lokalizowania konkretnych zdjęć w ramach dużej sesji fotografowania.
+* **Najedź kursorem myszy** na dowolny znacznik, aby wyświetlić miniaturę tego zdjęcia
+* Pozwala to na szybką identyfikację wizualną bez opuszczania widoku mapy
+* Przydatne do lokalizowania konkretnych zdjęć w ramach dużej sesji zdjęciowej
 
 ***
 
 ## Dostawcy kafelków map
 
 {% hint style="success" %}
-**Automatyczny wybór**: Chloros automatycznie wybiera usługę kafelków, która zapewnia najlepszy poziom powiększenia dla aktualnej lokalizacji na mapie. W razie potrzeby można ręcznie przełączać się między dostawcami.
+**Wybór automatyczny**: Chloros automatycznie wybiera usługę kafelkową, która zapewnia najlepszy poziom powiększenia dla aktualnej lokalizacji na mapie. W razie potrzeby można ręcznie przełączać się między dostawcami.
 {% endhint %}
 
-Karta Mapa obsługuje dwóch dostawców kafelków dla obrazów mapy tła:
+Zakładka Mapa obsługuje dwóch dostawców kafelków dla obrazów tła mapy:
 
-### Mapy Google
+### Google Maps
 
-* Standardowe zdjęcia satelitarne i mapy od Google.
-* Najlepsze rozwiązanie dla ogólnego pokrycia całego świata.
+* Standardowe zdjęcia satelitarne i mapy od Google
+* Najlepsze do ogólnego pokrycia na całym świecie
 
 ### ESRI
 
-* Zdjęcia satelitarne i lotnicze od ESRI ArcGIS.
-* Często zapewnia zdjęcia o wyższej rozdzielczości w niektórych regionach.
+* Zdjęcia satelitarne i lotnicze z ESRI ArcGIS
+* Często zapewniają zdjęcia o wyższej rozdzielczości w niektórych regionach
 
 ***
 
@@ -96,68 +96,68 @@ Wyświetla profile wysokościowe i kafelki mapy ze szczegółami (drogi itp.)
 
 ### Mapa
 
-Wyświetla standardowe (niższa przepustowość) kafelki mapy ze szczegółami (drogi itp.)
+Wyświetla standardowe (o niższej przepustowości) kafelki mapy ze szczegółami (drogi itp.)
 
 ### Satelita
 
-Wyświetla szczegółowe (wyższa przepustowość) kafelki mapy satelitarnej
+Wyświetla szczegółowe (o wyższej przepustowości) kafelki mapy satelitarnej
 
 ### Hybrydowa
 
-Wyświetla kafelki mapy satelitarnej z dodatkowymi szczegółami (drogi itp.)
+Wyświetla kafelki mapy satelitarnej z dodanymi szczegółami (drogi itp.)
 
 ***
 
 ## Nawigacja po mapie
 
-### Elementy sterujące powiększaniem
+### Elementy sterujące powiększeniem
 
-* **Powiększanie/pomniejszanie**: użyj kółka myszy lub przycisków powiększania
-* **Pełny ekran**: wyświetl mapę na pełnym ekranie
+* **Powiększanie/pomniejszanie**: Użyj kółka myszy lub przycisków powiększania
+* **Pełny ekran**: Wyświetl mapę na pełnym ekranie
 
 ### Elementy sterujące przesuwaniem
 
-* **Przesuwanie**: kliknij i przeciągnij, aby przesuwać mapę***
+* **Przesuwanie**: Kliknij i przeciągnij, aby poruszać się po mapie***
 
 ## Przykłady zastosowań
 
 ### Wizualizacja trasy lotu
 
-* Wyświetl obszar pokrycia sesji przechwytywania dronem
-* Zidentyfikuj luki w pokryciu obrazu
-* Sprawdź realizację trasy lotu
+* Wyświetlanie obszaru pokrycia sesji zdjęciowych z drona
+* Identyfikacja luk w pokryciu obrazowym
+* Weryfikacja przebiegu trasy lotu
 
 ### Przegląd pomiarów naziemnych
 
-* Zobacz rozmieszczenie przestrzenne przechwytywanych obrazów naziemnych
-* Zlokalizuj obrazy kalibracyjne względem obszaru pomiarowego
-* Zaplanuj dodatkowe lokalizacje przechwytywania
+* Wyświetlanie rozmieszczenia przestrzennego zdjęć naziemnych
+* Lokalizowanie obrazów celów kalibracyjnych względem obszaru pomiarowego
+* Planowanie dodatkowych lokalizacji zdjęciowych
 
 ### Kontrola jakości
 
-* Szybka identyfikacja zdjęć wykonanych w nieoczekiwanych lokalizacjach.
-* Weryfikacja dokładności GPS w całym zbiorze danych.
-* Porównanie lokalizacji zdjęć z notatkami terenowymi.
+* Szybka identyfikacja zdjęć wykonanych w nieoczekiwanych lokalizacjach
+* Weryfikacja dokładności GPS w całym zbiorze danych
+* Porównanie lokalizacji zdjęć z notatkami terenowymi
 
 ***
 
 ## Rozwiązywanie problemów
 
-### Brak znaczników
+### Brak wyświetlania znaczników
 
 **Możliwe przyczyny:**
 
-* Zdjęcia nie zawierają metadanych GPS.
-* GPS był wyłączony w aparacie podczas wykonywania zdjęć.
-* Dane EXIF zostały usunięte przez oprogramowanie zewnętrzne.
+* Zdjęcia nie zawierają metadanych GPS
+* Podczas rejestracji w aparacie wyłączono GPS
+* Dane EXIF zostały usunięte przez oprogramowanie zewnętrzne
 
-**Rozwiązanie**: Sprawdź, czy GPS jest włączony w aparacie i ponownie zaimportuj oryginalne pliki.
+**Rozwiązanie**: Sprawdź, czy GPS jest włączony w aparacie i ponownie zaimportuj oryginalne pliki
 
 ### Znaczniki w niewłaściwej lokalizacji
 
 **Możliwe przyczyny:**
 
-* GPS aparatu miał słaby sygnał satelitarny.
-* Drift GPS podczas rejestrowania.
+* GPS aparatu miał słaby sygnał satelitarny
+* Drift GPS podczas rejestracji
 
-**Rozwiązanie**: Jest to zazwyczaj problem związany z czasem rejestrowania; rozważ użycie GPS PPK/RTK do zastosowań wymagających precyzji.
+**Rozwiązanie**: Jest to zazwyczaj problem związany z momentem rejestracji; rozważ użycie GPS PPK/RTK do zastosowań wymagających precyzji

@@ -1,12 +1,12 @@
-Obsługiwane języki
+# Obsługiwane języki
 
-Chloros zapewnia pełną obsługę interfejsu w **38 językach na całym świecie**, dzięki czemu jest dostępny dla użytkowników na całym świecie. Możesz błyskawicznie zmieniać języki we wszystkich interfejsach: Desktop, Browser, CLI i Python SDK.
+Chloros zapewnia pełną obsługę interfejsu w **38 językach na całym świecie**, dzięki czemu jest dostępny dla użytkowników z różnych stron globu. Możesz błyskawicznie zmieniać języki we wszystkich interfejsach: Desktop, Browser, CLI oraz Python SDK.
 
 Chloros obsługuje następujące języki:
 
-| # | Język | Nazwa natywna | Kod CLI |
+| # | Język | Nazwa w języku ojczystym | Kod CLI |
 |---|----------|-------------|----------|
-| 1 | 🇺🇸 Angielski | Angielski | `en` |
+| 1 | 🇺🇸 Angielski | English | `en` |
 | 2 | 🇪🇸 Hiszpański | Español | `es` |
 | 3 | 🇵🇹 Portugalski | Português | `pt` |
 | 4 | 🇫🇷 Francuski | Français | `fr` |
@@ -49,10 +49,10 @@ Chloros obsługuje następujące języki:
 
 ### W Chloros Desktop/Browser
 
-1. Otwórz ustawienia aplikacji.
-2. Przejdź do menu wyboru języka.
-3. Wybierz preferowany język z listy.
-4. Interfejs zostanie natychmiast zaktualizowany.
+1. Otwórz ustawienia aplikacji
+2. Przejdź do menu wyboru języka
+3. Wybierz preferowany język z listy
+4. Interfejs zaktualizuje się natychmiast
 
 ### W Chloros CLI
 
@@ -75,19 +75,19 @@ chloros-cli language pt-BR
 chloros-cli language --list
 ```
 
-Więcej szczegółów można znaleźć w [dokumentacji CLI](CLI.md).
+Więcej szczegółów znajdziesz w [dokumentacji CLI](CLI.md).
 
 ### W Chloros Python SDK
 
 Ustaw parametr języka podczas inicjalizacji SDK, aby otrzymywać komunikaty i wyniki w preferowanym języku.
 
-## Zakres
+## Obsługa
 
 Wszystkie 38 języków jest w pełni obsługiwanych w:
 
 * **Chloros Desktop** — pełne tłumaczenie GUI
 * **Chloros Browser** — interfejs internetowy we wszystkich językach
 * **Chloros CLI** — interfejs wiersza poleceń i komunikaty wyjściowe
-* **Chloros Python SDK** — komunikaty API i dokumentacja
+* **Chloros Python SDK** — komunikaty i dokumentacja API
 
-Obsługa języków zapewnia użytkownikom na całym świecie możliwość wydajnej pracy w ich ojczystym języku bez żadnych barier.
+Obsługa języków gwarantuje, że użytkownicy na całym świecie mogą efektywnie pracować w swoim ojczystym języku bez żadnych barier.

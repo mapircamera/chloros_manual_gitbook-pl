@@ -1,16 +1,16 @@
 # Spis treści
 
 * [Pierwsze kroki](README.md)
-* [GUI: Nawigacja](navigation.md)
-* [GUI: Projekty](projects.md)
+* [Interfejs graficzny: Nawigacja](navigation.md)
+* [Interfejs graficzny: Projekty](projects.md)
 * [CLI: Wiersz poleceń](CLI.md)
 * [API: Python SDK](api-python-sdk.md)
-* [Obsługiwane aparaty fotograficzne](supported-cameras.md)
+* [Obsługiwane kamery](supported-cameras.md)
 * [Formaty obrazów wyjściowych](output-image-formats.md)
 * [Chloros+ Logowanie](chloros+-login.md)
-* [Cele kalibracji](calibration-targets.md)
+* [Cele kalibracyjne](calibration-targets.md)
 * [Obsługiwane języki](supported-languages.md)
-* [Pobieranie](download.md)
+* [Pobierz](download.md)
 * [FAQ](faq.md)
 
 ## Przetwarzanie obrazów (GUI)
@@ -27,10 +27,21 @@
 * [Ustawienia projektu](project-settings/project-settings.md)
 * [Wzory indeksów wielospektralnych](project-settings/multispectral-index-formulas.md)
 
-## PRZEGLĄDARKĄ OBRAZÓW (GUI)
+## PRZEGLĄDARKA OBRAZÓW (GUI)
 
 * [Siatka obrazów](image-viewer-gui/image-grid.md)
 * [Otwieranie obrazu na pełnym ekranie](image-viewer-gui/opening-an-image-full-screen.md)
 * [Warstwy obrazu](image-viewer-gui/image-layers.md)
-* [Piaskownica indeksów/LUT](image-viewer-gui/index-lut-sandbox.md)
+* [Sandbox indeksów/LUT](image-viewer-gui/index-lut-sandbox.md)
 * [Znaczniki mapy](image-viewer-gui/map-markers.md)
+
+## Linux i przetwarzanie brzegowe
+
+* [Przegląd Linux](linux/linux-overview.md)
+* [Instalacja Linux](linux/linux-installation.md)
+* [Przewodnik po NVIDIA Jetson](linux/nvidia-jetson-guide.md)
+
+## Architektura przetwarzania
+
+* [Dynamiczna adaptacja obliczeniowa](processing-architecture/dynamic-compute-adaptation.md)
+* [Potok przetwarzania](processing-architecture/processing-pipeline.md)
