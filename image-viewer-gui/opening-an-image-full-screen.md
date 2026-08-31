@@ -1,212 +1,226 @@
-# Otwieranie obrazu na pełnym ekranie
+# Otwieranie obrazu na całym ekranie
 
-Przeglądarka obrazów Chloros oferuje dedykowany interfejs pełnoekranowy do przeglądania, analizowania i edycji obrazów wielospektralnych. Niezależnie od tego, czy przeglądasz oryginalne obrazy, czy przetworzone wyniki, przeglądarka obrazów zapewnia zaawansowane narzędzia do kontroli i analizy.
+<figure><img src="../.gitbook/assets/image (34).png" alt=""><figcaption><p>Obraz otwarty na pełnym ekranie, z selektorem warstw w prawym górnym rogu</p></figcaption></figure>
+
+Przeglądarka obrazów Chloros to interfejs pełnoekranowy służący do przeglądania, analizowania i pomiaru obrazów. To właśnie w niej można odczytać **rzeczywiste wartości pikseli** — DN dla poszczególnych kanałów, procent odbicia lub natężenie promieniowania w W/m²/sr/nm — a nie rozciągnięty podgląd wyświetlany na ekranie.
 
 ## Dostęp do przeglądarki obrazów
 
-### Z poziomu przeglądarki plików
+### Z przeglądarki plików
 
-Najpopularniejszy sposób otwierania obrazu w przeglądarce obrazów:
+1. Otwórz kartę **Przeglądarka plików** <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line">
+2. Kliknij dowolną **miniaturkę** w [siatce obrazów](image-grid.md)
+3. Obraz otworzy się na pełnym ekranie w zakładce **Przeglądarka obrazów**
 
-1. Upewnij się, że znajdujesz się w zakładce **Przeglądarka plików** <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line">
-2. Kliknij dowolną **miniaturę obrazu** w siatce obrazów
-3. Obraz otworzy się w **głównym obszarze podglądu** (środek ekranu)
-4. Obraz jest teraz załadowany i gotowy do wyświetlenia na pełnym ekranie
+Obraz otworzy się w tym produkcie, który był wyświetlany w siatce. Jeśli siatka jest ustawiona na `RAW (Reflectance)`, to właśnie na tej warstwie się znajdziesz.
 
-### Otwieranie zakładki przeglądarki obrazów
+### Otwieranie paska bocznego przeglądarki obrazów
 
-Po załadowaniu obrazu w obszarze podglądu:
+Kliknij ikonę **Przeglądarki obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> na lewym pasku bocznym, aby rozsunąć panel analizy. Zawiera on, od góry do dołu:
 
-1. Kliknij ikonę **przeglądarki obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> na pasku bocznym po lewej stronie
-2. Otworzy się zakładka przeglądarki obrazów, wyświetlając wybrany obraz na pełnym ekranie
-3. Na pasku bocznym po lewej stronie pojawią się zaawansowane narzędzia do przeglądania i analizy
+* nazwę obrazu i model aparatu, z którego pochodzi
+* przycisk **Eksportuj/Zapisz obraz(y)** (dostępny tylko wtedy, gdy aktywny jest indeks lub tabela LUT)
+* pola wyboru **Indeks**i**LUT** oraz panel konfiguracji indeksu — zobacz [Środowisko testowe indeksu/LUT](index-lut-sandbox.md)
+* panel **Wartości kursora**: odczyt dla poszczególnych kanałów, histogram warstwy oraz regulator GSD***
 
-***
+## Nawigacja i powiększanie
 
-## Przegląd interfejsu przeglądarki obrazów
+### Przeglądanie obrazów
 
-### Główny obszar wyświetlania
+* **Następny obraz**: przycisk → lub klawisz**→** (strzałka w prawo)
+* **Poprzedni obraz**: przycisk ← lub klawisz**←** (strzałka w lewo)
+* **Przejście do konkretnego obrazu**: wróć do siatki i kliknij jego miniaturę
 
-Największa część ekranu pokazuje obraz:
+Powiększenie i przesunięcie pozostają zachowane podczas przechodzenia między obrazami, dzięki czemu można przeglądać zestaw, pozostając w tej samej części kadru.
 
-* **Pełna rozdzielczość**: Obrazy wyświetlane w natywnej rozdzielczości
-* **Możliwość powiększania**: użyj elementów sterujących lub kółka myszy, aby powiększyć
-* **Możliwość przesuwania**: kliknij i przeciągnij, aby przesuwać obraz po powiększeniu
-* **Zachowanie proporcji**: obrazy są skalowane proporcjonalnie***
+### Powiększenie
 
-## Opcje przeglądania
+Powiększenie steruje się za pomocą **kółka myszy**, w krokach co 15%, z punktem odniesienia na kursorze — punkt pod wskaźnikiem pozostaje pod wskaźnikiem. Zakres jest ograniczony rozmiarem obrazu i okna: nie można pomniejszyć obrazu poniżej rozmiaru dopasowanego do okna, a górna granica jest ustalona przez natywną rozdzielczość obrazu.
 
-### Podstawowa nawigacja po obrazach
+W przeglądarce pełnoekranowej nie ma dedykowanych klawiszy do powiększania. (W siatce skróty **Ctrl + `+` / `−`** służą do zmiany rozmiaru miniatur — jest to inna funkcja.)
 
-#### Przeglądanie obrazów
+### Przesuwanie przy powiększeniu
 
-Poruszaj się po zestawie obrazów za pomocą skrótów klawiaturowych lub przycisków:
+Kliknij i przytrzymaj lewy przycisk myszy nad obrazem, a następnie przeciągnij. Przesuwanie jest ograniczone, więc obrazu nie da się przeciągnąć poza ekran.
 
-* **Następny obraz**: Kliknij przycisk → lub naciśnij klawisz**→** (strzałka w prawo)
-* **Poprzedni obraz**: Kliknij przycisk ← lub naciśnij klawisz**←** (strzałka w lewo)
-* **Przejdź do konkretnego obrazu**: Wróć do przeglądarki plików i kliknij wybraną miniaturę
+### Analiza poszczególnych pikseli przy dużym powiększeniu
 
-#### Elementy sterujące powiększeniem
+Gdy efektywne powiększenie przekroczy **60×**, Chloros rysuje ramkę podświetlającą wokół pojedynczego wyświetlanego piksela pod kursorem oraz wyświetla obok niego wartość.
 
-Dostosuj powiększenie, aby obejrzeć szczegóły obrazu:
+Powiększenie „efektywne” uwzględnia rozmiar bloku GSD: przy rozmiarze bloku wynoszącym 8 podświetlenie pojawia się przy powiększeniu 7,5×, a nie 60×, ponieważ jeden wyświetlany piksel odpowiada już 8 × 8 pikseli źródłowych. Po zmniejszeniu powiększenia poniżej progu podświetlenie znika.
 
-**Powiększ:*** Kliknij przycisk **+** (plus)
-* Naciśnij klawisz **+**lub**=*** Przewiń kółkiem myszy **w górę**
+### Skróty klawiaturowe
 
-**Pomniejsz:*** Kliknij przycisk **−** (minus)
-* Naciśnij klawisz **−** (minus)
-* Przewiń kółkiem myszy **w dół**
+| Klawisz                             | Gdzie       | Działanie                              |
+| ------------------------------- | ----------- | ----------------------------------- |
+| **→**                           | Tryb pełnoekranowy | Następny obraz                          |
+| **←**                           | Tryb pełnoekranowy | Poprzedni obraz                      |
+| **Ctrl + R**                    | Tryb pełnoekranowy | Resetuj indeks/środowisko testowe LUT         |
+| **Ctrl + `+`**/**Ctrl + `=`** | Siatka        | Większe miniatury (4 piksele na naciśnięcie)  |
+| **Ctrl + `−`**                  | Siatka        | Mniejsze miniatury (4 piksele na naciśnięcie) |***
 
-#### Przesuwanie po powiększeniu
+## Wartości kursora
 
-Po powiększeniu poza rozmiar ekranu:
+Po najechaniu kursorem na obraz panel **Wartości kursora** wyświetla wartości każdego kanału znajdującego się pod nim.
 
-1. Przesuń kursor myszy nad obraz
-2. Kliknij i **przytrzymaj lewy przycisk myszy**
+{% hint style="success" %}
+**Są to rzeczywiste wartości pliku.** Obszar roboczy na ekranie jest 8-bitowym, rozciągniętym podglądem i nie może ich dostarczyć, więc Chloros pobiera próbki z rzeczywistego pliku produktu w celu wyświetlenia odczytu. Dlatego 12-bitowa klatka w formacie RAW wyświetla wartości powyżej 255, a warstwa promieniowania typu float32 wyświetla jednostki fizyczne.
+{% endhint %}
 
-3.**Przeciągnij**, aby przesuwać obraz
-4. Zwolnij przycisk, aby zatrzymać przesuwanie
+### Znaczenie kolumn
 
-**Alternatywnie**: Użyj klawiszy strzałek, aby przesuwać obraz małymi krokami***
+Panel dostosowuje się do wyświetlanej warstwy:
 
-## Sprawdzanie wartości pikseli
+| Wyświetlana warstwa              | Wyświetlane kolumny    | Uwagi                                                                                           |
+| ---------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------- |
+| Odbicie                        | **DN**i**%** | Procent jest obliczany na podstawie skali właściwej dla danego pliku — patrz poniżej                                      |
+| Promieniowanie                        | **W/m²/sr/nm**   | Wartości fizyczne typu float; brak kolumny DN, ponieważ wartość DN nie ma tu znaczenia                           |
+| Surowe / po usunięciu efektu bayera / podgląd / JPG    | **DN**           | Liczby całkowite                                                                         |
+| Eksporty 32-bitowego procentowego współczynnika odbicia | **%** tylko       | Zapisana liczba zmiennoprzecinkowa nie jest wartością DN, więc zaokrąglenie jej do liczby całkowitej spowodowałoby wyświetlenie bezsensownego wyniku `0` lub `1` |
 
-### Wyświetlanie wartości pikseli w miejscu kursora
+Każdy wiersz jest oznaczony nazwą kanału filtra aparatu — `Red / Green / NIR` dla RGN, `Orange / Cyan / NIR` dla OCN, `NIR / Green / Blue` dla NGB, `Red / Green / Blue` dla RGB oraz nazwą pojedynczego pasma dla kamer RE, NIR oraz kamery mono M3M. Każda etykieta posiada kolorową kropkę odpowiadającą okręgom kanałów używanym w edytorze formuł indeksu.
 
-Podczas przesuwania kursora myszy nad obrazem wartości pikseli wyświetlają się w czasie rzeczywistym:**Miejsce wyświetlania wartości:*** **Liczba zmiennoprzecinkowa i czerwona linia w legendzie gradientu LUT po prawej stronie*** **Przy dalszym powiększeniu – wartość zmiennoprzecinkowa w pobliżu kursora i podświetlonego piksela*** Wyświetla wartości dla piksela **pod kursorem lub podświetlonego*** Aktualizacja podczas przesuwania myszy
+Zapisane obrazy **indeksu i LUT** stanowią przypadek szczególny: zawierają one składowe mapy kolorów zamiast pasm spektralnych, więc ich wiersze są oznaczone jako `Red / Green / Blue` (lub `Index` w przypadku pliku indeksowego jednokanałowego), a nie nazwami filtrów kamery.
+
+Gdy indeks jest aktywny w piaskownicy, pod kanałami pojawia się dodatkowy wiersz pokazujący **wartość indeksu** w miejscu kursora, wraz z nazwą indeksu i białą kropką odpowiadającą jego znacznikowi na histogramie.
+
+### Procent odbicia wykorzystuje własną skalę każdego pliku
+
+{% hint style="warning" %}
+**Nie należy zakładać, że 65535 = 100%.** Chloros przechowuje współczynnik odbicia w różnych skalach w zależności od aparatu, który go wygenerował, a przeglądarka dobiera właściwą skalę dla każdego pliku.
+{% endhint %}
+
+| Źródło                  | DN odpowiadający współczynnikowi odbicia 1,0 | Sposób identyfikacji                                                                                                                               |
+| ----------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **LATTICE**(M3C / M3M) |**32768**                      | Tag XMP `Chloros:PixelScale=32768` zapisywany w każdym eksporcie współczynnika odbicia LATTICE. 2-krotny zapas pozwala plikowi zawierać wartości ρ powyżej 1,0 bez obcięcia |
+| **Survey3**|**65535**                      | Brak tagu skali XMP Chloros — kalibracja Survey3 zapisuje ρ × dtype-max i ogranicza wartość do 1,0                                                               |
+
+Przeglądarka, środowisko testowe indeksu/LUT oraz eksport indeksu wszystkie ustalają skalę za pomocą tej samej, pojedynczej implementacji, więc wartość odczytana w miejscu kursora jest tą samą wartością, której użyto w obliczeniach indeksu.
+
+Dwie konsekwencje, o których warto wiedzieć:
+
+* **32-bitowa wartość procentowa**TIFF przechowuje DN/65535 jako liczbę zmiennoprzecinkową, a**8-bitowa** PNG/JPG przechowuje wartość DN × 255/65535 — przeglądarka konwertuje obie wartości z powrotem przed wyświetleniem wartości procentowej.
+* Jednego przypadku nie da się odtworzyć: **8-bitowy eksport TIFF z 8-bitowego źródła** jest przycinany do zakresu 0–255 zamiast być przeskalowany i celowo nie zawiera znacznika skali. W przypadku tych plików panel wyświetla wyłącznie wartości DN, bez kolumny procentowej. Jest to zgodne z rzeczywistością, a nie błąd.***
+
+## Histogram warstwy
+
+Poniżej wierszy kursora znajduje się aktualizowany na bieżąco histogram warstwy, którą przeglądasz, w **256 przedziałach**. Domyślnie rysuje on jedną połączoną krzywą, ważoną `(R + 2G + B) / 4` — w tej samej przestrzeni pomiarowej, której używają histogramy kamery LATTICE. Włączenie opcji**RGB**, zastępuje ją krzywymi dla poszczególnych kanałów w kolorach tych kanałów, mieszanymi addytywnie, dzięki czemu nakładające się obszary pozostają czytelne. Warstwy monochromatyczne zawsze wyświetlają pojedynczą krzywą.
+
+Oś pozioma jest wyrażona w jednostkach właściwych dla danej warstwy:
+
+| Warstwa       | Jednostka osi  | Maksymalna wartość osi                                               |
+| ----------- | ---------- | ---------------------------------------------------------- |
+| Odbicie    | procent    | 125% — zakres dynamiczny produktu pozwala na wartość ρ powyżej 1,0           |
+| Promieniowanie | W/m²/sr/nm | Szczytowa wartość klatki, zaokrąglona w górę do dwóch cyfr znaczących |
+| Dane 8-bitowe  | DN         | 255                                                        |
+| Dane 12-bitowe | DN         | 4095                                                       |
+| Dane 16-bitowe | DN         | 65535                                                      |
+
+Gdy oś jest ustawiona w skali DN i osiąga jeden z tych trzech pułapów, Chloros rozpoznaje również głębię bitową wyświetlanego obrazu.
+
+Nad histogramem znajdują się trzy przyciski:
+
+| Przycisk     | Ustawienie domyślne | Efekt                                                                                                                                                                                                                                                                                   |
+| ---------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **KURSOR** | Włączone | Rysuje linie znacznikowe na histogramie przy dokładnych wartościach pokazanych w wierszach powyżej, dzięki czemu można zobaczyć, gdzie w rozkładzie klatki znajduje się piksel pod kursorem. W trybie RGB dla każdego kanału wyświetlany jest jeden znacznik w osobnym kolorze; w pozostałych przypadkach wyświetlany jest pojedynczy biały znacznik przy wartości łącznej |
+| **INDEX**| Włączone      | Pojawia się tylko wtedy, gdy indeks jest aktywny. Przełącza histogram z pasm źródłowych na**rozkład wartości indeksu**, przy czym dwa progi klipowania są zaznaczone pomarańczowymi liniami przerywanymi, a wartość indeksu kursora — białą linią                                                          |
+| **RGB**| Wył.     | Przełącza z krzywej łącznej na krzywe dla poszczególnych kanałów. W przypadku czujnika monochromatycznego przycisk ten ma napis**MONO** i jest nieaktywny — do wyświetlenia jest tylko jeden kanał                                                                                                                                  |
+
+Histogram jest obliczany na podstawie **widocznych bloków**, a nie pikseli źródłowych znajdujących się za nimi: zmiana rozmiaru bloku GSD powoduje ponowne obliczenie rozkładu, dzięki czemu histogram, znacznik kursora i wyświetlany obraz są zawsze zgodne.***
+
+## Rozmiar bloku GSD
+
+W dolnej części panelu znajduje się element sterujący **GSD (px)**: pole liczbowe, suwak w zakresie od**1 do 256**oraz przycisk**RESET**.
+
+Powoduje to zgrubienie _wyświetlanego_ obrazu poprzez uśrednienie bloku pikseli źródłowych o wymiarach N × N w jeden piksel wyświetlany. `1` to rozdzielczość natywna.
+
+* Wpływa to na **widok pełnoekranowy, miniatury siatki, odczyt kursora oraz oba histogramy** — wszystko, co wyświetla obraz, opiera się na tej samej rozdzielczości podstawowej.
+* Dotyczy to **wyłącznie wyświetlania**. Przetwarzanie i eksport pozostają niezmienione. Jedyny wyjątek jest zamierzony: eksport z [Index/LUT Sandbox](index-lut-sandbox.md) zapisuje to, co aktualnie oglądasz, więc zachowuje bieżący rozmiar bloku, a panel eksportu wyświetla ostrzeżenie, gdy rozmiar bloku przekracza 1.
+* Wartość ta jest przechowywana **dla każdego projektu** jako `viewer_display.gsd_bin` w `project.json`, dzięki czemu pozostaje zachowana po zamknięciu i ponownym otwarciu programu.
+* Wskaźnik kursora podaje wartość bloku, a nie piksela źródłowego, ilekroć rozmiar bloku przekracza 1 — wyświetlana wartość jest średnią dla bloku znajdującego się pod kursorem.
+
+{% hint style="info" %}
+**Dlaczego „rozmiar bloku”, a nie centymetry na piksel?** Wartość cm/px wymaga podania wysokości nad ziemią. Dane EXIF pojedynczej klatki zawierają wysokość GPS nad średnim poziomem morza, a nie nad terenem, na który była skierowana kamera, więc Chloros nie wyświetli odległości od ziemi, której nie może rzetelnie obliczyć. Rozmiar bloku w pikselach źródłowych jest tym samym rozwiązaniem awaryjnym, z którego korzystają narzędzia chmurowe MAPIR, gdy odległość próbkowania naziemnego jest nieznana.
+{% endhint %}
 
 ***
 
 ## Typy obrazów, które można wyświetlać
 
-### JPG
+Lista rozwijana warstw w prawym górnym rogu przeglądarki zawiera wszystkie wersje bieżącego obrazu. To, które pozycje się pojawiają, zależy od aparatu i od tego, co zostało przetworzone — pełną listę oraz informacje o działaniu listy rozwijanej znajdziesz w sekcji [Warstwy obrazu](image-layers.md).
 
-**Obrazy JPG z aparatu:**
+### Survey3
 
-* Wyświetlanie danych JPG zgodnie z podglądem
-* Wyświetlanie oryginalnych, niepoprawionych wartości
-* Przydatne do sprawdzania jakości obrazu przed przetworzeniem
+* **JPG** — plik podglądu z samej kamery
+* **RAW (oryginał)** — plik źródłowy `.RAW`, poddany debayeringowi w celu wyświetlenia, bez korekcji
+* **RAW (cel)** — klatka zidentyfikowana jako zawierająca cel kalibracyjny
+* **RAW (Odbicie)** — skalibrowany produkt odbicia (65535 = ρ 1,0)
+* **Skorygowane winietowanie**/**Reakcja czujnika** — nieskalibrowany produkt rezerwowy
+* **Zrównoważona biel** — produkt z wyrównaniem balansu bieli
+* **RAW (indeks `<INDEX>`)**i**LUT `<INDEX>`** — obliczone obrazy indeksowe
 
-### RAW (oryginalny)
+### LATTICE
 
-### RAW (odbicie)
+W przypadku ujęć LATTICE stosuje się tę samą listę rozwijaną, zawierającą nazwy poziomów potoku:
 
-**Po przetworzeniu:**
+| Warstwa                 | Co zawiera                                                        |
+| --------------------- | -------------------------------------------------------------------- |
+| **RAW (oryginalny)**    | Źródłowa klatka w formacie RAW w stanie po przechwyceniu                                     |
+| **RAW (po usunięciu efektu bayera)**   | Obraz po liniowym usunięciu efektu bayera                                           |
+| **RAW (podgląd)**     | Podgląd wyświetlany na ekranie — rozciągnięcie w fałszywych kolorach dla kamer wielospektralnych |
+| **Z balansem bieli**    | Podgląd na ekranie dla kamer głównych RGB (balans bieli + gamma)   |
+| **RAW (promieniowanie)**    | Promieniowanie spektralne w formacie Float32 w W/m²/sr/nm                              |
+| **RAW (odbicie)** | Odbicie w formacie uint16, 32768 = ρ 1,0                                    |
 
-* Skorygowana winieta
-* Skalibrowana odbiciowość
-* Wielopasmowy TIFF (Red, Green, NIR itp.)
-* Dane naukowe gotowe do analizy
-
-### RAW (Indeks)
-
-**NDVI, NDRE, GNDVI itp. (pliki \_NDVI.tif):**
-
-* Obrazy w skali szarości w jednym paśmie
-* Wartości pikseli reprezentują wyniki obliczeń indeksu
-* Zakres zazwyczaj od -1 do +1 dla indeksów znormalizowanych
-* Możliwość zastosowania tabel LUT kolorów do wizualizacji
-
-***
-
-## Zastosowanie indeksów i tabel LUT
-
-Zastosuj indeksy wielospektralne i tabele Look-Up kolorów:
-
-1. Znajdź **Index/LUT Sandbox**w**Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> pasku bocznym
-2. Wybierz indeks roślinności (NDVI, NDRE itp.)
-3. Wybierz wzór wielospektralny lub utwórz własny (tylko Chloros+)
-4. Zastosuj gradient kolorowej tabeli LUT w celu wizualizacji
-5. Dostosuj zakresy wartości i progi
-
-Szczegółowe instrukcje znajdziesz w [Index/LUT Sandbox](index-lut-sandbox.md).
+Promieniowanie i współczynnik odbicia są dostępne wyłącznie w trybie wielospektralnym: kamera główna typu RGB nie posiada radiometrii dla poszczególnych pasm, więc warstwy te nie są dla niej generowane.
 
 ***
 
-## Skróty klawiaturowe
+## Stosowanie indeksów i tabel LUT
 
-### Nawigacja
+Zastosuj indeksy wielospektralne i kolorowe tabele przeglądowe (LUT) z paska bocznego:
 
-* **→** (strzałka w prawo): następny obraz
-* **←** (strzałka w lewo): poprzedni obraz
-* **Home**: pierwszy obraz na liście
-* **End**: Ostatni obraz na liście
+1. Otwórz okno **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> na pasku bocznym
+2. Zaznacz opcję **Index**
 
-### Powiększenie
+3. Wybierz filtr swojej kamery oraz wzór indeksu, a następnie przeciągnij koła kanałów na pola wzoru
+4. Dodaj tabelę LUT i wybierz gradient, progi oraz tryb przycinania
+5. Odczytaj wartości w miejscu kursora i zapisz wynik za pomocą opcji **Eksportuj/Zapisz obraz(y)**Pełny przewodnik znajdziesz w [Index/LUT Sandbox](index-lut-sandbox.md).***
 
-* **+**lub**=**: Powiększ
-* **−**: Pomniejsz
-* **Kółko myszy**: Powiększ/pomniejsz***
-
-### Sprawdzanie obliczeń indeksów
-
-Sprawdź, czy indeksy zostały obliczone poprawnie:
-
-1. Otwórz NDVI lub inny obraz indeksu
-2. Sprawdź obszary roślinności:
-   * **NDVI**: Powinien wykazywać wartość 0,4–0,9 dla zdrowych roślin
-   * **NDRE**: Wyższe wartości dla bujnego wzrostu
-   * **GNDVI**: Podobny do NDVI, ale wrażliwy na chlorofil
-3. Sprawdź obszary bez roślinności:
-   * **Gleba**: Blisko 0 lub lekko ujemna
-   * **Woda**: Wartości ujemne (od -0,5 do 0)***
-
-## Rozwiązywanie problemów z wyświetlaniem
+## Rozwiązywanie problemów
 
 ### Obraz się nie otwiera
 
-**Możliwe przyczyny:**
+**Możliwe przyczyny**: plik został przeniesiony lub usunięty po zaimportowaniu; produkt nigdy nie został zapisany; za mało pamięci dla bardzo dużego obrazu.**Co zrobić**:
 
-* Plik uszkodzony podczas przetwarzania
-* Nieobsługiwany format pliku
-* Niewystarczająca ilość pamięci dla dużego obrazu
-
-**Rozwiązania:**
-
-1. Spróbuj otworzyć plik w zewnętrznej przeglądarce, aby sprawdzić jego integralność
-2. Sprawdź, czy format pliku odpowiada oczekiwanemu typowi
+1. Sprawdź, czy plik warstwy nadal istnieje w drzewie wynikowym projektu
+2. Otwórz plik w zewnętrznej przeglądarce, aby sprawdzić, czy jest nienaruszony
 3. Zamknij inne aplikacje, aby zwolnić pamięć
-4. Spróbuj otworzyć mniejszy/inny obraz
 
-### Obraz wyświetla się jako czarny lub biały
+### Obraz jest czarny, biały lub ma bardzo dziwne kolory
 
-**Możliwe przyczyny:**
+**Możliwe przyczyny**: funkcja rozciągania obrazu nie ma na czym pracować (klatka o niemal stałej wartości); warstwa typu float32 z nietypowymi wartościami; indeks, który nie wygenerował żadnych prawidłowych danych.**Co należy zrobić**:
 
-* Zakres wartości wykracza poza możliwości wyświetlania
-* Obraz 32-bitowy typu float z nietypowymi wartościami
-* Błąd obliczeń indeksu
+1. Odczytaj wartości kursora — jeśli każdy kanał ma wartość równą zero lub bliską zeru, problem leży po stronie danych, a nie wyświetlacza
+2. Sprawdź histogram: pojedynczy skok na jednym końcu wskazuje, że klatka jest przycięta lub pusta
+3. Sprawdź dziennik przetwarzania dla przebiegu, który wygenerował warstwę
 
-**Rozwiązania:**
+### Wartości wydają się nieprawidłowe
 
-1. Sprawdź wartości pikseli – jeśli wszystkie są bardzo niskie lub bardzo wysokie, dostosuj zakres wyświetlania
-2. Spróbuj otworzyć plik w QGIS lub podobnym programie z automatyczną regulacją zakresu
-3. Sprawdź dziennik debugowania z przetwarzania pod kątem błędów
+**Możliwe przyczyny**: znajdujesz się na innej warstwie niż sądzisz; porównujesz wartość procentową z surową wartością DN; porównujesz plik LATTICE z plikiem Survey3, używając tego samego dzielnika.**Co należy zrobić**:
 
-### Wartości pikseli wydają się nieprawidłowe
-
-**Możliwe przyczyny:**
-
-* Wyświetlanie niewłaściwego obrazu (oryginalnego zamiast przetworzonego)
-* Kalibracja nie została zastosowana poprawnie
-* Dane z czujnika światła nie zostały uwzględnione w danych wejściowych
-* Tryb procentowy został nieprawidłowo przełączony
-
-**Rozwiązania:**
-
-1. Sprawdź, czy przeglądasz przetworzony wynik (sprawdź rozszerzenie nazwy pliku)
-2. Sprawdź stan przycisku trybu procentowego
-3. Porównaj z obrazami o znanej poprawności z tego samego zestawu danych
+1. Sprawdź wybraną warstwę w menu rozwijanym — jednostki w panelu są dostosowane do warstwy
+2. W przypadku współczynnika odbicia użyj kolumny **%** zamiast samodzielnego dzielenia wartości DN; jeśli musisz dokonać podziału, użyj wartości `Chloros:PixelScale` z tego pliku (32768 dla LATTICE, brak wartości oznacza 65535 dla Survey3)
+3. Ustaw rozmiar bloku GSD z powrotem na 1 — przy wartości powyżej 1 odczytujesz średnią blokową, a nie wartość pikselową
+4. Sprawdź, czy kalibracja współczynnika odbicia faktycznie przebiegła dla tej klatki; nieskalibrowany produkt rezerwowy (Sensor Response / Vignette Corrected) nie jest współczynnikiem odbicia
 
 ***
 
 ## Kolejne kroki
 
-Teraz, gdy możesz wyświetlać obrazy na pełnym ekranie:
+* [**Warstwy obrazu**](image-layers.md) — nazwy wszystkich warstw (o ile istnieją) oraz znaczenie ich wartości
+* [**Piaskownica indeksów/tablic LUT**](index-lut-sandbox.md) — tworzenie, dostosowywanie i eksportowanie wizualizacji indeksów
+* [**Znaczniki na mapie**](map-markers.md) — ten sam zestaw obrazów na mapie
+* [**Wzory indeksów wielospektralnych**](../project-settings/multispectral-index-formulas.md) — przewodnik po indeksach
 
-* [**Warstwy obrazu**](image-layers.md) — dowiedz się więcej o wizualizacji wielopasmowej
-* [**Piaskownica indeksów/LUT**](index-lut-sandbox.md) — zastosuj niestandardowe indeksy i mapowanie kolorów
-* [**Wzory indeksów wielospektralnych**](../project-settings/multispectral-index-formulas.md) — zapoznaj się z dostępnymi indeksami
-
-Aby zapoznać się z procesem przetwarzania, zobacz:
-
-* [**Przetwarzanie obrazów (GUI)**](../processing-images-gui/adding-files-to-a-project.md) — kompletny przewodnik po przetwarzaniu
+Informacje na temat procesu przetwarzania można znaleźć w sekcji [Przetwarzanie obrazów (GUI)](../processing-images-gui/adding-files-to-a-project.md).

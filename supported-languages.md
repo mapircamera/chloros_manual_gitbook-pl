@@ -1,17 +1,17 @@
 # Obsługiwane języki
 
-Chloros zapewnia pełną obsługę interfejsu w **38 językach na całym świecie**, dzięki czemu jest dostępny dla użytkowników z różnych stron globu. Możesz błyskawicznie zmieniać języki we wszystkich interfejsach: Desktop, Browser, CLI oraz Python SDK.
+Chloros zapewnia pełną obsługę interfejsu w **38 językach na całym świecie**, dzięki czemu jest dostępny dla użytkowników z różnych stron globu. Język można błyskawicznie zmienić zarówno w graficznym interfejsie użytkownika na komputerze stacjonarnym, jak i w CLI.
 
 Chloros obsługuje następujące języki:
 
 | # | Język | Nazwa w języku ojczystym | Kod CLI |
 |---|----------|-------------|----------|
-| 1 | 🇺🇸 Angielski | English | `en` |
-| 2 | 🇪🇸 Hiszpański | Español | `es` |
+| 1 | 🇺🇸 angielski | English | `en` |
+| 2 | 🇪🇸 hiszpański | Español | `es` |
 | 3 | 🇵🇹 Portugalski | Português | `pt` |
 | 4 | 🇫🇷 Francuski | Français | `fr` |
-| 5 | 🇩🇪 Niemiecki | Deutsch | `de` |
-| 6 | 🇮🇹 Włoski | Italiano | `it` |
+| 5 | 🇩🇪 niemiecki | Deutsch | `de` |
+| 6 | 🇮🇹 włoski | Italiano | `it` |
 | 7 | 🇯🇵 Japoński | 日本語 | `ja` |
 | 8 | 🇰🇷 Koreański | 한국어 | `ko` |
 | 9 | 🇨🇳 Chiński (uproszczony) | 简体中文 | `zh` |
@@ -34,7 +34,7 @@ Chloros obsługuje następujące języki:
 | 26 | 🇭🇺 Węgierski | Magyar | `hu` |
 | 27 | 🇷🇴 Rumuński | Română | `ro` |
 | 28 | 🇺🇦 Ukraiński | Українська | `uk` |
-| 29 | 🇧🇷 Brazylijski portugalski | Português Brasileiro | `pt-BR` |
+| 29 | 🇧🇷 Portugalski brazylijski | Português Brasileiro | `pt-BR` |
 | 30 | 🇭🇰 Kantoński | 粵語 | `zh-HK` |
 | 31 | 🇲🇾 Malajski | Bahasa Melayu | `ms` |
 | 32 | 🇸🇰 Słowacki | Slovenčina | `sk` |
@@ -47,7 +47,7 @@ Chloros obsługuje następujące języki:
 
 ## Jak zmienić język
 
-### W Chloros Desktop/Browser
+### W aplikacji Chloros na komputerze
 
 1. Otwórz ustawienia aplikacji
 2. Przejdź do menu wyboru języka
@@ -77,17 +77,13 @@ chloros-cli language --list
 
 Więcej szczegółów znajdziesz w [dokumentacji CLI](CLI.md).
 
-### W Chloros Python SDK
-
-Ustaw parametr języka podczas inicjalizacji SDK, aby otrzymywać komunikaty i wyniki w preferowanym języku.
-
-## Obsługa
+## Zakres obsługi
 
 Wszystkie 38 języków jest w pełni obsługiwanych w:
 
-* **Chloros Desktop** — pełne tłumaczenie GUI
-* **Chloros Browser** — interfejs internetowy we wszystkich językach
+* **Chloros Desktop** — pełne tłumaczenie interfejsu graficznego
 * **Chloros CLI** — interfejs wiersza poleceń i komunikaty wyjściowe
-* **Chloros Python SDK** — komunikaty i dokumentacja API
 
-Obsługa języków gwarantuje, że użytkownicy na całym świecie mogą efektywnie pracować w swoim ojczystym języku bez żadnych barier.
+Program Python SDK API oraz jego [dokumentacja referencyjna](reference/sdk-reference.md) są dostępne w języku angielskim.
+
+Obsługa wielu języków gwarantuje, że użytkownicy na całym świecie mogą efektywnie pracować w swoim ojczystym języku bez żadnych barier.

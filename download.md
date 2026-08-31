@@ -6,7 +6,7 @@ metaLinks:
 
 # Pobierz
 
-Pobierz najnowszą wersję programu Chloros, aby rozpocząć pracę z przetwarzaniem obrazów wielospektralnych.
+Pobierz najnowszą wersję programu Chloros, aby rozpocząć przetwarzanie obrazów wielospektralnych.
 
 ### Wymagania systemowe
 
@@ -17,20 +17,20 @@ Pobierz najnowszą wersję programu Chloros, aby rozpocząć pracę z przetwarza
 | **System operacyjny** | Windows 10 (64-bitowy)                                  | Windows 11 (64-bitowy)                                  |
 | **Procesor**        | Intel Core i5 lub równoważny                          | Intel Core i7 lub lepszy                              |
 | **Pamięć (RAM)**     | 8 GB                                                  | 16 GB lub więcej                                         |
-| **Karta graficzna**    | Kompatybilna z DirectX 11                                | Procesor graficzny NVIDIA z co najmniej 4 GB pamięci VRAM                            |
-| **Pamięć masowa**          | 6 GB wolnego miejsca                                       | Dysk SSD z co najmniej 10 GB wolnego miejsca                            |
-| **Wyświetlacz**          | 1920x1080                                            | 2560x1440 lub wyższa                                  |
-| **Internet**         | Wymagany do \[opcjonalnej] aktywacji licencji Chloros+ | Wymagany do \[opcjonalnej] aktywacji licencji Chloros+ |
+| **Karta graficzna**    | Kompatybilna z DirectX 11                                | Karta graficzna NVIDIA z co najmniej 4 GB pamięci VRAM                            |
+| **Miejsce na dysku**          | 6 GB wolnego miejsca                                       | Dysk SSD z co najmniej 10 GB wolnego miejsca                            |
+| **Rozdzielczość ekranu**          | 1920x1080                                            | 2560x1440 lub wyższa                                  |
+| **Internet**         | Wymagany do [opcjonalnej] aktywacji licencji Chloros+ | Wymagany do [opcjonalnej] aktywacji licencji Chloros+ |
 
 #### Linux amd64 (x86\_64)
 
 | Wymagania       | Minimalne                    | Zalecane               |
 | ----------------- | -------------------------- | ------------------------- |
-| **Dystrybucja**  | Ubuntu 20.04+ / Debian 11+ | Ubuntu 22.04+             |
+| **Dystrybucja**  | Ubuntu 22.04 LTS+ / Debian 12+ | Ubuntu 24.04 LTS      |
 | **Procesor**     | x86\_64 (Intel/AMD)        | Intel Core i7 lub lepszy   |
 | **Pamięć (RAM)**  | 8 GB                        | 16 GB lub więcej              |
-| **Karta graficzna** | Brak (przetwarzanie przez procesor)      | Karta graficzna NVIDIA z 4 GB+ pamięci VRAM |
-| **Pamięć masowa**       | 2 GB wolnego miejsca             | Dysk SSD z 10 GB+ wolnego miejsca       |
+| **Karta graficzna** | Brak (przetwarzanie przez procesor)      | Karta graficzna NVIDIA z co najmniej 4 GB pamięci VRAM |
+| **Pamięć masowa**       | 2 GB wolnego miejsca             | Dysk SSD z co najmniej 10 GB wolnego miejsca       |
 | **Python**        | Python 3.7+ (dla SDK)      | Python 3.10+              |
 
 #### Linux arm64 (NVIDIA Jetson)
@@ -43,14 +43,18 @@ Pobierz najnowszą wersję programu Chloros, aby rozpocząć pracę z przetwarza
 | **Python**       | Python 3.7+ (dla SDK)        | Python 3.10+                    |
 
 {% hint style="info" %}
-**Przyspieszenie GPU**: Użytkownicy Chloros+ z kartami graficznymi NVIDIA mogą korzystać z przyspieszenia CUDA, co znacznie przyspiesza przetwarzanie. Działa to zarówno na Windows (karty graficzne do komputerów stacjonarnych), jak i Linux (karty graficzne do komputerów stacjonarnych i NVIDIA Jetson). Użytkownicy Chloros+ zyskują również przetwarzanie wielowątkowe, zapewniające maksymalną prędkość.
+**Przyspieszenie GPU**: Użytkownicy Chloros+ z procesorami graficznymi NVIDIA mogą korzystać z przyspieszenia CUDA, co znacznie przyspiesza przetwarzanie. Działa to zarówno na Windows (karty graficzne do komputerów stacjonarnych), jak i na Linux (karty graficzne do komputerów stacjonarnych oraz NVIDIA Jetson). Użytkownicy Chloros+ zyskują również przetwarzanie wielowątkowe, zapewniające maksymalną prędkość.
 {% endhint %}
 
 ***
 
 ## Pobierz Chloros
 
-### Najnowsza stabilna wersja (23 marca 2026 r.): Wersja 1.1.0
+### Najnowsza stabilna wersja: wersja 1.2.0
+
+<!-- NOLAN: replace installer links + release date for 1.2.0 — the three download buttons below still point at the 1.1.0 Google Drive files, and the release date needs to be added to the heading above. -->
+
+
 
 ### <a href="https://drive.google.com/uc?export=download&#x26;id=1HjwrUY4M7HGxDbMybO7iPe_6JoHnUGr4" class="button primary">Pobierz Chloros dla Windows (.exe)</a>
 
@@ -69,25 +73,25 @@ Pobierz najnowszą wersję programu Chloros, aby rozpocząć pracę z przetwarza
 1. Pobierz powyższy plik .exe
 2. Kliknij dwukrotnie instalator, aby rozpocząć instalację
 3. Postępuj zgodnie z instrukcjami kreatora instalacji
-4. Wybierz katalog instalacyjny (domyślny: `C:\Program Files\[USER]\Chloros\`)
-5. Zakończ instalację i uruchom Chloros lub Chloros CLI
+4. Wybierz katalog instalacyjny (domyślnie: `C:\Program Files\MAPIR\Chloros\`)
+5. Zakończ instalację i uruchom program Chloros lub Chloros CLI
 6. Zaloguj się na swoje [konto MAPIR Cloud Chloros+](https://cloud.mapir.camera/pricing) (lub kontynuuj korzystanie z wersji bezpłatnej)
 
 {% hint style="success" %}
-Instalator automatycznie dodaje `chloros-cli` do ścieżki systemowej PATH w celu uzyskania dostępu z wiersza poleceń.
+Instalator automatycznie dodaje `chloros-cli` do ścieżki systemowej PATH, umożliwiając dostęp z wiersza poleceń.
 {% endhint %}
 
-#### Linux amd64 (pakiet .deb — CLI + Backend)
+#### Linux amd64 (pakiet .deb — CLI + backend)
 
 * **Typ pliku**: .deb (pakiet Debian/Ubuntu)
-* **Architektura**: x86\_64 (amd64)
+* **Architektura**: x86_64 (amd64)
 
 ```bash
 sudo dpkg -i chloros-amd64.deb
 chloros-cli --version  # Verify installation
 ```
 
-#### Linux arm64 — NVIDIA Jetson (pakiet .deb — CLI + Backend)
+#### Linux arm64 — NVIDIA Jetson (pakiet .deb — CLI + backend)
 
 * **Typ pliku**: .deb (JetPack 6)
 * **Architektura**: aarch64 (arm64)
@@ -101,14 +105,22 @@ Szczegółowe instrukcje konfiguracji znajdziesz w sekcji [Instalacja Linux](lin
 
 #### Python SDK (wszystkie platformy)
 
+Każdy instalator zawiera odpowiedni pakiet `chloros_sdk`, dzięki czemu wersja SDK zawsze pasuje do zainstalowanego GUI/CLI/backendu. W przypadku Windows instalator automatycznie instaluje go w systemie Python; w przypadku Linux `.deb` umieszcza pakiet typu „wheel” w `/usr/lib/chloros/sdk/` i wyświetla polecenie instalacyjne:
+
+```bash
+pip install --user /usr/lib/chloros/sdk/chloros_sdk-*.whl
+```
+
+W przypadku hostów obsługujących wyłącznie pip (bez zainstalowanego pakietu Chloros) SDK jest również dostępny na PyPI:
+
 ```bash
 pip install chloros-sdk
 ```
 
-Dokumentację można znaleźć w [API : Python SDK](api-python-sdk.md).
+Zobacz [API : Python SDK](api-python-sdk.md) oraz [Podręcznik SDK](reference/sdk-reference.md) w celu zapoznania się z dokumentacją.
 
-{% hint style="info" %}
-**Użytkownicy Linux**: Pakiet `.deb` instaluje CLI oraz backend. Python SDK instaluje się osobno za pomocą pip. Nie ma interfejsu graficznego dla Linux — cała interakcja odbywa się za pośrednictwem CLI lub SDK.
+Użytkownicy {% hint style="info" %}
+**Użytkownicy Linux**: Pakiet `.deb` instaluje CLI oraz backend. Nie ma interfejsu graficznego dla Linux — cała obsługa odbywa się za pośrednictwem CLI lub SDK.
 {% endhint %}
 
 ***
@@ -117,49 +129,49 @@ Dokumentację można znaleźć w [API : Python SDK](api-python-sdk.md).
 
 ### Python SDK
 
-Dla programistów i procesów automatyzacji zainstaluj Chloros Python SDK:
+Dla programistów i procesów automatyzacji należy zainstalować Chloros, Python oraz SDK:
 
 ```bash
 pip install chloros-sdk
 ```
 
-**Dokumentacja**: [API: Python SDK](api-python-sdk.md)**Wymagania**: Musi być zainstalowany Chloros (instalator Windows lub pakiet Linux `.deb`), wymagane logowanie do licencji Chloros+***
+**Dokumentacja**: [API: Python SDK](api-python-sdk.md)**Wymagania**: Musi być zainstalowany Chloros (instalator Windows lub pakiet Linux `.deb`), wymagane jest zalogowanie się na licencję Chloros+***
 
-## Co zawiera
+## Co zawiera pakiet
 
 ### Instalator Windows
 
 * ✅ **Chloros GUI** – w pełni funkcjonalny interfejs graficzny
-* ✅ **Chloros CLI** – interfejs wiersza poleceń (wymagana licencja Chloros+)
-* ✅ **Chloros Backend** – silnik przetwarzania
+* ✅ **Chloros CLI** – Interfejs wiersza poleceń (wymaga licencji Chloros+)
+* ✅ **Chloros Backend** – Silnik przetwarzania
 * ✅ **Profile kamer** – wstępnie skonfigurowane szablony kamer MAPIR
 
 ### Pakiet .deb Linux
 
 * ✅ **Chloros CLI** – interfejs wiersza poleceń (wymaga licencji Chloros+)
-* ✅ **Chloros Backend** – silnik przetwarzania
-* ✅ **Profile kamer** – wstępnie skonfigurowane szablony kamer MAPIR
-* ❌ Brak GUI — Linux jest wersją bezinterfejsową, dostępną wyłącznie dla CLI/SDK
+* ✅ **Chloros Backend** — silnik przetwarzania
+* ✅ **Profile kamer** — wstępnie skonfigurowane szablony kamer MAPIR
+* ❌ Brak GUI — Linux działa wyłącznie w trybie bezinterfejsu graficznego (headless) CLI/SDK
 
 ### Python SDK (pip, wszystkie platformy)
 
-* ✅ **Chloros SDK** — Python API (wymaga licencji Chloros+)***
+* ✅ **Chloros SDK** — Python API (wymagana licencja Chloros+)***
 
-## Aktualizacja do Chloros+
+## Przejdź na wersję Chloros+
 
 Odblokuj zaawansowane funkcje dzięki subskrypcji Chloros+:
 
-* 🚀 **Przetwarzanie wielowątkowe** — przetwarzaj obrazy równolegle
+* 🚀 **Przetwarzanie wielowątkowe** — równoległe przetwarzanie obrazów
 * ⚡ **Przyspieszenie GPU (CUDA)** — wykorzystaj moc procesorów graficznych NVIDIA
-* 💻 **Dostęp do CLI** — automatyzacja za pomocą narzędzi wiersza poleceń
-* 🐍 **Python SDK** — programowy dostęp do API
-* 📱 **Wiele urządzeń** — korzystaj na 2–10+ urządzeniach (w zależności od planu)
-* **🐻 Zaawansowana metoda debayeringu z uwzględnieniem tekstur** — wysokiej jakości debayering z uwzględnieniem krawędzi w połączeniu z modelem usuwania szumów opartym na AI/ML, który eliminuje niemal cały szum debayeringu.
-* 🧮 **Formuły niestandardowe** — twórz niestandardowe wskaźniki multispektralne
+* 💻 **Dostęp do CLI** – Automatyzacja za pomocą narzędzi wiersza poleceń
+* 🐍 **Python SDK** – Programowy dostęp do API
+* 📱 **Wiele urządzeń** – Korzystaj z 2–10+ urządzeń (w zależności od planu)
+* **🐻 Zaawansowana metoda debayeringu uwzględniająca teksturę** – wysokiej jakości debayering uwzględniający krawędzie w połączeniu z modelem usuwania szumu opartym na AI/ML, który eliminuje niemal cały szum powstający podczas debayeringu.
+* 🧮 **Formuły niestandardowe** – Twórz własne wskaźniki wielospektralne
 
 <p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">Zobacz plany i ceny Chloros+</a></p>***
 
-## Pomoc przy instalacji
+## Pomoc dotycząca instalacji
 
 ### Rozwiązywanie problemów
 
@@ -171,9 +183,9 @@ Odblokuj zaawansowane funkcje dzięki subskrypcji Chloros+:
 
 **Aplikacja nie uruchamia się (Windows):**
 
-* Sprawdź, czy zainstalowano Windows 10/11 (64-bit)
-* Zaktualizuj sterowniki graficzne
-* Sprawdź Windows Podgląd zdarzeń w celu uzyskania szczegółowych informacji o błędzie
+* Sprawdź, czy zainstalowany jest Windows 10/11 (64-bitowy)
+* Zaktualizuj sterowniki karty graficznej
+* Sprawdź Podgląd zdarzeń Windows w celu uzyskania szczegółów błędu
 * Skontaktuj się z pomocą techniczną, przekazując logi błędów
 
 **CLI nie uruchamia się (Linux):**
@@ -186,7 +198,7 @@ Odblokuj zaawansowane funkcje dzięki subskrypcji Chloros+:
 **Problemy z aktywacją licencji:**
 
 * Upewnij się, że połączenie internetowe jest aktywne
-* Sprawdź dane uwierzytelniające pod adresem [https://cloud.mapir.camera](https://cloud.mapir.camera)
+* Zweryfikuj dane logowania pod adresem [https://cloud.mapir.camera](https://cloud.mapir.camera)
 * Sprawdź, czy zapora sieciowa nie blokuje Chloros
 * Szczegółowe instrukcje znajdziesz w sekcji [Chloros+ Logowanie](chloros+-login.md)
 
@@ -199,29 +211,13 @@ Potrzebujesz pomocy przy instalacji lub konfiguracji?
 * 📚 **Dokumentacja**: [Pierwsze kroki](./)
 * ❓ **FAQ**: [Często zadawane pytania](faq.md)***
 
-## Lista zmian
+## Aktualizacje oprogramowania
 
-<details>
+Chloros sprawdza dostępność aktualizacji, informuje o pojawieniu się nowej wersji i przekierowuje na tę stronę pobierania — aktualizację przeprowadza się poprzez uruchomienie nowego, podpisanego instalatora. Twoje ustawienia i projekty pozostają nienaruszone po aktualizacji. W przypadku Linux i Jetson program `chloros-cli update` sprawdza dostępność nowszej wersji i proponuje pobranie oraz zainstalowanie odpowiedniego pliku `.deb` (polecenie to jest dostępne wyłącznie w wersji Linux).
 
-<summary>Wersja 1.1.0 (najnowsza)</summary>
+***
 
-**Data wydania: marzec 2026 r.**
-
-**Nowe funkcje*** **Obsługa Linux** — Natywna obsługa CLI i SDK dla Linux amd64 (x86\_64) i arm64 (NVIDIA Jetson JetPack 6). Instalacja za pomocą pakietów `.deb`.
-* **Obsługa NVIDIA Jetson** — Zoptymalizowane przetwarzanie dla urządzeń brzegowych Jetson Nano, Orin Nano, Orin NX i AGX Orin.
-* **Dynamiczna adaptacja obliczeniowa** — Automatyczne wykrywanie sprzętu i optymalizacja strategii przetwarzania. Chloros dostosowuje się do sprzętu, od Jetson Nano po stację roboczą z wieloma procesorami graficznymi.
-* **4-wątkowa potok przetwarzania** — Równoległe wątki wykrywania, kalibracji, przetwarzania i eksportu z dynamiczną alokacją pamięci GPU.
-* **Nowe polecenia CLI** — `selftest` (diagnostyka systemu) i `update` (zarządzanie aktualizacjami Linux).
-* **Nowe flagi procesu CLI** — `--debayer` (standardowe/z uwzględnieniem tekstur), `--indices` (określ indeksy), `--target` (najpierw przeszukaj docelowy podfolder w celu szybszego wykrywania).
-* **Nowe pozycje menu GUI** — opcje Dodaj pliki, Dodaj folder oraz Rozpocznij/Zatrzymaj przetwarzanie są teraz dostępne w rozwijanym menu głównym.**Ulepszenia**
-
-* Automatyczne wykrywanie backendu międzyplatformowego (ścieżki Windows i Linux)
-* Ulepszono SDK `get_status()` poprzez śledzenie postępu dla każdego wątku
-* Nowe wyjątki SDK: `ChlorosConfigurationError`, `ChlorosAuthenticationError`
-* Zarządzanie temperaturą i adaptacyjne ograniczanie wydajności dla NVIDIA Jetson
-* Automatyczne zarządzanie pamięcią z przełączeniem na przetwarzanie kafelkowe GPU w przypadku braku pamięci (OOM)
-
-</details>
+## Dziennik zmian**Wersja 1.2.0 (najnowsza)**— pełną listę funkcji znajdziesz w sekcji**Co nowego w Chloros 1.2.0** na stronie [Pierwsze kroki](./).
 
 <details>
 
@@ -229,7 +225,7 @@ Potrzebujesz pomocy przy instalacji lub konfiguracji?
 
 **Data wydania: 10 lutego 2026 r.**
 
-**Nowe funkcje*** **Metoda debayeringu z uwzględnieniem tekstury \[Tylko Chloros+] -** Metoda z uwzględnieniem tekstury wykorzystuje wysokiej jakości debayering z uwzględnieniem krawędzi w połączeniu z modelem odszumiania AI/ML, który usuwa prawie cały szum debayeringu.
+**Nowe funkcje*** **Metoda debayeringu z uwzględnieniem tekstury \[tylko Chloros+] —** Metoda „Texture Aware” wykorzystuje wysokiej jakości algorytm debayeringu z uwzględnieniem krawędzi w połączeniu z modelem usuwania szumu opartym na sztucznej inteligencji (AI/ML), który eliminuje niemal cały szum powstały podczas debayeringu.
 * **Obsługa celów kalibracyjnych T4P*** **Szybsze przetwarzanie na GPU w Chloros+, lepsze zarządzanie pamięcią**
 
 **Poprawki błędów*** Całkowicie nowy interfejs użytkownika (GUI), powinien teraz działać na wszystkich komputerach Windows.
@@ -242,12 +238,12 @@ Potrzebujesz pomocy przy instalacji lub konfiguracji?
 
 **Data wydania: 5 stycznia 2026 r.**
 
-**Nowe funkcje*** **Przełącznik obraz/metadane**: Dodano przełącznik w przeglądarce plików, aby wyświetlać metadane wybranego obrazu w tabeli zamiast w siatce obrazów
-* **Suwak powiększania siatki obrazów**: Nowy suwak interfejsu użytkownika do regulacji rozmiaru miniatur (obsługuje również skrót CTRL + kółko myszy)
-* **Przyciski eksportu siatki obrazów**: Przyciski w górnym rzędzie do przełączania miniatur z formatu JPG na przetworzone pliki eksportowe (Targets, Reflectance, Index, LUT)
-* **Zakładka Mapa**: Nowa interaktywna mapa 2D pokazująca znaczniki lokalizacji GPS obrazów
-  * Obsługuje mapy Google Maps i kafelki map ESRI (automatycznie wybiera najlepszą usługę kafelkową w oparciu o dostępność poziomu powiększenia)
-  * Podgląd miniatur po najechaniu myszką na znaczniki na mapie
+**Nowe funkcje*** **Przełączanie między obrazem a metadanymi**: Dodano przełącznik w przeglądarce plików, umożliwiający wyświetlanie metadanych wybranego obrazu w tabeli zamiast w siatce obrazów
+* **Suwak powiększenia siatki obrazów**: Nowy suwak w interfejsie użytkownika do regulacji rozmiaru miniatur (obsługuje również kombinację klawiszy CTRL + kółko myszy)
+* **Przyciski eksportu siatki obrazów**: Przyciski w górnym rzędzie służące do przełączania miniatur z formatu JPG na przetworzone pliki eksportowe (Targets, Reflectance, Index, LUT)
+* **Zakładka „Mapa”**: Nowa interaktywna mapa 2D pokazująca znaczniki lokalizacji GPS obrazów
+  * Obsługa Google Maps i kafelków mapowych ESRI (automatyczny wybór najlepszej usługi kafelkowej w zależności od dostępności poziomu powiększenia)
+  * Podgląd miniatur po najechaniu kursorem na znaczniki na mapie
 
 **Poprawki błędów*** Ulepszona obsługa instalacji Chloros na komputerach z systemem w języku innym niż angielski
 
@@ -271,6 +267,6 @@ Potrzebujesz pomocy przy instalacji lub konfiguracji?
 
 ## Umowa licencyjna**Oprogramowanie zastrzeżone** – Copyright (c) 2026 MAPIR Inc.
 
-Niedozwolone jest nieautoryzowane używanie, rozpowszechnianie lub modyfikowanie.
+Niedozwolone jest nieautoryzowane używanie, rozpowszechnianie lub modyfikowanie oprogramowania.
 
-**Wersja bezpłatna**: Dostępna do użytku osobistego i komercyjnego z ograniczeniami funkcji**Chloros+**: Licencja oparta na subskrypcji, zapewniająca zaawansowane funkcje i wdrożenia komercyjne
+**Wersja bezpłatna**: Dostępna do użytku osobistego i komercyjnego z ograniczeniami funkcjonalności**Chloros+**: Licencja oparta na subskrypcji, zapewniająca dostęp do zaawansowanych funkcji i wdrożeń komercyjnych

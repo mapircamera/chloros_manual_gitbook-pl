@@ -1,373 +1,290 @@
-# Środowisko testowe indeksów/tablic LUT
+# Index/LUT Sandbox
 
-Środowisko testowe indeksów/tablic LUT to interaktywna przestrzeń robocza w przeglądarce obrazów Chloros, która umożliwia eksperymentowanie z obliczeniami indeksów wielospektralnych i wizualizacjami kolorów w czasie rzeczywistym. To potężne narzędzie pomaga testować różne indeksy, dopracowywać zakresy wartości oraz tworzyć wizualizacje gotowe do publikacji bez konieczności ponownego przetwarzania całego zbioru danych.
+Index/LUT Sandbox to interaktywne środowisko robocze znajdujące się na pasku bocznym przeglądarki obrazów Chloros. Wybierasz formułę, przypisujesz do niej kanały z kamery, nadajesz jej kolor za pomocą gradientu i dostosowujesz zakres wartości — a obraz aktualizuje się na bieżąco podczas tych czynności. Od wersji 1.2.0 możesz również **zapisać to, co stworzyłeś**, zarówno dla pojedynczego obrazu, jak i dla całego projektu, bez konieczności ponownego przetwarzania.
 
-## Czym jest Index/LUT Sandbox?
+## Do czego służy Sandbox
 
-### Cel
-
-Sandbox zapewnia:
-
-* **Obliczanie indeksów w czasie rzeczywistym** – natychmiastowe zastosowanie dowolnego indeksu wegetacyjnego
-* **Interaktywną regulację LUT** – precyzyjne dostosowanie gradientów i zakresów kolorów
-* **Optymalizację przepływu pracy** – określenie najlepszych ustawień przed przetwarzaniem wsadowym
-
-### Sandbox a przetwarzanie projektowe
-
-**Sandbox indeksów/LUT (interaktywny):**
-
-* Pojedynczy obraz na raz
-* Natychmiastowa informacja zwrotna
-* Eksperymentalny i iteracyjny
-* Brak trwałych zmian w plikach
-* Idealny do eksploracji i testowania
-
-**Przetwarzanie projektowe (partia):**
-
-* Cały zbiór danych naraz
-* Wstępnie skonfigurowane ustawienia
-* Trwałe pliki wyjściowe
-* Czasochłonne
-* Najlepsze rozwiązanie, gdy ustawienia są już ostateczne
+| Sandbox indeksu/LUT (interaktywny)        | Przetwarzanie projektu (partia)       |
+| -------------------------------------- | -------------------------------- |
+| Jeden obraz na raz, natychmiastowa informacja zwrotna  | Cały zbiór danych w jednym przebiegu     |
+| Eksperymentalne i iteracyjne             | Wstępnie skonfigurowane ustawienia          |
+| Renderowanie na żywo; zapis tylko na żądanie  | Zawsze zapisuje pliki końcowe      |
+| Idealne do znalezienia odpowiednich ustawień | Najlepsze rozwiązanie, gdy ustawienia są już ostateczne |
 
 {% hint style="success" %}
-**Najlepszy przebieg pracy**: Użyj środowiska testowego do eksperymentowania i znalezienia optymalnych ustawień indeksu i LUT, a następnie zastosuj te ustawienia podczas przetwarzania projektu dla całego zbioru danych.
+**Typowy przebieg pracy**: dostosowuj ustawienia w Sandboxie, aż wizualizacja będzie odpowiadać Twoim oczekiwaniom, a następnie albo wyeksportuj bezpośrednio z Sandboxa, albo skopiuj te same ustawienia indeksu i LUT do [Ustawień projektu](../project-settings/project-settings.md), aby podczas następnego przebiegu przetwarzania zostały one zastosowane do każdego obrazu.
 {% endhint %}
 
 ***
 
-## Praca z piaskownicą indeksów/LUT
+## Otwieranie Sandboxa
 
-### Zrozumienie wstępnie obliczonych indeksów
+1. Kliknij obraz w siatce — otworzy się on na pełnym ekranie w zakładce **Przeglądarka obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line">
+2. Kliknij ikonę **Przeglądarki obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line">, aby wysunąć lewy pasek boczny, jeśli nie jest jeszcze otwarty
+3. Wybierz warstwę wielopasmową z menu rozwijanego warstw w prawym górnym rogu — zazwyczaj wybiera się opcję **RAW (odbicie)**, ponieważ wartości indeksu obliczone na podstawie skalibrowanego odbicia są porównywalne między obrazami
 
-W Chloros indeksy można zastosować podczas przetwarzania projektu. Aby określić, które ustawienia indeksu i LUT chcesz zastosować do eksportów, najłatwiej jest użyć piaskownicy przeglądarki obrazów.
+Pasek boczny wyświetla, od góry do dołu:
 
-Piaskownica pozwala na:
+* nazwę obrazu i model aparatu
+* przycisk **Eksportuj/Zapisz obraz(y)**— pojawia się po zaznaczeniu opcji**Indeks**lub**LUT*** pola wyboru **Indeks**i**LUT**
+* panel konfiguracji wskaźnika
+* panel **Wartości kursora** z odczytem, histogramem i kontrolką GSD
 
-* **Zastosować nowe indeksy i gradienty kolorów (LUT)** w celu wizualizacji danych
-* **Dostosować ustawienia wizualizacji** w trybie interaktywnym
-* **Wyświetlić** już obliczone obrazy indeksowe
-* **Sprawdzić** wartości pikseli na wszystkich poziomach powiększenia
+{% hint style="warning" %}
+**Niedostępne dla kamer monochromatycznych.** W przypadku obrazu LATTICE M3M z jednym pasmem oba pola wyboru są nieaktywne, a podpowiedź brzmi: _„Niedostępne dla czujników monochromatycznych (M3M)”_ — indeks wielopasmowy nie jest zdefiniowany dla jednego pasma. Aby obliczyć indeksy z kamer M3M, należy połączyć co najmniej dwie z nich w wyrównany stos wielopasmowy i skorzystać z silnika indeksującego LATTICE.
+{% endhint %}
 
-### Otwieranie środowiska testowego
+***
 
-Dostęp do środowiska testowego indeksów/LUT uzyskuje się w zakładce **Przeglądarka obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> :
+## Stosowanie indeksu
 
-1. Kliknij obraz w siatce obrazów przeglądarki plików, otworzy się on w zakładce **Przeglądarka obrazów**<img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> 2. Kliknij kartę**Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> , aby otworzyć wysuwany pasek boczny po lewej stronie, jeśli nie jest jeszcze otwarty
+1. Zaznacz pole **Indeks** u góry paska bocznego
+2. Wybierz filtr swojej kamery z rozwijanego menu po lewej stronie (`RGN`, `OCN`, `NGB`, `RGB`, `RE`, `NIR`)
+3. Wybierz formułę indeksu z rozwijanego menu po prawej stronie — 27 wbudowanych formuł oraz dowolne własne formuły, które zapisałeś
+4. Formuła wyświetla się poniżej w postaci wyrażenia matematycznego, z pustym kółkiem w każdym polu pasma. **Przeciągnij kolorowe kółko kanału na pole**, aby je przypisać
+5. Gdy wszystkie pola używane w formule zostaną przypisane, obraz zostanie zaktualizowany i wyświetli wartości indeksu
+6. Najedź kursorem na obraz, aby odczytać wartości; panel **Wartości kursora** dodaje wiersz indeksu z wartością znajdującą się pod kursorem
 
-### Wybieranie obrazu, do którego chcesz zastosować indeks/LUT
+Kliknij dwukrotnie przypisane miejsce, aby je wyczyścić. Niekompletna formuła to normalny stan podczas przeciągania, a nie błąd — obraz po prostu nie aktualizuje się, dopóki formuła nie zostanie uzupełniona.
 
-Aby pracować z indeksem w <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> :
+Kółka kanałów są oznaczone kolorami: czerwony = Red, zielony = Green, niebieski = Blue, pomarańczowy = Orange, cyjan = Cyan, fioletowy = NIR, magenta = RE. Te same kolory są używane dla kropek kanałów i krzywych histogramu w panelu „Wartości kursora”.
 
-1. **Otwórz obraz** z głównej siatki obrazów, klikając na niego
-2. Otworzy się wówczas zakładka **Przeglądarka obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> otworzy się
-3. Kliknij **menu rozwijane warstw** (w prawym górnym rogu przeglądarki)
-4. Wybierz warstwę z menu rozwijanego:
-   * RAW (Odbicie)
-
-### Stosowanie indeksu do obrazu
-
-Gdy obraz jest wyświetlany na pełnym ekranie, a pasek boczny **Przeglądarki obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> :
-
-1. Zaznacz pole Indeks u góry paska bocznego
-2. Wybierz filtr aparatu z menu rozwijanego po lewej stronie
-3. Wybierz żądaną formułę indeksu z menu rozwijanego po prawej stronie
-4. Przeciągnij kolorowe kółka kanałów filtra do odpowiednich miejsc w formule indeksu poniżej
-5. Gdy formuła będzie poprawna, obraz zaktualizuje się i wyświetli wartości indeksu
-6. Przesuń kursor myszy, aby zobaczyć wartości w miejscu, w którym znajduje się kursor
-7. Powiększ obraz, aby zobaczyć poszczególne piksele i związane z nimi wartości
-
-Każdy indeks ma określony zakres wartości i znaczenie:
-
-#### Przykład NDVI
+### Przykład NDVI
 
 ```
 
 Formula: (NIR - Red) / (NIR + Red)
 
-For Survey3W RGN camera:
-NIR = 850nm band
-Red = 661nm band
+For a Survey3W RGN camera:
+  NIR = 850 nm band
+  Red = 661 nm band
 
-Result range: -1.0 to +1.0
-Typical vegetation: 0.4 to 0.9
-Stressed vegetation: 0.2 to 0.4
-Bare soil: 0.0 to 0.2
-Water: -0.1 to 0.1
+Result range:          -1.0 to +1.0
+Typical vegetation:     0.4 to 0.9
+Stressed vegetation:    0.2 to 0.4
+Bare soil:              0.0 to 0.2
+Water:                 -0.1 to 0.1
 ```
 
-Pełna dokumentacja formuł indeksów znajduje się w sekcji [Formuły indeksów wielospektralnych](../project-settings/multispectral-index-formulas.md).
+Pełny opis wzorów — wszystkie trzy listy ustawień wstępnych oraz informacje o tym, które nazwy działają w poszczególnych miejscach — znajduje się w sekcji [Wzory indeksów wielospektralnych](../project-settings/multispectral-index-formulas.md).
 
-***
+### Z zaznaczoną opcją „Indeks”, ale bez tabeli LUT
 
-## Praca z tabelami LUT (Look-Up Tables)
+Obraz jest rysowany w **skali szarości**, rozciągnięty między dwiema wartościami progowymi. Jest to zamierzone: obraz indeksowy stanowi dane skalarne, a skala szarości jest jego wiernym odwzorowaniem. Aby uzyskać kolor, należy dodać tabelę LUT.***
 
-### Czym jest tabela LUT?
+## Praca z tabelami LUT (Look-Up Tables)**Tabela odnośników** przyporządkowuje wartości indeksowe do kolorów: na wejściu NDVI 0,65, na wyjściu określony odcień zieleni. Nie zmienia to danych — zmienia jedynie sposób ich odczytu.
 
-**Tabela LUT (Look-Up Table)** mapuje numeryczne wartości indeksów na kolory w celu wizualizacji:
+### Dodawanie tabeli LUT
 
-* **Dane wejściowe**: Wartość pikselowa indeksu (np. NDVI 0,65)
-* **Wynik**: Kolor RGB (np. jasnozielony)
-* **Cel**: Ułatwienie dostrzegania i interpretacji wzorów**Tabela LUT w skali szarości a tabela LUT kolorów:**
-
-* Skala szarości: Naukowa i neutralna, pokazuje surowe dane
-* Tabela LUT kolorów: Intuicyjna i wyrazista, podkreśla wzory i różnice
-
-{% hint style="success" %}
-**Możliwości wizualizacji**: Zastosowanie kolorowej tablicy LUT do obrazu indeksowego w skali szarości znacznie ułatwia identyfikację wzorów, anomalii i obszarów zainteresowania na pierwszy rzut oka.
-{% endhint %}
-
-### Stosowanie tablicy LUT do obrazu indeksowego
-
-Gdy masz już obraz indeksowy przedstawiający
-
-1. Kliknij przycisk <img src="../.gitbook/assets/image (1) (1).png" alt="" data-size="line"> przycisk „+Dodaj LUT”
+1. Kliknij przycisk **„+ Dodaj LUT”** w sekcji „<img src="../.gitbook/assets/image (1) (1) (1).png" alt="" data-size="line">” poniżej wzoru
 2. Wybierz gradient kolorów
-3. Dostosuj minimalne i maksymalne punkty końcowe przycinania
-4. Dostosuj tryb przycinania
-5. Zaznacz pole Indeks w pasku bocznym **Przeglądarki obrazów** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> , aby zastosować tabelę LUT
+3. Ustaw minimalną i maksymalną wartość przycinania
+4. Wybierz tryb przycinania
+5. Zaznacz pole wyboru **LUT** na pasku bocznym, aby ją wyrenderować
 
-### Wybór gradientu kolorów
+Pole wyboru LUT pozostaje nieaktywne, dopóki tablica LUT nie zostanie faktycznie skonfigurowana w indeksie.
 
-**Wybór gradientu:**
+### Wybór gradientu koloru
 
-1. W panelu LUT znajdź**kolorowy pasek gradientu**
+Najedź kursorem na **pasek gradientu**, aby otworzyć listę ustawień wstępnych — Chloros zawiera**siedem** gotowych ustawień gradientów:
 
-2. Najedź na niego myszką, aby wyświetlić dostępne ustawienia gradientu
-3. Wybierz żądany gradient
-4. Obraz **natychmiast się zaktualizuje** z nowymi kolorami, gdy pole Indeks zostanie zaznaczone
+| # | Gradient                            | Kształt                                                               |
+| - | ----------------------------------- | ------------------------------------------------------------------- |
+| 1 | Red → Żółty → Green (**domyślny**)  | Rozchodzący się — odpowiada typowemu postrzeganiu roślinności: zielony = zdrowy |
+| 2 | Fioletowy → Żółty → Green             | Rozbieżny, z wyraźnie zaznaczonym dolnym zakresem                                  |
+| 3 | Brązowy → Biały → Blue                | Rozbieżny wokół jasnego punktu środkowego                                   |
+| 4 | Czarny → Fioletowy → Różowy → Jasnożółty | Sekwencyjny, od ciemnego do jasnego                                           |
+| 5 | Red → Żółty → Blue                 | Rozbieżny wokół jasnego punktu środkowego                                   |
+| 6 | Fioletowy → Blue → Green → Żółty      | Sekwencyjny, od ciemnego do jasnego                                           |
+| 7 | Orange → Biały → Fioletowy             | Rozchodzące się wokół jasnego punktu środkowego                                   |
 
-{% hint style="success" %}
-**Najlepsza praktyka**: W przypadku wskaźników wegetacji, takich jak NDVI, gradient Red-żółty-Green jest najbardziej intuicyjny, ponieważ odpowiada naturalnym skojarzeniom kolorystycznym (zielony = zdrowy, żółty = umiarkowany, czerwony = zestresowany).
-{% endhint %}
+Gradient **rozbieżny**umieszcza neutralny kolor w środku okna, co sprawdza się dobrze, gdy punkt środkowy ma określone znaczenie (próg, data odniesienia). Gradient**sekwencyjny** przebiega monotonicznie od ciemnego do jasnego, co sprawdza się dobrze w przypadku wielkości, które mają tylko wartości „więcej” i „mniej”.
 
-### Dostosowywanie klas kolorów
+Każdy preset zawiera siedem punktów kolorów. Kliknij preset, a obraz natychmiast się zaktualizuje (gdy pole LUT jest zaznaczone).
 
-**Element sterujący „Klasy”**określa, ile odrębnych stopni koloru pojawi się w Twoim gradiencie:**Opcje liczby klas:*** **2–5 klas**: Bardzo szerokie kategorie, wyraźne strefy
-* **6–10 klas**: Zrównoważone, dobre do klasyfikacji
-* **11–20 klas**: Płynne gradienty, ciągły wygląd
-* **20+ klas**: Prawie ciągłe, maksymalna płynność**Jak dostosować:**
+### Edycja punktów kolorów
 
-1. W panelu LUT znajdź**kwadraty próbek kolorów poniżej paska gradientu**
+Pod paskiem gradientu znajduje się rząd próbek kolorów, po jednej na każdy punkt:
 
-2. Dostosuj liczbę klas, dodając je za pomocą przycisku +
-3. Usuń liczbę klas, klikając dwukrotnie na próbkę koloru
-4. Gradient aktualizuje się **w czasie rzeczywistym** na obrazie**Wpływ na wizualizację:*** **Mniej klas** (3–5): Tworzy wyraźne strefy, uproszczoną klasyfikację, łatwiejsze rozróżnienie kategorii
-* **Średnia liczba klas** (6–10): Zrównoważone podejście, dobre dla większości zastosowań
-* **Więcej klas** (15–20): Płynne przejścia, szczegółowe zróżnicowanie, wygląd fotograficzny**Kiedy stosować:*** **Niewiele klas (3–5)**: slajdy prezentacji, mapy klasyfikacyjne, proste raporty
-* **Średnia liczba klas (6–10)**: ogólna analiza, zrównoważony poziom szczegółowości, standardowe raporty
-* **Wiele klas (15–20)**: analiza naukowa, szczegółowa kontrola, wyniki o jakości publikacyjnej
+* **Zmiana koloru**: kliknij próbkę, aby otworzyć selektor kolorów (koło kolorów, suwaki RGB/HSV lub kod szesnastkowy, np. `#FF0000`)
+* **Dodaj punkt**: kliknij przycisk**+** na końcu rzędu — zostanie dodany biały punkt
+* **Usuń punkt**:**kliknij dwukrotnie** próbkę
+* **Zachowaj edytowany gradient**: kliknij ikonę zapisu obok paska gradientu, aby dodać edytowany gradient do listy ustawień wstępnych, dzięki czemu będziesz mógł go ponownie wybrać
 
-### Precyzyjne dostosowywanie zakresów wartości
+Gradient skonfigurowany dla indeksu jest zapisywany wraz z tym indeksem w ustawieniach projektu, dzięki czemu pozostaje zachowany po zamknięciu i ponownym otwarciu projektu.
 
-**Elementy sterujące zakresem wartości**określają, które wartości indeksu są przypisane do poszczególnych kolorów w gradiencie:**Elementy sterujące zakresem w panelu LUT:*** **Wartość minimalna**: Dolna granica skali kolorów
-* **Wartość maksymalna**: Górna granica skali kolorów
-* **Wartości pośrednie**: Automatycznie rozłożone między wartością minimalną a maksymalną (na podstawie liczby klas)
+**Mniejsza liczba punktów**tworzy wyraźne strefy, które odczytuje się jako klasyfikację;**większa liczba punktów** zapewnia płynne, niemal fotograficzne przejścia. Trzy do pięciu punktów nadaje się do slajdów prezentacyjnych i map klasyfikacyjnych; sześć do dziesięciu — do ogólnej analizy; piętnaście lub więcej — do szczegółowej analizy i rysunków publikacyjnych.
 
-#### Dostosowywanie wartości minimalnych/maksymalnych
+### Ustawianie zakresu wartości
 
-**Aby dostosować zakresy wartości:**
+Element sterujący progiem to **suwak z dwoma uchwytami**o zakresie od −1 do +1, z edytowalnym polem tekstowym na każdym końcu do wpisania dokładnych wartości oraz przyciskiem**AUTO**.
 
-1. W panelu LUT znajdź pola wprowadzania**Wartość minimalna**i**Wartość maksymalna**
+* Przeciągnij dowolny suwak lub wpisz liczbę w odpowiednim polu i naciśnij Enter
+* **AUTO**ustawia zakres na**
 
-2. Kliknij pole**Wartość minimalna**
+2. i 98. percentyl** prawidłowych wartości indeksu obrazu — jest to dobry punkt wyjścia, który pomija wartości odstające. Chloros adaptacyjnie zaokrągla wynik do 4 miejsc po przecinku dla bardzo wąskiego zakresu, do 3 dla wąskiego zakresu, a w pozostałych przypadkach do 2
+* Każda ręczna regulacja ma pierwszeństwo przed trybem AUTO, dopóki nie naciśniesz ponownie przycisku AUTO
 
-3. Wpisz żądaną wartość minimalną (np. `0.2`)
-4. Naciśnij klawisz **Enter** lub kliknij poza polem
-5. Powtórz tę czynność dla pola **Wartość maksymalna** (np. `0.9`)
-6. Wizualizacja **zaktualizuje się natychmiast**{% hint style="info" %}**Automatyczne skalowanie**: Po pierwszym zastosowaniu tabeli LUT, Chloros automatycznie ustawia wartości minimalne i maksymalne zgodnie z rzeczywistym zakresem danych na obrazie. Następnie można zawęzić ten zakres, aby skupić się na konkretnych zakresach wartości, które nas interesują.
-{% endhint %}
+Przykładowe okna NDVI:
 
-**Przykładowe dostosowania zakresu NDVI:*** **Pełny zakres**: od `-1.0` do `1.0` (pokaż wszystkie możliwe wartości)
-* **Skupienie na roślinności**: od `0.2` do `0.9` (z wyłączeniem gołej gleby i wody)
-* **Tylko zdrowa roślinność**: od `0.5` do `0.9` (podkreśl tylko bujne rośliny)
-* **Wykrywanie stresu**: od `0.2` do `0.5` (podkreśl obszary problemowe)
-* **Zakres niestandardowy**: dostosuj na podstawie obserwowanych wartości pikseli**Dlaczego warto dostosowywać zakresy?*** **Zwiększ kontrast** w obszarze, który Cię interesuje
-* **Wyklucz nieistotne wartości** (np. zbiorniki wodne, goła gleba)
-* **Ujednolic wizualizację** na wielu obrazach lub w różnych datach
-* **Podkreśl subtelne różnice** w wąskim zakresie wartości
+| Cel                                    | Min  | Max |
+| --------------------------------------- | ---- | --- |
+| Pokaż wszystko                         | −1,0 | 1,0 |
+| Tylko roślinność, z wyłączeniem gleby i wody | 0,2  | 0,9 |
+| Tylko zdrowa roślinność                 | 0,5  | 0,9 |
+| Podkreśl stres                        | 0,2  | 0,5 |
 
-### Wycinanie wartości poza zakresem
+Zawężenie przedziału zwiększa kontrast w obszarze zainteresowania i powoduje, że wszystko inne znajduje się poza zakresem — gdzie **tryb przycinania** decyduje o tym, co się z tym stanie.***
 
-Gdy wartości pikseli wykraczają poza zdefiniowany zakres min/max, możesz kontrolować sposób ich wyświetlania za pomocą **trybów przycinania**.
+## Tryby przycinania
 
-#### **Dostępne opcje trybów przycinania:**
+Gdy wartość indeksu piksela wykracza poza okno min/max, tryb przycinania decyduje o tym, jak zostanie on narysowany.
 
-#### 1. Minimum i maksimum
+| Etykieta listy rozwijanej                  | Zapisana wartość      | Piksele poza zakresem są rysowane jako                                                                                                |
+| ------------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| **Minimum i maksimum** (domyślnie) | `clip`            | Najbliższy kolor końcowy gradientu — wartości poniżej minimum przyjmują pierwszy kolor, wartości powyżej maksimum przyjmują ostatni |
+| **Przezroczyste tło**      | `transparent`     | Całkowicie przezroczyste (prawdziwa wartość alfa)                                                                                                  |
+| **Tło indeksowe**| `indexColor`      | Skala szarości, rozciągnięta na**cały** zakres indeksu obrazu, dzięki czemu struktura poza zakresem jest nadal widoczna w odcieniach szarości                |
+| **Oryginalne tło**         | `backgroundColor` | Sam obraz bazowy, więc nakładka kolorystyczna znajduje się na prawdziwej scenie                                                |
 
-* Piksele **poniżej minimum**→ wyświetlane przy użyciu**pierwszego koloru** w gradiencie (np. czerwonego)
-* Piksele **powyżej maksimum**→ wyświetlane przy użyciu**ostatniego koloru** w gradiencie (np. zielonego)
-* **Przykład zastosowania**: Podkreślenie skrajnych wartości, pokazanie pełnego zakresu danych z nasyconymi kolorami na granicach
-* **Przykład**: Wartości NDVI poniżej 0,2 są wyświetlane na czerwono, a wartości powyżej 0,9 na zielono
-
-#### 2. Przezroczyste tło
-
-* Piksele **poza zakresem**stają się**całkowicie przezroczyste*** Tylko piksele **w zakresie** pokazują gradient kolorów
-* **Przykład zastosowania**: nakładka GIS, izolowanie określonych zakresów wartości, podkreślanie tylko obszarów zainteresowania
-* **Przykład**: Pokaż tylko NDVI 0,4–0,7 w kolorze, wszystko inne przezroczyste
-
-{% hint style="warning" %}
-**Ograniczenie przezroczystości**: Przezroczyste piksele będą wyświetlane w przeglądarce jako kolor tła. Podczas eksportu w trakcie przetwarzania przezroczystość jest zachowana w formacie PNG, ale nie w formacie JPG.
-{% endhint %}
-
-#### 3. Tło indeksowe
-
-* Piksele **poza zakresem**wyświetlane są w**skali szarości** (pokazując surowe wartości indeksu)
-* Piksele **w zakresie**pokazują**gradient kolorów*** **Przykład zastosowania**: Subtelne podświetlenie, zachowanie kontekstu przy jednoczesnym podkreśleniu obszarów zainteresowania
-* **Przykład**: Podświetlenie kolorami roślinności poddanej stresowi (NDVI 0,3–0,5), przy jednoczesnym pokazaniu zdrowych obszarów w kolorze szarym
-
-#### 4. Tło oryginalne
-
-* Piksele **poza zakresem**wyświetlają**oryginalny obraz wielospektralny*** Piksele **w zakresie**pokazują**gradient kolorów*** **Przykład zastosowania**: Najbardziej intuicyjny — łączy naturalny kontekst obrazu z analityczną nakładką kolorową
-* **Przykład**: Zobacz rzeczywisty wygląd pola/uprawy z nałożonymi obszarami stresu oznaczonymi kolorami
-
-### Wybór odpowiedniego trybu przycinania
-
-| Tryb przycinania              | Najlepsze zastosowanie                                   | Styl wizualizacji          |
-| -------------------------- | ------------------------------------------ | ---------------------------- |
-| **Minimum i maksimum**    | Pełne wyświetlanie danych, analiza naukowa     | Wszystkie piksele kolorowe           |
-| **Przezroczyste tło** | Nakładki GIS, izolowanie określonych zakresów    | Kolor w zakresie, poza nim pusto |
-| **Tło indeksowe**       | Subtelne podkreślenie, zachowanie kontekstu danych  | Kolor w zakresie, szarość poza nim  |
-| **Tło oryginalne**    | Raporty, prezentacje, intuicyjna analiza | Kolor w zakresie, zdjęcie poza nim |
-
-### Tworzenie niestandardowych kolorów LUT
-
-Aby uzyskać pełną kontrolę nad wizualizacją, możesz tworzyć **niestandardowe gradienty kolorów**, edytując poszczególne punkty kolorów.**Aby utworzyć niestandardowy gradient:**
-
-1. W panelu LUT znajdź**pasek podglądu gradientu**
-
-2. Poszukaj**kwadratów próbek kolorów** poniżej gradientu
-3. **Kliknij punkt koloru**, aby go zaznaczyć
-4. Otworzy się **próbnik kolorów**
-
-5. Wybierz nowy kolor za pomocą:
-   * **Koła kolorów**: Wizualny wybór koloru
-   * **Suwaki RGB/HSV**: Precyzyjna kontrola koloru
-   * **Wprowadzenie kodu szesnastkowego**: Dokładna specyfikacja koloru (np. `#FF0000` dla czerwonego)
-6. Kliknij poza okienkiem wyboru kolorów, **aby zastosować nowy kolor**
-
-7. Gradient**natychmiast się zaktualizuje** na obrazie**Dodawanie lub usuwanie punktów kolorystycznych:*** **Dodaj punkt**: Kliknij ikonę +, aby dodać nową próbkę na końcu
-* **Usuń punkt**: Kliknij dwukrotnie kwadrat koloru, aby usunąć próbkę**Strategie dostosowywania:*** **Odwróć gradient**: Odwróć kolejność kolorów, aby zmienić znaczenie (np. zielony = niski, czerwony = wysoki)
-* **Kolory marki**: Dopasuj paletę kolorów do palety swojej organizacji w raportach
-* **Przyjazne dla osób z daltonizmem**: Używaj kombinacji pomarańczowo-niebieskich lub fioletowo-żółtych
-* **Optymalizacja druku**: Wybierz kolory, które sprawdzają się zarówno w druku kolorowym, jak i w skali szarości
-* **Wiele progów**: Użyj różnych kolorów przy określonych progach wartości do klasyfikacji
+| Tryb                       | Najlepsze zastosowanie                               | Wygląd                                      |
+| -------------------------- | -------------------------------------- | ----------------------------------------- |
+| **Minimum i maksimum**      | Pełne wyświetlanie danych, analiza naukowa | Każdy piksel jest pokolorowany                      |
+| **Przezroczyste tło** | Nakładki GIS, izolowanie przedziału wartości   | Kolor wewnątrz okna, nic poza nim |
+| **Tło indeksowe**       | Podkreślenie przy zachowaniu kontekstu danych    | Kolor wewnątrz, szarość na zewnątrz               |
+| **Tło oryginalne**    | Raporty i prezentacje              | Kolor wewnątrz, zdjęcie na zewnątrz         |
 
 {% hint style="info" %}
-**Zapisywanie niestandardowych gradientów**: Niestandardowe gradienty można zapisać i ponownie wykorzystać. Kliknij ikonę zapisu w panelu LUT, aby zachować niestandardowe schematy kolorów do wykorzystania w przyszłości.
+**Piksele bez danych są zawsze przezroczyste, w każdym trybie.** Piksel, którego indeks nie jest skończony (dzielenie przez 0/0) lub wynosi dokładnie −1,0 lub +1,0 (wskaźniki nasycenia, wynikające z sytuacji, gdy jedno pasmo wskazuje zero, a drugie nie), jest traktowany jako brak danych, a nie jako wartość skrajna. Dzięki temu prześwietlone jasne obszary i martwe cienie nie pojawiają się w skali kolorów, zamiast tego nie są one przedstawiane jako najbardziej skrajne odczyty w kadrze. Ta sama zasada określa, które piksele zasilają progi AUTO oraz histogram indeksów, dzięki czemu wszystkie trzy są ze sobą zgodne.
+{% endhint %}
+
+Przezroczystość jest zachowana, gdy eksport jest zapisywany w formacie PNG. Nie można jej przedstawić w formacie JPG.
+
+***
+
+## Odczytywanie wartości podczas regulacji
+
+Panel **Wartości kursora** poniżej panelu konfiguracyjnego służy jako przyrząd pomiarowy dla środowiska testowego:
+
+* Przesuń kursor nad obrazem i odczytaj wartości źródłowe dla poszczególnych kanałów oraz wartość indeksu w osobnym wierszu
+* Włącz przycisk **INDEX** nad histogramem, aby zobaczyć rozkład wartości indeksu w klatce, z dwoma progami przycięcia zaznaczonymi pomarańczowymi liniami przerywanymi oraz wartością kursora przedstawioną białą linią — jest to najszybszy sposób na wybranie okna, które faktycznie zawiera dane
+* Włącz opcję **CURSOR**, aby wyświetlić linie znaczników przy wartościach pod wskaźnikiem
+* Powiększ obraz powyżej 60× (mniej, jeśli ustawiono rozmiar bloku GSD), aby podświetlić poszczególne wyświetlane piksele z wartością zmienną
+
+Praktyczna procedura:
+
+1. Zanotuj wartości nad zdrową roślinnością, roślinnością zestresowaną, nagą glebą i wodą
+2. Sprawdź, gdzie te skupiska znajdują się na histogramie indeksu
+3. Ustaw wartości min/max tak, aby objąć interesujący Cię skupisko
+4. Wybierz tryb przycinania — _Original Background_ (Oryginalne tło) sprawia, że otoczenie sceny pozostaje widoczne
+
+***
+
+## Eksportowanie z Sandboxa
+
+Wszystko powyżej jest podglądem na żywo, dopóki nie zostanie zapisane. Przycisk **Eksportuj/Zapisz obraz(y)** u góry paska bocznego otwiera panel, który przesuwa się nad paskiem bocznym (zamiast zakrywać obraz, dzięki czemu nadal widać to, co się ocenia).
+
+<figure><img src="../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>### Opcje
+
+| Opcja                          | Efekt                                                                                                                                            |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Zastosuj do bieżącego obrazu**      | Zapisuje dokładnie ten obraz, który jest wyświetlany, z tymi ustawieniami                                                                                                |
+| **Zastosuj do wszystkich obrazów w projekcie** | Ponownie stosuje identyczną konfigurację do każdego obrazu w projekcie. Obrazy bez pasm wymaganych przez ten indeks są pomijane, a nie traktowane jako błędy |
+| **Pasek gradientu indeksu/LUT**      | Zapisuje również osobny obraz legendy dla każdego eksportu, z oznaczonym zakresem wartości                                                                     |
+| **Histogram indeksu**             | Zapisuje również osobny obraz histogramu dla każdego eksportu, pokazujący minimalne i maksymalne wartości danych oraz progi przycięcia                                               |
+
+Jeśli wartość **rozmiaru bloku GSD** na karcie obrazu jest większa niż 1, w panelu pojawi się odpowiedni komunikat przed zatwierdzeniem: eksport zapisuje to, co widzisz, łącznie z uśrednieniem blokowym. Jeśli chcesz uzyskać pełną rozdzielczość, najpierw ustaw kontrolkę GSD z powrotem na 1.
+
+### Gdzie trafiają pliki
+
+Każde kliknięcie przycisku **Eksportuj**powoduje utworzenie**nowego, nigdy wcześniej nieużywanego folderu**:
+
+```
+<project folder>/Sandbox_Exports/<IndexName>_<Index|LUT>_<NNN>/
+```
+
+Przykłady: `Sandbox_Exports/NDVI_LUT_001/`, a następnie `Sandbox_Exports/NDVI_LUT_002/` dla kolejnego przebiegu. Numeracja jest generowana na podstawie skanowania zawartości dysku, dzięki czemu pozostaje zachowana nawet po ponownym uruchomieniu programu i ręcznym usunięciu folderów. Nic nigdy nie jest nadpisywane — głównym celem środowiska Sandbox jest porównywanie bieżącej próby z poprzednią.
+
+Wewnątrz folderu, dla każdego obrazu:
+
+| Plik                                                   | Zawartość                                                   |
+| ------------------------------------------------------ | ---------------------------------------------------------- |
+| `<source name>_<IndexName>_<Index\|LUT>.png`           | Wyrenderowany obraz, piksel po pikselu taki, jak wyświetlała go przeglądarka |
+| `<source name>_<IndexName>_<Index\|LUT>_legend.png`    | Plik pomocniczy z paskiem gradientowym, jeśli został zamówiony                     |
+| `<source name>_<IndexName>_<Index\|LUT>_histogram.png` | Plik pomocniczy z histogramem indeksów, jeśli został zamówiony                  |
+
+Oba pliki towarzyszące są zawsze zapisywane w **pełnej rozdzielczości**, nawet gdy główny obraz jest uśredniony blokowo: rozmiar bloku odpowiada rozdzielczości wyświetlacza, a oba pliki towarzyszące odczytują rzeczywiste wartości indeksu dla każdego piksela. Zawierają one również więcej informacji niż wersje wyświetlane na ekranie — oba pliki zawierają oznaczenie okna rozciągania _oraz_ rzeczywiste wartości minimalne i maksymalne danych, dzięki czemu zapisana legenda jest nadal czytelna nawet po upływie miesięcy, bez konieczności otwierania projektu.
+
+### Postęp i wyniki
+
+Eksport całego projektu zajmuje kilka minut, więc proces ten informuje o postępie na kanale na żywo, zamiast blokować działanie programu:
+
+* Pasek postępu wyświetla `current / total` oraz plik, który jest zapisywany
+* Po zakończeniu w panelu wyświetlane są informacje o liczbie wyeksportowanych obrazów, liczbie pominiętych oraz ścieżka do folderu wyjściowego
+* Pominięte obrazy są wymienione wraz z przyczyną (wyświetla się maksymalnie pięć, a następnie wiersz „+N więcej”). Najczęstszą przyczyną jest warstwa, która nie posiada kanałów wymaganych przez ten indeks
+* Jeśli **żaden** obraz w projekcie nie mógł skorzystać z indeksu, operacja zgłasza niepowodzenie zamiast pozostawić pusty folder
+
+W danym momencie może być uruchomiony tylko jeden eksport w piaskownicy. Próba uruchomienia drugiego eksportu w trakcie trwania pierwszego jest odrzucana z wyraźnym komunikatem, zamiast dopuszczać do konfliktu dwóch operacji walczących o ten sam plik projektu.
+
+### Siatka wyświetla przebieg
+
+Każdy zakończony przebieg pojawia się jako osobny przycisk na pasku narzędzi [siatki obrazów](image-grid.md), oznaczony jako `<IndexName> <Index|LUT> <NNN>`. W ten sposób można porównywać przebiegi: należy wykonać dwa eksporty z różnymi gradientami lub progami, a następnie przełączać się między dwoma przyciskami w siatce.
+
+***
+
+## Niestandardowe formuły indeksu (Chloros+)
+
+{% hint style="info" %}
+**Gdzie je tworzyć**: na pasku bocznym Sandbox lub w**Ustawieniach projektu** przed przetwarzaniem. Oba zapisują się do tej samej listy na poziomie projektu.
+{% endhint %}
+
+1. Otwórz kalkulator formuł niestandardowych z menu rozwijanego formuł indeksowych (wymagane jest zalogowanie się przy użyciu kwalifikującej się subskrypcji Chloros+)
+2. Wpisz formułę, używając **symboli przedziałów pasmowych** `x`, `y`, `z`, `a`, `b`, `c` — nie są to nazwy pasm
+3. Dostępne operatory: `+`, `-`, `*`, `/`, `^` oraz `()` do grupowania
+4. Dostępne funkcje: `sqrt()`, `log()`, `ln()`, `abs()`, `sign()`, `log1p()`, `log2()`
+5. Nadaj nazwę i zapisz — pojawi się ona na dole listy rozwijanej formuł, a jej sloty można przypisać, przeciągając kółka kanałów, dokładnie tak samo jak w przypadku wbudowanych ustawień wstępnych
+
+```
+
+Modified NDVI with an offset:   (y-x)/(y+x+0.5)
+Simple ratio:                   y/x
+Three-band difference:          (y-x)/(y+x-z)
+Squared ratio:                  (y/x)^2
+```
+
+{% hint style="warning" %}
+**Formuły niestandardowe są dostępne wyłącznie w interfejsie graficznym.** Opcja CLI/SDK `--indices` rozszerza listę 22 wbudowanych nazw presetów i pomija w tle wszystko inne, w tym formuł niestandardowych. Aby zastosować formułę niestandardową w trybie wsadowym, skonfiguruj ją w ustawieniach projektu i uruchom przetwarzanie lub skorzystaj z opcji eksportu „Zastosuj do wszystkich obrazów projektu” w środowisku Sandbox.
 {% endhint %}
 
 ***
 
-## Interaktywny przebieg pracy
+## Rozwiązywanie problemów
 
-### Aktualizacje w czasie rzeczywistym
+### „Ta warstwa nie posiada kanałów wymaganych przez ten indeks”
 
-Wszystkie zmiany LUT w piaskownicy aktualizują obraz **natychmiastowo i interaktywnie**:
+Formuła odczytuje pozycję kanału, której bieżąca warstwa nie posiada — na przykład indeks z trzema slotami w pliku jedno- lub dwukanałowym. Przełącz się na warstwę wielopasmową (odbiciową lub po usunięciu matrycy) lub wybierz indeks pasujący do filtra Twojej kamery.
 
-* **Zmiana warstwy** → Obraz zmienia się natychmiast
-* **Wybór gradientu** → Kolory aktualizują się natychmiast
-* **Dostosowanie zakresu wartości** → Kontrast zmienia się w czasie rzeczywistym
-* **Zmiana klas** → Gładkość gradientu aktualizuje się natychmiast
-* **Modyfikacja przycinania** → Wyświetlanie tła zmienia się natychmiast
-* **Edycja kolorów** → Niestandardowy gradient stosuje się natychmiast**Nie jest potrzebny przycisk „Zastosuj”** — wszystkie zmiany są widoczne na żywo i interaktywne!
+### „Nie udało się połączyć z modułem przetwarzania obrazu”
 
-{% hint style="success" %}
-**Informacja zwrotna na żywo**: Natychmiastowa informacja zwrotna pozwala szybko eksperymentować z różnymi ustawieniami, aż do znalezienia optymalnej wizualizacji dostosowanej do potrzeb analizy.
-{% endhint %}
+Moduł nie odpowiada. Sprawdź zakładkę „Log”; jeśli moduł przetwarzający jest ponownie uruchamiany, środowisko testowe (Sandbox) przywróci działanie samodzielnie po jego ponownym uruchomieniu.
 
-### Iteracyjny proces udoskonalania
+### Obraz nie zmienił się po przeciągnięciu okręgu
 
-**Typowy proces optymalizacji LUT:**
+Formuła nie jest jeszcze kompletna. Niekompletna formuła jest traktowana jako normalny stan w trakcie przeciągania — nic nie jest renderowane i nie zgłaszany jest żaden błąd. Wypełnij wszystkie pola używane przez formułę.
 
-1.**Wybierz warstwę indeksową** (np. RAW (Odbicie))
-2. **Zastosuj indeks** – wybierz filtr kamery i wzór indeksu, przeciągnij kolorowe kółka w odpowiednie miejsce we wzorze indeksu
-3. **Zastosuj gradient LUT** – zacznij od ustawienia wstępnego Red-Yellow-Green
-4. **Sprawdź wartości pikseli** – przesuwaj kursor, zwracaj uwagę na zakresy wartości
-5. **Dostosuj min/maks** – zawęź zakres, aby skupić się na roślinności (np. od 0,2 do 0,9)
-6. **Wybierz przycinanie** – wypróbuj opcję „Original Background” dla zachowania kontekstu
-7. **Dopracuj kolory** – dostosuj gradient, jeśli to konieczne, aby uzyskać konkretny efekt
-8. **Sfinalizuj ustawienia**– zapisz ustawienia i skopiuj je do ustawień projektu w celu przetworzenia eksportu
+### Cały obraz ma jeden kolor
 
-### Sprawdzanie wartości pikseli
+Twoje okno klipu prawdopodobnie znajduje się daleko poza zakresem danych. Naciśnij **AUTO**, aby przyciągnąć je do 2. lub 98. percentyla, lub włącz histogram**INDEX**, aby zobaczyć, gdzie faktycznie znajdują się dane.
 
-Zrozumienie rzeczywistych wartości pikseli ma kluczowe znaczenie dla ustawienia skutecznych zakresów LUT:**Jak sprawdzać wartości:**
+### Wyeksportowane kolory nie odpowiadają temu, co widziałem
 
-1. Wartości pikseli są widoczne, gdy na obrazku jest**zaznaczone** pole „Indeks” lub zarówno „Indeks”, jak i „LUT”.
-2. **Przesuń kursor** nad różne obszary obrazu
-3. **Obserwuj wartości pikseli** wyświetlane w legendzie po najechaniu kursorem
-4. Powiększ obraz, aby zobaczyć poszczególne piksele podświetlone z wyświetlaną wartością
-5. **Zanotuj** zakresy wartości dla różnych elementów:
-   * **Zdrowa roślinność**: np. NDVI 0,55–0,85
-   * **Roślinność w stanie stresu**: np. NDVI 0,30–0,50
-   * **Odsłonięta gleba**: np. NDVI 0,05–0,25
-   * **Woda** (jeśli występuje): np. NDVI od -0,05 do 0,10**Wykorzystanie wartości pikseli do ustawienia zakresów LUT:**Po sprawdzeniu wartości pikseli dostosuj odpowiednio minimalne i maksymalne wartości LUT:**Przykładowy scenariusz:*** **Obserwacja**: Wartości gleby = 0,05–0,25, Stres = 0,25–0,50, Zdrowie = 0,50–0,85
-* **Cel**: Wizualizacja wyłącznie stanu zdrowia roślin (z wyłączeniem gleby)
-* **Ustawienia LUT**: Min = `0.25`, Max = `0.85`
-* **Ograniczanie**: „Oryginalne tło”, aby zobaczyć glebę w naturalnym kolorze
-* **Wynik**: Gradient kolorów dotyczy wyłącznie roślinności, gleba jest wyświetlana jako na oryginalnym zdjęciu
-
-{% hint style="info" %}
-**Zakres dynamiczny**: Różne uprawy, pory roku i etapy wzrostu będą miały różne zakresy wartości. Zawsze sprawdzaj wartości pikseli w konkretnym zbiorze danych przed ustawieniem zakresów LUT.
-{% endhint %}
-
-***
-
-## Indeksy niestandardowe (Chloros+)
-
-### Tworzenie formuł indeksów niestandardowych
-
-{% hint style="info" %}
-**Gdzie tworzyć**: Indeksy niestandardowe można skonfigurować w**Ustawieniach projektu** przed przetwarzaniem, a także na pasku bocznym środowiska testowego przeglądarki obrazów.
-{% endhint %}
-
-**Aby utworzyć indeks niestandardowy:**
-
-1.**Otwórz Ustawienia projektu** (przed przetwarzaniem) lub pasek boczny środowiska testowego przeglądarki obrazów
-2. Przejdź do **menu rozwijanego Formuła indeksu**
-
-3. Znajdź opcję**„Niestandardowy”** (wymagane jest zalogowanie się przy użyciu licencji Chloros+)
-4. **Zdefiniuj formułę**, używając zmiennych pasm:
-   * Nazwy pasm: `NIR`, `Red`, `Green`, `Blue`, `RedEdge` itp.
-   * Operatory: `+`, `-`, `*`, `/`, `^` (wykładnik)
-   * Funkcje: `sqrt()`, `abs()` itp. (jeśli są obsługiwane)
-   * Nawiasy: `()` dla kolejności operacji
-5. **Nadaj nazwę indeksowi** (np. „MyIndex” lub „CustomNDVI”)
-6. **Zapisz konfigurację**
-
-**Przykładowe formuły niestandardowe:**
-
-```
-
-Modified NDVI with offset:
-(NIR - Red) / (NIR + Red + 0.5)
-
-Simple ratio:
-NIR / Red
-
-Complex multi-band:
-(NIR - Red) / (NIR + Red - Blue)
-
-Exponential index:
-(NIR / Red) ^ 2
-```
-
-{% hint style="warning" %}
-**Walidacja formuły**: Upewnij się, że formuła wykorzystuje pasma dostępne w Twojej kamerze. Na przykład RedEdge jest dostępna tylko w kamerach z filtrem RedEdge.
-{% endhint %}
+Powinny — ścieżka eksportu jest celowym odzwierciedleniem podglądu na żywo, łącznie z alfa w trybie przycinania, a uśrednianie blokowe jest stosowane _po_ pokolorowaniu, dokładnie tak jak robi to przeglądarka. Jeśli występują różnice, sprawdź, czy rozmiar bloku GSD nie uległ zmianie między przeglądaniem a eksportem.
 
 ***
 
 ## Kolejne kroki
 
-Teraz, gdy rozumiesz już działanie środowiska testowego Index/LUT:
-
-* **Zastosuj do przetwarzania**: Użyj odkrytych ustawień w [Ustawieniach projektu](../project-settings/project-settings.md)
-* **Przetwarzanie wsadowe**: Zastosuj zoptymalizowane indeksy do pełnych zestawów danych
-* **Dowiedz się więcej**: Przeczytaj [Wzory indeksów wielospektralnych](../project-settings/multispectral-index-formulas.md)
-
-Powiązana dokumentacja:
-
-* [**Warstwy obrazu**](image-layers.md) – Zarządzanie warstwami i wizualizacja
-* [**Otwieranie obrazu na pełnym ekranie**](opening-an-image-full-screen.md) — podstawy przeglądarki obrazów
-* [**Przetwarzanie obrazów (GUI)**](../processing-images-gui/adding-files-to-a-project.md) — pełny przebieg przetwarzania
+* [**Warstwy obrazu**](image-layers.md) — na której warstwie uruchomić indeks i co oznaczają jej wartości
+* [**Otwieranie obrazu na pełnym ekranie**](opening-an-image-full-screen.md) — szczegółowe informacje na temat odczytu kursora, histogramu i kontroli GSD
+* [**Wzory indeksów wielospektralnych**](../project-settings/multispectral-index-formulas.md) — wszystkie ustawienia wstępne dla każdej powierzchni
+* [**Ustawienia projektu**](../project-settings/project-settings.md) — zapisanie znalezionych ustawień w cyklu przetwarzania
