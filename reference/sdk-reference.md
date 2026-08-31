@@ -1,16 +1,16 @@
-# Chloros Python SDK Odniesienie
+# Chloros Python SDK Informacje o bibliotece
 
 **Wersja:**
 
-1.2.0**Wygenerowano:**
+1.2.0**Data utworzenia:**
 
-29.07.2026 r., godz. 19:19 ·**Zaktualizowano:**
+29.07.2026, godz. 19:19 ·**Data aktualizacji:**
 
-30.08.2026 r.**Pakiet:** `chloros-sdk` (PyPI)**Grupa docelowa:** Zoptymalizowane pod kątem wykorzystania przez duże modele językowe (LLM); czytelne dla ludzi.**Zakres:** Wszystkie publiczne klasy, funkcje i elementy pomocnicze udostępniane przez `import chloros_sdk`, wraz z przykładami, które można skopiować i wkleić, obejmującymi przetwarzanie obrazu, sterowanie pojedynczą kamerą, zsynchronizowane tablice, czujniki DAQ oraz automatyzację projektów.
+30.08.2026**Pakiet:** `chloros-sdk` (PyPI)**Grupa docelowa:** Zoptymalizowany pod kątem wykorzystania przez duże modele językowe (LLM); czytelny dla ludzi.**Zakres:** Wszystkie publiczne klasy, funkcje i elementy pomocnicze udostępniane przez `import chloros_sdk`, wraz z przykładami do skopiowania i wklejenia obejmującymi przetwarzanie obrazu, sterowanie pojedynczą kamerą, zsynchronizowane tablice, czujniki DAQ oraz automatyzację projektów.
 
 Jeśli interesują Cię tylko najważniejsze informacje, przejdź do:
 - [Instalacja i szybki start](#installation)
-- [Smart-Connect dla układów LATTICE](#smart-connect-for-lattice-cameras)
+- [Smart-Connect dla macierzy LATTICE](#smart-connect-for-lattice-cameras)
 - [Sesje czujników DAQ](#daq-sensor-sessions)
 - [Automatyzacja projektów](#project-automation--chlorosproject)
 - [Smart-AE / Smart-Capture](#smart-ae--smart-capture)
@@ -19,40 +19,40 @@ Jeśli interesują Cię tylko najważniejsze informacje, przejdź do:
 
 ## Architektura w 60 sekund
 
-SDK to cienka warstwa Python nakładająca się na backend Chloros (ten sam serwer Flask, z którego korzystają graficzny interfejs użytkownika oraz CLI). W celu automatyzacji należy zaimportować `chloros_sdk` i wywołać metody wysokiego poziomu; w tle każde wywołanie staje się żądaniem HTTP skierowanym do lokalnego backendu na porcie 5000 — `http://127.0.0.1:5000/api/...` (celowo nie `localhost`, który przekierowuje najpierw do `::1` na Windows i kosztuje ~2 s na żądanie w przypadku backendu obsługującego wyłącznie IPv4). Backend zarządza pulą sprzętu — kamerami, czujnikami DAQ, profilami wyrównania, buforami ramek — dzięki czemu skrypty SDK mogą współistnieć z interfejsem graficznym bez rywalizacji o porty szeregowe lub przepustowość karty sieciowej.
+SDK to cienka warstwa Python nakładająca się na backend Chloros (ten sam serwer Flask, z którego korzystają graficzny interfejs użytkownika na komputerach stacjonarnych oraz CLI). W celu automatyzacji należy zaimportować `chloros_sdk` i wywołać metody wysokiego poziomu; w tle każde wywołanie przekształca się w żądanie HTTP kierowane do lokalnego backendu na porcie 5000 — `http://127.0.0.1:5000/api/...` (celowo nie `localhost`, który najpierw przekierowuje do `::1` na Windows i kosztuje około 2 s na żądanie w przypadku backendu obsługującego wyłącznie IPv4). Backend zarządza pulą sprzętu — kamerami, czujnikami DAQ, profilami wyrównania, buforami klatek — dzięki czemu skrypty SDK mogą współistnieć z interfejsem graficznym bez rywalizacji o porty szeregowe lub przepustowość kart sieciowych.
 
 Będziesz korzystać z trzech powierzchni:
 
-1. **`ChlorosLocal` + funkcje swobodne** (`process_folder`, `process_lattice_capture`) — potok przetwarzania obrazu. Przeprowadź kalibrację, debayering i eksport indeksu całego folderu za pomocą jednego wywołania Python.
-2. **Uchwyty Smart-connect** (`connect_camera`, `connect_array`, `connect_daq_sensor`) — Otwórz trwałą sesję zaplecza dla sprzętu działającego na żywo. Ten sam przebieg „smart-prep” co w GUI: sonda sieciowa, automatyczny wybór warstwy, PTP, inicjowanie AE, konfiguracja wyzwalacza GPIO.
-3. **`ChlorosProject` / `open_project`** — Wczytanie zapisanego projektu (folder zawierający pliki `cameras.json` + `sensors.json` + `project.json`), podłącz wszystko jednocześnie i przeprowadzaj przechwytywanie za pomocą nazwanych uchwytów.
+1. **`ChlorosLocal` + funkcje bezpłatne** (`process_folder`, `process_lattice_capture`) — potok przetwarzania obrazów. Przetwarzaj zawartość całego folderu, obejmując kalibrację, usuwanie efektu Bayer oraz eksport indeksów za pomocą jednego wywołania Python.
+2. **Uchwyty Smart-connect** (`connect_camera`, `connect_array`, `connect_daq_sensor`) — Otwórz stałą sesję zaplecza dla sprzętu działającego na żywo. Ten sam przepływ „smart-prep” jak w GUI: sonda sieciowa, automatyczny wybór warstwy, PTP, inicjalizacja AE, konfiguracja wyzwalacza GPIO.
+3. **`ChlorosProject` / `open_project`** — wczytanie zapisanego projektu (folder z plikami `cameras.json` + `sensors.json` + `project.json`), podłącz wszystko jednocześnie i przeprowadzaj przechwytywanie za pomocą nazwanych uchwytów.
 
-Powierzchnie 1 i 2 **automatycznie uruchamiają lokalny backend**, jeśli żaden jeszcze nie nasłuchuje (ten sam dołączony plik binarny, który uruchamia GUI/CLI) — dzięki czemu prosty skrypt działa w nowo uruchomionej powłoce bez konieczności uprzedniego uruchamiania backendu. Aby zrezygnować z tej funkcji, należy przekazać `auto_start_backend=False` (np. w przypadku wskazania zdalnego backendu, który nigdy nie jest uruchamiany). Zobacz [Automatyczne uruchamianie backendu](#backend-auto-start). Interfejs 3 zachowuje się inaczej: `open_project()` nie przyjmuje parametru `auto_start_backend`, a `connect_all()` nigdy nie uruchamia backendu — raz sprawdza `http://127.0.0.1:5000` i, jeśli nic nie odpowiada, po cichu przechodzi na bezpośrednie (bez zaplecza) sterowanie urządzeniem `lattice_sdk`. Tylko `proj.process()` i `stream(..., overlays=True)` leniwie tworzą `ChlorosLocal()` (które wykonuje automatyczneuruchamianie).
+Powierzchnie 1 i 2 **automatycznie uruchamiają lokalny backend**, jeśli żaden jeszcze nie nasłuchuje (ten sam dołączony plik binarny, który uruchamia GUI/ CLI) — dzięki czemu sam skrypt działa w nowo uruchomionej powłoce bez konieczności uprzedniego uruchamiania backendu. Aby wyłączyć tę funkcję, należy przekazać `auto_start_backend=False` (np. w przypadku wskazania zdalnego backendu, który nigdy nie jest uruchamiany). Zobacz [Automatyczne uruchamianie backendu](#backend-auto-start). Surface 3 zachowuje się inaczej: `open_project()` nie przyjmuje parametru `auto_start_backend`, a `connect_all()` nigdy nie uruchamia backendu — wykonuje jednokrotną próbę połączenia z `http://127.0.0.1:5000` i, jeśli nikt nie odpowiada, po cichu przechodzi do bezpośredniej (bez backendu) sterowanie urządzeniem `lattice_sdk`. Tylko `proj.process()` i `stream(..., overlays=True)` leniwie tworzą `ChlorosLocal()` (który uruchamia się automatycznie).
 
-Wszystkie trzy wymagają uwierzytelnienia: uruchom `chloros-cli login` raz na komputerze lub zaloguj się za pomocą graficznego interfejsu użytkownika na pulpicie. Wywołania SDK bez ważnej sesji powodują wygenerowanie błędu `ChlorosAuthenticationError`.
+Wszystkie trzy wymagają uwierzytelnienia: należy uruchomić `chloros-cli login` raz na danym komputerze lub zalogować się za pomocą graficznego interfejsu użytkownika na pulpicie. Wywołania SDK bez ważnej sesji powodują wygenerowanie błędu `ChlorosAuthenticationError`.
 
 Wymagania:
-- Python 3.7+ (zgodnie z informacją w pakiecie; opracowany/przetestowany w wersji 3.10)
-- Lokalnie zainstalowany program Chloros Desktop (plik binarny zaplecza znajduje się w instalatorze)
-- Aktywne logowanie Chloros+. Poziom SDK/CLI musi należeć do poziomu **Copper**lub wyższego (Copper / Bronze / Silver / Gold); bezpłatny poziom**Iron**nie ma dostępu do SDK/CLI. Jest to egzekwowane**po stronie serwera**: każde żądanie oznaczone flagą SDK/CLI musi zawierać zarówno aktywną sesję, jak i płatny plan, w przeciwnym razie backend zwraca kod `403` z `error_code: PLAN_UPGRADE_REQUIRED` (wyświetlany jako `ChlorosLicenseError` przez `ChlorosLocal` oraz jako `ChlorosConnectError` przez pomocniki `connect_*`). Zamiast tego wylogowany użytkownik otrzymuje `401` / `AUTH_REQUIRED` (`ChlorosAuthenticationError`) — te dwa błędy różnią się od siebie, ponieważ ponowne uruchomienie `chloros-cli login` naprawia pierwszy błąd, a drugiego nie jest w stanie naprawić.
-- Korzystanie w trybie offline jest obsługiwane w ramach okresu karencji planu: poziom dostępu jest odczytywany z pamięci podręcznej walidacji serwerowej (5 minut) lub z pamięci podręcznej podpisanej, przypisanej do konkretnego urządzenia licencji (30 dni dla planów miesięcznych, do wygaśnięcia subskrypcji dla planów rocznych). Po upływie tego okresu karencji plan przechodzi w tryb bezpłatny, a dostęp do SDK/CLI zostaje wstrzymany do momentu, gdy urządzenie uzyska połączenie z serwerem. `chloros-cli status` (`GET /api/license-status`) pozostaje dostępny w ramach bezpłatnego poziomu, więc przyczyna jest widoczna — jest to jedyna trasa SDK/CLI zwolniona z ograniczeń związanych z poziomem taryfowym.
-- Windows 10/11 64-bitowy, **Ubuntu 22.04 LTS lub nowszy**, albo Jetson (JetPack 6). Ubuntu 20.04**nie** jest obsługiwany: zależności `.deb` wynikają z tego, z czym łączy się backend, w tym `libc6 (>= 2.34)`, a Focal dostarcza glibc 2.31.
+- Python 3.7+ (zgodnie z informacją w pakiecie; opracowano i przetestowano na wersji 3.10)
+- Lokalnie zainstalowany program Chloros Desktop (plik binarny backendu znajduje się w instalatorze)
+- Aktywne konto Chloros+. Minimalny poziom dostępu do SDK / CLI to poziom **Copper**lub wyższy (Copper / Bronze / Silver / Gold); bezpłatny poziom**Iron**nie zapewnia dostępu do SDK / CLI. Wymóg ten jest egzekwowany**po stronie serwera**: każde żądanie oznaczone flagą SDK / CLI musi zawierać zarówno aktywną sesję, jak i płatny plan, w przeciwnym razie backend zwraca kod błędu `403` wraz z `error_code: PLAN_UPGRADE_REQUIRED` (wyświetlane jako `ChlorosLicenseError` przez pomocniki `ChlorosLocal` oraz jako `ChlorosConnectError` przez pomocniki `connect_*`). Wypisany z systemu użytkownik otrzymuje zamiast tego kod `401` / `AUTH_REQUIRED` (`ChlorosAuthenticationError`) — te dwa kody są odrębne, ponieważ ponowne uruchomienie `chloros-cli login` rozwiązuje problem z pierwszym, ale nie z drugim.
+- Korzystanie w trybie offline jest obsługiwane w ramach okresu karencji planu: poziom dostępu jest odczytywany z pamięci podręcznej walidacji serwera (5 minut) lub z pamięci podręcznej podpisanej licencji przypisanej do konkretnego urządzenia (30 dni w przypadku planów miesięcznych, do wygaśnięcia subskrypcji w przypadku planów rocznych). Po upływie tego okresu karencji plan przechodzi w tryb bezpłatny, a dostęp do SDK / CLI zostaje zablokowany do momentu, gdy urządzenie będzie mogło nawiązać połączenie z serwerem. `chloros-cli status` (`GET /api/license-status`) pozostaje dostępny w ramach bezpłatnego poziomu, więc przyczyna jest widoczna — jest to jedyna trasa SDK / CLI zwolniona z ograniczeń poziomu.
+- Windows 10/11 64-bitowy, **Ubuntu 22.04 LTS lub nowszy**albo Jetson (JetPack 6). Ubuntu 20.04**nie** jest obsługiwany: zależności `.deb` wynikają z tego, z czym łączy się backend, w tym `libc6 (>= 2.34)`, a Focal dostarcza glibc 2.31.
 
 ---
 
 ## Instalacja
 
-Python SDK to cienka warstwa Python nakładająca się na backend Chloros. W przypadku wszystkich zastosowań wykraczających poza kilka przepływów pracy związanych wyłącznie z DAQ konieczne jest **lokalne zainstalowanie pakietu desktopowego Chloros** (instalator Windows lub Linux `.deb`) — to właśnie on zapewnia plik binarny backendu, środowisko uruchomieniowe Arena SDK dla kamer LATTICE oraz pakiety kalibracyjne.
+Python SDK to cienką warstwą Python nakładającą się na backend Chloros. W przypadku wszystkich zastosowań wykraczających poza kilka przepływów pracy ograniczonych wyłącznie do DAQ konieczne jest **lokalne zainstalowanie pakietu desktopowego Chloros** (instalator Windows lub Linux `.deb`) — to właśnie on dostarcza plik binarny backendu, środowisko uruchomieniowe Arena SDK dla kamer LATTICE oraz pakiety kalibracyjne.
 
 Najnowsze pliki do pobrania: [`https://mapir.gitbook.io/chloros/download`](https://mapir.gitbook.io/chloros/download)
 
-### Krok 1 — Zainstaluj pakiet platformowy Chloros
+### Krok 1 — Zainstaluj pakiet platformy „Chloros”
 
 #### Windows (.exe)
 
 1. Pobierz plik `Chloros-Setup-x.y.z.exe` ze strony pobierania.
 2. Uruchom instalator i postępuj zgodnie z instrukcjami kreatora. Domyślna ścieżka instalacji to `C:\Program Files\MAPIR\Chloros\`.
-3. Uruchom co najmniej raz program Chloros i zaloguj się na swoje konto Chloros+.
+3. Uruchom przynajmniej raz stronę Chloros i zaloguj się na swoje konto Chloros+.
 
 #### Linux amd64 (.deb)
 
@@ -72,17 +72,17 @@ chloros-cli --version
 chloros-cli login user@example.com 'YourPassword'
 ```
 
-### Krok 2 — Zainstaluj Python SDK
+### Krok 2 — Zainstaluj pakiet „Python” SDK
 
-**Instalator Chloros zawiera pasujący pakiet wheel SDK.** Każdy instalator Windows oraz plik Linux .deb umieszcza na dysku plik `chloros_sdk-X.Y.Z-py3-none-any.whl`, który dokładnie odpowiada wersji GUI / CLI / backendu. Nie musisz śledzić PyPI, aby zachować synchronizację.
+**Instalator Chloros zawiera pasujący pakiet SDK.** Każdy instalator Windows oraz plik .deb Linux umieszcza na dysku plik `chloros_sdk-X.Y.Z-py3-none-any.whl`, który dokładnie odpowiada wersji GUI / CLI / backend. Nie musisz śledzić PyPI, aby zachować synchronizację.
 
 #### Windows
 
-Instalator automatycznie uruchamia `pip install` z dołączonym plikiem wheel, korzystając z systemowego Python (preferowany jest `py.exe` program uruchamiający, w przeciwnym razie stosowany jest `python -m pip`). Nie trzeba nic robić — `import chloros_sdk` działa w środowisku Python po pomyślnej instalacji. Jeśli na komputerze nie ma Python, instalator w tle pomija ten krok, a interfejs graficzny oraz CLI nadal działają.
+Instalator automatycznie uruchamia plik `pip install` w oparciu o dołączony plik wheel, korzystając z programu uruchamiającego Python (preferowany jest program uruchamiający `py.exe`, w razie potrzeby stosowany jest `python -m pip`). Nie trzeba nic robić — `import chloros_sdk` działa w środowisku Python po pomyślnej instalacji. Jeśli na komputerze nie ma pliku Python, instalator w tle pomija ten krok, a GUI oraz CLI nadal działają.
 
 #### Linux (.deb)
 
-Plik .deb umieszcza koło w `/usr/lib/chloros/sdk/`. `postinst` wyświetla dokładne polecenie — dystrybucje zgodne z PEP 668 domyślnie odrzucają globalne zapisy w pip, więc nie instalujemy automatycznie:
+Plik .deb umieszcza bibliotekę wheel w lokalizacji `/usr/lib/chloros/sdk/`. Polecenie `postinst` wyświetla dokładną treść polecenia — dystrybucje zgodne z PEP 668 domyślnie blokują globalne zapisy pip, więc nie przeprowadzamy automatycznej instalacji:
 
 ```bash
 pip install --user /usr/lib/chloros/sdk/chloros_sdk-*.whl
@@ -90,17 +90,17 @@ pip install --user /usr/lib/chloros/sdk/chloros_sdk-*.whl
 
 W przypadku wdrożeń Jetson w trybie air-gapped proces ten przebiega całkowicie w trybie offline — pakiet wheel znajduje się już na dysku.
 
-#### Publiczny PyPI
+#### Publiczne repozytorium PyPI
 
-W przypadku hostów korzystających wyłącznie z pip (bez zainstalowanego pakietu desktopowego Chloros; przepływy pracy oparte wyłącznie na zdalnym backendzie lub DAQ):
+W przypadku hostów korzystających wyłącznie z pip (bez zainstalowanego pakietu desktopowego Chloros; przepływy pracy oparte na zdalnym backendzie lub wyłącznie DAQ):
 
 ```bash
 pip install chloros-sdk
 ```
 
-PyPI jest aktualizowane w kompilacjach instalatora o wersji wydanej, więc opublikowany plik wheel odpowiada najnowszej stabilnej wersji. Kompilacje deweloperskie (np. `1.1.4.dev1`) są dostarczane wyłącznie za pośrednictwem dołączonego pliku wheel instalatora.
+PyPI jest aktualizowane przy kompilacjach instalatora w wersji wydanej, więc opublikowany plik wheel odpowiada najnowszej stabilnej wersji. Wersje deweloperskie (np. `1.1.4.dev1`) są dostarczane wyłącznie za pośrednictwem dołączonego pliku wheel instalatora.
 
-#### Sprawdź
+#### Weryfikacja
 
 ```python
 import chloros_sdk
@@ -114,22 +114,22 @@ print("PROJECT_AVAILABLE =", chloros_sdk.PROJECT_AVAILABLE)
 
 ### Czy potrzebuję pakietu Desktop?
 
-Sam pakiet pip **nie** wystarcza w przypadku większości procesów roboczych. Oto, czego wymaga każda platforma SDK:
+Sam pakiet pip **nie** wystarcza w przypadku większości procesów roboczych. Oto, czego potrzebuje każdy komputer z systemem SDK:
 
-| Platforma SDK | Czy potrzebny jest pakiet Desktop? | Dlaczego |
+| Powierzchnia SDK | Czy potrzebny jest pakiet Desktop? | Dlaczego |
 | --- | --- | --- |
-| `ChlorosLocal`, `process_folder`, `process_lattice_capture` | **Tak** | Automatycznie uruchamia plik binarny zaplecza na `/usr/lib/chloros/chloros-backend` (Linux) lub `C:\Program Files\MAPIR\Chloros\…` (Windows). |
-| `connect_camera`, `connect_array`, `connect_daq_sensor`, `analyze_array_network`, `list_*`, `discover_*` | **Tak**(lokalnie)**/ Nie**(zdalne) | Czysti klienci HTTP korzystający z zaplecza. Lokalne zaplecze → wymagany pakiet na pulpit. Zdalny backend → `backend_url=`**przez tunel** (zobacz Tryb zdalnego backendu — dostarczone backendy wiążą się wyłącznie z pętlą zwrotną). |
+| `ChlorosLocal`, `process_folder`, `process_lattice_capture` | **Tak** | Automatycznie uruchamia plik binarny zaplecza w `/usr/lib/chloros/chloros-backend` (Linux) lub `C:\Program Files\MAPIR\Chloros\…` (Windows). |
+| `connect_camera`, `connect_array`, `connect_daq_sensor`, `analyze_array_network`, `list_*`, `discover_*` | **Tak**(lokalnie)**/ Nie**(zdalny) | Klienci typu „HTTP” działający wyłącznie przez backend. Backend lokalny → wymagany pakiet na komputerze stacjonarnym. Backend zdalny → `backend_url=`**przez tunel** (patrz tryb zdalnego backendu — dostarczone backendy wiążą się wyłącznie z pętlą zwrotną). |
 | `ChlorosProject` / `open_project` | **Tak** | Obsługuje zapisane projekty za pośrednictwem backendu. |
-| Bezpośrednie klasy LATTICE (`LatticeCamera`, `CameraPool`, `Calibration`, `DLS`, …) | **Tak** | Wymaga natywnego środowiska uruchomieniowego Arena SDK, które jest dostarczane w pakiecie na komputery stacjonarne. W przeciwnym razie `CAMERA_AVAILABLE` jest równoważne `False` przy importowaniu. |
-| Klasy Direct DAQ (`DAQUSensor`, `DAQMSensor`, `DAQESensor`, `SensorFleet`, `discover_all`) | **Nie** | Czysty Python przez pyserial/bleak/zeroconf. Środowisko oparte wyłącznie na pip może obsługiwać urządzenia DAQ od początku do końca. |
+| Bezpośrednie klasy LATTICE (`LatticeCamera`, `CameraPool`, `Calibration`, `DLS`, …) | **Tak** | Wymaga natywnego środowiska uruchomieniowego Arena SDK, które jest dostarczane w pakiecie na komputery stacjonarne. W przeciwnym razie `CAMERA_AVAILABLE` jest równoznaczne z `False` podczas importu. |
+| Klasy Direct DAQ (`DAQUSensor`, `DAQMSensor`, `DAQESensor`, `SensorFleet`, `discover_all`) | **Nie** | Czysty interfejs Python oparty na pyserial/bleak/zeroconf. Środowisko oparte wyłącznie na pip może sterować urządzeniami DAQ od początku do końca. |
 
-### Tryb zdalnego backendu (host oparty wyłącznie na pip, przez tunel)
+### Tryb zdalnego backendu (host oparty wyłącznie na pip, poprzez tunel)
 
 > **Dostarczony backend nie jest dostępny w sieci LAN.** Wersje produkcyjne
-> wiążą się wyłącznie z pętlą zwrotną (obie rodziny pętli zwrotnych) i kategorycznie odrzucają
-> jedyny tryb bez pętli zwrotnej (`CHLOROS_CLOUD_MODE`), więc
-> `backend_url="http://<lan-ip>:5000"` **nie może działać w połączeniu z zainstalowanym
+> łączą się wyłącznie w trybie pętli zwrotnej (obie rodziny pętli zwrotnych) i kategorycznie odrzucają
+> jedyny tryb inny niż pętla zwrotna (`CHLOROS_CLOUD_MODE`), więc
+> `backend_url="http://<lan-ip>:5000"` **nie może współpracować z zainstalowanym
 > Chloros** — ten schemat działał wyłącznie w połączeniu z backendem typu source/dev
 > . Aby sterować backendem na innym komputerze, należy samodzielnie przekierować jego port loopback
 > i skierować SDK na tunel:
@@ -149,11 +149,11 @@ chloros_sdk.connect_array(serials, backend_url=BACKEND)
 chloros_sdk.connect_daq_sensor(eth_host="daq-e-1.local", backend_url=BACKEND)
 ```
 
-Hosty bez monitorów / CI / roboty mogą utrzymywać jedną maszynę z pełną instalacją pulpitu jako „serwer Chloros”, a `pip install chloros-sdk` wszędzie indziej — jednak transport między nimi odbywa się za pośrednictwem wspomnianego powyżej tunelu skonfigurowanego przez użytkownika, a nie poprzez bezpośrednie połączenie LAN URL.
+Hosty bez monitorów / CI / robotyki mogą utrzymywać jedną maszynę z pełną instalacją pulpitu jako „serwer Chloros”, a wszędzie indziej `pip install chloros-sdk` — jednak transport między nimi odbywa się za pośrednictwem wspomnianego powyżej tunelu skonfigurowanego przez użytkownika, a nie poprzez bezpośrednie połączenie LAN URL.
 
-> **Znane ograniczenie — `ChlorosLocal` nie obsługuje wyłącznie funkcji pip-only-capable.** `ChlorosLocal(backend_url=BACKEND)` obecnie rozpoznaje lokalny plik binarny backendu w swoim konstruktorze *przed* sprawdzeniem URL i zgłasza błąd `ChlorosBackendError` („Chloros backend not found…”) w przypadku braku zainstalowanego pakietu desktopowego — nawet przy dostępnym zdalnym backendzie. Działa wyłącznie powyższy interfejs smart-connect (`connect_camera` / `connect_array` / `connect_daq_sensor`, a także `analyze_array_network` oraz pomocnicze `list_*` / `discover_*`) działają na hoście korzystającym wyłącznie z pip.
+> **Znane ograniczenie — `ChlorosLocal` nie obsługuje wyłącznie protokołu pip.** `ChlorosLocal(backend_url=BACKEND)` obecnie rozpoznaje lokalny plik binarny zaplecza w swoim konstruktorze *przed* sprawdzeniem URL i generuje błąd `ChlorosBackendError` („Nie znaleziono backendu Chloros…”) w przypadku braku zainstalowanego pakietu desktopowego — nawet przy dostępnym zdalnym backendzie. Tylko interfejs smart-connect opisany powyżej (`connect_camera` / `connect_array` / `connect_daq_sensor`, a także `analyze_array_network` i pomocniki `list_*` / `discover_*`) działają na hoście z samym pip.
 
-### Przepływ pracy wyłącznie z DAQ (host wyłącznie z pakietem pip)
+### Przebieg pracy wyłącznie z DAQ (host wyłącznie z pakietem pip)
 
 Jeśli potrzebujesz wyłącznie czujników DAQ i nie korzystasz z kamer LATTICE ani przetwarzania obrazu, pakiet pip jest samowystarczalny:
 
@@ -172,7 +172,7 @@ sensor.connect()
 sensor.start_streaming()
 ```
 
-Brak backendu, brak pliku .deb, brak konieczności logowania się do Chloros+ w celu bezpośredniej pracy z sprzętem DAQ.
+Nie wymaga backendu, pliku .deb ani logowania na stronie Chloros+ do bezpośredniej pracy z sprzętem DAQ.
 
 ---
 
@@ -269,7 +269,7 @@ chloros_sdk.PROJECT_AVAILABLE    # True iff ChlorosProject deps available
 
 ---
 
-## Przetwarzanie obrazów — `ChlorosLocal`
+## Przetwarzanie obrazu — `ChlorosLocal`
 
 Główna klasa potoku. Uruchamia backend przy pierwszym użyciu, tworzy i konfiguruje projekty, monitoruje postępy oraz zwraca podsumowania po zakończeniu działania.
 
@@ -291,19 +291,19 @@ ChlorosLocal(
 
 | Metoda | Opis |
 | --- | --- |
-| `create_project(project_name, camera=None)` | Utwórz nowy projekt (opcjonalnie z szablonem kamery, np. `"Survey3N_RGN"`). |
-| `import_images(folder_path, recursive=False)` | Importuje obrazy w formatach RAW/TIF/JPG/DNG **oraz nagrania z czujnika światła `.daq`**. Zwraca `count` (obrazy) i `scan_count` (nagrania). Wyświetla ostrzeżenie tylko wtedy, gdy w folderze nie ma ani jednego, ani drugiego. |
+| `create_project(project_name, camera=None)` | Utwórz nowy projekt (opcjonalnie z szablonem kamery, takim jak `"Survey3N_RGN"`). |
+| `import_images(folder_path, recursive=False)` | Importuj obrazy w formatach RAW/TIF/JPG/DNG **oraz `.daq` zapisy z czujników światła**. Zwraca `count` (obrazy) i `scan_count` (zapisy). Wyświetla ostrzeżenie tylko wtedy, gdy w folderze nie ma ani jednego, ani drugiego. |
 | `export_light_sensor(daq=True, csv=True)` | Zapisuje skalibrowane pliki `.daq` + `.csv` dla każdego zapisu z czujnika światła w projekcie do pliku `<project>/Light Sensor/`. Zobacz [Zapisy z czujnika światła](#light-sensor-recordings--calibrated-daq--csv). |
-| `configure(debayer=..., vignette_correction=..., reflectance_calibration=..., indices=[...], export_format=..., ppk=..., daq_log_path=..., input_level=..., radiometric_output=..., array_alignment=..., array_alignment_crop=..., array_alignment_interpolation=..., custom_settings=None)` | Ustaw pokrętła przetwarzania. |
-| `process(mode="parallel", wait=True, progress_callback=None, poll_interval=2.0)` | Uruchom potok. Zwraca `{"status": "complete", "async": False}`, oraz klucz `summary`, jeśli backend go udostępnia — zobacz [Podsumowanie po uruchomieniu i wskazówki](#post-run-summary--hints). |
-| `get_config()` / `get_status()` / `status()` | Sprawdź stan modułu zaplecza. |
+| `configure(debayer=..., vignette_correction=..., reflectance_calibration=..., indices=[...], export_format=..., ppk=..., daq_log_path=..., input_level=..., radiometric_output=..., array_alignment=..., array_alignment_crop=..., array_alignment_interpolation=..., custom_settings=None)` | Ustaw parametry przetwarzania. |
+| `process(mode="parallel", wait=True, progress_callback=None, poll_interval=2.0)` | Uruchom potok przetwarzania. Zwraca `{"status": "complete", "async": False}` oraz klucz `summary`, jeśli backend go udostępnia — zobacz [Podsumowanie po uruchomieniu i wskazówki](#post-run-summary--hints). |
+| `get_config()` / `get_status()` / `status()` | Sprawdź stan backendu. |
 | `logout()` | Wyczyść poświadczenia z pamięci podręcznej. |
 | `shutdown_backend()` | Zakończ działanie backendu (jeśli został uruchomiony przez SDK). |
-| `discover_cameras()` | Wykryj kamery LATTICE **za pośrednictwem backendu tej instancji** (`/api/camera/discover`). Zwraca listę słowników (`serial`, `model`, `ip`, …) — o tej samej strukturze, co w GUI/CLI. Pusta lista, jeśli nie znaleziono żadnej znaleziono lub backend jest niedostępny. |
-| `camera_capture(output_dir, format="tiff", **settings)` | Przechwytuje pojedynczą klatkę**za pośrednictwem backendu**(automatyczneuruchomiony przez ten uchwyt), tak aby otrzymała takie samo przygotowanie jak GUI/CLI (domyślnie 12 bitów, ponowne wykorzystanie puli, osadzone metadane kalibracyjne). Rozpoznaj cel za pomocą `serial=` lub `device_index=`; przekaż `exposure`/`gain`/`pixel_format`/`preset` jako `**settings`. Zwraca słownik metadanych starszego typu (`filepath`, `width`, `height`, `pixel_format`, `exposure_time`, `gain`, `timestamp`). |
-| `camera_stream(serial, *, fps=10.0, overlay=None, decode=True, connect_timeout=10.0, read_timeout=15.0)` | Generuje klatki podglądu z nałożonymi elementami z puli — lekkiego klienta MJPEG poprzez trasę `/api/camera/<serial>/stream-annotated` backendu (zebra / siatka / krzyżyk / histogram / peaking / punkt rysowany po stronie serwera). `decode=True` generuje tablice BGR; `False` generuje surowe bajty JPEG. Dostępne również na poziomie projektu jako `ChlorosProject.stream(overlays=True)`. |
+| `discover_cameras()` | Wykryj kamery LATTICE **za pośrednictwem backendu tej instancji** (`/api/camera/discover`). Zwraca listę słowników (`serial`, `model`, `ip`, …) — o takiej samej strukturze, jaką widzi GUI/CLI. Pusta lista, jeśli nie znaleziono żadnych kamer lub backend jest niedostępny. |
+| `camera_capture(output_dir, format="tiff", **settings)` | Przechwytuje pojedynczą klatkę**przez backend**(uruchamiany automatycznie przez ten uchwyt), tak aby została ona przygotowana w taki sam sposób jak w GUI/ CLI (domyślnie 12-bitowa, ponowne wykorzystanie puli, wbudowane metadane kalibracyjne). Określ cel za pomocą `serial=` lub `device_index=`; przekaż `exposure`/`gain`/`pixel_format`/`preset` jako `**settings`. Zwraca słownik metadanych starszego typu (`filepath`, `width`, `height`, `pixel_format`, `exposure_time`, `gain`, `timestamp`). |
+| `camera_stream(serial, *, fps=10.0, overlay=None, decode=True, connect_timeout=10.0, read_timeout=15.0)` | Generuje klatki podglądu z kompozycją nakładkową z połączonej kamery — lekki klient MJPEG za pośrednictwem trasy `/api/camera/<serial>/stream-annotated` zaplecza (zebra / siatka / krzyżyk / histogram / peaking / punkt rysowane po stronie serwera). `decode=True` zwraca tablice BGR; `False` zwraca surowe bajty w formacie JPEG. Dostępne również na poziomie projektu jako `ChlorosProject.stream(overlays=True)`. |
 
-Użyj jako menedżera kontekstu w celu zagwarantowanego czyszczenia:
+Użyj jako menedżera kontekstu, aby zagwarantować wyczyszczenie:
 
 ```python
 with chloros_sdk.ChlorosLocal() as cl:
@@ -321,42 +321,42 @@ print(results["summary"])
 
 ### Zapisy z czujników światła — skalibrowane `.daq` + `.csv`
 
-Urządzenie DAQ-U / DAQ-M / DAQ-E może być rejestrowane **bez** pakietu kalibracyjnego. Tak właśnie
+Dane z DAQ-U / DAQ-M / DAQ-E można rejestrować **bez** pakietu kalibracyjnego. Tak właśnie
 działają domyślnie publiczne rejestratory [`chloros_scripts`](https://github.com/mapircamera/chloros_scripts)
-(`record_daq.py`): zapisują surowe wartości z czujników i oznaczają plik
-pliku, dzięki czemu Chloros pobiera fabryczną kalibrację danego czujnika **przez port szeregowy** — najpierw z lokalnej pamięci podręcznej,
-a następnie z chmury MAPIR — i stosuje ją podczas importu.
+(`record_daq.py`): zapisują surowe wartości z czujników i oznaczają
+plik tak, aby serwis Chloros pobrał fabryczną kalibrację danego czujnika **na podstawie numeru seryjnego** — najpierw z lokalnej pamięci podręcznej
+, a następnie z chmury MAPIR — i stosuje ją podczas importu.
 
-Chloros zapisuje wynik z powrotem jako dwa produkty na każdy zapis, w sekcji
+Chloros zapisuje wynik z powrotem jako dwa produkty na każde nagranie, pod
 `<project>/Light Sensor/`:
 
 | Produkt | Co to jest |
 | --- | --- |
-| `<name>_calibrated.daq` | Archiwum nadające się do ponownego przetworzenia — ten sam schemat co w przypadku zapisu na żywo, teraz z deklaracją pakietu, który je wygenerował. Ponowny import **nie** powoduje jego ponownej kalibracji. |
+| `<name>_calibrated.daq` | Archiwum nadające się do ponownego przetworzenia — ten sam schemat co w przypadku nagrania na żywo, z tym, że teraz deklarowany jest pakiet, który je wygenerował. Ponowny import **nie** powoduje jego ponownej kalibracji. |
 | `<name>_calibrated.csv` | Natężenie promieniowania spektralnego w W/m²/nm w siatce długości fal czujnika, jeden wiersz na odczyt, plus kolumny fotometryczne (moc całkowita, luks fotopowy/skotopowy, PPFD i jego podział na niebieski/zielony/czerwony, długość fali szczytowej). |
-| `<name>_raw.daq` / `<name>_raw.csv` | **Tylko czujniki bez pakietu (DAQ-A).** Surowe wartości liczbowe czujnika spektralnego — *nie* natężenie promieniowania. Zobacz poniżej. |
+| `<name>_raw.daq` / `<name>_raw.csv` | **Tylko czujniki bez pakietu (DAQ-A).** Surowe wartości spektralne czujnika — *nie* natężenie promieniowania. Zobacz poniżej. |
 
-`process()` wykonuje ten eksport jako jeden z etapów. **Nie** wymaga on obrazów:
-samodzielnie latający czujnik światła stanowi pełnoprawny przepływ pracy, a taki projekt z definicji nie zawiera
+`process()` wykonuje ten eksport jako jeden ze swoich etapów. **Nie** wymaga on obrazów:
+samodzielnie wysłany czujnik światła stanowi pełnoprawny proces roboczy, a taki projekt z definicji nie zawiera
 żadnych obrazów.
 
-**Zapisy z DAQ-A są eksportowane jako surowe odczyty.** Rodzina DAQ-A powstała przed wprowadzeniem systemu wiązek na
-i nie ma żadnego pakietu do pobrania — jest kalibrowana w terenie względem
-celu odbicia, dlatego nigdy go nie potrzebowała. Te zapisy są eksportowane
-pod prefiksem `_raw` zamiast `_calibrated`: inna nazwa pliku, a nie flaga
-wewnątrz pliku, ponieważ informacja ta musi przetrwać wysyłkę e-mailem jako sama nazwa. Nagłówek
+**Rejestracje DAQ-A są eksportowane jako surowe odczyty.** Rodzina DAQ-A powstała przed wprowadzeniem systemu pakietów
+dla poszczególnych numerów seryjnych i nie posiada żadnego pakietu do pobrania — zamiast tego jest kalibrowany w terenie względem
+celu odbicia, dlatego nigdy go nie potrzebował. Te zapisy są eksportowane
+pod przedrostkiem `_raw` zamiast `_calibrated`: inna nazwa pliku zamiast flagi
+wewnątrz pliku, ponieważ informacja ta musi przetrwać wysłanie e-mailem jako sama nazwa. Nagłówek
 `.csv` zawiera wartość `raw spectral sensor counts (NOT irradiance)` i ostrzega, że
-wartości są porównywalne **w obrębie** pliku — dokładnie do tego służy kalibracja oparta na
-celu — a nie między czujnikami. Kolumny fotometryczne zależne od mocy (moc całkowita,
-luks fotopowy/skotopowy, PPFD) zwracają wartość **NULL** zamiast być zintegrowane na podstawie zliczeń.
+wartości są porównywalne **w obrębie** pliku — dokładnie do tego służy kalibracja oparta na celach
+— a nie między czujnikami. Kolumny fotometryczne zależne od mocy (moc całkowita,
+luks fotopowy/skotopowy, PPFD) zwracają wartość **NULL** zamiast zintegrowanych wartości z liczb zliczeń.
 
 Urządzenie DAQ-U / DAQ-M / DAQ-E, którego pakietu po prostu nie udało się pobrać, jest nadal **pomijane**,
 a nie zapisywany w formacie surowym: w tym przypadku pakiet istnieje i „ponowne połączenie i ponowne przetworzenie” to realna rada.
 
-Starsze zapisy **v1.01 / v1.02** (zapisywane przez DAQ-A-SD) nie zawierają epoki dla poszczególnych odczytów,
-a jedynie czas zapisu pliku. Moduł dopasowujący obraz↔promieniowanie padające nadal je odrzuca — dopasowanie
-klatki do czasu zapisu byłoby błędne w sposób niewidoczny — jednak eksportator je odczytuje, a
-CSV wyświetla `clock=daq_created_on`, dzięki czemu produkt wskazuje, na którym zegarze się znajduje.
+Starsze nagrania **v1.01 / v1.02** (zapisywane przez DAQ-A-SD) nie zawierają epoki dla poszczególnych odczytów,
+a jedynie czas zapisu pliku. Moduł dopasowujący obraz↔strumień danych nadal je odrzuca — dopasowanie
+klatki do czasu zapisu byłoby niewidocznym błędem — ale eksportator je odczytuje, a
+CSV wyświetla `clock=daq_created_on`, więc produkt wskazuje, na jakim zegarze działa.
 
 ```python
 import chloros_sdk
@@ -372,9 +372,9 @@ for rec in result["skipped"]:
     print("skipped", rec["source"], "--", rec["reason"])
 ```
 
-Rejestracja, której pakiet kalibracyjny nie może zostać pobrania (tryb offline lub czujnik bez
-kalibracji w pliku) jest zgłaszany pod numerem `skipped` **wraz z przyczyną**. Nigdy nie jest
-zapisywany jako „skalibrowany” plik zawierający surowe dane liczbowe — wystarczy połączyć się z internetem i
+Zapis, którego pakiet kalibracyjny nie może zostać pobrany (tryb offline lub czujnik bez
+kalibracji w pliku), jest zgłaszany pod numerem `skipped` **wraz z przyczyną**. Nigdy nie jest
+zapisywany jako „skalibrowany” plik zawierający surowe zliczenia — należy połączyć się z internetem i
 uruchom ponownie, a eksport zostanie zakończony.
 
 ### Wywołania zwrotne dotyczące postępu
@@ -392,7 +392,7 @@ with chloros_sdk.ChlorosLocal() as cl:
 
 ### Podsumowanie po zakończeniu i wskazówki
 
-Po zakończeniu `process()` pobiera `GET /api/processing-summary` i dołącza treść jako `result["summary"]`. Pobieranie odbywa się na zasadzie „best-effort” i nigdy nie blokuje pomyślnego powrotu — jeśli podsumowanie jest niedostępne, `process()` przechodzi na zwykły format `{"status": "complete", "async": False}`. Każdy wpis w `summary["hints"]` — pełne zdania zawierające sugerowane działania naprawcze, np. dlaczego uruchomienie nie dało żadnego wyniku — jest również ponownie wysyłany jako Python `UserWarning`, więc uruchomienia bez wyniku są samodiagnostyczne, nawet jeśli nigdy nie sprawdzisz słownika:
+Po zakończeniu `process()` pobiera `GET /api/processing-summary` i dołącza treść jako `result["summary"]`. Pobieranie odbywa się na zasadzie „best-effort” i nigdy nie blokuje pomyślnego — jeśli podsumowanie jest niedostępne, `process()` przechodzi na zwykły format `{"status": "complete", "async": False}`. Każdy wpis w `summary["hints"]` — pełne zdania zawierające sugerowane poprawki, np. dlaczego uruchomienie dało wynik zerowy — jest również ponownie wysyłany jako Python `UserWarning`, więc uruchomienia z wynikiem zerowym są samodiagnostyczne, nawet jeśli nigdy nie sprawdzisz słownika:
 
 ```python
 result = cl.process()
@@ -404,38 +404,38 @@ for hint in result.get("summary", {}).get("hints", []):
 
 `summary["totals"]` to część nadająca się do odczytu maszynowego:
 
-| Klucz | Co liczy |
+| Klucz | Co zlicza |
 | --- | --- |
 | `models` | Grupy kamer w przebiegu. |
 | `images_in_groups` | Obrazy źródłowe w tych grupach. |
-| `targets_found` | Wykryte cele odbicia . |
-| `images_calibrated` | Obrazy, które zostały skalibrowane w przebiegu. |
-| `exported_files` | **Pliki produktów obrazowych zapisane w przebiegu.** |
+| `targets_found` | Wykryte cele odbicia. |
+| `images_calibrated` | Obrazy skalibrowane podczas przebiegu. |
+| `exported_files` | **Pliki produktów obrazowych zapisane przez przebieg.** |
 | `daq_recordings_exported` / `daq_recordings_skipped` | Zapisy z czujników światła, celowo zliczane oddzielnie — pochodzą one z innego etapu i występują w przebiegach, w których w ogóle nie ma obrazów, więc uwzględnienie ich sprawiłoby, że przebieg obejmujący wyłącznie akwizycję danych wyglądałby tak, jakby wyeksportowano z niego obrazy. |
 
 Oprócz nich: `summary["output_dirs"]` (każdy katalog, do którego zapisano dane),
-`summary["light_sensor_export"]`, `summary["stopped"]` (ma wartość true, gdy użytkownik przerwał
-przebieg, dzięki czemu częściowe wyniki nie są interpretowane jako niekompletny przebieg, który dał zbyt małą liczbę wyników) oraz
+`summary["light_sensor_export"]`, `summary["stopped"]` (wartość „true”, gdy użytkownik przerwał
+przebieg, dzięki czemu częściowe wyniki nie są interpretowane jako zakończony przebieg, którywygenerowano), oraz
 `summary["groups"]` (podział na grupy).
 
 `exported_files` jest rejestrowany przez potok **w trakcie zapisu**, a nie skanowany później z
 obiektów obrazu projektu. Strategie równoległe i wykorzystujące GPU tworzą własne obiekty obrazu
 (w podprocesach roboczych dla ścieżek GPU), więc stare skanowanie zgłaszało
-`0 file(s) written` dla każdego takiego przebiegu, a następnie generowało wskazówkę o zerowej liczbie eksportów — w przypadku przebiegów,
-w których wszystko działało poprawnie. Jeśli tworzysz skrypt oparty na tym numerze, prawidłowe uruchomienie równoległe
-zgłasza teraz liczbę niezerową.
+`0 file(s) written` dla każdego takiego przebiegu, a następnie generował wskazówkę „zero-exports” — w przypadku przebiegów,
+w których wszystko działało poprawnie. Jeśli tworzysz skrypt oparty na tej liczbie, prawidłowe uruchomienie równoległe zgłasza teraz
+liczbę niezerową.
 
-Raporty pominięć czujnika światła podają rzeczywistą przyczynę ustaloną przez czytnik dla każdego pliku —
+Pominięcia przez czujnik błędów zgłaszają rzeczywistą przyczynę ustaloną przez moduł odczytu dla każdego pliku —
 nieczytelny schemat, brakujący pakiet, błąd zapisu — **po deduplikacji**, więc dwadzieścia plików
-pominiętych z jednej przyczyny traktowanych jest jako jedna przyczyna, a nie dwadzieścia jej powtórzeń.
+pominiętych z jednej przyczyny jest odczytywanych jako jedna przyczyna, a nie dwadzieścia powtórzeń tej samej przyczyny.
 
-> **`process()` nie jest generowany, gdy przebieg nie generuje żadnych obrazów.** Jest to jedyne miejsce, w którym SDK i
-> CLI celowo się różnią: `chloros-cli process` traktuje sytuację „produkty zostały zażądane, ale żadne nie zostały
-> zapisane” jako błąd i kończy działanie z wynikiem niezerowym, podczas gdy SDK kończy działanie normalnie i zgłasza ten
-> stan poprzez `summary` / wskazówki. Jeśli Twój potok powinien zatrzymać się w przypadku pustego przebiegu, sprawdź to
-> samodzielnie — przeanalizuj `summary` (lub policz pliki w folderze projektu), zamiast polegać na
+> **`process()` nie generuje błędu, gdy uruchomienie nie tworzy żadnych obrazów.** Jest to jedyne miejsce, w którym SDK i
+> CLI celowo się różnią: `chloros-cli process` traktuje komunikat „zaprośono produkty, żadne nie zostały
+> zapisane” jako niepowodzenie i kończy działanie z wynikiem niezerowym, podczas gdy SDK kończy działanie normalnie i zgłasza ten
+> stan poprzez `summary` / hints. Jeśli Twój potok ma się zatrzymać w przypadku pustego przebiegu, sprawdź to
+> samodzielnie — przejrzyj `summary` (lub policz pliki w folderze projektu), zamiast polegać na
 > braku wyjątku. Typowymi przyczynami są: folder wejściowy, który nie został rozpoznany jako
-> przechwytywanie, oraz produkty pominięte jako nieodpowiednie dla obecnych kamer (np. promieniowanie z kamer obsługujących wyłącznie RGB
+> obszar przechwytywania, oraz pominięcie produktów jako nieodpowiednich dla obecnych kamer (np. promieniowanie z kamer typu „RGB”
 >).
 
 ### Funkcje pomocnicze
@@ -500,9 +500,9 @@ False         # export in native sensor geometry / skip the common-overlap crop
 "cubic"
 ```
 
-#### Wyniki radiometryczne (potok wielospektralny LATTICE)
+#### Dane wyjściowe radiometryczne (potok wielospektralny LATTICE)
 
-Poziom eksportu wielospektralnego (M3C/M3M) potoku `process` — `reflectance` (domyślny), `radiance`, `sensor-response` lub `all` (każdy odpowiedni tryb dla każdego obrazu) — odpowiada ustawieniu przetwarzania **„Wyjście radiometryczne”** w projekcie. `configure()` ma dedykowane słowo kluczowe:
+Poziom eksportu wielospektralnego (M3C/M3M) w potoku `process` — `reflectance` (domyślny), `radiance`, `sensor-response` lub `all` (każdy odpowiedni tryb dla każdego obrazu) — odpowiada ustawieniu przetwarzania **„Wynik radiometryczny”** w projekcie. `configure()` ma dedykowane słowo kluczowe:
 
 ```python
 with chloros_sdk.ChlorosLocal() as cl:
@@ -515,7 +515,7 @@ with chloros_sdk.ChlorosLocal() as cl:
     cl.process()
 ```
 
-Zaawansowana furtka awaryjna — zapisanie klucza `"Radiometric output"` projektu za pomocą `custom_settings` — nadal działa, ale należy pamiętać, że zastępuje to cały blok ustawień (zobacz ostrzeżenie poniżej):
+Zaawansowana metoda awaryjna — zapisanie klucza projektu `"Radiometric output"` za pomocą `custom_settings` — nadal działa, ale należy pamiętać, że zastępuje ona cały blok ustawień (zobacz ostrzeżenie poniżej):
 
 ```python
 cl.configure(custom_settings={
@@ -526,15 +526,15 @@ cl.configure(custom_settings={
 })
 ```
 
-`reflectance` (wartość domyślna) dzieli promieniowanie kamery przez **dane DAQ o dopasowanym znaczniku czasu**, ustalane automatycznie na podstawie zarejestrowanego `.daq` (DAQ-U/M/E)**lub natywnego `.csv`**-M natywnego `.csv`**znalezionego wraz z obrazami; wszelkie brakujące lokalnie pakiety kalibracyjne dla poszczególnych kamer lub urządzeń DAQ są**automatycznie pobierane z AWS** przy pierwszym użyciu. CLI udostępnia to w postaci przełączników dla poszczególnych typów produktów w `chloros-cli process`: `--radiance`/`--no-radiance`, `--reflectance`/`--no-reflectance`, `--debayered`, `--preview`.
+`reflectance` (ustawienie domyślne) dzieli promieniowanie kamery przez **dane DAQ o dopasowanym znaczniku czasu**, automatycznie ustalany na podstawie zarejestrowanego `.daq` (DAQ-U/M/E)**lub natywnego dla DAQ-M `.csv`**znalezionego wraz z obrazami; wszelkie pakiety kalibracyjne dla poszczególnych kamer lub urządzeń DAQ, których brakuje lokalnie, są**automatycznie pobierane z AWS** przy pierwszym użyciu. Usługa CLI udostępnia to zgodnie zprzełączników typu produktu w `chloros-cli process`: `--radiance`/`--no-radiance`, `--reflectance`/`--no-reflectance`, `--debayered`, `--preview`.
 
-> `custom_settings` **zastępuje** cały blok obliczonych ustawień (zgodnie z założeniami pomija pozostałe słowa kluczowe i walidację `configure()`). Korzystając z niego, należy uwzględnić wszystkie kluczowe elementy `Project Settings`, które są istotne, tak jak w powyższym przykładzie.
+> `custom_settings` **zastępuje** cały blok obliczonych ustawień (zgodnie z założeniami pomija inne słowa kluczowe i walidację `configure()`). Korzystając z niego, należy uwzględnić wszystkie kluczowe dla użytkownika słowa kluczowe `Project Settings`, tak jak w powyższym przykładzie.
 
 ---
 
 ## Smart-Connect dla kamer LATTICE
 
-Trwałe sesje zaplecza dla sprzętu działającego w trybie na żywo. Te same punkty końcowe, z których korzysta GUI, więc zachowanie jest identyczne w SDK / CLI / GUI.
+Trwałe sesje backendowe dla sprzętu działającego w trybie na żywo. Te same punkty końcowe, z których korzysta GUI, dzięki czemu zachowanie jest identyczne w serwisach SDK / CLI oraz w GUI.
 
 ### Pojedyncza kamera — `CameraSession`
 
@@ -568,31 +568,31 @@ connect_camera(
 ) -> CameraSession
 ```
 
-#### `CameraSession` Metody
+#### Metody `CameraSession`
 
 | Metoda | Opis |
 | --- | --- |
 | `read_nodes(names, enum_names=(), timeout=30.0)` | Odczyt węzłów GenICam; zwraca `{nodes, errors, enums, device}`. |
-| `set_settings(**kwargs)` | Zapis węzłów według nazwy przyjaznej (`exposure_time`, `gain`, `pixel_format`, `width`, `height`, `target_brightness`, `ae_damping`, `ae_upper_limit`, `trigger_mode`, `trigger_source`, …). |
-| `capture(output_dir="output", ext=".tiff", jpeg_quality=95, processing=None, levels=None, force_daq=None, settings=None, timeout=None)` | Przechwytuje **pojedynczą** klatkę. Zwraca listę składającą się z jednego elementu, zawierającą słowniki metadanych klatki. (Przechwytywanie seryjne/wieloklatkowe zostało usunięte — jeśli potrzebujesz serii, wywołaj funkcję `capture()` w pętli.) |
+| `set_settings(**kwargs)` | Zapisuje węzły według nazw przyjaznych (`exposure_time`, `gain`, `pixel_format`, `width`, `height`, `target_brightness`, `ae_damping`, `ae_upper_limit`, `trigger_mode`, `trigger_source`, …). |
+| `capture(output_dir="output", ext=".tiff", jpeg_quality=95, processing=None, levels=None, force_daq=None, settings=None, timeout=None)` | Przechwytuje **pojedynczą** klatkę. Zwraca listę składającą się z jednego elementu, zawierającą słowniki metadanych klatki. (Usunięto funkcję przechwytywania seryjnego/wieloklatowego — jeśli potrzebujesz serii klatek, wywołaj funkcję `capture()` w pętli.) |
 | `disconnect()` | Zwolnij z puli. Nie wykonuje żadnej operacji, jeśli dołączono do już otwartej sesji. |
 
-Kontrola eksportu `capture()` (ten sam model co tablica + GUI):
+`capture()` — kontrola eksportu (ten sam model co tablica + GUI):
 
-- `processing` / `levels` — `processing="all"` zapisuje każdy odpowiedni typ eksportu; `levels=["raw","radiance"]` zapisuje tylko te (zastępuje `processing`). Aby użyć domyślnych ustawień zaplecza, należy pominąć oba parametry.
-- `force_daq=True` — zapisuje przypisany odczyt z DAQ/DLS jako plik dodatkowy `.daq` nawet w przypadku pobrania wyłącznie danych surowych, dzięki czemu klatka może zostać później przetworzona na współczynnik odbicia/indeks . Nie ma efektu, jeśli nie jest podłączony żaden moduł DAQ.
+- `processing` / `levels` — `processing="all"` zapisuje każdy odpowiedni typ eksportu; `levels=["raw","radiance"]` zapisuje tylko te (zastępuje `processing`). Pomiń oba, aby użyć domyślnych ustawień zaplecza.
+- `force_daq=True` — zapisuje przypisany odczyt z DAQ/DLS jako plik `.daq` nawet w przypadku przechwytywania wyłącznie danych surowych, dzięki czemu klatka może zostać później ponownie przetworzona na odbicie/wskaźnik. Nie wykonuje żadnej operacji, jeśli nie jest podłączony żaden DAQ.
 
 ### Zsynchronizowana matryca — `ArraySession` (Smart-Prep)
 
-`connect_array` jest **zalecanym punktem wejścia** dla konfiguracji wielokamerowych. W tle uruchamia pełny proces przygotowania inteligentnego (smart-prep) za pomocą interfejsu graficznego:
+`connect_array` jest **zalecanym punktem wejścia** dla konfiguracji wielokamerowych. W tle uruchamia pełny proces smart-prep za pomocą interfejsu graficznego:
 
 1. **Analiza sieci** (`/api/camera/array/recommend`) — wyszukuje największy rozmiar ramki, który mieści się w warstwie sim-emit bez utraty ramek.
 2. **Automatyczny wybór warstwy** — `sim-capture-sim-emit`, jeśli łącze jest w stanie to obsłużyć; w przeciwnym razie `sim-capture-ftd-stagger` lub `slip-emit-and-capture`.
-3. **Automatyczne zmniejszanie**— w tle zmniejsza rozmiar ramki / zwiększa binning, gdy łącze nie jest w stanie utrzymać żądanej rozdzielczości.**To zabezpieczenie nie obejmuje zagregowanego nadmiernego przydziału**: zbyt dużej liczby kamer dla danego łącza nie da się rozwiązać poprzez zmniejszenie rozmiaru ramek — zobacz [Nadmierny przydział](#over-subscription-the-per-cam-floor).
-4. **PTP włączone** domyślnie — znaczniki czasu między kamerami są porównywalne z dokładnością do mikrosekund.
-5. **Automatyczny wybór formatu pikseli dla każdej kamery** — kamery RGB → `BayerRG8`, multispec → `BayerRG12`.
-6. **Inicjowanie AE** — rejestruje aktualny stan AE każdej kamery, dzięki czemu połączenie nie resetuje ekspozycji w trakcie działania.
-7. **Konfiguracja wyzwalacza GPIO** — `connect_array` uruchamia każdą kamerę (`TriggerMode=On`, `TriggerSource=Line2`), dzięki czemu impuls z kamery głównej steruje kamerami podrzędnymi przez kabel M8. Jest to krok przeznaczony wyłącznie dla układów wielokamerowych: pojedyncza kamera uruchomiona za pomocą `LatticeCamera` działa natomiast w trybie swobodnym.
+3. **Automatyczne zmniejszanie**— w tle zmniejsza rozmiar ramki / zwiększa binning, gdy łącze nie jest w stanie utrzymać żądanej rozdzielczości.**To zabezpieczenie nie obejmuje nadmiernego obciążenia**: zbyt dużej liczby kamer dla danego łącza nie da się rozwiązać poprzez zmniejszenie rozmiaru klatek — zobacz [Nadmierne obciążenie](#over-subscription-the-per-cam-floor).
+4. **PTP włączone**domyślnie — sygnatury czasowe z różnych kamer są synchronizowane z jednym wspólnym zegarem z dokładnością do**~1 ms**. Jednoczesna ekspozycja wynika z wyzwalacza sprzętowego M8 (**&lt; 100 µs** między modułami), a nie z PTP: PTP synchronizuje *sygnatury czasowe*, a nie ekspozycje.
+5. **Automatyczny wybór formatu pikseli dla każdej kamery** — kamery RGB → `BayerRG8`, wielospektralne → `BayerRG12`.
+6. **Ustalanie wartości początkowych AE** — rejestruje aktualny stan AE każdej kamery, dzięki czemu podłączenie nie resetuje ekspozycji w trakcie pracy.
+7. **Konfiguracja wyzwalacza GPIO** — `connect_array` uzbraja każdą kamerę (`TriggerMode=On`, `TriggerSource=Line2`) , dzięki czemu impuls z urządzenia głównego steruje urządzeniami podrzędnymi przez kabel M8. Jest to krok dotyczący wyłącznie macierzy: pojedyncza kamera uruchomiona za pomocą `LatticeCamera` działa zamiast tego w trybie swobodnym.
 
 ```python
 import chloros_sdk
@@ -604,7 +604,7 @@ with chloros_sdk.connect_array(
     arr.capture("output/", processing="reflectance")
 ```
 
-#### Sygnatura `connect_array()`
+#### `connect_array()` Sygnatura
 
 ```python
 connect_array(
@@ -626,50 +626,50 @@ connect_array(
 ) -> ArraySession
 ```
 
-`force_tier` wartości:
-- `"sim-capture-sim-emit"` — prawdziwa synchronizacja (wszystkie kamery wyzwalają się na tej samej krawędzi zegara).
-- `"sim-capture-ftd-stagger"` — elastyczne rozłożenie w dziedzinie czasu (kamery emitują sygnały w nieznacznie przesuniętych momentach, dzięki czemu pakiety są szeregowane w sieci).
-- `"slip-emit-and-capture"` — sekwencyjne przechwytywanie dla poszczególnych kamer (brak synchronizacji czasowej; jedyna opcja, gdy żaden rozmiar ramki nie pasuje do trybu symetrycznego).
+Wartości `force_tier`:
+- `"sim-capture-sim-emit"` — prawdziwa synchronizacja (wszystkie kamery wyzwalają się na tej samej flance zegara).
+- `"sim-capture-ftd-stagger"` — elastyczne rozłożenie w dziedzinie czasu (kamery wysyłają sygnały w nieznacznie przesuniętych momentach, dzięki czemu pakiety są sekwencjonowane w sieci).
+- `"slip-emit-and-capture"` — sekwencyjne przechwytywanie przez poszczególne kamery (brak synchronizacji czasowej; jedyna opcja, gdy żaden rozmiar ramki nie pasuje do trybu symultanicznego).
 
-`wire_ceiling_mbps` zastępuje **trwały limit przepustowości łącza hosta** w MB/s — pojedynczy
-liczba, od której zależy cała alokacja macierzy. Pozostaw ustawienie `None`, aby korzystać z automatycznie wykrytej
-wartości. Zmniejsz tę wartość, gdy macierz zgłasza uszkodzone ramki GVSP: wartość automatyczna jest wyznaczana
-z ogłaszanej przez kartę sieciową prędkości łącza, która zawyża prędkość adapterów USB, wąskich pasm PCIe oraz
+`wire_ceiling_mbps` zastępuje **budżet przepustowości hosta** w MB/s — jedyną
+wartość, od której zależy cała alokacja macierzy. Pozostaw ustawienie `None`, aby korzystać z automatycznie wykrytej
+wartości. Zmniejsz tę wartość, gdy macierz zgłasza uszkodzone ramki GVSP: wartość automatyczna jest wyliczana
+z ogłaszanej przez kartę sieciową prędkości łącza, która zawyża prędkość adapterów USB, wąskich pasm PCIe i
 obciążonych struktur współdzielonych — a to zawyżenie objawia się uszkodzonymi ramkami, a nie
 widocznym spowolnieniem łącza. Wartość ta jest zapisywana w bloku przechwytywania macierzy projektu, więc
 ponowne otwarcie lub późniejsze ustawienie `connect_array` przywraca ją tak samo jak każde inne ustawienie macierzy.
 Zobacz [Stan macierzy](#array-health--which-subsystem-is-losing-frames).
 
-#### Nadmierna subskrypcja (limit minimalny na kamerę)
+#### Nadmierna subskrypcja (dolna granica na kamerę)
 
-Regulacja tempa Sim-emit przydziela każdej kamerze część budżetu łącza zabezpieczonego przed kolizjami, z dolnym limitem wynoszącym **8 MB/s na kamerę**(`per_cam_floor_bps`). Gdy `N × floor` przekroczy górny limit zabezpieczony przed kolizjami, macierz**przeciąża łącze**— trybem awaryjnym jest utrata pakietów GVSP, a nie niższa liczba klatek na sekundę — i nie ma rozwiązania polegającego na zmianie rozmiaru klatki:**binning i ROI zmniejszają liczbę bajtów na klatkę, a nie liczbę bajtów na sekundę przydzielaną w ramach algorytmu**, którą porównuje kontrola agregowana. Praktyczne limity przy pełnej rozdzielczości na hoście 1 GbE:**6 kamer przy MTU 1500, 9 z ramkami jumbo** (`max_cams_collision_safe` w odpowiedzi analitycznej podaje limit dla danego łącza). Rozwiązania: mniej kamer, ramki jumbo odod początku do końca lub szybsza karta sieciowa.
+Algorytm Sim-emit pacing przydziela każdej kamerze część budżetu przepustowości bezpiecznej pod względem kolizji, którego dolna granica wynosi **8 MB/s na kamerę**(`per_cam_floor_bps`). Gdy `N × floor` przekroczy górny limit zapewniający ochronę przed kolizjami, macierz**przeciąża łącze**— trybem awarii jest utrata pakietów GVSP, a nie niższa częstotliwość klatek — i nie ma rozwiązania polegającego na zmianie rozmiaru klatki:**binning i ROI zmniejszają liczbę bajtów na klatkę, a nie liczbę bajtów na sekundę przy regulowanym przepływie**, którą porównuje test sumaryczny. Praktyczne limity przy pełnej rozdzielczości na hoście 1 GbE:**6 kamer przy MTU 1500, 9 z ramkami jumbo** (`max_cams_collision_safe` w odpowiedzi analitycznej podaje limit dla danego łącza). Rozwiązania: mniej kamer, ramki jumbo w całym łańcuchu lub szybsza karta sieciowa.
 
-- Odpowiedzi `analyze_array_network()` i `/api/camera/array/connect` zawierają `oversubscribed`, `aggregate_demand_bps`, `collision_safe_ceiling_bps`, `max_cams_collision_safe`, oraz `per_cam_floor_bps`. Gdy wartość `oversubscribed` jest prawdziwa, projekcja **zeruje pola fps** (`achievable_fps_max` / `fps_bright` / `fps_dark`) zamiast zgłaszać mylącą wartość wskazującą na powolną, ale działającą szybkość.
-- `POST /api/camera/array/connect` akceptuje parametr `pin_resolution` (**tylko HTTP — a nie kwarg SDK**; `connect_array` nie udostępnia go). Przypisanie usuwa zabezpieczenie polegające na stopniowym zmniejszaniu wielkości, więc połączenie z nadmierną liczbą subskrypcji z zestawem `pin_resolution`X jest**kategorycznie odrzucane** wraz z komunikatem błędu wymieniającym wszystkie możliwe rozwiązania. Bez przypisania połączenie przechodzi przez proces zmniejszania, ale wyświetla ostrzeżenie, że zmniejszenie nie pozwoli na wyczyszczenie agregatu.
-- Łuk ratunkowy w środowisku testowym: ustaw `CHLOROS_ARRAY_ALLOW_OVERSUBSCRIBED=1` w środowisku backendu, aby zmienić odrzucenie na głośne ostrzeżenie — i tak nawiążesz połączenie i zaakceptujesz utratę pakietów.
+- Odpowiedzi `analyze_array_network()` i `/api/camera/array/connect` zawierają `oversubscribed`, `aggregate_demand_bps`, `collision_safe_ceiling_bps`, `max_cams_collision_safe` oraz `per_cam_floor_bps`. Gdy `oversubscribed` jest prawdziwe, projekcja **zeruje pola fps** (`achievable_fps_max` / `fps_bright` / `fps_dark`) zamiast zgłaszać mylącą wartość wskazującą na niską, ale działającą częstotliwość.
+- `POST /api/camera/array/connect` akceptuje parametr treści `pin_resolution` (**tylko HTTP — nie jest to argument kluczowy SDK**; `connect_array` go nie udostępnia). Ustalanie usuwa zabezpieczenie polegające na stopniowym zmniejszaniu binningu, więc połączenie z nadmierną liczbą subskrypcji, w którym ustawiono `pin_resolution`, jest**kategorycznie odrzucane** wraz z błędem wymieniającym wszystkie możliwe rozwiązania. Bez przypisania połączenie przechodzi przez proces zmniejszania, ale wyświetla ostrzeżenie, że zmniejszenie nie może wyczyścić agregatu.
+- Łuk ratunkowy dla testów porównawczych: ustaw `CHLOROS_ARRAY_ALLOW_OVERSUBSCRIBED=1` w środowisku backendu, aby złagodzić odmowę do głośnego ostrzeżenia — i tak nawiązujesz połączenie i akceptujesz utratę pakietów.
 
 #### Stan macierzy — który podsystem traci ramki
 
-`GET /api/camera/array/<array_id>/capability` zawiera aktualny blok `health` na
-podłączonej macierzy, ponownie oceniany w ruchomym oknie **10-sekundowym**. Dzieli on utratę ramek
+`GET /api/camera/array/<array_id>/capability` zawiera aktywny blok `health` na
+podłączonej macierzy, ponownie oceniany w ruchomym oknie **10-sekundowym**. Rozdziela on utratę ramek
 na dwie przyczyny wymagające przeciwnych rozwiązań, zamiast jednego wskaźnika „niekompletności”, który
 nie określa żadnej z nich:
 
 | Pole | Co oznacza | Który podsystem |
 | --- | --- | --- |
-| `gvsp_corrupt_rate_pct` (na port szeregowy) | Ramka **dotarła, ale miała błąd strukturalny**— utrata pakietów GVSP. |**Sieć**: przepustowość łącza, taktowanie, pierścień odbiorczy karty sieciowej, MTU |
-| `never_arrived_rate_pct` (na numer seryjny) | Ramka **w ogóle nie dotarła**— kamera nie zadziałała lub nic z niej nie wyszło. |**Wyzwalacz / synchronizacja**: kabel M8, `line=`, `TriggerMode` |
-| `worst_gvsp_corrupt_pct` / `worst_never_arrived_pct` | Najgorsza częstotliwość transmisji dla każdej z kamer. | — |
+| `gvsp_corrupt_rate_pct` (na port szeregowy) | Rama **dotarła, ale była uszkodzona strukturalnie**— utrata pakietów GVSP. |**Sieć**: przepustowość łącza, taktowanie, pierścień odbiorczy karty sieciowej, MTU |
+| `never_arrived_rate_pct` (dla każdego numeru seryjnego) | Ramka **w ogóle nie dotarła**— kamera nie zadziałała lub nic z niej nie wyszło. |**Wyzwalacz / synchronizacja**: kabel M8, `line=`, `TriggerMode` |
+| `worst_gvsp_corrupt_pct` / `worst_never_arrived_pct` | Najgorszy wskaźnik dla każdej z kamer. | — |
 | `per_cam_rate_pct` | Łączny wskaźnik niekompletności na kamerę (obie przyczyny łącznie). | — |
 | `stable_for_seconds` | Jak długo każda kamera pozostawała poniżej 0,01 %. | — |
 
 Oprócz `health` ten sam rekord podaje liczbę, od której zależy cała alokacja:
 
-| Pole | Znaczenie |
+| Pole | Co oznacza |
 | --- | --- |
-| `wire_ceiling_mbps` | Aktualny, stały limit przepustowości łącza hosta, MB/s. |
-| `wire_ceiling_source` | Źródło tej wartości, opisane słowami — np. `USB-capped 200 MB/s (was theoretical 1062; …)` lub `user override 120 MB/s (auto said 200)`. |
-| `wire_ceiling_is_user_set` | `true`, gdy `wire_ceiling_mbps=` go ustawił. |
+| `wire_ceiling_mbps` | Aktualny, stały limit przepustowości łącza hosta, MB/ss. |
+| `wire_ceiling_source` | Źródło tej wartości, w słowach — np. `USB-capped 200 MB/s (was theoretical 1062; …)` lub `user override 120 MB/s (auto said 200)`. |
+| `wire_ceiling_is_user_set` | `true`, gdy ustawił ją `wire_ceiling_mbps=`. |
 | `nic_is_usb` | `true` dla adaptera Ethernet USB. |
 
 Nie ma opakowania SDK dla tego punktu końcowego — odczytaj go bezpośrednio:
@@ -693,54 +693,54 @@ if (health.get("worst_gvsp_corrupt_pct") or 0) > 1.0:
     arr = chloros_sdk.connect_array(serials, wire_ceiling_mbps=120)
 ```
 
-**Odczyt:** wartość `gvsp_corrupt_rate_pct` różna od zera przy wartości `never_arrived_rate_pct` równej 0 oznacza, że
-wyzwalanie i synchronizacja kabla są idealne, a 100% strat występuje na ścieżce sieciowej — zmniejsz
-wartość `wire_ceiling_mbps` i ponownie nawiąż połączenie. Odwrotny wzorzec wskazuje natomiast na kabel synchronizacyjny lub
+**Odczyt :** wartość `gvsp_corrupt_rate_pct` różna od zera przy wartości `never_arrived_rate_pct` równej 0 oznacza, że
+wyzwalanie i synchronizacja kabla są idealne, a 100% strat występuje na ścieżce sieciowej — należy obniżyć
+wartość `wire_ceiling_mbps` i ponownie nawiąż połączenie. Odwrotny wzór wskazuje natomiast na kabel synchronizacyjny lub
 linię wyzwalającą.
 
-> **Wartość `target_fps` nie jest czynnikiem decydującym o uszkodzonych ramkach.** Częstotliwość GevSCPD jest ustalana jednorazowo przy
-> nawiązaniu połączenia, więc obniżenie częstotliwości wyzwalania zmienia cykl pracy, a nie
-> częstotliwość wysyłania serii impulsów o równoczesnej emisji. Zmierzona 5-krotna redukcja zapotrzebowania nie przyniosła poprawy, podczas gdy
-> obniżenie górnej granicy przepustowości z 240 do 200 MB/s spowodowało spadek wskaźnika uszkodzeń tej samej platformy z 10,4 % uszkodzeń do
-> 0,00 %.
+> **`target_fps` nie jest czynnikiem powodującym uszkodzone ramki.** Tempo GevSCPD jest zapisywane jednokrotnie podczas
+> nawiązywania połączenia, więc obniżenie częstotliwości wyzwalania zmienia cykl pracy, a nie
+> szybkość transmisji serii impulsów emitowanych jednocześnie. Zmierzone 5-krotne ograniczenie zapotrzebowania nie przyniosło poprawy, podczas gdy
+> obniżenie limitu przepustowości z 240 do 200 MB/s spowodowało spadek odsetka uszkodzonych ramek w tej samej konfiguracji z 10,4% do
+> 0,00%.
 
 > **Funkcja automatycznego zmniejszania przepustowości w trakcie transmisji nie jest dostępna w oprogramowaniu układowym TRI032S.** Działająca macierz nie może
-> samodzielnie tego naprawić; należy odłączyć i ponownie podłączyć urządzenie, aby moduł planowania połączeń ponownie zaplanował transmisję zgodnie z
+> samodzielnie tego naprawić; należy odłączyć i ponownie podłączyć urządzenie, aby moduł wybierający czas połączenia ponownie zaplanował transmisję zgodnie z
 > nową wartością maksymalną.
 
-**Karta sieciowa USB Ethernet jest ograniczona do 200 MB/s** przez sondę, niezależnie od jej
-danych technicznych: tabela wydajności, która przekształca prędkość łącza na wartość ciągłą, jest
+**Karta sieciowa USB Ethernet ma ograniczenie do 200 MB/s** przez sondę, niezależnie od
+danych technicznych: tabela wydajności, która przekształca prędkość łącza w wartość ciągłą, jest
 oparta na standardzie PCIe, a karta sieciowa USB podaje swoją prędkość łącza Ethernet, będąc jednocześnie ograniczona przez
-magistrali USB i jej sterownika. Ograniczenie to jest wartością bezwzględną, a nie ułamkową — adapter USB 1 GbE
-osiąga prędkość ~80 MB/s i nie ma to na niego wpływu.
+magistralę USB i jej sterownik. Ograniczenie to jest wartością bezwzględną, a nie ułamkową — karta USB 1 GbE
+osiąga ~80 MB/s i nie ma to na niego wpływu.
 
 #### Metody `ArraySession`
 
 | Metoda | Opis |
 | --- | --- |
-| `status(timeout=10.0)` | Działa na żywo `{fps, ptp, frame_count, last_error, …}`. |
-| `capture(output_dir="output", format="tiff", processing="debayered", levels=None, aligned=None, render_index=None, force_daq=None, smart=False, timeout=300.0)` | Jedna zsynchronizowana grupa przechwytywania. Zwraca `CaptureResult` (lista słowników klatek + `.skipped`). Poniżej znajdują się opcje eksportu. |
-| `capture(..., smart=True)` | **Inteligentne przechwytywanie** — czeka na ustabilizowanie się AE we wszystkich kamerach, a następnie uruchamia się. |
-| `capture_fastest(output_dir="output", force_daq=True, render_index=True, timeout=120.0)` | Najszybsze przechwytywanie: tylko dane surowe + przypisany odczyt DAQ (+ swobodny indeks łączny). Odzwierciedla przycisk „Najszybsze przechwytywanie” w interfejsie graficznym. |
-| `capture_repeated(output_dir="output", count=None, duration_s=None, interval_s=0.0, on_capture=None, **capture_kwargs)` | Pojedyncze / ciągłe / w odstępach czasu w jednej pętli ograniczonej. Zwraca `list[CaptureResult]`.**Wymaga `count` i/lub `duration_s`**, aby zakończyć działanie (SDK nie obsługuje skrótu Ctrl+C). |
-| `record(output_dir="output", fps=10.0, duration_s=None, video=True, gif=False, timeout=30.0)` | Rozpocznij nagrywanie podglądu na żywo z połączonym indeksem do pliku wideo/GIF → `RecorderHandle`. Jeden rejestrator kompozytowy na tablicę. |
-| `burst(output_dir="output", duration_s=None, max_frames=None, index_config=None, serial_index_config=None, timeout=30.0)` | Rozpocznij serię zdjęć surowych w formacie Bayer z dużą liczbą klatek na sekundę → `RecorderHandle`. Przetwórz offline za pomocą `build_video()`. |
+| `status(timeout=10.0)` | Live `{fps, ptp, frame_count, last_error, …}`. |
+| `capture(output_dir="output", format="tiff", processing="debayered", levels=None, aligned=None, render_index=None, force_daq=None, smart=False, timeout=300.0)` | Jedna zsynchronizowana grupa przechwytywania. Zwraca `CaptureResult` (listę słowników klatek + `.skipped`). Poniżej znajdują się opcje eksportu. |
+| `capture(..., smart=True)` | **Inteligentne przechwytywanie** — czeka na ustabilizowanie się AE na wszystkich kamerach, a następnie uruchamia się. |
+| `capture_fastest(output_dir="output", force_daq=True, render_index=True, timeout=120.0)` | Najszybsze przechwytywanie: tylko dane surowe + przypisany odczyt DAQ (+ bezpłatny indeks łączony). Odzwierciedla przycisk „Najszybsze przechwytywanie” w interfejsie graficznym. |
+| `capture_repeated(output_dir="output", count=None, duration_s=None, interval_s=0.0, on_capture=None, **capture_kwargs)` | Pojedyncze / Ciągłe / Interwałowe w jednej pętli ograniczonej. Zwraca `list[CaptureResult]`.**Wymaga `count` i/lub `duration_s`**, aby zakończyć działanie (SDK nie obsługuje skrótu Ctrl+C). |
+| `record(output_dir="output", fps=10.0, duration_s=None, video=True, gif=False, timeout=30.0)` | Rozpocznij nagrywanie podglądu połączonego indeksu na żywo do pliku wideo/GIF → `RecorderHandle`. Jeden rejestrator kompozytowy na każdą tablicę. |
+| `burst(output_dir="output", duration_s=None, max_frames=None, index_config=None, serial_index_config=None, timeout=30.0)` | Rozpocznij serię zdjęć w formacie surowym Bayer o wysokiej częstotliwości klatek → `RecorderHandle`. Przetwórz w trybie offline za pomocą `build_video()`. |
 | `build_video(burst_dir, products=None, fps=10.0, video=True, gif=False, save_tiffs=False, wait=True, poll_s=2.0, timeout=1800.0)` | Przetwarzaj w trybie offline zapisany ciąg zdjęć w formacie RAW, tworząc skalibrowane pliki wideo. Blokuje działanie do zakończenia (`wait=True`) i zwraca `{outputs, errors, combined}`. |
-| `build_video_status(job_id, timeout=15.0)` | Sprawdź status zadania kompilacji w trybie offline: `{running, result, error, burst_dir}`. |
+| X000380 | Sprawdzanie stanu zadania kompilacji w trybie offline: `{running, result, error, burst_dir}`. |
 | `disconnect()` | Zwolnij całą tablicę. |
 
-Kontrola eksportu `capture()` (ten sam punkt końcowy, z którego korzysta GUI/CLI):
+`capture()` – kontrola eksportu (ten sam punkt końcowy, z którego korzysta GUI/CLI):
 
 - `processing` / `levels` — `processing="all"` (lub `levels=["raw","radiance",…]`) zapisuje każdy odpowiedni typ eksportu dla każdej kamery; pojedyncza wartość `processing` zapisuje tylko ten poziom.
-- `aligned=True` — dopasowuje eksport wszystkich elementów (z wyjątkiem danych surowych) do [profilu wyrównania](#array-alignment) (zrejestrowane współrzędnie); dane surowe pozostają bez zniekształceń, ale zawierają transformację w metadanych. Jeśli tablica nie ma profilu, następuje powrót do stanu niewyrównanego (z ostrzeżeniem wyświetlanym w wyniku `alignment`).
-- `render_index=False` — pomija nakładkę wskaźnika wegetacji dla poszczególnych kamer; domyślnie renderuje ją tam, gdzie została skonfigurowana.
-- `force_daq=True` — zapisuje przypisany odczyt DAQ/DLS jako plik towarzyszący `.daq`, nawet jeśli żaden z wybranych poziomów tego nie wymaga.
+- `aligned=True` — dopasowuje eksport danych nie w formacie surowym każdego elementu do [profilu wyrównania](#array-alignment) tablicy (współzarejestrowanego); dane w formacie surowym pozostają bez zmian, ale zawierają transformację w metadanych. Jeśli tablica nie ma profilu, następuje powrót do stanu niewyrównanego (z ostrzeżeniem wyświetlanym w polu `alignment` wyniku), jeśli tablica nie posiada profilu.
+- `render_index=False` — pomijaj nakładkę wskaźnika roślinności dla poszczególnych kamer; domyślnie renderuje ją tam, gdzie została skonfigurowana.
+- `force_daq=True` — zapisuje przypisany odczyt DAQ/DLS jako plik dodatkowy `.daq`, nawet jeśli żaden wybrany poziom tego nie wymaga.
 
-**Kompresja TIFF (pokrętło HTTP- tylko pokrętło):**`ArraySession.capture()` nie wysyła klucza `compression`, więc obowiązuje domyślne ustawienie zaplecza — `POST /api/camera/array/capture` odczytuje parametr treści `compression`, domyślnie `"deflate"` (bezstratny zlib L1 + predyktor poziomy, ~4,1 MB na klatkę w pełnej rozdzielczości). `"none"` zapisuje nieskompresowane dane (~6,3 MB/klatka) z**~5× szybszym zapisem** — oba są bezstratne i odczytują się identycznie podczas importu. SDK nie udostępnia dla tego żadnego kwargu; rozwiązaniem awaryjnym jest `chloros-cli lattice array-capture --compression none` lub surowy HTTP. DEFLATE również utrzymuje GIL Python, więc zapis skompresowanych danych nie jest równoległy w wątkach zapisu poszczególnych kamer — do ciągłego przechwytywania w pełnej rozdzielczości z 8 kamer z prędkością czujnika potrzebny jest `compression: "none"`. Szczegóły: [Odwołanie do CLI → przechwytywanie tablicowe](cli-reference.md).**Nadpisywanie eksportu dla poszczególnych elementów (tylko HTTP):**ten sam punkt końcowy akceptuje również `exclude_serials` (lista — usunięcie elementów z zapisanego zestawu; tablica nadal uruchamia się jako jedna zsynchronizowana grupa, a wykluczone elementy są zwracane w `excluded`), `serial_levels` (nadpisania na poziomie poszczególnych kamer w formacie `{serial: [level tokens]}`) oraz `serial_index` (nadpisania nakładki indeksu kamery w formacie `{serial: bool}`kamery). Są to parametry główne zgodne z GUI i**nie są to jeszcze argumenty klucz-wartość SDK**; elementy nieobecne w mapach są zastępowane wartościami `levels` / `render_index` obowiązującymi dla całej tablicy.
+**Kompresja TIFF (pokrętło HTTP -only):**`ArraySession.capture()` nie wysyła klucza `compression`, więc obowiązuje domyślne ustawienie zaplecza — `POST /api/camera/array/capture` odczytuje parametr treści `compression`, `"deflate"` domyślnie (bezstratny zlib L1 + predyktor poziomy, ~4,1 MB na klatkę w pełnej rozdzielczości). `"none"` zapisuje dane nieskompresowane (~6,3 MB/klatka) z**~5× szybszym zapisem** — oba są bezstratne i odczytują się identycznie po zaimportowaniu. Klasa `SDK` nie udostępnia dla tego parametru żadnego argumentu kluczowego (kwarg); rozwiązaniem awaryjnym jest ``chloros-cli lattice array-capture --compression none`` lub surowy format `HTTP`. DEFLATE blokuje również GIL (Python), więc skompresowane zapisy nie są wykonywane równolegle w wątkach zapisujących dla poszczególnych kamer — ciągłe przechwytywanie w pełnej rozdzielczości z 8 kamer z prędkością czujnika wymaga `compression: "none"`. Szczegóły: [CLI Reference → array-capture](cli-reference.md).**Nadpisywanie eksportu poszczególnych elementów (tylko HTTP):**ten sam punkt końcowy akceptuje również `exclude_serials` (lista — usuwa elementy z zapisanego zestawu; tablica nadal działa jako jedna zsynchronizowana grupa, a wykluczone elementy są zwracane w `excluded`), `serial_levels` (nadpisania na poziomie poszczególnych kamer w `{serial: [level tokens]}`) oraz `serial_index` (nadpisania nakładki indeksowej dla poszczególnych kamer w formacie `{serial: bool}`). Są to parametry treści zgodne z GUI i**nie są to jeszcze kwargi typu „SDK”**; elementy nieobecne w mapach są zastępowane wartościami `levels` / `render_index` obowiązującymi dla całej tablicy.
 
 ##### Sprawdzanie pominiętych kamer — `CaptureResult.skipped`
 
-`ArraySession.capture()` zwraca `CaptureResult`, który jest podklasą `list`: iteruj po nim, indeksuj go, stosuj `len()` — każdy istniejący wzorzec nadal działa. Nowy kod może sprawdzić atrybut `.skipped`, aby zobaczyć, które kamery zostały wykluczone i dlaczego. Najczęstszym przypadkiem są kamery RGB w macierzy z mieszanymi filtrami, gdy żądane jest `processing="radiance"` lub `"reflectance"` — promieniowanie na piksel Bayera nie ma znaczenia w przypadku czujnika szerokopasmowego, więc backend pomija te kamery, zamiast generować bezsensowne dane.
+`ArraySession.capture()` zwraca `CaptureResult`, który jest podklasą `list`: iteruj po nim, indeksuj go, stosuj `len()` — wszystkie istniejące wzorce nadal działają. Nowy kod może sprawdzić atrybut `.skipped`, aby zobaczyć, które klatki zostały pominięte i dlaczego. Najczęstszym przypadkiem są klatkRGBne w tablicy z mieszanymi filtrami, gdy żądane jest `processing="radiance"` lub `"reflectance"` — promieniowanie na piksel Bayera nie ma znaczenia w przypadku czujnika szerokopasmowego, więc moduł zaplecza pomija te kamery, zamiast generować bezsensowne dane.
 
 ```python
 with chloros_sdk.connect_array(serials) as arr:
@@ -758,24 +758,24 @@ with chloros_sdk.connect_array(serials) as arr:
         #       'filter': 'RGB'}
 ```
 
-Tokeny przyczyny mają postać `<level>-not-applicable-to-rgb-cam` (jeden wpis na każdy pominięty poziom, z których każdy zawiera `level`). Pominięcia związane z odbiciem to: `reflectance-skipped-no-fresh-dls` (brak dostępnego aktualnego odczytu promieniowania opadającego), `reflectance-skipped-bound-daq-unavailable (…)` (nie udało się uzyskać dostępu do podłączonego urządzenia DAQ) oraz `dls-uncalibrated-band-<nm>` — pasmo leży w większości poza zakresem radiometrycznie skalibrowanym czujnika światła urządzenia DAQ (~374–974 nm), więc absolutny podział na podstawie współczynnika odbicia z modułu DAQ zostaje odrzucony, a klatka zostaje wyraźnie sprowadzona do poziomu odpowiedzi czujnika. Spośród dostępnych w sprzedaży modeli tylko F988 wywołuje ten błąd; obsługiwanym trybem pracy tej kamery jest schemat pracy z panelem odbiciowym.
+Tokeny przyczyny mają wzór `<level>-not-applicable-to-rgb-cam` (jeden wpis na każdy pominięty poziom, z których każdy zawiera `level`). Pominięcia związane z odbiciem to: `reflectance-skipped-no-fresh-dls` (brak dostępnych aktualnych odczytów promieniowania padającego), `reflectance-skipped-bound-daq-unavailable (…)` (nie udało się uzyskać dostępu do powiązanego urządzenia DAQ) oraz `dls-uncalibrated-band-<nm>` — pasmo leży w większości poza radiometrycznie skalibrowanym zakresem czujnika światła urządzenia DAQ (~374–974 nm), więc bezwzględny podział na podstawie współczynnika odbicia z modułu DAQ zostaje odrzucony, a klatka zostaje wyraźnie sprowadzona do poziomu odpowiedzi czujnika. Spośród dostępnych w sprzedaży modeli tylko F988 wywołuje ten błąd; obsługiwanym trybem pracy tej kamery jest proces z wykorzystaniem panelu odbicia.
 
-Poziomy `processing`:
+`processing` poziomy:
 
 | Poziom | Wynik |
 | --- | --- |
 | `"raw"` | Jednokanałowy układ Bayera (kamery monochromatyczne: pojedyncze pasmo) bezpośrednio z czujnika. |
-| `"debayered"` *(domyślnie SDK)* | 3-kanałowy BGR poprzez demosaikowanie biliniowe (kamery monochromatyczne: 1-kanałowa skala szarości). |
-| `"radiance"` | float32 W/m²/sr/nm poprzez pełny łańcuch radiometryczny. Tylko w trybie wielospektralnym — kamery RGB są pomijane. |
-| `"reflectance"` | uint16 0..32768 (gotowe do Pix4D); wymaga sparowania z systemem DAQ na żywo w celu uzyskania odniesienia bezwzględnego. Tylko tryb wielospektralny. |
-| `"display"` | Pełny łańcuch zgodny z podglądem w interfejsie graficznym (CCM + WB + gamma zgodnie z profilem kamery). |
-| `"all"` | **Jeden plik na każdy odpowiedni poziom** dla każdej kamery (zgodny z opcją „Capture All” / domyślnym ustawieniem CLI). Zwrócony plik `CaptureResult` zawiera wówczas jeden słownik klatki na `(cam, level)`, z poziomem w każdym słowniku; poziomy, które nie mają zastosowania, pojawiają się w `.skipped`. Odczyt DAQ użyty dla dowolnej klatki odbicia jest zapisywana jako plik towarzyszący `.daq`. |
+| `"debayered"` *(domyślne ustawienie SDK)* | 3-kanałowy BGR poprzez demosaikowanie biliniowe (kamery monochromatyczne: 1-kanałowa skala szarości). |
+| `"radiance"` | float32 W/m²/sr/nm poprzez pełny łańcuch radiometryczny. Tylko tryb wielospektralny — kamery typu „RGB” są pomijane. |
+| `"reflectance"` | uint16 0..32768 (gotowe do Pix4D); wymaga sparowania z systemem DAQ w czasie rzeczywistym w celu uzyskania odniesienia bezwzględnego. Tylko w trybie wielospektralnym. |
+| `"display"` | Pełny łańcuch odpowiadający podglądowi w GUI (CCM + WB + gamma zgodnie z profilem kamery). |
+| `"all"` | **Jeden plik na każdy odpowiedni poziom** dla każdej kamery (zgodne z domyślnym ustawieniem „Capture All” / CLI w interfejsie graficznym). Zwrócony plik `CaptureResult` zawiera wówczas jeden słownik klatek na plik `(cam, level)`, z poziomem w każdym słowniku; poziomy, które nie mają zastosowania, pojawiają się w pliku `.skipped`. Odczyt z systemu DAQ użyty dla dowolnej ramki odbicia jest zapisywany jako plik towarzyszący `.daq`. |
 
-> **Uwaga — wartość domyślna różni się od CLI.** Domyślną wartością `ArraySession.capture()` jest `processing="debayered"`; domyślna wartość polecenia `chloros-cli lattice array-capture`na `processing="all"`. Należy jawnie przekazać `processing="all"` z SDK, aby odzwierciedlić wielopoziomowe zapisywanie CLI/GUI.
+> **Uwaga — wartość domyślna różni się od wartości z pliku `CLI`.** Domyślną wartością `ArraySession.capture()` jest `processing="debayered"`; polecenie `chloros-cli lattice array-capture` domyślnie przyjmuje wartość `processing="all"`. Należy jawnie przekazać `processing="all"` z SDK, aby odzwierciedlić wielopoziomowe zapisywanie w CLI /GUI.
 
 ### Tryby przechwytywania i rejestratory
 
-Powierzchnia matrycy odzwierciedla panel przechwytywania w interfejsie graficznym: tryby pojedynczego, ciągłego, interwałowego i najszybszego migawki, a także dwa rejestratory (kompozytowe wideo na żywo oraz seria zdjęć w formacie surowym → ponowne przetwarzanie w trybie offline).
+Powierzchnia macierzy odzwierciedla panel przechwytywania w interfejsie graficznym: tryby migawki pojedynczej / ciągłej / interwałowej / najszybszej, a także dwa rejestratory (kompozytowe wideo na żywo oraz surowe serie zdjęć → przetwarzanie offline).
 
 ```python
 import time, chloros_sdk
@@ -806,21 +806,21 @@ with chloros_sdk.connect_array(serials) as arr:
     print(out["outputs"])
 ```
 
-- **`capture_repeated`**to pętla trybu ciągłego/interwałowego z modelu SDK. Ponieważ nie ma funkcji `Ctrl+C` umożliwiającej przerwanie jej działania ze skryptu,**należy** przekazać `count` i/lub `duration_s` (pętla zatrzymuje się po osiągnięciu dowolnego z nich). `interval_s` jest mierzony od początku każdego przebiegu (zgodnie z interfejsem graficznym). Pozostałe argumenty kwargs są przekazywane bezpośrednio do `capture()`.
-- **`record`** ma *poziom monitorowania*: przechwytuje wyświetlany na żywo złożony obraz z połączonymi indeksami, więc strumień połączony musi być otwarty, aby klatki mogły się pojawić. Jeden rejestrator kompozytowy na tablicę (wywołuje wyjątek, jeśli jeden już działa).
-- **`burst` → `build_video`** to *poziom analityczny*: `burst` zapisuje surowe klatki wraz z-klatkowy manifest oraz jeden plik `.daq` na każdy odrębny odczyt DLS w ramach `<output>/bursts/<base>/` z pełną prędkością pętli przechwytywania (bez łańcucha, bez exiftool, bez podglądu na żywo). `build_video` dopasowuje czasowo każdą klatkę do najbliższego `.daq` i ponownie uruchamia łańcuch promieniowania/odbicia/indeksu w potoku importu. `products` to lista `{"kind": "per_cam"|"combined", "level": "radiance"|"reflectance"|"index"}` (domyślnie: połączony indeks). `burst().stop()` automatycznie generuje również połączoną wersję indeksu z najlepszym możliwym wynikiem, zwaną jako `build_job` w wyniku zatrzymania.
+- **`capture_repeated`**to pętla trybów ciągłego/interwałowego zapisu w module „SDK”. Ponieważ nie ma `Ctrl+C`, który pozwoliłby przerwać tę pętlę za pomocą skryptu,**musisz** przekazać `count` i/lub `duration_s` (pętla zatrzymuje się po osiągnięciu dowolnego z tych parametrów). `interval_s` jest mierzony od początku każdego przebiegu (zgodnie z interfejsem graficznym). Pozostałe argumenty kwargs są przekazywane bezpośrednio do `capture()`.
+- **`record`** ma *klasa monitorowania*: przechwytuje wyświetlany na żywo złożony wskaźnik łączny w postaci, w jakiej jest wyświetlany, więc strumień połączony musi być otwarty, aby klatki mogły się pojawić. Jeden rejestrator kompozytowy na tablicę (wywołuje wyjątek, jeśli jeden już działa).
+- **`burst` → `build_video`** jest *klasy analitycznej*: `burst` zapisuje surowe klatki + manifestmanifest na klatkę + jeden plik `.daq` na każdy odrębny odczyt DLS w ramach `<output>/bursts/<base>/` z pełną prędkością pętli przechwytywania (bez łańcucha, bez exiftool, bez podglądu na żywo). `build_video` dopasowuje czasowo każdą klatkę do najbliższego `.daq` i ponownie uruchamia łańcuch przetwarzania importowego dotyczący promieniowania/odbicia/wskaźnika. `products` to lista `{"kind": "per_cam"|"combined", "level": "radiance"|"reflectance"|"index"}` (domyślnie: indeks połączony). `burst().stop()` automatycznie uruchamia również proces tworzenia połączonego wskaźnika z wykorzystaniem najlepszych dostępnych danych, którego wynik jest zwracany jako `build_job` w wyniku zakończenia.
 
 #### `RecorderHandle`
 
-Zwracany przez `ArraySession.record()` i `ArraySession.burst()`. Należy go używać jako menedżera kontekstu w celu automatycznego zatrzymania po wyjściu z zakresu lub sterować nim ręcznie.
+Zwracany przez `ArraySession.record()` i `ArraySession.burst()`. Należy go używać jako menedżera kontekstu w celu automatycznego zatrzymania przy wyjściu z zakresu lub sterować nim ręcznie.
 
 | Element | Opis |
 | --- | --- |
-| `job_id` | Identyfikator zadania backendowego (ciąg znaków). |
+| `job_id` | Identyfikator zadania zaplecza (str). |
 | `kind` | `"composite"` (z `record`) lub `"raw"` (z `burst`). |
 | `start_stats` | Słownik zwrócony przez wywołanie `start`. |
-| `result` | `None` podczas działania; końcowy słownik wyników zatrzymania po zakończeniu. |
-| `stats(timeout=10.0)` | Aktualne statystyki zadania (zapisane klatki, rzeczywista liczba klatek na sekundę, czas, który upłynął). |
+| `result` | `None` podczas działania; końcowy słownik wyników po zatrzymaniu. |
+| `stats(timeout=10.0)` | Aktualne statystyki zadania (liczba zapisanych klatek, rzeczywista liczba klatek na sekundę, czas, który upłynął). |
 | `stop(timeout=60.0)` | Zatrzymuje rejestrator; zwraca i buforuje wynik końcowy. Idempotentne (drugie wywołanie zwraca wynik z pamięci podręcznej). |
 
 ```python
@@ -831,9 +831,9 @@ result = rec.stop()
 print(result["out_dir"], result.get("build_job"))
 ```
 
-### Dołączanie do już podłączonej tablicy — `attach_array`
+### Dołączanie do już podłączonej macierzy — `attach_array`
 
-Jeśli tablica jest już uruchomiona (została otwarta przez GUI, lub poprzednia sesja SDK wywołała funkcję `connect_array`), należy użyć funkcji `attach_array`, aby pobrać do niego uchwyt zamiast ponownego-łączenia. <sn><id>W takiej sytuacji</id></sn> `connect_array` zawsze zwraca błąd „Kamera  znajduje się<sn> już w <id>macierzy”, ponieważ wysłanie żądania POST do `/array/connect` dla elementu z puli nie jest idempotentne; `attach_array` odczytuje `/api/camera/array/list` i dopasowuje na podstawie identyfikatora tablicy (array_id) lub numerów seryjnych.
+Jeśli tablica jest już uruchomiona (została otwarta przez GUI lub poprzednia sesja SDK wywołała funkcję `connect_array`), należy użyć funkcji `attach_array`, aby pobrać do niej uchwyt zamiast ponownie się łączyć. `connect_array` zawsze zwraca błąd „Kamera  znajduje się<sn> już w macierzy <id>”, ponieważ wysłanie żądania POST dla `/array/connect` w odniesieniu do elementu puli nie jest idempotentne; `attach_array` odczytuje `/api/camera/array/list` i dopasowuje na podstawie identyfikatora array_id lub numerów seryjnych.
 
 ```python
 import chloros_sdk
@@ -849,7 +849,7 @@ arr = chloros_sdk.attach_array("array-1779862544497")
 arr.capture("output/", processing="reflectance")
 ```
 
-Wzorzec: Skrypty SDK współdziałające z graficznym interfejsem użytkownika powinny najpierw próbować `attach_array`, a jeśli w puli nie ma jeszcze żadnej tablicy, przejść na `connect_array`.
+Wzorzec: SDK – skrypty współdziałające z graficznym interfejsem użytkownika (GUI) powinny najpierw spróbować `attach_array`, a jeśli w puli nie ma jeszcze żadnej tablicy, przejść na `connect_array`.
 
 ```python
 import chloros_sdk
@@ -860,7 +860,7 @@ except chloros_sdk.ChlorosConnectError:
     arr = chloros_sdk.connect_array(serials)
 ```
 
-> **Ważne — zamknięcie menedżera kontekstu POWODUJE rozłączenie.**`ArraySession.disconnect()` zawsze wysyła żądanie POST do `/array/disconnect`; nie ma mechanizmu zabezpieczającego typu „attached-notjak w przypadku `CameraSession` / `DAQSensorSession`. Jeśli współdzielisz środowisko z interfejsem graficznym i nie chcesz likwidować tablicy przy wyjściu z zakresu,**nie używaj bloku `with`** — zachowaj uchwyt w zwykłej zmiennej i pomiń jawne wywołanie `disconnect()`:
+> **Ważne — zamknięcie menedżera kontekstu POWODUJE rozłączenie.**`ArraySession.disconnect()` zawsze wysyła żądanie POST do `/array/disconnect`; nie ma tu mechanizmu zabezpieczającego typu „attached-not-owned”, takiego jak w przypadku `CameraSession` / `DAQSensorSession`. Jeśli współdzielisz zasoby z interfejsem graficznym i nie chcesz likwidować tablicy przy wyjściu z zakresu,**nie używaj bloku `with`** — zachowaj uchwyt w zwykłej zmiennej i pomiń jawne wywołanie `disconnect()`:
 >
 > ```python
 > arr = chloros_sdk.attach_array(serials)
@@ -893,14 +893,14 @@ elif result["status"] == "needs_force_slip":
     print("Sim-sync impossible on this wire; force_tier='slip-emit-and-capture' required")
 ```
 
-`status` jest jednym z `ok` / `auto_capped_fps` / `auto_shrunk` / `needs_force_slip` (w przeciwnym razie `error`). `auto_capped_fps` oznacza, że żądana rozdzielczość pasuje do pierścienia RX tylko przy ograniczonej częstotliwości wyzwalania — zachowaj rozdzielczość i przejdź od `target_fps=result["recommended"]["recommended_target_fps"]` na `connect_array` (zobacz [Przykład 6](#6-capability-probe-before-connecting-a-4-cam-array)).
+`status` jest jednym z `ok` / `auto_capped_fps` / `auto_shrunk` / `needs_force_slip` (w przeciwnym razie `error`). `auto_capped_fps` oznacza, że żądana rozdzielczość pasuje do pierścienia RX tylko przy ograniczonej częstotliwości wyzwalania — zachowaj rozdzielczość i przejdź od `target_fps=result["recommended"]["recommended_target_fps"]` do `connect_array` (patrz [Przykład 6](#6-capability-probe-before-connecting-a-4-cam-array)).
 
-**Jak odczytywać projekcję** (ten sam model co w panelu ustawień macierzy GUI):
+**Jak odczytywać projekcję** (ten sam model co w panelu ustawień macierzy w interfejsie graficznym):
 
-- **Seria (`frame_bytes_total`) jest sumowana dla każdej kamery w rzeczywistym formacie pikseli danej kamery.**Mono**M3M**przesyłają strumień Mono12 (2 B/px) niezależnie od przekazanej wartości `pixel_format`, więc klatka w pełnej rozdzielczości z 4 kamerami ma rozmiar**~25 MB** przy trzech kamerach mono, a nie ~12,6 MB, jak wynikałoby z założenia, że wszystkie są 8-bitowe. Backend rozpoznaje format każdej kamery na podstawie jej modelu.
-- **Admittance (`burst_fits_nic_ring`) uwzględnia prędkość opróżniania**, a nie porównanie całej serii z pierścieniem: symulacja emisji pasuje, gdy host opróżnia pierścień odbiorczy szybciej niż kamery go wypełniają. Host 10G + kamery 1 GbE**przesyła** w pełnej rozdzielczości, nawet gdy burst przekracza pojemność pierścienia; host 1 GbE blokuje transmisję (`needs_force_slip` / `auto_shrunk`).
-- **`achievable_fps_max` to konserwatywny-odzyskiwania** — `max(readout+emit, N×emit)` z emisją na kamerę ograniczoną do łącza kamery 1 GbE, niezależnie od ekspozycji. Np. ~2,8 klatek na sekundę dla 4-kamerowej matrycy o pełnej rozdzielczości 12-bitowej (odpowiada zmierzonej w środowisku uruchomieniowym wartości ~2,7–3,0). Pełny model: [CLI Odniesienie → Model klatek na sekundę i serii zdjęć dla macierzy](cli-reference.md#array-fps--burst-model).
-- **Nadmierna subskrypcja (`oversubscribed: true`) oznacza, że minimalna wartość N × na kamerę przekracza bezpieczny pułap zapobiegający kolizjom** — pola fps (`achievable_fps_max` / `fps_bright` / `fps_dark`) przyjmują wartość 0, a automatyczne zmniejszanie rozmiaru/binning nie są w stanie tego naprawić (zmniejszają one liczbę bajtów na klatkę, a nie liczbę bajtów na sekundę w trybie pacing). Rozwiązaniem jest zmniejszenie liczby kamer, zastosowanie ramek jumbo lub szybsza karta sieciowa; `max_cams_collision_safe` zgłasza limit (6 kamer o pełnej rozdzielczości na 1 GbE przy 1500 MTU, 9 z ramkami typu jumbo). Odpowiedź zawiera również `aggregate_demand_bps`, `collision_safe_ceiling_bps` oraz `per_cam_floor_bps` (8 MB/s). Zobacz [Nadmierna subskrypcja](#over-subscription-the-per-cam-floor).
+- **Seria (`frame_bytes_total`) jest sumowana dla każdej kamery w rzeczywistym formacie pikseli danej kamery.**Kamery mono**M3M**przesyłają strumień Mono12 (2 bity na piksel) niezależnie od podanego parametru `pixel_format`, więc klatka w pełnej rozdzielczości z 4 kamerami ma**~25 MB** przy trzech kamerach mono, a nie ~12,6 MB, jak wynikałoby z założenia, że wszystkie są 8-bitowe. Backend rozpoznaje format każdej kamery na podstawie jej modelu.
+- **Admittance (`burst_fits_nic_ring`) uwzględnia obciążenie drenu**, a nie na zasadzie „cała seria vs pierścień”: tryb sim-emit jest odpowiedni, gdy host opróżnia pierścień odbiorczy (RX ring) szybciej niż kamery go wypełniają. Host 10G + kamery 1 GbE**przejmują** dane w pełnej rozdzielczości nawet wtedy, gdy seria danych przekracza pojemność pierścienia; natomiast host 1 GbE blokuje (`needs_force_slip` / `auto_shrunk`).
+- **`achievable_fps_max` to konserwatywny pułap pobierania szeregowego** — `max(readout+emit, N×emit)` z emisją na kamerę ograniczoną do łącza kamery 1 GbE, niezależnie od ekspozycji. Np. ~2,8 klatek na sekundę dla macierzy 4 kamer o pełnej rozdzielczości i 12-bitowej głębi kolorów (zgodne z wartościami ~2,7–3,0 zmierzonymi w środowisku uruchomieniowym). Pełny model: [CLI Odniesienie → Model klatek na sekundę i trybu seryjnego dla macierzy](cli-reference.md#array-fps--burst-model).
+- **Nadmierna subskrypcja (`oversubscribed: true`) oznacza, że minimalna wartość N × na kamerę przekracza bezpieczny pułap zapobiegający kolizjom** — pola fps (`achievable_fps_max` / `fps_bright` / `fps_dark`) mają wartość 0, a automatyczne zmniejszanie/binning nie są w stanie tego naprawić (zmniejszają one liczbę bajtów na klatkę, a nie liczbę bajtów przesyłanych z określoną częstotliwością na sekundę). Rozwiązaniem jest zmniejszenie liczby kamer, użycie ramek typu jumbo lub szybsza karta sieciowa; kod `max_cams_collision_safe` zgłasza limit górny (6 kamer o pełnej rozdzielczości w sieci 1 GbE przy 1500 MTU, 9 z ramkami typu jumbo). Odpowiedź zawiera również kody `aggregate_demand_bps`, `collision_safe_ceiling_bps` oraz `per_cam_floor_bps` (8 MB/s). Zobacz [Nadmierna subskrypcja](#over-subscription-the-per-cam-floor).
 
 ### Wykrywanie i wyświetlanie listy
 
@@ -914,7 +914,7 @@ chloros_sdk.list_arrays()                # active arrays in the pool
 
 ## Smart-AE / Smart-Capture
 
-Macierze LATTICE uruchamiają ciągłą regulację ekspozycji (AE) w tle natychmiast po podłączeniu, ale nowo wycelowana scena potrzebuje chwili, aby osiągnąć stabilność. **Smart-Capture** to gotowe, wygodne rozwiązanie: sprawdza ekspozycję każdej kamery, czeka, aż macierz ustabilizuje się w całym oknie, a następnie uruchamia przechwytywanie. Działa to analogicznie do interfejsu graficznego: przycisk „„inteligentne” przechwytywanie wywołuje ten sam punkt końcowy zaplecza.
+Macierze LATTICE uruchamiają ciągłą regulację ekspozycji (AE) w tle zaraz po podłączeniu, ale nowo wycelowana scena potrzebuje chwili, aby osiągnąć stabilność. **Smart-Capture** to gotowe, wygodne rozwiązanie: sprawdza ekspozycję każdej kamery, czeka, aż macierz ustabilizuje się w całym oknie, a następnie uruchamia przechwytywanie. Działa to analogicznie do interfejsu graficznego: przycisk „smart” capture w aplikacji komputerowej wywołuje ten sam punkt końcowy zaplecza.
 
 ```python
 import chloros_sdk
@@ -928,7 +928,7 @@ with chloros_sdk.connect_array([
     arr.capture("pose_b/", processing="reflectance", smart=True)
 ```
 
-Podczas sterowania za pomocą `ChlorosProject` (następna sekcja) dostępnych jest więcej opcji:
+Podczas pracy w trybie `ChlorosProject` (następna sekcja) zyskujesz więcej opcji regulacji:
 
 ```python
 proj.arrays["main_rig"].capture_smart(
@@ -940,13 +940,13 @@ proj.arrays["main_rig"].capture_smart(
 )
 ```
 
-Polityka inteligentnej ekspozycji (smart-AE) jest domyślnie konserwatywna. Zmniejsz wartość `exposure_tolerance_pct` w przypadku wymagających prac radiometrycznych; zwiększ ją w przypadku szybko zmieniających się scen, gdzie wystarczy, że obraz będzie „wystarczająco dokładny”.
+Domyślnie polityka inteligentnej ekspozycji (smart-AE) jest konserwatywna. Zmniejsz wartość `exposure_tolerance_pct` w przypadku wymagających prac radiometrycznych; zwiększ ją w przypadku szybko zmieniających się scen, gdzie wystarczy, że obraz będzie „wystarczająco zbliżony”.
 
 ---
 
 ## Sesje czujników DAQ
 
-Trwała pula backendowa dla czujników spektralnych (DAQ-U przez USB, DAQ-M przez BLE, DAQ-E przez Ethernet). Odzwierciedla działanie kamery: inteligentne wykrywanie, ponowne wykorzystanie puli, idempotentne dołączanie.
+Trwała pula backendów dla czujników spektralnych (DAQ-U przez USB, DAQ-M przez BLE, DAQ-E przez Ethernet). Odzwierciedla działanie kamery: inteligentne wykrywanie, ponowne wykorzystanie puli, idempotentne dołączanie.
 
 ### Inteligentne wykrywanie (Zero-Config)
 
@@ -962,9 +962,9 @@ with chloros_sdk.connect_daq_sensor() as daq:
         print(len(spectrum), is_sat)
 ```
 
-Priorytet: Ethernet → BLE → USB. Przekaż dowolną jawną wskazówkę, aby przypiąć protokół transportowy.
+Priorytet: Ethernet → BLE → USB. Przekaż dowolną wyraźną wskazówkę, aby przypiąć protokół transportowy.
 
-### Zablokowany protokół transportowy
+### Przypięty protokół transportowy
 
 ```python
 # DAQ-U on a specific serial port
@@ -990,18 +990,18 @@ daq = chloros_sdk.connect_daq_sensor(
 
 | Metoda | Opis |
 | --- | --- |
-| `status(timeout=10.0)` | Podsumowanie wpisu w puli (stan transmisji strumieniowej/rejestrowania, zakres długości fal, hash kalibracji, czas integracji, frame_avg, stan AE). |
-| `latest(n=1, timeout=10.0)` | Zwraca maksymalnie N najnowszych ramek widma. |
-| `stream_start()` / `stream_stop()` | Wznowienie / wstrzymanie transmisji strumieniowej (uchwyt pozostaje otwarty). |
-| `record_start(output_dir=None, device_name=None)` | Rozpocznij rejestrowanie pliku .daq. Zwraca ścieżkę do pliku. Odmawia wykonania dla DAQ-U/M bez pakietu kalibracyjnego AWS (DAQ-E jest wyłączony z tego ograniczenia). |
-| `record_stop()` | Zatrzymaj rejestrowanie. Zwraca `{path, rows}`. |
-| `disconnect()` | Zwolnienie z puli. Nie wykonuje żadnej operacji w przypadku uchwytów podłączonych, ale niebędących własnością. |
+| `status(timeout=10.0)` | Podsumowanie wpisu w puli (stan przesyłania strumieniowego/nagrywania, zakres długości fal, hash kalibracji, czas integracji, frame_avg, stan AE). |
+| `latest(n=1, timeout=10.0)` | Zwraca do N najnowszych ramek widma. |
+| `stream_start()` / `stream_stop()` | Wznowienie / wstrzymanie strumieniowania (uchwyt pozostaje otwarty). |
+| `record_start(output_dir=None, device_name=None)` | Rozpocznij nagrywanie pliku .daq. Zwraca ścieżkę do pliku. Odmawia wykonania dla DAQ-U/M bez pakietu kalibracyjnego AWS (DAQ-E jest wyłączony z tego ograniczenia). |
+| `record_stop()` | Zatrzymuje nagrywanie. Zwraca `{path, rows}`. |
+| `disconnect()` | Zwolnienie z puli. Nie wykonuje żadnej operacji dla uchwytów podłączonych, ale niebędących własnością. |
 
-> **Profile-korekcyjne (`cap_id`) nie są regulatorem SDK.** `connect_daq_sensor()` / `DAQSensorSession` nie udostępniają parametru `cap_id` ani metody `set_cap`. Wybierz profil korekcji limitu floty za pomocą CLI (`chloros-cli daq pool-connect --cap-id …` / `chloros-cli daq pool-set-cap …`) lub trasy zaplecza `/api/daq` HTTP (`/api/daq/connect` i `/api/daq/<id>/cap-id` akceptują `cap_id`).
+> **Profile korekcji Cap (`cap_id`) nie są regulatorami typu „SDK”.** `connect_daq_sensor()` / `DAQSensorSession` nie udostępniają parametru `cap_id` ani metody `set_cap`. Wybierz profil limitu flotypoprzez CLI (`chloros-cli daq pool-connect --cap-id …` / `chloros-cli daq pool-set-cap …`) lub trasy `/api/daq` HTTP w backendzie (`/api/daq/connect` i `/api/daq/<id>/cap-id` akceptują `cap_id`).
 
 ### Wykrywanie — znalezienie adresu, z którym można się połączyć
 
-`discover_daq_sensors()` skanuje USB / BLE / ETH w poszukiwaniu czujników, które *można* otworzyć. Jest to odpowiednik `discover_lattice_cameras()` dla DAQ i jedyny sposób na uzyskanie **adres MAC BLE urządzenia DAQ-M** — urządzenie DAQ-E ma nazwę hosta, a DAQ-U port COM, ale adres MAC nie jest ani wydrukowany na urządzeniu, ani wyświetlany przez system operacyjny.
+`discover_daq_sensors()` skanuje USB / BLE / ETH w poszukiwaniu czujników, które *można* otworzyć. Jest to odpowiednik `discover_lattice_cameras()` dla DAQ i jedyny sposób na uzyskanie **adresu MAC BLE urządzenia DAQ-M** — urządzenie DAQ-E ma nazwę hosta, a DAQ-U port COM, ale adres MAC nie jest ani wydrukowany na urządzeniu, ani wyświetlany przez system operacyjny.
 
 ```python
 for s in chloros_sdk.discover_daq_sensors():
@@ -1018,19 +1018,19 @@ for s in chloros_sdk.discover_daq_sensors(transports=["ble"]):
 | Pole | Opis |
 | --- | --- |
 | `transport` | `usb` \| `ble` \| `eth`. |
-| `address` | Port COM / adres MAC BLE / nazwa hosta — przekaż do `connect_daq_sensor` jako `port=` / `mac=` / `eth_host=`. |
+| `address` | Port COM / adres MAC BLE / nazwa hosta — przekazywane do `connect_daq_sensor` jako `port=` / `mac=` / `eth_host=`. |
 | `display` | Etykieta czytelna dla człowieka. |
-| `model` | `DAQ-U` \| `DAQ-M` \| `DAQ-E` lub `None` dla portu, który skanowanie możezidentyfikować (adaptery szeregowe USB są nie do odróżnienia bez sondy, więc nieznane elementy są wyświetlane, a nie ukrywane). |
-| `extra` | Szczegóły dotyczące poszczególnych protokołów (nazwa reklamowana BLE, producent USB, adres IP/fw/… DAQ-E). Puste wartości są pomijane. |
+| `model` | `DAQ-U` \| `DAQ-M` \| `DAQ-E` lub `None` dla portu, którego skanowanie nie jest w stanie zidentyfikować (adaptery szeregowe USB są nie do odróżnienia bez sondy, więc nieznane elementy są wyświetlane, a nie ukrywane). |
+| `extra` | Szczegóły dotyczące poszczególnych protokołów (nazwa reklamowana przez BLE, producent USB, adres IP/fw/… urządzenia DAQ-E). Puste wartości są pomijane. |
 
 | Parametr | Domyślna wartość | Opis |
 | --- | --- | --- |
 | `transports` | wszystkie trzy | Sekwencja (lub ciąg znaków w formacie CSV) ograniczająca skanowanie. Warto podać tę wartość, gdy wiesz, czego chcesz — BLE jest najwolniejszym ogniwem. |
-| `scan_timeout` | 5 | Okno skanowania dla poszczególnych protokołów w sekundach; backend ogranicza wartość do zakresu 1–20. |
-| `timeout` | 60.0 | HTTP – limit maksymalny dla całego wywołania (tak jak w innych miejscach w SDK). |
-| `auto_start_backend` | `True` | Spawn lokalny backend, jeśli żaden nie jest uruchomiony. Nigdy nie uruchamia się dla zdalnego `backend_url`. |
+| `scan_timeout` | 5 | Okres skanowania dla poszczególnych protokołów w sekundach; backend ogranicza wartość do zakresu 1–20. |
+| `timeout` | 60,0 | HTTP limit dla całego wywołania (tak jak w innych miejscach w SDK). |
+| `auto_start_backend` | `True` | Uruchom lokalny backend, jeśli żaden nie działa. Nigdy nie uruchamia się dla zdalnego `backend_url`. |
 
-> **Czujniki już otwarte w puli nie pojawiają się.** Podłączone urządzenie peryferyjne BLE przestaje nadawać sygnał, a otwarty port COM nie może być skanowany, więc wykrywanie wyświetla listę tego, co jest *dostępne do połączenia*. Pusty wynik zaraz po podłączeniu urządzenia jest oczekiwany — użyj `list_daq_sensors()` dla tego, co już posiadasz. Transporty, których skanowanie nie może zostać uruchomione (brak zainstalowanego bleak / zeroconf), są pomijane zamiast generować błąd, więc urządzenie bez Bluetooth nadal otrzymuje odpowiedzi dotyczące USB i ETH.
+> **Czujniki już otwarte w puli nie są wyświetlane.** Podłączone urządzenie peryferyjne BLE przestaje nadawać sygnały, a otwartego portu COM nie da się zbadać, więc funkcja discovery wyświetla listę tego, co jest *dostępne do połączenia*. Pusty wynik zaraz po podłączeniu czegoś jest oczekiwany — użyj `list_daq_sensors()` dla tego, co już posiadasz. Transporty, których skanowanie nie może(brak zainstalowanego bleak / zeroconf), są pomijane zamiast generować błąd, więc urządzenie bez Bluetooth nadal otrzymuje odpowiedzi dotyczące USB i ETH.
 
 ### Lista
 
@@ -1041,13 +1041,13 @@ for s in chloros_sdk.list_daq_sensors():
 
 ### Współdziałanie z GUI / CLI
 
-Jeśli w GUI jest już otwarty czujnik, wywołanie funkcji `connect_daq_sensor(port="COM3")` z poziomu Python zwraca uchwyt oznaczony jako `already_connected=True`. `disconnect()` sesji jest wówczas operacją bezczynną, dzięki czemu skrypt SDK nie wyrywa czujnika spod GUI przy zamknięciu oscyloskopu.
+Jeśli w GUI jest już otwarty czujnik, wywołanie `connect_daq_sensor(port="COM3")` z Python zwraca uchwyt oznaczony jako `already_connected=True`. `disconnect()` tej sesji jest wówczas operacją bezczynną, więc skrypt SDK niemoże nie usunąć czujnika spod GUI przy zamknięciu programu.
 
-### Bezpośrednie– klasy sprzętowe (bez zaplecza)
+### Klasy sprzętu bezpośredniego (bez zaplecza)
 
-`daq_sdk` jest ponownie eksportowany przez `chloros_sdk`, dzięki czemu można również sterować czujnikami w trybie end-to-end w ramach procesu bez zaplecza:
+`daq_sdk` jest ponownie eksportowany przez `chloros_sdk`, dzięki czemu można również sterować czujnikami od początku do końca w ramach procesu bez zaplecza:
 
-> **Dostępność:**`daq_sdk` jest dostarczany wraz z instalacją desktopową Chloros,**nie** z pakietem PyPI — `pip install chloros-sdk` udostępnia `lattice_sdk`, ale pomija `chloros_sdk.DAQ_AVAILABLE == False`. Przed użyciem tych klas należy sprawdzić ten znacznik; na hoście obsługującym wyłącznie pip należy sterować czujnikiem za pomocą [`connect_daq_sensor()`](#daq-sensor-sessions), który nie wymaga lokalnych bibliotek transportowych.
+> **Dostępność:**`daq_sdk` jest dostarczany wraz z instalacją desktopową Chloros,**nie** z pakietem PyPI — `pip install chloros-sdk` udostępnia `lattice_sdk`, ale pomija `chloros_sdk.DAQ_AVAILABLE == False`. Przed użyciem tych klas sprawdź ten parametr; na hoście korzystającym wyłącznie z pip steruj czujnikiem za pomocą [`connect_daq_sensor()`](#daq-sensor-sessions), który nie wymaga lokalnych bibliotek transportowych.
 
 ```python
 from chloros_sdk import DAQUSensor, DAQMSensor, DAQESensor, discover_all
@@ -1064,13 +1064,13 @@ sensor.start_streaming()
 sensor.stop()
 ```
 
-Jeśli chcesz współdzielić własność z interfejsem graficznym, wybierz ścieżkę smart-connect (`connect_daq_sensor`); w przypadku skryptów bezinterfejsowych, które są wyłącznymi właścicielami czujnika, użyj klas bezpośrednich.
+W przypadku współwłasności z interfejsem graficznym (GUI) zaleca się stosowanie ścieżki smart-connect (`connect_daq_sensor`); klasy bezpośrednie należy stosować w skryptach bezinterfejsowych, które są wyłącznymi właścicielami czujnika.
 
 ---
 
-## Automatyzacja projektów — `ChlorosProject`
+## Automatyzacja projektu — `ChlorosProject`
 
-Zapisany projekt Chloros to folder zawierający pliki `cameras.json` + `sensors.json` + `project.json`. `open_project` ładuje manifest, a `connect_all` uruchamia wszystkie zapisane urządzenia z ich zapisanymi ustawieniami — w takim samym stanie sprzętowym, jaki zapewniłby interfejs graficzny.
+Zapisany projekt Chloros to folder zawierający pliki `cameras.json` + `sensors.json` + `project.json`. `open_project` ładuje manifest, a `connect_all` uruchamia wszystkie zapisane urządzenia z zachowanymi ustawieniami — w takim samym stanie sprzętowym, jaki uzyskałby interfejs graficzny.
 
 ### Minimalny przykład
 
@@ -1109,18 +1109,18 @@ with chloros_sdk.open_project("/path/to/proj") as proj:
 
 | Metoda | Opis |
 | --- | --- |
-| `connect_all(cameras=True, arrays=True, sensors=True, verbose=False, align=None)` | Wykrywa i łączy się z każdym zapisanym urządzeniem. Zwraca raport połączeń dla poszczególnych klas. Korzysta z uruchomionego backendu, jeśli taki nasłuchuje na `127.0.0.1:5000`; w przeciwnym razie bez ostrzeżenia przechodzi na bezpośrednie (bez zaplecza) sterowanie urządzeniami `lattice_sdk` — nigdy nie uruchamia zaplecza. |
+| `connect_all(cameras=True, arrays=True, sensors=True, verbose=False, align=None)` | Wykrywa i łączy się z każdym zapisanym urządzeniem. Zwraca raport połączeń dla poszczególnych klas. Wykorzystuje uruchomiony backend, jeśli taki nasłuchuje na `127.0.0.1:5000`; w przeciwnym razie bez ostrzeżenia przechodzi na bezpośrednie (bez backendu) sterowanie urządzeniami `lattice_sdk` — nigdy nie uruchamia modulu zaplecza. |
 | `disconnect_all()` | Zakończ wszystkie połączenia. |
 | `capture_all(output_dir=".")` | Jedna ramka z każdej kamery + tablica + widmo z każdego czujnika. |
-| `stream(camera, overlays=False, fps=10.0)` | Generator generujący klatki BGR `numpy` z nazwanej kamery (lub macierzy). `overlays=False` jest bezpośrednią pętlą przechwytywania `lattice_sdk` (macierze generują słowniki `{serial: frame}`). `overlays=True` kieruje dane przez `ChlorosLocal.camera_stream()` → strumień MJPEG `/api/camera/<serial>/stream-annotated` backendu, z zapisanym blokiem `ui.overlay` przekazywany jako parametry zapytania. Wymaga trybu backendowego i **kamery autonomicznej**: kamera w trybie bezpośrednim generuje błąd `RuntimeError` (moduł zaplecza nie może przejąć kamery należącej do tego procesu), a tablica generuje błąd `NotImplementedError` (nakładki kompozytowe dla każdej kamery — przesyłaj strumień dla elementu na podstawie nazwy). Odpowiednik jednorazowy: `CameraHandle.capture(annotated=True)`. |
-| `align_arrays(align=True, verbose=False)` | Uruchom wyrównanie dla każdej aktualnie podłączonej macierzy. |
-| `process(mode="parallel", wait=True, progress_callback=None, poll_interval=2.0)` | Uruchom potok kalibracji / indeksowania na obrazach projektu (zawiera `ChlorosLocal.process`; te cztery są **jedynymi** akceptowanymi argumentami kluczowymi — `indices=` itp. wywołuje wyjątek `TypeError`; ustawia indeksy za pomocą `ChlorosLocal.configure()`). W sposób leniwy tworzy obiekt `ChlorosLocal()`, który automatycznie uruchamia backend. |
+| `stream(camera, overlays=False, fps=10.0)` | Generator generujący klatki BGR `numpy` z określonej kamery (lub macierzy). `overlays=False` to bezpośrednia pętla przechwytywania `lattice_sdk` (matryce generują słowniki `{serial: frame}`). `overlays=True` przekierowuje przez `ChlorosLocal.camera_stream()` → strumień MJPEG backendu `/api/camera/<serial>/stream-annotated`, przy czym zapisany blok `ui.overlay` kamery jest przekazywany jako parametry zapytania. Wymaga trybu backendowego i **kamery autonomicznej**: kamera w trybie bezpośrednim generuje `RuntimeError` (backend możeprzejąć kamery należącej do tego procesu), a tablica generuje błąd `NotImplementedError` (nakładki kompozytowe dla każdej kamery — strumieniuj element według nazwy). Odpowiednik jednorazowy: `CameraHandle.capture(annotated=True)`. |
+| `align_arrays(align=True, verbose=False)` | Uruchom wyrównywanie dla każdej aktualnie podłączonej tablicy. |
+| `process(mode="parallel", wait=True, progress_callback=None, poll_interval=2.0)` | Uruchom potok kalibracji / indeksowania na obrazach projektu (zawiera `ChlorosLocal.process`; te cztery są **jedynymi** akceptowane argumenty kluczowe — `indices=` itp. powodują wyjątek `TypeError`; indeksy ustawia się za pomocą `ChlorosLocal.configure()`). Leniwie tworzy obiekt `ChlorosLocal()`, który automatycznie uruchamia backend. |
 
 Atrybuty:
-- `proj.cameras` — `Dict[str, CameraHandle]` indeksowany według nazwy ORAZ numeru seryjnego.
-- `proj.arrays` — `Dict[str, ArrayHandle]` indeksowany według nazwy ORAZ identyfikatora tablicy.
-- `proj.sensors` — `Dict[str, SensorHandle]` indeksowane według nazwy ORAZ identyfikatora slotu.
-- `proj.config` — słownik `project.json["config"]`.
+- `proj.cameras` — `Dict[str, CameraHandle]` indeksowane według nazwy ORAZ numeru seryjnego.
+- `proj.arrays` — `Dict[str, ArrayHandle]` indeksowane według nazwy ORAZ identyfikatora tablicy_id.
+- `proj.sensors` — `Dict[str, SensorHandle]` indeksowane według nazwy ORAZ slot_id.
+- `proj.config` — `project.json["config"]` słownik.
 
 ### `CameraHandle`
 
@@ -1147,50 +1147,50 @@ for arr in cam.frame_stream(processing="debayered", fps=5, count=100):
     my_analysis(arr)
 ```
 
-**Poziomy przetwarzania.** `capture()`, `grab()` oraz `frame_stream()` przyjmują ten sam token `processing`,
-a łańcuch ma charakter kumulatywny — każdy poziom uruchamia wszystkie poziomy znajdujące się powyżej niego:
+**Poziomy przetwarzania.** `capture()`, `grab()` i `frame_stream()` pobierają ten sam token `processing`
+, a łańcuch ma charakter kumulatywny — każdy poziom uruchamia wszystkie poziomy znajdujące się powyżej niego:
 
 | Poziom | Wynik | Uwagi |
 | --- | --- | --- |
-| `raw` | 1-kanałowy Bayer, natywny dla czujnika | Brak demosaic. Nakładki nie są dostępne na tym poziomie. |
-| `debayered` | 3-kanałowy BGR (**domyślnie**) | Demosaikowanie biliniowe. Jedyny poziom działający bez trybu backendowego. |
-| `radiance` | float32, W/m²/sr/nm | Pełny łańcuch radiometryczny: demosaikowanie + rozdzielanie 3×3 (multispektralne) + DSNU + pole płaskie + skala NIST, z wyeliminowaniem ekspozycji i wzmocnienia, dzięki czemu wartości są bezwzględne. |
+| `raw` | 1-kanałowy Bayer, natywny dla czujnika | Brak demosaic. Na tym poziomie nakładki nie są dostępne. |
+| `debayered` | 3-kanałowy BGR (**domyślnie**) | Demosaikowanie bilinearne. Jedyny poziom, który działa bez trybu backend. |
+| `radiance` | float32, W/m²/sr/nm | Pełny łańcuch radiometryczny: demosaikowanie + rozdzielanie 3×3 (multispektralny) + DSNU + pole płaskie + skala NIST, z wyeliminowaniem ekspozycji × wzmocnienia, dzięki czemu wartości są bezwzględne. |
 | `reflectance` | uint16, 32768 = 1,0 | Promieniowanie podzielone przez natężenie promieniowania padającego (ρ = π·L/E). Wymaga odczytu z DLS/DAQ — patrz uwaga poniżej. |
 | `display` | 8-bitowy, zbliżony do sRGB | Renderowanie odpowiadające interfejsowi graficznemu: CCM + balans bieli + gamma poprzez aktywny profil kolorów kamery. |
 
-Wszelkie wartości inne niż `debayered` wymagają trybu backendowego; kamera w trybie bezpośrednim generuje
-`NotImplementedError`. `reflectance` wymaga użytecznego odczytu natężenia promieniowania padającego — punkt końcowy klatki automatycznie pobiera
-zgromadzone dane DAQ automatycznie do gniazda DLS kamery, ale bez przypisanych danych DAQ łańcuch odrzuca
-wyjście odbicia i uczciwie zaznacza obniżenie jakości w zwracanych metadanych, zamiast po cichu
-zwracać produkt o niższej jakości.
+Wszystkie wartości inne niż `debayered` wymagają trybu backendowego; aparat w trybie bezpośrednimwywołuje
+`NotImplementedError`. `reflectance` wymaga użytecznego odczytu promieniowania padającego — punkt końcowy ramki automatycznie przenosi
+zgromadzone dane DAQ do gniazda DLS kamery, ale bez powiązanego DAQ łańcuch odrzuca
+odbiciewyjścia reflektancji i uczciwie zaznacza obniżenie klasy w zwracanych metadanych, zamiast po cichu
+zwracać produkt niższej jakości.
 
-> **Skala DN odbicia — nie należy jej zakodować na stałe.** Odbicie LATTICE wykorzystuje `32768` = ρ 1,0 i oznacza
-> XMP `Chloros:PixelScale=32768`; reflektancja Survey3 wykorzystuje `65535` = ρ 1,0 i nie zawiera
-> tagów `Chloros:*`. Odczytaj tag i podziel przez jego wartość. Jest on zdefiniowany w domenie uint16, więc pozostaje
-> `32768` dla każdego formatu, który zmienia skalę (16-bitowy TIFF, 8-bitowy PNG/JPG, 32-bitowy procent) — najpierw znormalizuj
-> zapisany typ danych z powrotem do uint16 (×257 z 8-bitowego, ×65535 z float). Jedyny wyjątek:
-> dane z 8-bitowego źródła zapisane jako 8-bitowe TIFF są *obcinane*, a nie przeskalowywane, więc żadna skala ich nie opisuje
-> — w takim przypadku Chloros całkowicie pomija `PixelScale` oraz krotkę MicaSense. Brakujący
+> **Skala DN reflektancji — nienie należy jej zakodować na stałe.** Reflektancja LATTICE wykorzystuje `32768` = ρ 1,0 i oznacza
+> XMP `Chloros:PixelScale=32768`; reflektancja Survey3 wykorzystuje `65535` = ρ 1,0 i nie zawiera żadnych
+> znaczników `Chloros:*`. Odczytaj znacznik i podziel przez niego. Jest on zdefiniowany w domenie uint16, więc pozostaje
+> `32768` dla każdego formatu, który zmienia skalę (16-bitowy TIFF, 8-bitowy PNG /JPG, 32-bitowy procent) — najpierw znormalizuj
+> zapisany typ danych z powrotem do uint16 (×257 z 8-bitowego, ×65535 z typu float). Jedyny wyjątek:
+> dane źródłowe z 8-bitowego zapisu w formacie 8-bitowym TIFF są *przycinane*, a nie skalowane, więc nie opisuje go żadna skala
+> — Chloros w takim przypadku całkowicie pomija `PixelScale` oraz krotkę MicaSense. Brakujący
 > tag w pliku odbicia LATTICE należy traktować jako „brak prawidłowej skali”, a nie jako wartość domyślną.
 
-> **Dane EXIF są przenoszone do eksportowanego pliku.** `process()` kopiuje blok GPS źródłowego ujęcia
-> **oraz jego ExifIFD** do każdego produktu, więc eksportowane pliki zawierają `FocalLength`, `FNumber`,
+> **Dane EXIF są przenoszone do eksportowanego pliku.** `process()` kopiuje blok GPS źródłowego zdjęcia
+> **oraz jego ExifIFD** do każdego produktu, więc eksporty zawierają `FocalLength`, `FNumber`,
 > `ExposureTime`, `ISO`, `DateTimeOriginal` i `CameraSerialNumber`, a także
-> georeferencje. `FocalLength` to plik, na podstawie którego Pix4D oblicza odległość próbkowania terenu — bez niego
-> rekonstrukcja przyjmuje całkowicie błędną skalę (w jednym z przypadków zmierzonego terenu o powierzchni 411 m
-> przekształciło się w teren o powierzchni 47,8 km). Kopia celowo nie zawiera `-all:all`: tagi strukturalne IFD0 zakłócają
-> dane wyjściowe LATTICE, a `ExifImageWidth`/`Height` są wykluczone, ponieważ opisują źródło
-> przechwycenia, a nie wyeksportowanego rastra.
+> georeferencje. `FocalLength` to wartość, na podstawie której Pix4D oblicza odległość próbkowania terenu — bez tego
+> rekonstrukcja przyjmuje całkowicie błędną skalę (w jednym z przypadków zmierzony teren o długości 411 m
+> w teren o powierzchni 47,8 km). Kopia celowo nie jest plikiem `-all:all`: tagi strukturalne IFD0 zakłócają
+> wynik LATTICE, a pliki `ExifImageWidth`/`Height` są wykluczone, ponieważ opisują
+> proces przechwytywania źródłowego, a nie eksportowaną siatkę.
 
 Podflagi etapu przechwytywania (dotyczą poziomów radiometrycznych — `radiance`, `reflectance`, `display`):
 
 | Flaga | Domyślna | Znaczenie |
 | --- | --- | --- |
-| `apply_calibration` | `True` | DSNU + pole płaskie + rozdzielenie 3x3 + skala radiometryczna NIST. |
-| `apply_white_balance` | `True` | Tablica LUT dla balansu bieli. Obsługa DLS, gdy moduł DAQ jest powiązany z kamerą. |
-| `apply_index` | `False` | Ocena wskaźnika wegetacji. |
-| `index_expression` | `None` | Formuła zastępcza.puste → automatycznie włącza wskaźnik. |
-| `annotated` | `False` | Nakładanie elementów dekoracyjnych GUI (zebra/siatka/peaking). Niedostępne dla `raw`. |
+| `apply_calibration` | `True` | DSNU + pole płaskie + demiksowanie 3x3 + skala radiometryczna NIST. |
+| `apply_white_balance` | `True` | Tablica LUT dla balansu bieli. Uwzględnia DLS, gdy do kamery podłączony jest moduł DAQ. |
+| `apply_index` | `False` | Obliczanie wskaźnika wegetacji. |
+| `index_expression` | `None` | Formuła nadpisująca. Wartość niepusta → automatycznie włącza indeks. |
+| `annotated` | `False` | Nakładanie elementów dekoracyjnych interfejsu graficznego (zebra/siatka/peaking). Niedostępne dla `raw`. |
 
 ### `ArrayHandle`
 
@@ -1232,14 +1232,14 @@ print(counts)  # frames written per serial
 ```
 
 > **Typem zwracanej wartości jest `CapturePathMap`, a nie `Dict[str, str]`.**
-> `chloros_sdk.CapturePathMap` to `Dict[str, Union[str, List[str]]]`: ścieżka jednopoziomowa
-> `processing` przypisuje każdemu numerowi seryjnemu jedną ścieżkę, podczas gdy wielopoziomowy (`"all"` lub
-> jawna lista `levels`) przypisuje mu **uporządkowaną listę** wszystkich produktów zapisanych dla tej
-> kamery. Połączony obraz na żywo, jeśli jest transmitowany, trafia pod dodatkowym
-> kluczem `"combined"`, a nie pod numerem seryjnym. Kod, który zakłada `str`, ulega awarii w przypadku
-> formy listy bez żadnej kontroli typu— adnotacja przez pewien czas po wprowadzeniu formy listy wskazywała `Dict[str, str]`,
-> dlatego istnieje ten alias. Należy normalizować
-> w przypadku, gdy wymagana jest forma płaska:
+> `chloros_sdk.CapturePathMap` to `Dict[str, Union[str, List[str]]]`: jednowarstwowy
+> `processing` przypisuje każdemu numerowi seryjnemu jedną ścieżkę, natomiast wielowarstwowy (`"all"` lub
+> jawnie określona lista `levels`) zapewnia jej **uporządkowaną listę** wszystkich produktów zapisanych dla tej
+> kamery. Aktywny, połączony obraz kompozytowy, jeśli jest transmitowany na żywo, trafia pod dodatkowy
+> klucza `"combined"`, a nie pod numerem seryjnym. Kod, który zakłada `str`, ulega awarii w
+> formie listy, mimo że żaden moduł sprawdzający typy nie zgłasza błędu — adnotacja stwierdza, że `Dict[str, str]`
+> przez pewien czas po wprowadzeniu formy listowej, dlatego alias ten istnieje. Normalizuj
+> w przypadku, gdy potrzebna jest forma płaska:
 >
 > ```python
 > paths = arr.capture(processing="all")
@@ -1249,7 +1249,7 @@ print(counts)  # frames written per serial
 
 ### Wyrównanie tablic
 
-`ArrayHandle` udostępnia pełną powierzchnię wyrównania. Profile są domyślnie przypisane tylko do sesji — aby je zapisać trwale, należy jawnie wywołać `export_alignment()`.
+`ArrayHandle` udostępnia pełną powierzchnię wyrównania. Profile są domyślnie przechowywane tylko w sesji — aby je zapisać trwale, należy jawnie wywołać `export_alignment()`.
 
 ```python
 from chloros_sdk import AlignmentSpec
@@ -1300,7 +1300,7 @@ proj.connect_all(align={
 })
 ```
 
-W przypadku braku określenia stosowana jest funkcja `project.json["config"]["auto_align_on_connect"]`.
+W przypadku braku określenia wartości domyślnej stosowana jest funkcja `project.json["config"]["auto_align_on_connect"]`.
 
 ### `SensorHandle`
 
@@ -1314,7 +1314,7 @@ spectrum = proj.sensors["Sky"].read()
 
 ## Bezpośredni sprzęt (bez backendu)
 
-Jeśli chcesz całkowicie wyeliminować zależność od backendu (CI, roboty bezinterfejsowe, rozwiązania wbudowane), należy bezpośrednio zaimportować `lattice_sdk` i `daq_sdk` — oba są ponownie eksportowane przez `chloros_sdk`. Ograniczenie dotyczące `CAMERA_AVAILABLE` / `DAQ_AVAILABLE`: `lattice_sdk` znajduje się w pakiecie PyPI (ale wymaga obecności środowiska uruchomieniowego Arena SDK), podczas gdy `daq_sdk` jest dostarczany wyłącznie wraz z instalacją na komputery stacjonarne.
+Jeśli chcesz całkowicie wyeliminować zależność od backendu (CI, roboty bezinterfejsowe, urządzenia wbudowane), zaimportuj bezpośrednio `lattice_sdk` i `daq_sdk` — oba są ponownie eksportowane przez `chloros_sdk`. Uwaga dotycząca `CAMERA_AVAILABLE` / `DAQ_AVAILABLE`: `lattice_sdk` znajduje się w pakiecie PyPI (ale wymaga obecności środowiska uruchomieniowego Arena SDK), natomiast `daq_sdk` jest dostarczany wyłącznie wraz z instalacją na komputerze stacjonarnym.
 
 ```python
 from chloros_sdk import (
@@ -1341,23 +1341,23 @@ with LatticeCamera(serial="213800234", settings=settings) as cam:
 
 ##### Ustawienia wstępne i wyzwalacz
 
-Trzy z czterech ustawień wstępnych działają w trybie **free-run**: kamera naświetla obraz w sposób ciągły, a
-`capture()` zwraca kolejną klatkę. Wyjątkiem jest `triggered` — uruchamia ono
-aparat na sygnał krawędziowy na linii 2, więc nie rejestruje niczego, dopóki taki sygnał nie nadejdzie.
+Trzy z czterech ustawień wstępnych działają w trybie **free-run**: kamera eksponuje obraz w sposób ciągły, a
+`capture()` zwraca kolejną klatkę. `triggered` stanowi wyjątek — uzbraja
+kamerę na sygnał krawędziowy na linii 2, więc nie rejestruje niczego, dopóki taki sygnał nie nadejdzie.
 
-| Ustawienie wstępne | Wyzwalacz | Zastosowanie |
+| Ustawienie wstępne | Wyzwalacz | Użyj, gdy |
 | --- | --- | --- |
 | `default` | tryb swobodny | ogólne zastosowanie |
-| `high_speed` | tryb swobodny-run | 8-bitowy, ograniczenie do 60 klatek na sekundę, krótka ekspozycja |
-| `high_quality` | free-run | 12-bitowy, bez ograniczenia klatek na sekundę — typowy wybór do zdjęć |
-| `triggered` | **uzbrojony, linia 2** | aparat jest podłączony do kabla synchronizacyjnego M8 i wyzwala go coś innego |
+| `high_speed` | tryb swobodny | 8 bitów, ograniczenie do 60 klatek na sekundę, krótka ekspozycja |
+| `high_quality` | tryb swobodny | 12-bitowy, bez ograniczenia liczby klatek na sekundę — typowy wybór do zdjęć |
+| `triggered` | **uzbrojony, linia 2** | aparat jest podłączony kablem synchronizacyjnym M8, a wyzwalany jest przez inne urządzenie |
 
 Jeśli wybierzesz `triggered` (lub samodzielnie ustawisz `trigger_mode="On"`) bez żadnego
-sygnału sterującego na linii 2, każde `capture()` zakończy się przekroczeniem limitu czasu — słusznie, ponieważ poprosiłeś
-kamerę o oczekiwanie. Komunikat SDK wyjaśnia to, gdy tak się dzieje; zobacz
+sygnału sterującego linią 2, każde `capture()` zakończy się przekroczeniem limitu czasu — słusznie, ponieważ poprosiłeś
+kamerę o oczekiwanie. Komunikat o błędzie „SDK” wyjaśnia to w takiej sytuacji; zobacz
 [SC_ERR_TIMEOUT podczas przechwytywania](#direct-hardware-backend-free).
 
-> **Uwaga — komunikaty „GVSP probe” / `SC_ERR_TIMEOUT -1011` pojawiające się podczas nawiązywania połączenia nie są błędami.**&gt; Podczas nawiązywania połączenia SDK próbuje wynegocjować**ramki jumbo** (pakiety GVSP o rozmiarze 9000 bajtów) w celu uzyskania większej przepustowości. W przypadku bezpośredniego połączenia punkt-punkt za pomocą karty sieciowej (np. adres lokalny `169.254.x.x`) sieć zazwyczaj nie obsługuje ramek typu jumbo, więc próba ta kończy się przekroczeniem limitu czasu i w dzienniku pojawiają się wpisy takie jak:
+> **Uwaga — komunikaty „GVSP probe” / `SC_ERR_TIMEOUT -1011` pojawiające się podczas nawiązywania połączenia nie są błędami.**&gt; Podczas nawiązywania połączenia SDK próbuje wynegocjować**ramki jumbo** (pakiety GVSP o wielkości 9000 bajtów) w celu uzyskania większej przepustowości. W przypadku bezpośredniego połączenia punkt-punkt za pomocą karty sieciowej (np. adres lokalny `169.254.x.x`) sieć zazwyczaj nie obsługuje ramek typu jumbo, więc próba ta kończy się przekroczeniem limitu czasu i w dzienniku pojawiają się wpisy takie jak:
 >
 > ```
 > [Network] GVSP probe: unexpected error (TimeoutError: ... SC_ERR_TIMEOUT -1011)
@@ -1365,15 +1365,15 @@ kamerę o oczekiwanie. Komunikat SDK wyjaśnia to, gdy tak się dzieje; zobacz
 > [Network] GVSP packet size: 1500 bytes (standard)
 > ```
 >
-> Jest to **przewidziane rozwiązanie awaryjne**: urządzenie SDK automatycznie powraca do standardowych pakietów o rozmiarze 1500bajtów, a kamera nadal łączy się normalnie (następujące po nim wiersze `[chunk-enable …]` są częścią normalnej sekwencji łączenia). Przechwytywanie nadal działa.
+> Jest to **przewidziane rozwiązanie awaryjne**: serwer SDK automatycznie powraca do standardowych pakietów o rozmiarze 1500 bajtów, a kamera kontynuuje nawiązywanie połączenia w normalny sposób (kolejne wiersze `[chunk-enable …]` stanowią część normalnej sekwencji łączenia). Przechwytywanie nadal działa.
 >
-> Można pominąć tę sondę, ale **nie jest to tylko narzędzie wyciszające logi — wyłącza ona ramki jumbo.** Kamera odpowiada na pingi z opcją „Don&#x27;t-Fragment” tylko do 1500 bajtów, niezależnie od tego, jak dobra jest sieć, więc sam test ping nigdy nie wykryje ramek jumbo; ta sonda jest jedyną rzeczą, która może to wykryć. Wyłącz ją, a kamera będzie na zawsze wysyłać standardowe pakiety o rozmiarze 1500 bajtów w każdej sieci:
+> Można pominąć ten test, ale **nie służy on jedynie wyciszeniu logów — wyłącza on obsługę ramek jumbo.** Kamera odpowiada na pingi z opcją „Don&#x27;t-Fragment” tylko do 1500 bajtów, niezależnie od tego, jak dobra jest Twoja sieć, więc sam test ping nigdy nie wykryje ramek typu jumbo; tylko ta sonda jest w stanie to zrobić. Wyłącz ją, a kamera będzie na zawsze wysyłać standardowe pakiety o wielkości 1500 bajtów w każdej sieci:
 >
 > ```bash
 > CHLOROS_GVSP_PROBE_FALLBACK=0   # gives up jumbo — see the warning it prints
 > ```
 >
-> Warto to zrobić tylko w sieci, o której *wiesz*, że nie obsługuje pakietów typu jumbo, gdzie pozwala to zaoszczędzić około sekundy czasu połączenia na każdą kamerę. Ponieważ jest to rzeczywista zmiana, a nie tylko kosmetyczna, SDK informuje o tym teraz podczas użycia:
+> Opłaca się to tylko w sieci, o której *wiesz*, nie obsługuje pakietów jumbo, gdzie pozwala to zaoszczędzić około sekundy czasu połączenia na każdą kamerę. Ponieważ jest to rzeczywista zmiana, a nie tylko kosmetyczna, w pliku SDK pojawia się teraz odpowiednia informacja podczas korzystania z tej opcji:
 >
 > ```
 > [Network] ⚠️ GVSP probe disabled (CHLOROS_GVSP_PROBE_FALLBACK=0) — staying at
@@ -1381,9 +1381,9 @@ kamerę o oczekiwanie. Komunikat SDK wyjaśnia to, gdy tak się dzieje; zobacz
 > up ~1.45x wire ceiling. Unset the variable to test for jumbo.
 > ```
 >
-> **Nie zmieniaj tego, chyba że masz ku temu powód.** Jeśli opcja pozostanie włączona, przy każdym połączeniu nastąpi ponowny pomiar rzeczywistej sieci: podłącz się do przełącznika obsługującego pakiety jumbo, a następne połączenie samoczynnie wykryje je, bez konieczności konfiguracji i restartu.
+> **Nie zmieniaj tego, chyba że masz ku temu powód.** Jeśli opcja pozostanie włączona, przy każdym połączeniu nastąpi ponowny pomiar rzeczywistej sieci: podłącz się do przełącznika obsługującego pakiety jumbo, a przy następnym połączeniu funkcja ta zostanie włączona automatycznie, bez konieczności konfiguracji i restartu.
 >
-> Jeśli *chcesz* uzyskać przepustowość w trybie jumbo, włącz tryb jumbo w obie strony (MTU karty sieciowej 9000 + przełącznik, który je przepuszcza), lub ustaw stały rozmiar za pomocą `CHLOROS_GVSP_PACKET_SIZE_FORCE=9000`, gdy wiesz, że łącze je obsługuje — choć lepiej jest używać opcji `CHLOROS_GVSP_PACKET_SIZE_FORCE=9000 python …` dla poszczególnych poleceń zamiast ustawiać to na stałe, ponieważ stały rozmiar pomija testy i uniemożliwia dostosowywanie się do sieci znajdującej się przed nim. **Każde** urządzenie na ścieżce musi przepuszczać pakiety typu jumbo — w tym każdy rozgałęźnik lub iniektor PoE, co jest najczęstszą przyczyną, dla której konfiguracja, która w innym przypadku obsługiwałaby pakiety typu jumbo, nie może ich przesyłać.
+> Jeśli *chcesz* uzyskać przepustowość pakietów jumbo, włącz obsługę pakietów jumbo w całym łańcuchu (MTU karty sieciowej 9000 + przełącznik, który je przepuszcza), lub ustaw to na stałe za pomocą `CHLOROS_GVSP_PACKET_SIZE_FORCE=9000`, gdy wiesz, że łącze je obsługuje — choć lepiej jest używać opcji `CHLOROS_GVSP_PACKET_SIZE_FORCE=9000 python …` dla poszczególnych poleceń zamiast ustawiać to na stałe, ponieważ ustalony rozmiar pomija test i uniemożliwia dostosowywanie się do sieci znajdującej się przed nim. **Każde** urządzenie na ścieżce musi przepuszczać pakiety jumbo — w tym każdy rozgałęźnik lub iniektor PoE, co jest najczęstszą przyczyną, dla której konfiguracja, która w innym przypadku obsługiwałaby pakiety jumbo, nie możeich nie przesyłać.
 
 > **Błąd `SC_ERR_TIMEOUT -1011` występujący podczas `capture()` / `grab*()` to inna sprawa — ten błąd jest prawdziwym błędem.**&gt; Powyższa uwaga dotyczy wyłącznie błędu `-1011` zarejestrowanego przez**sondę czasu połączenia**. Ten sam błąd zgłoszony w wyniku**przechwytywania** oznacza, że kamera połączyła się poprawnie, ale nie wysyła żadnych obrazów:
 >
@@ -1393,11 +1393,11 @@ kamerę o oczekiwanie. Komunikat SDK wyjaśnia to, gdy tak się dzieje; zobacz
 > lattice_sdk.exceptions.CaptureError: Capture failed: ... SC_ERR_TIMEOUT -1011
 > ```
 >
-> Cechą charakterystyczną jest kamera, której kanał *sterowania* działa poprawnie — wykrywanie przebiega pomyślnie, ustawienia oraz zapisy `[chunk-enable …]` kończą się sukcesem — podczas gdy *każda* klatka przekracza limit czasu.
+> Cechą charakterystyczną jest kamera, której kanał *sterowania* działa poprawnie — wykrywanie przebiega pomyślnie, zapisywanie ustawień oraz `[chunk-enable …]` kończy się sukcesem — podczas gdy *każda* klatka przekracza limit czasu.
 >
-> **Najczęstszą przyczyną jest to, że kamera jest ustawiona na wyzwalanie sprzętowe.** W przypadku kodów `trigger_mode="On"` i `trigger_source="Line2"` kamera nie wysyła żadnych sygnałów, dopóki na kablu synchronizacyjnym M8 nie pojawi się zbocze sygnału. Jeśli nie ma kabla obsługującego tę linię, każde pobranie danych trwa w nieskończoność. Kamera nie jest uszkodzona, a sieć działa prawidłowo — robi dokładnie to, co jej nakazano.
+> **Najczęstszą przyczyną jest to, że kamera jest ustawiona na wyzwalanie sprzętowe.** W przypadku błędów `trigger_mode="On"` i `trigger_source="Line2"` kamera nie wysyła żadnych sygnałów, dopóki na kablu synchronizacyjnym M8 nie pojawi się zbocze sygnału. Jeśli nie ma kabla obsługującego tę linię, każde pobranie danych trwa w nieskończoność. Kamera nie jest uszkodzona, a sieć działa prawidłowo — działa dokładnie tak, jak została zaprogramowana.
 >
-> Kod błędu `CameraSettings()` oraz `default` / `high_speed` / `high_quality` są zaprogramowane na tryb swobodny, a przechwycenie, które przekroczy limit czasu podczas stanu gotowości, wyświetla odpowiedni komunikat zamiast samego kodu `-1011`. `PRESETS["triggered"]` uzbraja linię 2 zgodnie z założeniami.
+> `CameraSettings()` oraz kody błędów `default` / `high_speed` / `high_quality`umożliwiają tryb swobodny, a przechwycenie, które przekroczyło limit czasu podczas uzbrojenia, wyświetla odpowiedni komunikat zamiast samego kodu `-1011`. `PRESETS["triggered"]` uzbraja Line2 zgodnie z założeniami.
 >
 > Aby wymusić tryb swobodnej pracy dowolnej kamery:
 >
@@ -1406,21 +1406,21 @@ kamerę o oczekiwanie. Komunikat SDK wyjaśnia to, gdy tak się dzieje; zobacz
 > settings.trigger_mode = "Off"        # free-run; don't wait for an M8 edge
 > ```
 >
-> Jeśli nadal występuje przekroczenie limitu czasu przy `trigger_mode="Off"`, oznacza to, że kamera faktycznie nie przesyła danych — prześlij nam log oraz `ip link show`.
+> Jeśli nadal występuje przekroczenie limitu czasu przy `trigger_mode="Off"`, oznacza to, że kamera faktycznie nie przesyła danych — prześlij nam dziennik i `ip link show`.
 
-#### Profile kolorów (podgląd na żywo z RGB) — `set_color_profile`
+#### Profile kolorów (podgląd na żywo w RGB) — `set_color_profile`
 
-`LatticeCamera.set_color_profile(profile, custom_cct_k=None)` wybiera profil kolorów wyświetlacza dla **podgląd na żywo** w kamerach RGB (kamery wielospektralne ignorują to ustawienie):
+`LatticeCamera.set_color_profile(profile, custom_cct_k=None)` wybiera profil kolorów wyświetlacza dla **podglądu na żywo** w kamerach typu „RGB” (kamery typu „multispec” ignorują to ustawienie):
 
 | Profil | Znaczenie |
 | --- | --- |
 | `raw` | Całkowite pominięcie łańcucha radiometrycznego. |
 | `linear` | DSNU + flat + WB, bez CCM, bez gamma. |
-| `natural` | Liniowy + zmierzony CCM + gamma sRGB, wyłącznie z podstawową obróbką końcową (wygładzanie chrominancji + desaturacja świateł) — realistyczne ustawienie domyślne. |
-| `enhanced` | `natural` wraz z pełną obróbką końcową typu hub-parity (usuwanie fringów, intensywność, lokalny kontrast CLAHE). Bogatszy wygląd przy mniej więcej **dwukrotnie wyższym koszcie obróbki na klatkę**, a więc niższej częstotliwości odświeżania na żywo. |
-| `custom_temp` | `natural`, ale balans bieli przypisany do `custom_cct_k` w kelwinach (DLS ignorowane; ograniczone do zakresu 2000–10000 K po stronie). |
+| `natural` | Liniowy + zmierzony CCM + gamma sRGB, tylko z tanim wykończeniem (wygładzanie chrominancji + desaturacja świateł) — realistyczne ustawienie domyślne. |
+| `enhanced` | `natural` plus pełne wykończenie typu hub-parity (usuwanie fringów, intensywność, lokalny kontrast CLAHE). Bogatszy wygląd przy kosztach wykończenia na klatkę wynoszących około **dwukrotnym kosztem przetwarzania na klatkę**, co skutkuje niższą liczbą klatek na sekundę na żywo. |
+| `custom_temp` | `natural`, ale balans bieli ustalony na `custom_cct_k` w kelwinach (DLS ignorowane; ograniczone do zakresu 2000–10000 K po stronie serwera). |
 
-Profil ten służy wyłącznie do regulacji szybkości i wyglądu **podczas podglądu na żywo**: zapisane ujęcia zawsze uzyskują pełne, bogate wykończenie niezależnie od wybranego profilu, więc wybór `natural` w celu odzyskania czasu klatki nie obniża jakości tego, co trafia na dysk. Nieznany profil podnosi wartość `ValueError`; gdy backend chloros jest dostępny, zmiana jest również wysyłana do niego w trybie POST, więc następna klatka podglądu to odzwierciedla (użytkownicy bezpośredniego SDK bez modułu zaplecza nadal otrzymują zmiany ustawień).
+Profil ten jest **regulator prędkości/wyglądu przeznaczony wyłącznie do podglądu na żywo**: zapisane zrzuty zawsze uzyskują pełną, bogatą jakość końcową niezależnie od wybranego profilu, więc wybór `natural` w celu odzyskania czasu klatki nie obniża jakości tego, co trafia na dysk. Nieznany profil podnosi `ValueError`; gdy backend chloros jest dostępny, zmiana jest również wysyłana do niego metodą POST, dzięki czemu następna klatka podglądu to odzwierciedla (użytkownicy direct-SDK bez backendu nadal otrzymują zmiany ustawień).
 
 ```python
 with LatticeCamera(serial="214701292") as cam:   # RGB cam
@@ -1430,7 +1430,7 @@ with LatticeCamera(serial="214701292") as cam:   # RGB cam
 
 #### Kamery monochromatyczne (M3M) i `Calibration`
 
-Kamera monochromatyczna **M3M** (`M3M-<lens>-F<wavelength>`) jest jednopasmowa: jedna płaszczyzna w skali szarości, bez mozaiki Bayera, bez macierzy przesłuchu spektralnego 3×3. `Calibration` rozpoznaje ją i udostępnia flagę `is_mono`. Odbicie nadal obowiązuje jako mapa radiometryczna dla poszczególnych pasm (matryca rozdzielająca to macierz tożsamościowa), ale obliczenia wielopasmowe na pojedynczej kamerze dają sensowny wynik, a nie zwracają nonsensu:
+Kamera monochromatyczna **M3M** (`M3M-<lens>-F<wavelength>`) jest jednopasmowa: jedna płaszczyzna skali szarości, brak mozaiki Bayera, brak macierzy przesłuchu spektralnego 3×3. `Calibration` rozpoznaje ją i udostępnia flagę `is_mono`. Odbicie nadal ma zastosowanie jako mapa radiometryczna dla poszczególnych pasm (demiksowanie jest macierzą tożsamościową), ale obliczenia wielopasmowe na pojedynczej kamerze dają sensowny wynik, a nie zwracają nonsensu:
 
 ```python
 from chloros_sdk import Calibration, CalibrationError
@@ -1446,7 +1446,7 @@ except CalibrationError as e:
     print(e)   # "...single-band mono (M3M) camera. Combine multiple..."
 ```
 
-Aby zbudować indeks wegetacji przy użyciu sprzętu monochromatycznego, należy połączyć kilka kamer M3M działających w różnych długościach fal w wyrównany stos wielopasmowy (zobacz [Wyrównanie macierzy](#array-alignment)) i obliczyć indeks dla całego stosu zamiast dla pojedynczej kamery.
+Aby zbudować wskaźnik wegetacji przy użyciu sprzętu monospektralnego, należy połączyć kilka kamer M3M o różnych długościach fal w wyrównany stos wielopasmowy (zobacz [Wyrównanie macierzy](#array-alignment)) i obliczyć wskaźnik dla całego stosu zamiast dla pojedynczej kamery.
 
 Tryb bezpośredni DAQ:
 
@@ -1468,9 +1468,9 @@ sensor.start_streaming()
 sensor.stop()
 ```
 
-> **Akceptowane klucze `apply_sensor_settings`**— dokładnie `integration_time_ms`, `frame_avg`, `ae_enabled`, `sunshine_diffuser_installed` (DAQ-E; wycofane na rzecz `cap_id`), `filter_model` (DAQ-M) oraz `cap_id` (wszystkie rodzaje DAQ; `None`/`""`/`"none"` = sam czujnik, bez korekcji pokrywy). Nieznane klucze są**ignorowane bez komunikatu** — np. `{"integration_time": 64}` nie wykonuje żadnej czynności (musi to być `integration_time_ms`). Zwraca `{"applied": [...], "errors": {...}}` i nigdy nie zgłasza wyjątku.
+> **Akceptowane klucze `apply_sensor_settings`**— dokładnie `integration_time_ms`, `frame_avg`, `ae_enabled`, `sunshine_diffuser_installed` (DAQ-E; wycofane na rzecz `cap_id`), `filter_model` (DAQ-M)oraz `cap_id` (wszystkie rodzaje DAQ; `None`/`""`/`"none"` = sam czujnik, bez korekcji wartości szczytowej). Nieznane klucze są**cicho ignorowane** — np. `{"integration_time": 64}` nie wykonuje żadnej operacji (musi to być `integration_time_ms`). Zwraca `{"applied": [...], "errors": {...}}` i nigdy nie generuje wyjątku.
 
-`chloros_sdk` ponownie eksportuje tylko powierzchnię rdzenia używaną powyżej. Pełna wersja `daq_sdk` publiczna API (22 nazwy) dodaje następujące elementy — należy je zaimportować bezpośrednio z `daq_sdk`:
+`chloros_sdk` ponownie eksportuje tylko podstawowy zestaw używany powyżej. Pełny publiczny API `daq_sdk` (22 nazwy) dodaje następujące elementy — należy je zaimportować bezpośrednio z `daq_sdk`:
 
 ```python
 from daq_sdk import (
@@ -1488,7 +1488,7 @@ from daq_sdk import (
 
 ## Wyjątki
 
-Przechwytuj klasę bazową, aby obsłużyć „wszelkie błędy Chloros”:
+Przechwyć klasę bazową, aby obsłużyć „wszelkie nieprawidłowości w Chloros”:
 
 ```python
 import chloros_sdk
@@ -1613,7 +1613,7 @@ with chloros_sdk.open_project("/home/user/Chloros Projects/Field_A") as proj:
     proj.process()
 ```
 
-### 4. Strumień klatek z wielu kamer → potok NumPy
+### 4. Strumień klatek z wielu kamer → Potok NumPy
 
 ```python
 import chloros_sdk
@@ -1688,9 +1688,9 @@ else:
     raise RuntimeError(f"Probe error: {probe.get('error')}")
 ```
 
-### 7. Odpowiednik receptury przechwytywania (czysto Python)
+### 7. Odpowiednik receptury przechwytywania (czysta wersja „Python”)
 
-Język DSL receptury CLI ma bezpośredni odpowiednik w Python:
+Język DSL receptur w projekcie „CLI” ma bezpośredni odpowiednik w postaci „Python”:
 
 ```python
 import time, chloros_sdk
@@ -1724,13 +1724,13 @@ with chloros_sdk.open_project("/path/to/proj") as proj:
 
 ## Automatyczne uruchamianie backendu
 
-Punkty wejścia funkcji smart-connect — `connect_camera`, `connect_array`, `connect_daq_sensor` oraz `discover_lattice_cameras` — są lekkimi klientami typu HTTP, które zakładają, że backend nasłuchuje na adresie `127.0.0.1:5000` (domyślny adres URL interfejsu Smart-Connect). Gdy GUI lub CLI już działa, jeden z nich jest uruchomiony. W przypadku samego skryptu może go nie być — więc funkcje te **automatycznie uruchamiają dołączony plik binarny serwera** (bezokienkowy, tak samo jak robi to `ChlorosLocal`), a następnie czekają do `backend_startup_timeout` na jego uruchomienie.
+Punkty wejścia smart-connect — `connect_camera`, `connect_array`, `connect_daq_sensor` oraz `discover_lattice_cameras` — to lekkie klienty typu „HTTP”, które zakładają, że backend nasłuchuje na porcie `127.0.0.1:5000` (domyślny URL-connect — domyślny ). Gdy GUI lub CLI już działają, jeden z nich jest uruchomiony. W przypadku prostego skryptu może go nie być — dlatego funkcje te **automatycznie uruchamiają dołączony plik binarny backendu** (w trybie bezokiennym, tak samo jak robi to `ChlorosLocal`) przed pierwszym wywołaniem, a następnie czekają do `backend_startup_timeout`, aż ten się uruchomi.
 
 Zasady:
 
-- **Uruchamiany jest wyłącznie lokalny proces URL.** `backend_url` wskazujący na `localhost` / `127.0.0.1` / `[::1]` jest dopuszczalny; każdy inny host jest traktowany jako maszyna należąca do kogoś innego i nigdy nie jest uruchamiany.
-- **Backend pozostaje uruchomiony w celu ponownego wykorzystania** (tak samo jak w przypadku CLI) — po zakończeniu działania skryptu nie następuje domyślne wyłączenie. Ponowne uruchomienie skryptu powoduje ponowne wykorzystanie aktywnego backendu.
-- **Można zrezygnować z tej opcji za pomocą `auto_start_backend=False`** w dowolnym z tych wywołań (np. gdy wskazano zdalny backend lub gdy samemu zarządza się cyklem życia backendu).
+- **Uruchamiany jest wyłącznie lokalny plik URL.** Plik `backend_url` wskazujący na `localhost` / `127.0.0.1` / `[::1]` jest dopuszczalny; każdy inny host jest traktowany jako maszyna należąca do kogoś innego i nigdy nie jest uruchamiany.
+- **Backend pozostaje uruchomiony w celu ponownego wykorzystania** (tak samo jak w przypadku CLI) — nie następuje automatyczne wyłączenie po zakończeniu działania skryptu. Ponowne uruchomienie skryptu powoduje ponowne wykorzystanie aktywnego backendu.
+- **Można zrezygnować z tej opcji, używając `auto_start_backend=False`** w dowolnym z tych wywołań (np. gdy wskazano zdalny backend lub gdy samodzielnie zarządzasz cyklem życia backendu).
 
 ```python
 import chloros_sdk
@@ -1745,15 +1745,15 @@ arr = chloros_sdk.connect_array(serials,
                                 auto_start_backend=False)
 ```
 
-Jeśli nie można zlokalizować lub uruchomić dołączonego pliku binarnego, kolejne wywołanie HTTP generuje obsługiwany błąd `ChlorosConnectError`, **zależny od platformy**, zamiast zwykłego komunikatu o odmowie połączenia — w systemie Windows kieruje użytkownika do aplikacji desktopowej lub polecenia `chloros-cli`; w przypadku Linux (bez GUI) wskazuje na polecenie `chloros-cli` lub `.deb`.
+Jeśli nie można zlokalizować lub uruchomić dołączonego pliku binarnego, kolejne wywołanie HTTP generuje `ChlorosConnectError`, który można rozwiązać i który **uwzględnia platformę**, zamiast zwykłego śladu odmowy połączenia — w systemie Windows kieruje użytkownika do aplikacji desktopowej lub polecenia `chloros-cli`; w przypadku Linux (bez GUI) wskazuje na polecenie `chloros-cli` lub `.deb`.
 
 ---
 
 ## Środowisko i nagłówki
 
-SDK oznacza każde wywołanie zaplecza HTTP za pomocą `X-Chloros-Client: sdk`. Zaplecze stosuje zasady licencjonowania SDK/CLI (wymagane jest zalogowanie się **oraz** płatny plan Chloros+), a nie ścieżkę bezpłatnego poziomu w interfejsie graficznym. Jest to ustawiane automatycznie w momencie importu — nie musisz nic robić.
+SDK oznacza każde wywołanie zaplecza HTTP za pomocą `X-Chloros-Client: sdk`. Zaplecze stosuje zasady licencjonowania SDK / CLI (wymagane jest zalogowanie się **oraz** płatny plan Chloros+), a nie ścieżkę bezpłatnego poziomu w interfejsie graficznym. Jest to ustawiane automatycznie w momencie importu — nie musisz nic robić.
 
-`http://localhost` i `http://127.0.0.1` są wykrywane jako lokalny backend. Wywołania do innych hostów (np. do własnej usługi analitycznej) pozostają bez zmian.
+`http://localhost` i `http://127.0.0.1` są wykrywane jako lokalny backend. Wywołania do innych hostów (np. do własnej usługi analitycznej) pozostają niezmienione.
 
 Aby zastąpić backend URL, należy przekazać `backend_url=` (lub `api_url=` na `ChlorosLocal`):
 
@@ -1765,33 +1765,33 @@ chloros_sdk.connect_daq_sensor(eth_host="daq-e-1.local",
 chloros_sdk.ChlorosLocal(backend_url="http://127.0.0.1:5000")
 ```
 
-(`backend_url` bez pętli zwrotnej dociera wyłącznie do zaplecza źródłowego/urządzeniowego — dostarczone zaplecza wiążą się wyłącznie z pętlą zwrotną; wzorzec tunelu opisano w sekcji Tryb zdalnego zaplecza.)
+(`backend_url` bez pętli zwrotnej dociera wyłącznie do backendu typu source/dev — dostarczone backendy wiążą się wyłącznie z pętlą zwrotną; wzorzec tunelu opisano w sekcji Tryb zdalnego backendu.)
 
 ---
 
-## Wersjonowanie i kompatybilność
+## Numeracja wersji i kompatybilność
 
 - Wersja SDK jest udostępniana jako `chloros_sdk.__version__`.
-- SDK dostosowuje zachowanie do wersji dołączonego backendu. Łączenie starszego SDK z nowszym backendem zazwyczaj działa (punkty końcowe są kompatybilne z nowszymi wersjami), ale połączenie nowszego SDK ze starszym backendem może powodować błędy `404` w nowych punktach końcowych — należy zaktualizować aplikację komputerową, aby zapewnić zgodność.
-- Interfejs Smart Connect (`connect_camera` / `connect_array` / `connect_daq_sensor`) oraz punkt końcowy analizy sieciowejanalizy sieciowej zwracają stabilne schematy JSON; nowe pola są dodatkowe.
+- SDK dostosowuje zachowanie do wersji dołączonego backendu. Łączenie starszego SDK z nowszym backendem zazwyczaj działa (punkty końcowe zgodne z nowszymi wersjami), ale połączenie nowszego SDK ze starszym backendem może powodować błędy `404` w nowych punktach końcowych — należy zaktualizować aplikację desktopową, aby zapewnić zgodność.
+- Interfejs smart-connect (`connect_camera` / `connect_array` / `connect_daq_sensor`) oraz punkt końcowy analizy sieci zwracają stabilne schematy JSON; nowe pola są dodawane.
 
 ---
 
 ## Wskazówki dotyczące rozwiązywania problemów
 
-- **`ChlorosAuthenticationError: Login required`** → Uruchom `chloros-cli login EMAIL PASSWORD` raz na tym komputerze lub zaloguj się za pomocą aplikacji komputerowej Chloros.
-- **`ChlorosConnectError: No Chloros backend is running …`** → Funkcja Smart-Connect automatycznie uruchamia lokalny backend, więc ten komunikat pojawia się tylko wtedy, gdy nie można znaleźć lub uruchomić dołączonego pliku binarnego (np. na hoście obsługującym wyłącznie pip, bez pakietu desktopowego). Komunikat uwzględnia platformę: w systemie Windows otwórz aplikację desktopową lub uruchom dowolne polecenie `chloros-cli`; w systemie Linux uruchom polecenie `chloros-cli` (nie ma interfejsu graficznego) lub zainstaluj `.deb`. W przypadku zdalnego backendu przekaż `backend_url=` (oraz `auto_start_backend=False`).
-- **`CAMERA_AVAILABLE == False`** podczas importu → `lattice_sdk` nie udało się załadować (zazwyczaj nie są zainstalowane biblioteki DLL środowiska uruchomieniowego Arena SDK). Powierzchnia nieobjęta kamerą nadal działa.
-- **Funkcja Array connect zwraca rozdzielczość niższą od natywnej**→ Funkcja smart-prep backendu automatycznie zmniejsza rozmiar klatki, aby dopasować ją do przepustowości łącza. Użyj `analyze_array_network()`, aby sprawdzić przyczynę, a następnie zaktualizuj łącze, zaakceptuj zmniejszenie rozmiaru lub przekaż `force_tier="slip-emit-and-capture"` w celu sekwencyjnego przechwytywania. Zmniejszenie rozmiaru**nie** obejmuje zagregowanego nadmiernego przydziału (`oversubscribed: true`, pola fps 0): zbyt dużej liczby kamer dla łącza nie da się naprawić za pomocą binningu/ROI — zmniejsz liczbę kamer, włącz ramki jumbo lub przejdź na szybszą kartę sieciową (zobacz [Nadmierna subskrypcja](#over-subscription-the-per-cam-floor)).
-- **`analyze_array_network()` zgłasza, że pierścień odbiorczy karty sieciowej jest zbyt mały (~0,26 MB) / bramki połączeń wyświetlają komunikat „FRAMES WILL DROP”** → Pierścień odbiorczy karty sieciowej hosta ma wartość domyślną (często resetowaną do 32 po aktualizacji sterownika karty). W przypadku karty Realtek USB 10GbE należy ustawić `ReceiveBufferLen=256` i `PendingReceives=64` (z podwyższonymi wartościami), a następnie zrestartować backend, aby ponownie odczytał pierścień. Pełna procedura: [Odnośnik CLI → Konfiguracja i dostrajanie karty sieciowej hosta](cli-reference.md#host-nic-setup--tuning-lattice-arrays).
-- **Host zawiesza się podczas ponownego uruchamiania/wyłączania, później pojawiają się błędy WMI `Invalid class` / karta sieciowa nie włącza się** → Przestarzały sterownik USB 10GbE powodujący błąd `DRIVER_POWER_STATE_FAILURE` (niebieski ekran śmierci (BSOD) `0x9F`). Zaktualizuj sterownik karty sieciowej do najnowszej wersji (≥ 2026) i ponownie zastosuj ustawienia pierścienia odbiorczego. Zobacz [CLI – Informacje → Konfiguracja i dostrajanie karty sieciowej hosta](cli-reference.md#host-nic-setup--tuning-lattice-arrays).
-- **Odmowa pomiaru odbicia** → Aby uzyskać odbicie w skali bezwzględnej, do kamery (lub matrycy) musi być przypisany aktywny moduł DAQ. Przypisz go za pomocą interfejsu graficznego lub użyj `processing="radiance"` (W/m²/sr/nm), który nie wymaga sparowanego czujnika.
-- **Rejestracja `smart=True` trwa dłużej niż oczekiwano** → Zbieżność AE zależy od dynamiki sceny; należy zwiększyć wartość `exposure_tolerance_pct` lub skrócić `stability_window_s`, jeśli chcesz uzyskać szybszy (mniej stabilny) wyzwalacz.
+- **`ChlorosAuthenticationError: Login required`** → Uruchom raz polecenie `chloros-cli login EMAIL PASSWORD` na tym komputerze lub zaloguj się za pomocą aplikacji komputerowej Chloros.
+- **`ChlorosConnectError: No Chloros backend is running …`** → Wywołania Smart-Connect powodują automatyczne uruchomienie lokalnego backendu, więc komunikat ten pojawia się tylko wtedy, gdy nie można znaleźć/uruchomić dołączonego pliku binarnego (np. na hoście obsługującym wyłącznie pip, bez pakietu desktopowego). Komunikat jest dostosowany do platformy: na Windows należy otworzyć aplikację desktopową lub uruchomić dowolne polecenie `chloros-cli`; na Linux należy uruchomić polecenie `chloros-cli` (nie ma interfejsu graficznego) lub zainstaluj `.deb`. W przypadku zdalnego backendu przekaż `backend_url=` (oraz `auto_start_backend=False`).
+- **`CAMERA_AVAILABLE == False`** w importu → nie udało się załadować `lattice_sdk` (zazwyczaj nie są zainstalowane biblioteki DLL środowiska uruchomieniowego Arena SDK). Powierzchnia poza kamerą nadal działa.
+- **Funkcja Array connect zwraca rozdzielczość niższą od natywnej**→ Funkcja smart-prep backendu automatycznie-zmniejsza rozmiar klatki, aby dopasować ją do łącza. Użyj `analyze_array_network()`, aby sprawdzić przyczynę, a następnie zaktualizuj łącze, zaakceptuj zmniejszenie rozmiaru lub przekaż `force_tier="slip-emit-and-capture"` w celu sekwencyjnego przechwytywania. Ta zabezpieczająca redukcja**nie** obejmuje łącznego nadmiernego obciążenia (`oversubscribed: true`, pola fps 0): zbyt dużej liczby kamer dla łącza nie da się rozwiązać za pomocą binningu/ROI — zmniejsz liczbę kamer, włącz ramki jumbo lub przejdź na szybszą kartę sieciową (zobacz [Nadmierna subskrypcja](#over-subscription-the-per-cam-floor)).
+- **`analyze_array_network()` zgłasza, że pierścień odbiorczy karty sieciowej jest bardzo mały (~0,26 MB) / bramki połączeń wyświetlają komunikat „FRAMES WILL DROP”** → Pierścień odbiorczy karty sieciowej hosta ma wartość domyślną (często resetowany do 32 po aktualizacji sterownika karty sieciowej). W przypadku karty Realtek USB 10GbE należy ustawić `ReceiveBufferLen=256` i `PendingReceives=64` (podwyższone), a następnie ponownie uruchomić backend, aby ponownie odczytał pierścień. Pełna procedura: [CLI Źródło → Konfiguracja i dostrajanie karty sieciowej hosta](cli-reference.md#host-nic-setup--tuning-lattice-arrays).
+- **Host zawiesza się podczas restartu/wyłączania, a później pojawiają się błędy WMI `Invalid class` / karta sieciowa nie włącza się** → Przestarzały sterownik USB 10GbE powodujący błąd `DRIVER_POWER_STATE_FAILURE` (niebieski ekran śmierci (BSOD) `0x9F`). Zaktualizuj sterownik karty sieciowej do najnowszej wersji (≥ 2026) i ponownie zastosuj ustawienia pierścienia odbiorczego. Zobacz [CLI Reference → Host NIC Setup &amp; Tuning](cli-reference.md#host-nic-setup--tuning-lattice-arrays).
+- **Odmowa odbicia** → Do kamery (lub matrycy) musi być przypisany aktywny moduł DAQ w celu uzyskania bezwzględnejskali bezwzględnej. Powiązanie można wykonać za pomocą interfejsu graficznego lub użyć `processing="radiance"` (W/m²/sr/nm), który nie wymaga sparowanego czujnika.
+- **Rejestracja `smart=True` trwa dłużej niż oczekiwano** → Zbieżność AE zależy od ; zwiększ wartość `exposure_tolerance_pct` lub skróć `stability_window_s`, jeśli chcesz uzyskać szybszy (mniej stabilny) wyzwalacz.
 
 ---
 
 ## Zobacz też
 
 - [Podręcznik CLI](cli-reference.md) — każda podkomenda CLI odpowiada wywołaniu SDK.
-- [Przewodnik po czujnikach DAQ](../daq/README.md) — zasady okablowania, kalibracji i rejestracji danych dla poszczególnych czujników.
+- [Przewodnik po czujnikach DAQ](../daq/README.md) — zasady okablowania, kalibracji i rejestrowania danych dla poszczególnych czujników.
 - Dokumentacja online: `https://mapir.gitbook.io/chloros/api-python-sdk`</id></sn>
