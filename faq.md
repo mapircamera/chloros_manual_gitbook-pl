@@ -27,15 +27,9 @@ Tak. Chloros 1.3.0 obsługuje moduły kamer LATTICE M3C i M3M w pełnym zakresie
 
 <summary>Czy mogę skalibrować moje obrazy pod kątem odbicia bez użycia tarczy kalibracyjnej?</summary>
 
-**Survey3
+**Survey3:** Nie. Bez zdjęcia tarczy kalibracyjnej zarejestrowanego w tym samym czasie, co zdjęcia bez tarczy, nie będzie można powiązać wartości pikseli obrazu ze znaną wartością procentową odbicia. Jeśli nie dołączysz również zapisu z czujnika światła MAPIR, spektrum światła otoczenia nie zostanie zmierzone, a wyniki odbicia nie będą dokładne.
 
-:** Nie. Bez zdjęcia tarczy kalibracyjnej zarejestrowanego w tym samym czasie, co zdjęcia bez tarczy, nie będzie można powiązać wartości pikseli obrazu ze znaną wartością procentową odbicia. Jeśli nie dołączysz również zapisu z czujnika światła MAPIR
-
-, spektrum światła otoczenia nie zostanie zmierzone, a wyniki odbicia nie będą dokładne.
-
-**LATTICE:** Tak. Odbicie można odnieść do natężenia promieniowania padającego mierzonego przez czujnik światła DAQ zamiast panelu (ρ = π·L/E). Gdy w kadrze *znajduje się* cel, który przeszedł kontrolę jakości (QA), domyślnie staje się on punktem odniesienia absolutnego (`--reflectance-source auto`), chyba że przeszedł z flagą, w którym to przypadku cel i łańcuchy DAQ rywalizują o wynik pomiaru. Jedyny wyjątek: „Odbicie F988 jest kalibrowane przy użyciu panelu odbicia znajdującego się w kadrze: pasmo wykracza poza skalibrowany zakres czujnika światła DAQ, więc Chloros
-
-stosuje najnowszy zapis z panelu i utrzymuje go między kolejnymi pomiarami panelu”. Zobacz [Cele kalibracyjne](calibration-targets.md).
+**LATTICE:** Tak. Odbicie można odnieść do natężenia promieniowania padającego mierzonego przez czujnik światła DAQ zamiast panelu (ρ = π·L/E). Gdy w kadrze *znajduje się* cel, który przeszedł kontrolę jakości (QA), domyślnie staje się on punktem odniesienia absolutnego (`--reflectance-source auto`), chyba że przeszedł z flagą, w którym to przypadku cel i łańcuchy DAQ rywalizują o wynik pomiaru. Jedyny wyjątek: „Odbicie F988 jest kalibrowane przy użyciu panelu odbicia znajdującego się w kadrze: pasmo wykracza poza skalibrowany zakres czujnika światła DAQ, więc Chloros stosuje najnowszy zapis z panelu i utrzymuje go między kolejnymi pomiarami panelu”. Zobacz [Cele kalibracyjne](calibration-targets.md).
 
 </details>
 
@@ -43,9 +37,7 @@ stosuje najnowszy zapis z panelu i utrzymuje go między kolejnymi pomiarami pane
 
 <summary>Czy potrzebuję czujnika światła DAQ?</summary>
 
-Nie w przypadku promieniowania: eksportowane dane promieniowania w formacie LATTICE pochodzą z fabrycznej kalibracji radiometrycznej każdej kamery i nie wymagają ani czujnika DAQ, ani celu. W przypadku **odbicia**potrzebny jest punkt odniesienia dla światła otoczenia — albo pomiar promieniowania padającego wykonany przez czujnik światła DAQ, albo cel kalibracyjny znajdujący się w kadrze. Czujnik DAQ pozwala uzyskać skalibrowane wartości odbicia**bez umieszczania jakichkolwiek paneli w kadrze**. Zarejestrowane pliki `.daq` są automatycznie dopasowywane do obrazów na podstawie znacznika czasu. Zobacz [Cele kalibracyjne](calibration-targets.md) oraz [Podręcznik CLI
-
-](reference/cli-reference.md).
+Nie w przypadku promieniowania: eksportowane dane promieniowania w formacie LATTICE pochodzą z fabrycznej kalibracji radiometrycznej każdej kamery i nie wymagają ani czujnika DAQ, ani celu. W przypadku **odbicia**potrzebny jest punkt odniesienia dla światła otoczenia — albo pomiar promieniowania padającego wykonany przez czujnik światła DAQ, albo cel kalibracyjny znajdujący się w kadrze. Czujnik DAQ pozwala uzyskać skalibrowane wartości odbicia**bez umieszczania jakichkolwiek paneli w kadrze**. Zarejestrowane pliki `.daq` są automatycznie dopasowywane do obrazów na podstawie znacznika czasu. Zobacz [Cele kalibracyjne](calibration-targets.md) oraz [Podręcznik CLI](reference/cli-reference.md).
 
 </details>
 
@@ -143,9 +135,7 @@ W tabeli przeglądarki plików wstępne zaznaczenie obrazów docelowych w prawej
 
 <summary>Jeśli zamierzam przesłać moje zdjęcia do <a href="https://www.mapir.camera/collections/software/products/mapir-cloud-subscription">MAPIR Cloud,</a> czy powinienem przetworzyć je w Chlorosie przed przesłaniem?</summary>
 
-Jeśli planujesz przesłać zdjęcia na naszą platformę przetwarzania online [MAPIR
-
-Cloud](https://www.mapir.camera/collections/software/products/mapir-cloud-subscription), nie edytuj ich przed przesłaniem. Chmura wykona wszystkie te same operacje przetwarzania i wiele więcej.
+Jeśli planujesz przesłać zdjęcia na naszą platformę przetwarzania online [MAPIR Cloud](https://www.mapir.camera/collections/software/products/mapir-cloud-subscription), nie edytuj ich przed przesłaniem. Chmura wykona wszystkie te same operacje przetwarzania i wiele więcej.
 
 </details>
 
@@ -185,9 +175,7 @@ Tak! Chloros zawiera funkcję [Dynamic Compute Adaptation](processing-architectu
 
 <summary>Czym jest 4-wątkowy potok przetwarzania?</summary>
 
-Chloros
-wykorzystuje architekturę potokową z 4 wątkami dla użytkowników Chloros
-+: Wątek 1 (Wykrywanie) ładuje obrazy i wykrywa cele kalibracji, Wątek 2 (Kalibracja) oblicza kalibrację współczynnika odbicia, Wątek 3 (Przetwarzanie) wykonuje przyspieszane przez procesor graficzny usuwanie efektu bayera oraz obliczanie indeksu, a Wątek 4 (Eksport) zapisuje pliki wyjściowe. W celu uzyskania maksymalnej przepustowości wiele obrazów może znajdować się jednocześnie w różnych wątkach. Szczegółowe informacje można znaleźć w sekcji [Potok przetwarzania](processing-architecture/processing-pipeline.md).
+Chloros wykorzystuje architekturę potokową z 4 wątkami dla użytkowników Chloros+: Wątek 1 (Wykrywanie) ładuje obrazy i wykrywa cele kalibracji, Wątek 2 (Kalibracja) oblicza kalibrację współczynnika odbicia, Wątek 3 (Przetwarzanie) wykonuje przyspieszane przez procesor graficzny usuwanie efektu bayera oraz obliczanie indeksu, a Wątek 4 (Eksport) zapisuje pliki wyjściowe. W celu uzyskania maksymalnej przepustowości wiele obrazów może znajdować się jednocześnie w różnych wątkach. Szczegółowe informacje można znaleźć w sekcji [Potok przetwarzania](processing-architecture/processing-pipeline.md).
 
 </details>
 

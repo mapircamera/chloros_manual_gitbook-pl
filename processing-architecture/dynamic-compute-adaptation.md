@@ -1,17 +1,14 @@
 # Dynamiczne dostosowanie mocy obliczeniowej W wersji 1.3.0 programu
 
-Chloros
-wykorzystywane jest wykrywanie sprzętu oraz automatyczny wybór strategii przetwarzania. Silnik przetwarzania dostosowuje się do posiadanego sprzętu — od Jetson Orin Nano po stację roboczą z wieloma procesorami graficznymi — bez konieczności ręcznej konfiguracji.
+Chloros wykorzystywane jest wykrywanie sprzętu oraz automatyczny wybór strategii przetwarzania. Silnik przetwarzania dostosowuje się do posiadanego sprzętu — od Jetson Orin Nano po stację roboczą z wieloma procesorami graficznymi — bez konieczności ręcznej konfiguracji.
 
 ***
 
 ## Jak to działa
 
-Po uruchomieniu Chloros
-przeprowadza profilowanie systemu:
+Po uruchomieniu Chloros przeprowadza profilowanie systemu:
 
-1. **Wykrywa system operacyjny** — Windows
-lub Linux
+1. **Wykrywa system operacyjny** — Windows lub Linux
 2. **Identyfikuje rdzenie procesora i całkowitą pamięć RAM**
 
 3.**Wykrywa obecność procesora graficznego** — obsługa NVIDIA CUDA, pamięć VRAM, model
@@ -24,19 +21,16 @@ Wykryty profil jest buforowany na czas sesji w pamięci i na dysku, dzięki czem
 
 | Platforma | Profil w pamięci podręcznej |
 | --- | --- |
-| **Linux
-/ Jetson** | `~/.config/chloros/system_config.json` (uwzględnia `XDG_CONFIG_HOME`) |
+| **Linux / Jetson** | `~/.config/chloros/system_config.json` (uwzględnia `XDG_CONFIG_HOME`) |
 | **Windows** | `%LOCALAPPDATA%\Chloros\config\system_config.json` |
 
-Usuń ten plik, aby wymusić ponowne wykrycie — przydatne po dodaniu procesora graficznego (GPU) lub większej ilości pamięci RAM. Chloros
-automatycznie przeprowadza ponowne wykrywanie również wtedy, gdy pamięć podręczna została zapisana przez niekompatybilną starszą wersję.
+Usuń ten plik, aby wymusić ponowne wykrycie — przydatne po dodaniu procesora graficznego (GPU) lub większej ilości pamięci RAM. Chloros automatycznie przeprowadza ponowne wykrywanie również wtedy, gdy pamięć podręczna została zapisana przez niekompatybilną starszą wersję.
 
 ***
 
 ## Strategie obliczeniowe
 
-Chloros
-wybiera jedną z trzech strategii obliczeniowych w oparciu o posiadaną konfigurację sprzętową:
+Chloros wybiera jedną z trzech strategii obliczeniowych w oparciu o posiadaną konfigurację sprzętową:
 
 | Strategia | Wybierana, gdy | Pracownicy | Wykonawca | Potok |
 | --- | --- | --- | --- | --- |
@@ -50,11 +44,7 @@ Przykłady zastosowania wzoru na liczbę procesorów roboczych `GPU_PARALLEL`: 1
 **Strategie związane z GPU wymagają środowiska PyTorch obsługującego CUDA.** Urządzenie, na którym PyTorch nie ma dostępnego urządzenia CUDA, otrzymuje wartość `CPU_PARALLEL`, niezależnie od posiadanego procesora graficznego. Pakiet Jetson 1.3.0 wykorzystuje wersję PyTorch dla CUDA z JetPack 6, więc urządzenie Jetson kwalifikuje się po zainstalowaniu bibliotek CUDA i cuDNN z JetPack. Urządzenie Jetson z mniej niż 12 GB pamięci RAM zawsze przetwarza jeden obraz na raz, w ramach tego samego procesu (rejestrowane jako `GPU_SINGLE`).
 {% endhint %}
 
-Strategie oparte na GPU uruchamiają pulę procesów roboczych, z których każdy jest oddzielnym procesem systemu operacyjnego z własnym kontekstem CUDA; Chloros
-uruchamia je poprzez ponowne uruchomienie własnego zainstalowanego programu zaplecza (a nie poprzez `multiprocessing` w języku Python
-, którego uruchamianie procesów roboczych nie działa wewnątrz aplikacji zawartej w pakiecie). Strategia oparta na procesorze CPU wykorzystuje pulę wątków (funkcja `ThreadPoolExecutor` w języku Python
-). Chloros
-nie korzysta z żadnych zewnętrznych frameworków rozproszonych (takich jak Ray).
+Strategie oparte na GPU uruchamiają pulę procesów roboczych, z których każdy jest oddzielnym procesem systemu operacyjnego z własnym kontekstem CUDA; Chloros uruchamia je poprzez ponowne uruchomienie własnego zainstalowanego programu zaplecza (a nie poprzez `multiprocessing` w języku Python, którego uruchamianie procesów roboczych nie działa wewnątrz aplikacji zawartej w pakiecie). Strategia oparta na procesorze CPU wykorzystuje pulę wątków (funkcja `ThreadPoolExecutor` w języku Python). Chloros nie korzysta z żadnych zewnętrznych frameworków rozproszonych (takich jak Ray).
 
 ### Typy potoków
 
@@ -75,8 +65,7 @@ Ustaw zmienną środowiskową `CHLOROS_STRATEGY`, aby wymusić konkretną strate
 CHLOROS_STRATEGY=CPU_PARALLEL chloros-cli process ~/datasets/flight001
 ```
 
-Zmienna jest dopasowywana bez uwzględniania wielkości liter; wszystko, co nie jest jedną z trzech nazw, jest ignorowane, a automatyczne wykrywanie przebiega normalnie. W przypadku nadpisania Chloros
-nadal wybiera za Ciebie liczbę procesów roboczych:
+Zmienna jest dopasowywana bez uwzględniania wielkości liter; wszystko, co nie jest jedną z trzech nazw, jest ignorowane, a automatyczne wykrywanie przebiega normalnie. W przypadku nadpisania Chloros nadal wybiera za Ciebie liczbę procesów roboczych:
 
 | Nadpisanie | Zastosowana liczba procesów roboczych |
 | --- | --- |
@@ -124,8 +113,7 @@ Dyskretne procesory graficzne rezerwują dla systemu jedynie 0,5 GB, ponieważ n
 
 ## Dynamiczny przydział pamięci GPU
 
-Chloros
-wykorzystuje [4-wątkowy potok przetwarzania](processing-pipeline.md):
+Chloros wykorzystuje [4-wątkowy potok przetwarzania](processing-pipeline.md):
 
 * **Wątek 1** (Wykrywanie) — ładowanie obrazu, analizowanie danych EXIF, wykrywanie obiektów
 * **Wątek 2** (Kalibracja) — Obliczenia związane z kalibracją odbicia światła
@@ -152,26 +140,23 @@ Wartością faktycznie stosowaną w czasie wykonywania jest **niższa** z dwóch
 
 ## Przetwarzanie z uwzględnieniem tekstur
 
-Moduł debayera z obsługą tekstur (**tylko Chloros
-+** — `--debayer texture-aware`) uruchamia model odszumiania oparty na sztucznej inteligencji/uczeniu maszynowym, który wymaga około 1,75 GB pamięci VRAM w trybie FP16 na każdą kopię, więc zużywa znacznie więcej pamięci GPU niż metoda standardowa:
+Moduł debayera z obsługą tekstur (**tylko Chloros+** — `--debayer texture-aware`) uruchamia model odszumiania oparty na sztucznej inteligencji/uczeniu maszynowym, który wymaga około 1,75 GB pamięci VRAM w trybie FP16 na każdą kopię, więc zużywa znacznie więcej pamięci GPU niż metoda standardowa:
 
 * Systemy z **poniżej 7 GB pamięci VRAM**przetwarzają tryb z uwzględnieniem tekstur w**pętli synchronicznej, po jednym obrazie na raz** — nie zmieści się kilka kopii modelu, a pula procesów roboczych tylko zwiększyłaby opresję
 * Systemy z **pamięcią VRAM powyżej 7 GB** mogą przetwarzać algorytm Texture Aware równolegle, choć przy mniejszej liczbie procesów roboczych w porównaniu z metodą Standard
 * Na platformie **Jetson** funkcja Texture Aware jest zawsze przypisana do jednego procesora roboczego
 * W przypadku **braku dostępnego procesora graficznego z obsługą CUDA** operacja wykorzystuje standardowy algorytm debayeringu, a backend rejestruje jeden wiersz `[DEBAYER] … needs a CUDA GPU …` wyjaśniający przyczynę
-* Na urządzeniach Jetson o niskim poborze mocy (Nano, Orin Nano) interfejs CLI
-nakłada ograniczenie częstotliwości procesora graficznego po uruchomieniu trybu „Texture Aware” — zobacz [Przewodnik po NVIDIA Jetson](../linux/nvidia-jetson-guide.md#gpu-frequency-cap-for-texture-aware-on-nano-and-orin-nano)
+* Na urządzeniach Jetson o niskim poborze mocy (Nano, Orin Nano) interfejs CLI nakłada ograniczenie częstotliwości procesora graficznego po uruchomieniu trybu „Texture Aware” — zobacz [Przewodnik po NVIDIA Jetson](../linux/nvidia-jetson-guide.md#gpu-frequency-cap-for-texture-aware-on-nano-and-orin-nano)
 
 ***
 
 ## Zarządzanie temperaturą (Jetson)
 
-Urządzenia Jetson mają ograniczenia termiczne, zwłaszcza w instalacjach zamkniętych lub pokładowych. Chloros
-monitoruje wbudowane czujniki temperatury Jetsona i automatycznie skaluje rozmiary partii:
+Urządzenia Jetson mają ograniczenia termiczne, zwłaszcza w instalacjach zamkniętych lub pokładowych. Chloros monitoruje wbudowane czujniki temperatury Jetsona i automatycznie skaluje rozmiary partii:
 
 | Temperatura | Reakcja |
 | --- | --- |
-| **&lt; 70°C** | Normalna praca — pełna prędkość |
+| **< 70°C** | Normalna praca — pełna prędkość |
 | **70°C** (Ostrzeżenie) | Wielkość partii jest stopniowo zmniejszana (100% → 50% w zakresie od 70°C do 80°C) |
 | **80°C** (Stan krytyczny) | Agresywne ograniczanie wydajności (50% → 0% w zakresie od 80°C do 90°C) |
 | **90°C** (Wyłączenie) | Całkowite wstrzymanie przetwarzania przez procesor graficzny |
@@ -182,11 +167,9 @@ W systemach stacjonarnych z odpowiednim chłodzeniem dławienie termiczne rzadko
 
 ## Obsługa obciążenia pamięci
 
-Program Chloros
-nieustannie monitoruje pamięć GPU podczas przetwarzania i reaguje na trzech poziomach.
+Program Chloros nieustannie monitoruje pamięć GPU podczas przetwarzania i reaguje na trzech poziomach.
 
-**Wielkość partii.** Partia zaczyna się od 8 obrazów pomnożonych przez mnożnik platformy z powyższych tabel. Następnie Chloros
-sprawdza wolną pamięć VRAM, rezerwuje 20% jej pojemności na własne obciążenie PyTorcha i zakłada około 100 MB pamięci GPU na obraz o rozdzielczości 12 MP — wielkość partii jest równa mniejszej z dwóch wartości: limitowi wynikającemu z pamięci lub wartości bazowej platformy. Nigdy nie spada poniżej 1.
+**Wielkość partii.** Partia zaczyna się od 8 obrazów pomnożonych przez mnożnik platformy z powyższych tabel. Następnie Chloros sprawdza wolną pamięć VRAM, rezerwuje 20% jej pojemności na własne obciążenie PyTorcha i zakłada około 100 MB pamięci GPU na obraz o rozdzielczości 12 MP — wielkość partii jest równa mniejszej z dwóch wartości: limitowi wynikającemu z pamięci lub wartości bazowej platformy. Nigdy nie spada poniżej 1.
 
 **Redukcja prewencyjna.**Przy**wykorzystaniu pamięci VRAM powyżej 85%** rozmiary partii są zmniejszane, zanim dojdzie do jakiejkolwiek awarii.**Ograniczanie alokacji na wątek.** W miarę wzrostu aktualnego wykorzystania budżet GPU każdego wątku jest zmniejszany: ×0,75 przy wykorzystaniu powyżej 80%, ×0,5 przy wykorzystaniu powyżej 90%. Przedziały monitorowania to 70% (konserwatywny), 85% (normalny limit operacyjny) oraz 95% (ryzyko braku pamięci).**Wycofanie i odzyskiwanie po braku pamięci.** Jeśli mimo wszystko wystąpi zdarzenie braku pamięci:
 
@@ -194,8 +177,7 @@ sprawdza wolną pamięć VRAM, rezerwuje 20% jej pojemności na własne obciąż
 * przydziały dla aktywnych wątków są ograniczane do 70% ich bieżącej wartości, a alokator przechodzi na strategię konserwatywną, łagodząc ograniczenia po serii pomyślnych przydziałów
 * w warunkach silnego obciążenia potok przechodzi z trybu `fused_gpu` do `tiled_gpu`, a w ostateczności do `cpu_fallback`
 
-**Pamięć RAM hosta (Jetson).** Przed rozpoczęciem przetwarzania interfejs CLI
-szacuje szczytowe zapotrzebowanie na pamięć hosta na podstawie liczby obrazów i trybu debayeringu oraz ostrzega, jeśli pamięć RAM wraz z przestrzenią wymiany opartą na plikach może okazać się niewystarczająca, wyświetlając dokładne polecenia służące do dodania przestrzeni wymiany — zobacz [Podręcznik NVIDIA Jetson](../linux/nvidia-jetson-guide.md#swap-warning-and-recommendations).
+**Pamięć RAM hosta (Jetson).** Przed rozpoczęciem przetwarzania interfejs CLI szacuje szczytowe zapotrzebowanie na pamięć hosta na podstawie liczby obrazów i trybu debayeringu oraz ostrzega, jeśli pamięć RAM wraz z przestrzenią wymiany opartą na plikach może okazać się niewystarczająca, wyświetlając dokładne polecenia służące do dodania przestrzeni wymiany — zobacz [Podręcznik NVIDIA Jetson](../linux/nvidia-jetson-guide.md#swap-warning-and-recommendations).
 
 ***
 
@@ -219,21 +201,17 @@ Sprawdzenie 7 wyświetla `CUDA: <bool>, Denoiser: <bool>` — oba muszą być pr
 
 ### Logi backendu
 
-Strategia i liczba procesów roboczych są wybierane wewnątrz backendu na początku każdego uruchomienia — nie ma komunikatu w interfejsie CLI
-, który by je ogłaszał. Gdy coś zachowuje się nieoczekiwanie (przejście na ścieżkę rezerwową GPU, błąd OOM, nieudane załadowanie modułu usuwania szumów), pojawia się to w logu backendu dla tej sesji:
+Strategia i liczba procesów roboczych są wybierane wewnątrz backendu na początku każdego uruchomienia — nie ma komunikatu w interfejsie CLI, który by je ogłaszał. Gdy coś zachowuje się nieoczekiwanie (przejście na ścieżkę rezerwową GPU, błąd OOM, nieudane załadowanie modułu usuwania szumów), pojawia się to w logu backendu dla tej sesji:
 
 | Platforma | Lokalizacja logu |
 | --- | --- |
-| **System Linux
-/Jetson** | `~/.cache/chloros/logs/backend_<YYYYMMDD_HHMMSS>.log` (jeden plik na uruchomienie) |
-| **Linux
-, backend uruchomiony z poziomu CLI** | również `~/.chloros/backend.log` |
+| **System Linux/Jetson** | `~/.cache/chloros/logs/backend_<YYYYMMDD_HHMMSS>.log` (jeden plik na uruchomienie) |
+| **Linux, backend uruchomiony z poziomu CLI** | również `~/.chloros/backend.log` |
 | **Windows** | `%LOCALAPPDATA%\Chloros\logs\` |
 
 ### Postęp na żywo
 
-Podczas działania CLI
-wyświetla na bieżąco postęp dla poszczególnych wątków (wykrywanie, analiza, przetwarzanie, eksport) przesyłany za pośrednictwem Server-Sent Events — to praktyczny wskaźnik pozwalający stwierdzić, czy wątek 3 stanowi wąskie gardło. Zobacz [Potok przetwarzania](processing-pipeline.md).
+Podczas działania CLI wyświetla na bieżąco postęp dla poszczególnych wątków (wykrywanie, analiza, przetwarzanie, eksport) przesyłany za pośrednictwem Server-Sent Events — to praktyczny wskaźnik pozwalający stwierdzić, czy wątek 3 stanowi wąskie gardło. Zobacz [Potok przetwarzania](processing-pipeline.md).
 
 ***
 
@@ -241,8 +219,6 @@ wyświetla na bieżąco postęp dla poszczególnych wątków (wykrywanie, analiz
 
 * [Potok przetwarzania](processing-pipeline.md) — Omówienie architektury potoku z 4 wątkami
 * [Przewodnik po platformie NVIDIA Jetson](../linux/nvidia-jetson-guide.md) — Wdrażanie i optymalizacja specyficzne dla Jetson
-* [CLI
-: wiersz poleceń](../CLI.md) — Przewodnik po CLI
+* [CLI: wiersz poleceń](../CLI.md) — Przewodnik po CLI
 
-* [Opis CLI
-](../reference/cli-reference.md) — Wyczerpująca lista poleceń dla wersji 1.3.0
+* [Opis CLI](../reference/cli-reference.md) — Wyczerpująca lista poleceń dla wersji 1.3.0

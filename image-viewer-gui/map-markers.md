@@ -84,7 +84,7 @@ Każde zdjęcie z danymi GPS otrzymuje znacznik w swoich współrzędnych.
 
 Wybierz rodzaj warstwy mapy za pomocą przycisków (od lewej do prawej):
 
-![](&lt;../.gitbook/assets/image (14).png&gt;)
+![](<../.gitbook/assets/image (14).png>)
 
 | Rodzaj                 | Wyświetla                                                                |
 | -------------------- | -------------------------------------------------------------------- |

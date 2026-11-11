@@ -37,13 +37,13 @@ You:  Show me what the array sees, then capture reflectance every 10 seconds
 
 Narzędzia serwera obejmują funkcje [Python SDK](api-python-sdk.md). Instalują się one wraz z SDK, więc zazwyczaj nie trzeba instalować niczego więcej: w systemie Windows instalator Chloros umieszcza `chloros-mcp.exe` w folderze `Scripts` środowiska Python, a w systemie Linuxa `.deb` umieszcza plik `chloros-mcp` w katalogu `/usr/bin`.
 
-**Kod Claude&#x27;a:**
+**Kod Claude'a:**
 
 ```bash
 claude mcp add chloros -- chloros-mcp
 ```
 
-**Claude Desktop:**dodaj to do pliku `claude_desktop_config.json` (można go otworzyć, wybierając**Ustawienia &gt; Programista &gt; Edytuj konfigurację**), a następnie uruchom ponownie Claude Desktop.**Kursor** przyjmuje ten sam wpis w pliku `~/.cursor/mcp.json`.
+**Claude Desktop:**dodaj to do pliku `claude_desktop_config.json` (można go otworzyć, wybierając**Ustawienia > Programista > Edytuj konfigurację**), a następnie uruchom ponownie Claude Desktop.**Kursor** przyjmuje ten sam wpis w pliku `~/.cursor/mcp.json`.
 
 ```json
 {

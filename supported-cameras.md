@@ -6,23 +6,10 @@ metaLinks:
 
 # Obsługiwane kamery —
 
-Chloros
-przetwarza obrazy z dwóch rodzin kamer MAPIR
-na **wszystkich platformach** (Windows
-, Linux
-amd64 oraz Linux
-arm64/Jetson):
+Chloros przetwarza obrazy z dwóch rodzin kamer MAPIR na **wszystkich platformach** (Windows, Linux amd64 oraz Linux arm64/Jetson):
 
-* **Survey3** — kamery Survey3W
-(szerokokątne) i Survey3N
-(wąskokątne). Dane wejściowe: `RAW+JPG`.
-* **LATTICE**— moduły kamer wielospektralnych M3C i M3M. Dane wejściowe: zdjęcia z `.tif`/`.tiff`. Kamerami LATTICE można również**sterować na żywo** z poziomu Chloros
-— poprzez zakładkę „Kamer” w interfejsie graficznym (Windows
-) lub `chloros-cli lattice` / Python
-SDK
-(Windows
-i Linux
-) — w tym zsynchronizowane układy wielokamerowe. Zobacz [przewodnik LATTICE](lattice/).
+* **Survey3** — kamery Survey3W (szerokokątne) i Survey3N (wąskokątne). Dane wejściowe: `RAW+JPG`.
+* **LATTICE**— moduły kamer wielospektralnych M3C i M3M. Dane wejściowe: zdjęcia z `.tif`/`.tiff`. Kamerami LATTICE można również**sterować na żywo** z poziomu Chloros — poprzez zakładkę „Kamer” w interfejsie graficznym (Windows) lub `chloros-cli lattice` / Python SDK (Windows i Linux) — w tym zsynchronizowane układy wielokamerowe. Zobacz [przewodnik LATTICE](lattice/).
 
 Potok przetwarzania akceptuje również pliki wejściowe `.dng`.
 
@@ -36,9 +23,7 @@ Seria LATTICE to modułowy system kamer wielospektralnych oparty na czujniku Son
 <sensor>-<lens>-F<filter>        e.g.  M3C-L41-FRGN,  M3M-L87-F550
 ```. Program
 
-Chloros
-
-wyświetla ją z prefiksem `LATT-` (na przykład `LATT-M3M-L41-F550`), a ten ciąg znaków steruje wszystkimi dalszymi procesami — profil czujnika, układ pasm i kalibracja są ustalane automatycznie; nie ma potrzeby konfigurowania poszczególnych kamer. Numer obiektywu oznacza **poziome pole widzenia w stopniach**: `L41` = wąskie 41°, `L87` = szerokie 87°.
+Chloros wyświetla ją z prefiksem `LATT-` (na przykład `LATT-M3M-L41-F550`), a ten ciąg znaków steruje wszystkimi dalszymi procesami — profil czujnika, układ pasm i kalibracja są ustalane automatycznie; nie ma potrzeby konfigurowania poszczególnych kamer. Numer obiektywu oznacza **poziome pole widzenia w stopniach**: `L41` = wąskie 41°, `L87` = szerokie 87°.
 
 Istnieją dwie konfiguracje czujników:
 
@@ -49,52 +34,20 @@ Istnieją dwie konfiguracje czujników:
 
 ### Opcje filtrów M3C (Bayer)
 
-| Filtr | Pasma (nazwa @ środek nm / FWHM
-
-nm)       |
+| Filtr | Pasma (nazwa @ środek nm / FWHM nm)       |
 | ------ | ---------------------------------------- |
-| `FRGB` | Blue
+| `FRGB` | Blue 475/30 · Green 550/30 · Red 625/30  |
+| `FRGN` | Red 660/21 · Green 550/30 · NIR 850/30   |
+| `FOCN` | Orange 618,4/46 · Cyan 494,1/40 · NIR 821,6/54 (zmierzone — patrz poniżej) |
+| `FNGB` | Blue 475/30 · Green 550/30 · NIR 850/30  |
 
-475/30 · Green
-
-550/30 · Red
-
-625/30  |
-| `FRGN` | Red
-
-660/21 · Green
-
-550/30 · NIR
-
-850/30   |
-| `FOCN` | Orange
-
-618,4/46 · Cyan
-
-494,1/40 · NIR
-
-821,6/54 (zmierzone — patrz poniżej) |
-| `FNGB` | Blue
-
-475/30 · Green
-
-550/30 · NIR
-
-850/30  |
-
-W przypadku `FOCN` wartości te odpowiadają **zmierzonemu** pasmu półmaksymalnemu filtra (program Chloros
-
-1.3.0 i nowsze; wcześniejsze wersje wykorzystywały wartości z arkusza specyfikacji: 615/21 · 490/38 · 808/14). Nazwy pasm pozostają bez zmian: `Orange_615`, `Cyan_490` i `NIR_808`, a zmierzone położenie środka i szerokość pasma są danymi, które program Chloros
-
-umieszcza w każdym skalibrowanym pliku eksportowym.
+W przypadku `FOCN` wartości te odpowiadają **zmierzonemu** pasmu półmaksymalnemu filtra (program Chloros 1.3.0 i nowsze; wcześniejsze wersje wykorzystywały wartości z arkusza specyfikacji: 615/21 · 490/38 · 808/14). Nazwy pasm pozostają bez zmian: `Orange_615`, `Cyan_490` i `NIR_808`, a zmierzone położenie środka i szerokość pasma są danymi, które program Chloros umieszcza w każdym skalibrowanym pliku eksportowym.
 
 ### Katalog filtrów M3M (mono) — 23 pozycje katalogowe
 
 Liczba F stanowi oznaczenie pozycji katalogowej; zmierzone pasmo (wytłoczone na każdym skalibrowanym egzemplarzu) to skan filtra dla danej partii:
 
-| Pozycja katalogowa | Środek (nm, zmierzony) | Krawędzie FWHM
-
-(nm) | Szerokość (nm) |
+| Pozycja katalogowa | Środek (nm, zmierzony) | Krawędzie FWHM (nm) | Szerokość (nm) |
 | ------ | --------------------- | --------------- | ---------- |
 | F385   | 379,4                 | 367–392         | 25         |
 | F405   | 403,9                 | 390–417         | 27         |
@@ -120,14 +73,8 @@ Liczba F stanowi oznaczenie pozycji katalogowej; zmierzone pasmo (wytłoczone na
 | F950   | 945,1                 | 929–961         | 32         |
 | F988 † | 985,3                 | 968–1003        | 35         |
 
-_„Krawędzie pasm są mierzone jako wartości pełnej szerokości w połowie maksymalnej intensywności (FWHM) na podstawie skanów filtrów MAPIR
+_„Krawędzie pasm są mierzone jako wartości pełnej szerokości w połowie maksymalnej intensywności (FWHM) na podstawie skanów filtrów MAPIR dla poszczególnych partii — te same wartości Chloros umieszcza w każdym skalibrowanym eksporcie.”_ „— (nominalna)” = brak jeszcze skanów z partii; w przypadku tych jednostek SKU podanym środkiem jest numer SKU, a szerokością — wartość podana przez producenta.
 
-dla poszczególnych partii — te same wartości Chloros
-
-umieszcza w każdym skalibrowanym eksporcie.”_ „— (nominalna)” = brak jeszcze skanów z partii; w przypadku tych jednostek SKU podanym środkiem jest numer SKU, a szerokością — wartość podana przez producenta.
-
-† „Odbicie F988 jest kalibrowane przy użyciu panelu odbicia umieszczonego w scenie: pasmo wykracza poza skalibrowany zakres czujnika światła DAQ, więc Chloros
-
-stosuje najnowszy zapis z panelu i utrzymuje go między kolejnymi pomiarami panelu”. Zobacz [Cele kalibracyjne](calibration-targets.md).
+† „Odbicie F988 jest kalibrowane przy użyciu panelu odbicia umieszczonego w scenie: pasmo wykracza poza skalibrowany zakres czujnika światła DAQ, więc Chloros stosuje najnowszy zapis z panelu i utrzymuje go między kolejnymi pomiarami panelu”. Zobacz [Cele kalibracyjne](calibration-targets.md).
 
 Informacje na temat sterowania kamerą na żywo, matryc, konfiguracji sieci oraz łańcucha przetwarzania radiometrycznego można znaleźć w [przewodniku LATTICE](lattice/).

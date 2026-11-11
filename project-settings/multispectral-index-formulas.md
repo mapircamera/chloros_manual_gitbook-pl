@@ -207,7 +207,7 @@ $$
 
 Obszary zalesione będą miały niższe wartości FCI1 ze względu na niższy współczynnik odbicia drzew oraz obecność cieni w koronie drzew.
 
-_Źródło: Becker, Sarah J., Craig S.T. Daughtry i Andrew L. Russ. „Robust forest cover indices for multispectral images” [Solidne wskaźniki pokrycia leśnego dla obrazów wielospektralnych]. Photogrammetric Engineering &amp; Remote Sensing 84.8 (2018): 505–512._
+_Źródło: Becker, Sarah J., Craig S.T. Daughtry i Andrew L. Russ. „Robust forest cover indices for multispectral images” [Solidne wskaźniki pokrycia leśnego dla obrazów wielospektralnych]. Photogrammetric Engineering & Remote Sensing 84.8 (2018): 505–512._
 
 ***
 
@@ -223,7 +223,7 @@ $$
 
 Obszary zalesione będą miały niższe wartości FCI2 ze względu na niższy współczynnik odbicia drzew oraz obecność cieni w koronie drzew.
 
-_Źródło: Becker, Sarah J., Craig S.T. Daughtry i Andrew L. Russ. „Robust forest cover indices for multispectral images” [Solidne wskaźniki pokrycia lasów dla obrazów wielospektralnych]. Photogrammetric Engineering &amp; Remote Sensing 84.8 (2018): 505–512._
+_Źródło: Becker, Sarah J., Craig S.T. Daughtry i Andrew L. Russ. „Robust forest cover indices for multispectral images” [Solidne wskaźniki pokrycia lasów dla obrazów wielospektralnych]. Photogrammetric Engineering & Remote Sensing 84.8 (2018): 505–512._
 
 ***
 
@@ -489,7 +489,7 @@ $$
 TDVI = 1.5 * {(NIR- Red) \over \sqrt{NIR^{2} + Red + 0.5}  }
 $$
 
-_Źródło: Bannari, A., H. Asalhi i P. Teillet. „Przekształcony wskaźnik różnicowy roślinności (TDVI) do mapowania pokrywy roślinnej” W: Materiały z sympozjum Geoscience and Remote Sensing Symposium, IGARSS &#x27;02, IEEE International, tom 5 (2002)._
+_Źródło: Bannari, A., H. Asalhi i P. Teillet. „Przekształcony wskaźnik różnicowy roślinności (TDVI) do mapowania pokrywy roślinnej” W: Materiały z sympozjum Geoscience and Remote Sensing Symposium, IGARSS '02, IEEE International, tom 5 (2002)._
 
 ***
 

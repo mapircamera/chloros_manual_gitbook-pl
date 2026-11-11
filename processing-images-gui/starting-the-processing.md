@@ -63,7 +63,7 @@ Chloros działa w dwóch różnych trybach przetwarzania w zależności od posia
 2. **Przetwarzanie** – stosowanie kalibracji i eksportowanie obrazów**Czas przetwarzania:**
 
 * Znacznie wolniejszy niż w trybie równoległym Chloros+
-* Odpowiedni dla małych i średnich zbiorów danych (&lt; 200 obrazów)
+* Odpowiedni dla małych i średnich zbiorów danych (< 200 obrazów)
 
 ### Tryb Chloros+ (przetwarzanie równoległe)
 
@@ -306,7 +306,7 @@ Pełną semantykę można znaleźć w [podręczniku CLI](../reference/cli-refere
 **Rozwiązania:**
 
 1. Przenieś projekty do folderu o krótszej nazwie — zmień**Katalog roboczy** w [Ustawieniach projektu](../project-settings/project-settings.md) i utwórz projekt ponownie, lub
-2. Włącz obsługę długich ścieżek w systemie Windows i uruchom ponownie program Chloros: uruchom ponownie instalator Chloros z zaznaczoną opcją **Włącz długie ścieżki w systemie Windows** (jest ona zaznaczona domyślnie) lub skorzystaj z zasad grupy: *Konfiguracja komputera &gt; Szablony administracyjne &gt; System &gt; System plików &gt; Włącz długie ścieżki Win32*.
+2. Włącz obsługę długich ścieżek w systemie Windows i uruchom ponownie program Chloros: uruchom ponownie instalator Chloros z zaznaczoną opcją **Włącz długie ścieżki w systemie Windows** (jest ona zaznaczona domyślnie) lub skorzystaj z zasad grupy: *Konfiguracja komputera > Szablony administracyjne > System > System plików > Włącz długie ścieżki Win32*.
 
 ### Ostrzeżenie „Nie wykryto celów”
 

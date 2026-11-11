@@ -2,14 +2,12 @@
 
 Czujnik światła DAQ przekształca obrazy radiometryczne na wartości odbicia. Istnieją dwie odrębne procedury:
 
-1. **Pojedynczy czujnik** — jeden czujnik DAQ mierzy natężenie promieniowania padającego, podczas gdy kamera rejestruje obraz, a program Chloros
-dzieli jasność zarejestrowaną przez kamerę przez tę wartość odniesienia.
+1. **Pojedynczy czujnik** — jeden czujnik DAQ mierzy natężenie promieniowania padającego, podczas gdy kamera rejestruje obraz, a program Chloros dzieli jasność zarejestrowaną przez kamerę przez tę wartość odniesienia.
 2. **Dwa czujniki** — dwa czujniki DAQ, z których jeden monitoruje niebo, a drugi obiekt, generują na żywo krzywą spektralnego współczynnika odbicia bez udziału kamery.
 
 ## Pojedynczy czujnik + kamera (odniesienie promieniowania padającego)
 
-Czujnik DAQ pełni rolę czujnika światła padającego (DLS): kamera mierzy promieniowanie wychodzące **L**(W/m²/sr/nm), DAQ mierzy natężenie promieniowania padającego**E** (W/m²/nm), a Chloros
-oblicza współczynnik odbicia dla każdego pasma według wzoru:
+Czujnik DAQ pełni rolę czujnika światła padającego (DLS): kamera mierzy promieniowanie wychodzące **L**(W/m²/sr/nm), DAQ mierzy natężenie promieniowania padającego**E** (W/m²/nm), a Chloros oblicza współczynnik odbicia dla każdego pasma według wzoru:
 
 > ρ = π · L / E
 
@@ -24,14 +22,12 @@ Powiąż moduł DAQ z kamerą w zakładce „Kamery”: panel ustawień każdej 
 
 Dwie cechy, o których warto wiedzieć:
 
-* **Brak powiązania z DAQ → współczynnik odbicia jest odrzucany, a nie fałszowany.** Program Chloros
-odrzuca wynik współczynnika odbicia i rejestruje powód pominięcia, zamiast po cichu zwracać gorszy wynik.
+* **Brak powiązania z DAQ → współczynnik odbicia jest odrzucany, a nie fałszowany.** Program Chloros odrzuca wynik współczynnika odbicia i rejestruje powód pominięcia, zamiast po cichu zwracać gorszy wynik.
 * **Wykorzystany odczyt jest zachowywany.** Dla każdej klatki odbicia faktycznie zastosowany odczyt z DAQ jest zapisywany jako plik `.daq` w folderze `daq/` danego zapisu, dzięki czemu zapis można później ponownie przetworzyć ([Rejestracja i format .daq](recording.md)). Plik `.daq.cameras.json` znajdujący się obok określa kamery, których dotyczy, a ponowne przetwarzanie dopasowuje go wyłącznie do obrazów z tych kamer.
 
 ### Przetwarzanie zarejestrowanych obrazów
 
-W celu przetwarzania po zakończeniu lotu należy podczas sesji nagrać plik `.daq` i zachować go wraz z materiałem obrazowym — system przetwarzania automatycznie dopasowuje dane o promieniowaniu padającym na podstawie znaczników czasu, pobierając przy pierwszym użyciu wszelkie brakujące kalibracje fabryczne z chmury MAPIR
-. Nagrania z interfejsu graficznego są automatycznie dodawane do otwartego projektu po ich zakończeniu.
+W celu przetwarzania po zakończeniu lotu należy podczas sesji nagrać plik `.daq` i zachować go wraz z materiałem obrazowym — system przetwarzania automatycznie dopasowuje dane o promieniowaniu padającym na podstawie znaczników czasu, pobierając przy pierwszym użyciu wszelkie brakujące kalibracje fabryczne z chmury MAPIR. Nagrania z interfejsu graficznego są automatycznie dodawane do otwartego projektu po ich zakończeniu.
 
 Odniesienie odbicia można wybrać w momencie przetwarzania — `--reflectance-source` na `chloros-cli process` lub ustawienie źródła odbicia w sekcji „Ustawienia projektu” interfejsu graficznego:
 
@@ -41,21 +37,15 @@ Odniesienie odbicia można wybrać w momencie przetwarzania — `--reflectance-s
 | `daq` | DAQ jako źródło ostateczne |
 | `target` | Ścisły cel w ramce; brak zastąpienia przez DAQ |
 
-Zobacz [Cele kalibracyjne](../calibration-targets.md), aby zapoznać się z procedurami dotyczącymi celów, oraz [rozdział LATTICE](../lattice/README.md) oraz [Podręcznik CLI
-](../reference/cli-reference.md), aby zapoznać się z pełnym procesem przetwarzania. Podczas odczytu wyeksportowanych pikseli odbicia należy używać skali oznaczonej (LATTICE: 32768 = ρ 1,0, XMP `Chloros:PixelScale`; Survey3
-: 65535) — zobacz [Formaty obrazów wyjściowych](../output-image-formats.md).
+Zobacz [Cele kalibracyjne](../calibration-targets.md), aby zapoznać się z procedurami dotyczącymi celów, oraz [rozdział LATTICE](../lattice/README.md) oraz [Podręcznik CLI](../reference/cli-reference.md), aby zapoznać się z pełnym procesem przetwarzania. Podczas odczytu wyeksportowanych pikseli odbicia należy używać skali oznaczonej (LATTICE: 32768 = ρ 1,0, XMP `Chloros:PixelScale`; Survey3: 65535) — zobacz [Formaty obrazów wyjściowych](../output-image-formats.md).
 
 ### Pasma poza skalibrowanym zakresem modułu DAQ
 
-Zakres kalibracji radiometrycznej modułu DAQ wynosi ~374–974 nm. Program Chloros
-odrzuca dane odbicia oparte na module DAQ dla każdego pasma kamery, którego mniej niż połowa wagi spektralnej mieści się w tym przedziale, zgłaszając powód pominięcia `dls-uncalibrated-band-<nm>`. Spośród dostępnych w sprzedaży modeli dotyczy to wyłącznie modelu F988: współczynnik odbicia kamery F988 jest kalibrowany za pomocą panelu odbicia umieszczonego w scenie; pasmo to wykracza poza skalibrowany zakres czujnika światła modułu DAQ, więc Chloros
-stosuje najnowszy zapis z panelu i utrzymuje tę wartość między kolejnymi pomiarami panelu. Jeśli kamera F988 działa wyłącznie w trybie DAQ, Chloros
-odrzuca współczynnik odbicia oparty na DAQ dla tego pasma, podając powód pominięcia `dls-uncalibrated-band-988` — obsługiwanym sposobem postępowania jest procedura z wykorzystaniem panelu.
+Zakres kalibracji radiometrycznej modułu DAQ wynosi ~374–974 nm. Program Chloros odrzuca dane odbicia oparte na module DAQ dla każdego pasma kamery, którego mniej niż połowa wagi spektralnej mieści się w tym przedziale, zgłaszając powód pominięcia `dls-uncalibrated-band-<nm>`. Spośród dostępnych w sprzedaży modeli dotyczy to wyłącznie modelu F988: współczynnik odbicia kamery F988 jest kalibrowany za pomocą panelu odbicia umieszczonego w scenie; pasmo to wykracza poza skalibrowany zakres czujnika światła modułu DAQ, więc Chloros stosuje najnowszy zapis z panelu i utrzymuje tę wartość między kolejnymi pomiarami panelu. Jeśli kamera F988 działa wyłącznie w trybie DAQ, Chloros odrzuca współczynnik odbicia oparty na DAQ dla tego pasma, podając powód pominięcia `dls-uncalibrated-band-988` — obsługiwanym sposobem postępowania jest procedura z wykorzystaniem panelu.
 
 ## Podwójny czujnik (oświetlenie otoczenia + obiekt)
 
-Dwa czujniki DAQ — dowolna para, niezależnie od sposobu transportu — zapewniają spektrum odbicia na żywo bez użycia kamery: jeden czujnik jest skierowany w stronę nieba (**źródło światła otoczenia**), a drugi w stronę obiektu (**skaner obiektu**), a program Chloros
-oblicza wartość dla każdej długości fali:
+Dwa czujniki DAQ — dowolna para, niezależnie od sposobu transportu — zapewniają spektrum odbicia na żywo bez użycia kamery: jeden czujnik jest skierowany w stronę nieba (**źródło światła otoczenia**), a drugi w stronę obiektu (**skaner obiektu**), a program Chloros oblicza wartość dla każdej długości fali:
 
 > R(λ) = obiekt(λ) / otoczenie(λ)
 
@@ -70,24 +60,11 @@ Po podłączeniu obu czujników w zakładce „Czujniki światła” otwórz nak
 <!-- SCREENSHOT-NEEDED: A live Apparent Reflectance chart from an Ambient+Object DAQ pair in list view, with the vegetation-index table visible below the chart (NDVI etc. showing live values). -->
 
 
-Pod wykresem odbicia (widok listy) znajduje się aktualizowana na bieżąco **tabela wskaźników wegetacyjnych**, która oblicza wskaźniki na podstawie krzywej przy użyciu centrów pasm: niebieskiego 450 / zielonego 550 / czerwonego 670 / NIR
-800 nm. Wskaźniki oparte na stosunku, które eliminują skalę bezwzględną (NDVI
-, GNDVI
-, ENDVI, WDRVI
-, GRVI
-, CVI
-, GCI
-, MSR) są zawsze wyświetlane; wskaźniki wymagające odbicia bezwzględnego (EVI
-, SAVI
-, OSAVI
-, GSAVI, GOSAVI, MSAVI2, RDVI, TDVI, LAI
-, NLI, MNLI, FCI, GEMI
-) pojawiają się tylko wtedy, gdy oba czujniki są modelami skalibrowanymi pod kątem mocy.
+Pod wykresem odbicia (widok listy) znajduje się aktualizowana na bieżąco **tabela wskaźników wegetacyjnych**, która oblicza wskaźniki na podstawie krzywej przy użyciu centrów pasm: niebieskiego 450 / zielonego 550 / czerwonego 670 / NIR 800 nm. Wskaźniki oparte na stosunku, które eliminują skalę bezwzględną (NDVI, GNDVI, ENDVI, WDRVI, GRVI, CVI, GCI, MSR) są zawsze wyświetlane; wskaźniki wymagające odbicia bezwzględnego (EVI, SAVI, OSAVI, GSAVI, GOSAVI, MSAVI2, RDVI, TDVI, LAI, NLI, MNLI, FCI, GEMI) pojawiają się tylko wtedy, gdy oba czujniki są modelami skalibrowanymi pod kątem mocy.
 
 ### Pozorne a względne — zasada oznaczania
 
-Chloros
-oznacza wyniki z dwóch czujników zgodnie z tym, co faktycznie może zapewnić dana para czujników:
+Chloros oznacza wyniki z dwóch czujników zgodnie z tym, co faktycznie może zapewnić dana para czujników:
 
 | Para czujników | Oznaczenie |
 | --- | --- |
@@ -99,8 +76,4 @@ Wszystkie trzy modele są radiometryczne: po załadowaniu fabrycznego pakietu ka
 ### Z języka Python
 
 
-W zbiorczej powierzchni SDK
-nie ma dedykowanej funkcji obsługującej dwa czujniki: należy otworzyć dwie sesje za pomocą `chloros_sdk.connect_daq_sensor()` i samodzielnie obliczyć stosunek ich widm `latest()`, stosując tę samą konwencję nazewniczą. (Narzędzie do rejestracji z wykorzystaniem dwóch czujników istnieje również w wewnętrznym interfejsie MAPIR
-umożliwiającym bezpośredni dostęp do sprzętu; dla kompletności zostało ono wymienione w [Podręczniku CLI
-](../reference/cli-reference.md) — nie jest ono jednak częścią dostarczanego interfejsu CLI
-; obsługiwanym sposobem postępowania jest opisany powyżej proces z wykorzystaniem interfejsu graficznego.)
+W zbiorczej powierzchni SDK nie ma dedykowanej funkcji obsługującej dwa czujniki: należy otworzyć dwie sesje za pomocą `chloros_sdk.connect_daq_sensor()` i samodzielnie obliczyć stosunek ich widm `latest()`, stosując tę samą konwencję nazewniczą. (Narzędzie do rejestracji z wykorzystaniem dwóch czujników istnieje również w wewnętrznym interfejsie MAPIR umożliwiającym bezpośredni dostęp do sprzętu; dla kompletności zostało ono wymienione w [Podręczniku CLI](../reference/cli-reference.md) — nie jest ono jednak częścią dostarczanego interfejsu CLI; obsługiwanym sposobem postępowania jest opisany powyżej proces z wykorzystaniem interfejsu graficznego.)

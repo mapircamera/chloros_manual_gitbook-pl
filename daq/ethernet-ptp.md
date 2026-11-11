@@ -1,8 +1,6 @@
 # Sieć i synchronizacja czasu w DAQ-E
 
-> Informacje dotyczące fizycznej konfiguracji sieciowej czujnika — okablowania, zasilania PoE, przypisania adresów IP oraz ustawień sieciowych samego urządzenia — znajdują się w **[instrukcji obsługi DAQ](https://mapir.gitbook.io/daq/daq-e/network-setup)**. Ta strona dotyczy strony Chloros
-
-: podłączania, synchronizacji czasu oraz postępowania w przypadku, gdy wykrywanie urządzeń nie przyniesie rezultatów.
+> Informacje dotyczące fizycznej konfiguracji sieciowej czujnika — okablowania, zasilania PoE, przypisania adresów IP oraz ustawień sieciowych samego urządzenia — znajdują się w **[instrukcji obsługi DAQ](https://mapir.gitbook.io/daq/daq-e/network-setup)**. Ta strona dotyczy strony Chloros: podłączania, synchronizacji czasu oraz postępowania w przypadku, gdy wykrywanie urządzeń nie przyniesie rezultatów.
 
 DAQ-E to członek rodziny DAQ obsługujący protokół Ethernet: zasilany przez PoE, wykrywany za pomocą mDNS (usługa `_daq-e._tcp`) i adresowalny za pomocą nazwy hosta wywodzącej się z identyfikatora czujnika — `daq-e-<6 hex>.local`, np. `daq-e-def330.local`. Ta strona opisuje, w jaki sposób urządzenie przesyła dane w sieci oraz jak uczestniczy w synchronizacji czasu PTP.
 
@@ -13,35 +11,17 @@ DAQ-E to członek rodziny DAQ obsługujący protokół Ethernet: zasilany przez 
 | **Multicast** (domyślnie) | UDP `239.10.10.10:5002` | Dowolna liczba urządzeń w tej samej sieci LAN odbiera ten sam strumień | Każdy datagram jest weryfikowany za pomocą CRC-16/CCITT |
 | **Raw** | Port TCP `5000` | Dokładnie jeden klient (wyłącznie) | Kompatybilność bajtowa z DAQ-U |
 
-Chloros
-
-domyślnie korzysta z multiemisji, co pozwala interfejsowi graficznemu (GUI), interfejsowi CLI
-
-oraz SDK
-
-na jednoczesne monitorowanie jednego czujnika.
+Chloros domyślnie korzysta z multiemisji, co pozwala interfejsowi graficznemu (GUI), interfejsowi CLI oraz SDK na jednoczesne monitorowanie jednego czujnika.
 
 ## Wymagania sieciowe
 
-* **Ta sama domena rozgłoszeniowa.** Komputer, na którym działa Chloros
-
-, musi znajdować się w tym samym segmencie sieci L2 co czujnik — wykrywanie mDNS nie przechodzi przez routery.
-* **Zapora sieciowa.** W systemie Windows
-
-instalator dodaje regułę zapory **Chloros
-
-Backend (UDP-In)**dla backendu do każdego profilu sieciowego, która obejmuje dane DAQ-E (UDP 5002), mDNS (UDP 5353) oraz PTP (UDP 319/320), a także regułę**„Chloros
-
-Backend (TCP-In)”**, ograniczoną do lokalnej podsieci, dotyczącą połączenia nawiązywanego przez DAQ-E z komputerem podczas aktualizacji oprogramowania układowego. W systemie Linux
-
-a moduł `.deb` otwiera porty UDP w modułach `ufw` lub `firewalld`, gdy ta zapora jest aktywna w momencie instalacji. W przypadku zapory sieciowej innej firmy lub zapory włączonej później należy zezwolić na te same porty.
+* **Ta sama domena rozgłoszeniowa.** Komputer, na którym działa Chloros, musi znajdować się w tym samym segmencie sieci L2 co czujnik — wykrywanie mDNS nie przechodzi przez routery.
+* **Zapora sieciowa.** W systemie Windows instalator dodaje regułę zapory **Chloros Backend (UDP-In)**dla backendu do każdego profilu sieciowego, która obejmuje dane DAQ-E (UDP 5002), mDNS (UDP 5353) oraz PTP (UDP 319/320), a także regułę**„Chloros Backend (TCP-In)”**, ograniczoną do lokalnej podsieci, dotyczącą połączenia nawiązywanego przez DAQ-E z komputerem podczas aktualizacji oprogramowania układowego. W systemie Linux a moduł `.deb` otwiera porty UDP w modułach `ufw` lub `firewalld`, gdy ta zapora jest aktywna w momencie instalacji. W przypadku zapory sieciowej innej firmy lub zapory włączonej później należy zezwolić na te same porty.
 * **Zasilanie PoE, brak diody LED stanu.** Urządzenie DAQ-E nie posiada własnej diody LED — zasilanie należy sprawdzić za pomocą wskaźnika link/PoE na przełączniku lub porcie iniektora i odczekać kilka sekund po włączeniu zasilania, aż urządzenie uruchomi się i dołączy do sieci.
 
 ## Podłączanie
 
-**GUI:** Zakładka „Czujniki światła” → „Podłącz czujnik” → Typ urządzenia „DAQ-E (Ethernet)”. Wyszukiwanie przebiega wyłącznie wtedy, gdy na ekranie wyświetlane jest okno dialogowe połączenia (przeglądanie mDNS oraz skanowanie ARP w systemie Windows
-
-), powtarzając się co 15 sekund; przycisk „Odśwież” powoduje natychmiastowe ponowne skanowanie. Wykryte czujniki pojawiają się w menu rozwijanym; automatycznie wybierany jest pierwszy wykryty czujnik.
+**GUI:** Zakładka „Czujniki światła” → „Podłącz czujnik” → Typ urządzenia „DAQ-E (Ethernet)”. Wyszukiwanie przebiega wyłącznie wtedy, gdy na ekranie wyświetlane jest okno dialogowe połączenia (przeglądanie mDNS oraz skanowanie ARP w systemie Windows), powtarzając się co 15 sekund; przycisk „Odśwież” powoduje natychmiastowe ponowne skanowanie. Wykryte czujniki pojawiają się w menu rozwijanym; automatycznie wybierany jest pierwszy wykryty czujnik.
 
 <!-- SCREENSHOT-NEEDED: DAQ connect dialog with Device Type set to "DAQ-E (Ethernet)" and at least one discovered sensor listed in the Hostname/IP dropdown (e.g. daq-e-xxxxxx.local), Connect button enabled. -->
 
@@ -67,23 +47,9 @@ chloros-cli daq pool-connect --eth-host daq-e-def330.local
 
 ## Ustawienia urządzenia i oprogramowanie układowe
 
-Sam czujnik przechowuje swoje ustawienia sieciowe: DHCP (ustawienie fabryczne, z awaryjnym przełączeniem na adres lokalny 169.254.x.x, gdy żaden serwer DHCP nie odpowiada) lub adres statyczny. Przechowuje również informację, czy rozpoczyna transmisję po włączeniu zasilania. Ustawienia te można zmienić w interfejsie graficznym (w ustawieniach czujnika, ikona koła zębatego, **Sieć**:**Zmień…**,**Przesyłaj strumień po włączeniu zasilania**,**Uruchom ponownie czujnik**; zobacz [zakładkę DAQ](gui.md)), lub za pomocą interfejsu CLI
+Sam czujnik przechowuje swoje ustawienia sieciowe: DHCP (ustawienie fabryczne, z awaryjnym przełączeniem na adres lokalny 169.254.x.x, gdy żaden serwer DHCP nie odpowiada) lub adres statyczny. Przechowuje również informację, czy rozpoczyna transmisję po włączeniu zasilania. Ustawienia te można zmienić w interfejsie graficznym (w ustawieniach czujnika, ikona koła zębatego, **Sieć**:**Zmień…**,**Przesyłaj strumień po włączeniu zasilania**,**Uruchom ponownie czujnik**; zobacz [zakładkę DAQ](gui.md)), lub za pomocą interfejsu CLI i SDK, używając poleceń `pool-set-network`, `pool-set-auto-stream` oraz `pool-reboot` (`DAQSensorSession.set_network()`, `set_auto_stream()`, `reboot()`; zobacz [Podręcznik CLI](../reference/cli-reference.md#daq-e-device-settings)). Czujnik uruchamia się ponownie w celu zastosowania zmiany sieciowej, a Chloros ponownie się z nim łączy. Adres statyczny musi znajdować się w sieci komputera, na którym działa Chloros: Chloros odrzuca adres, z którym nie mógł się połączyć po ponownym uruchomieniu. Identyfikator czujnika oraz jego nazwa hosta `daq-e-<id>.local` nigdy się nie zmieniają. Nowość w wersji 1.3.0.
 
-i SDK
-
-, używając poleceń `pool-set-network`, `pool-set-auto-stream` oraz `pool-reboot` (`DAQSensorSession.set_network()`, `set_auto_stream()`, `reboot()`; zobacz [Podręcznik CLI
-
-](../reference/cli-reference.md#daq-e-device-settings)). Czujnik uruchamia się ponownie w celu zastosowania zmiany sieciowej, a Chloros
-
-ponownie się z nim łączy. Adres statyczny musi znajdować się w sieci komputera, na którym działa Chloros
-
-: Chloros
-
-odrzuca adres, z którym nie mógł się połączyć po ponownym uruchomieniu. Identyfikator czujnika oraz jego nazwa hosta `daq-e-<id>.local` nigdy się nie zmieniają. Nowość w wersji 1.3.0.
-
-**Aktualizacje oprogramowania układowego są wbudowane w interfejs graficzny (GUI).** Gdy podłączone urządzenie DAQ-E korzysta z oprogramowania układowego starszego niż obraz dołączony do kompilacji Chloros
-
-, w wierszu tego czujnika wyświetla się bursztynowa ikona **Dostępna aktualizacja**, a w oknie modalnym ustawień (ikona koła zębatego) pojawia się <version>przycisk</version>
+**Aktualizacje oprogramowania układowego są wbudowane w interfejs graficzny (GUI).** Gdy podłączone urządzenie DAQ-E korzysta z oprogramowania układowego starszego niż obraz dołączony do kompilacji Chloros, w wierszu tego czujnika wyświetla się bursztynowa ikona **Dostępna aktualizacja**, a w oknie modalnym ustawień (ikona koła zębatego) pojawia się <version>przycisk</version>
 
 „Zaktualizuj do<version>”. Aktualizacja jest przesyłana przez sieć w około 30 sekund; czujnik uruchamia się ponownie i automatycznie łączy się ponownie, a przerwany transfer pozostawia aktualne oprogramowanie układowe nienaruszone. Z poziomu interfejsu CLI lub SDK oraz w systemie Linux, który nie posiada interfejsu graficznego, należy uruchomić polecenie `chloros-cli daq pool-update-firmware --sensor-id <id>` (`DAQSensorSession.update_firmware()`).
 
@@ -91,7 +57,7 @@ odrzuca adres, z którym nie mógł się połączyć po ponownym uruchomieniu. I
 
 ## Synchronizacja czasu PTP
 
-Oprogramowanie układowe DAQ-E w wersji 1.2.0+ uczestniczy w standardzie IEEE 1588 PTPv2 jako zwykły zegar (tylko w trybie slave). **Backend hosta Chloros pełni rolę grandmastera PTP** — każde urządzenie DAQ-E i każda kamera LATTICE w sieci LAN są jego slave&#x27;ami w domenie 0, utrzymując wszystkie znaczniki czasu urządzeń z tolerancją ~1 ms. To właśnie ten wspólny zegar sprawia, że odczyty z DAQ można dopasować pod względem znaczników czasu do ekspozycji kamer (zobacz [Nagrywanie i format .daq](recording.md)).
+Oprogramowanie układowe DAQ-E w wersji 1.2.0+ uczestniczy w standardzie IEEE 1588 PTPv2 jako zwykły zegar (tylko w trybie slave). **Backend hosta Chloros pełni rolę grandmastera PTP** — każde urządzenie DAQ-E i każda kamera LATTICE w sieci LAN są jego slave'ami w domenie 0, utrzymując wszystkie znaczniki czasu urządzeń z tolerancją ~1 ms. To właśnie ten wspólny zegar sprawia, że odczyty z DAQ można dopasować pod względem znaczników czasu do ekspozycji kamer (zobacz [Nagrywanie i format .daq](recording.md)).
 
 Sprawdź synchronizację z poziomu interfejsu CLI:
 

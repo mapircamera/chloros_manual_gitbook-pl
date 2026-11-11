@@ -1,7 +1,6 @@
 # Zakończenie przetwarzania
 
-Gdy program Chloros
-zakończy przetwarzanie, nadchodzi czas na przejrzenie wyników, sprawdzenie jakości wyjściowej oraz przygotowanie przetworzonych obrazów do wykorzystania w procesie pracy. Ta strona zawiera instrukcje dotyczące ostatnich kroków i dalszych działań.
+Gdy program Chloros zakończy przetwarzanie, nadchodzi czas na przejrzenie wyników, sprawdzenie jakości wyjściowej oraz przygotowanie przetworzonych obrazów do wykorzystania w procesie pracy. Ta strona zawiera instrukcje dotyczące ostatnich kroków i dalszych działań.
 
 ## Wskazania zakończenia przetwarzania
 
@@ -13,10 +12,7 @@ Po pomyślnym zakończeniu przetwarzania pojawi się kilka wskaźników:
 * ✅ **Pliki wyjściowe**: Wszystkie przetworzone obrazy zapisane w drzewie wyjściowym projektu (poniżej)
 
 {% hint style="warning" %}
-**Cykl, w którym nie zapisano żadnych obrazów, kończy się niepowodzeniem.** Jeśli zażądano produktów obrazowych, a przebieg nie zapisał żadnego, Chloros
-zgłasza to jako niepowodzenie — nazwa logu `[RUN-SUMMARY]` wskazuje prawdopodobną przyczynę (nie zaimportowano niczego, nie wykryto żadnego celu lub pominięto wszystkie żądane produkty jako nieodpowiednie). Odpowiednik w CLI
-kończy działanie z wynikiem niezerowym. Celowe uruchomienie obejmujące wyłącznie metadane (wszystkie produkty eksportu wyłączone, brak indeksów) nadal jest traktowane jako sukces. Zobacz [Podręcznik CLI
-](../reference/cli-reference.md#a-run-that-writes-no-images-fails).
+**Cykl, w którym nie zapisano żadnych obrazów, kończy się niepowodzeniem.** Jeśli zażądano produktów obrazowych, a przebieg nie zapisał żadnego, Chloros zgłasza to jako niepowodzenie — nazwa logu `[RUN-SUMMARY]` wskazuje prawdopodobną przyczynę (nie zaimportowano niczego, nie wykryto żadnego celu lub pominięto wszystkie żądane produkty jako nieodpowiednie). Odpowiednik w CLI kończy działanie z wynikiem niezerowym. Celowe uruchomienie obejmujące wyłącznie metadane (wszystkie produkty eksportu wyłączone, brak indeksów) nadal jest traktowane jako sukces. Zobacz [Podręcznik CLI](../reference/cli-reference.md#a-run-that-writes-no-images-fails).
 {% endhint %}
 
 ***
@@ -48,10 +44,8 @@ Pliki są zapisywane **w folderze projektu, pogrupowane według aparatu, a nast�
         └── Radiance_Images/             # float32 radiance always lands here
 ```
 
-* **Folder aparatu**: `LATT-<sensor>-<lens>-F<filter>` dla LATTICE (zgodne z danymi EXIF ujęcia `Model`), `<model>_<filter>` dla Survey3
-(np. `Survey3N_RGN`). Dwie kamery, które mają ten sam czujnik i filtr, ale różnią się obiektywem, mają oddzielne drzewa — różnią się one winietowaniem, polem widzenia i zniekształceniami.
-* **Format folderu**: zgodny z ustawieniem formatu eksportu — `tiff16`, `tiff8`, `png8`, `jpg8`, lub `tiff32` dla formatu TIFF
-(32-bitowy, procentowy). Radiance ma zawsze typ float32 i zawsze znajduje się w pliku `tiff32`.
+* **Folder aparatu**: `LATT-<sensor>-<lens>-F<filter>` dla LATTICE (zgodne z danymi EXIF ujęcia `Model`), `<model>_<filter>` dla Survey3 (np. `Survey3N_RGN`). Dwie kamery, które mają ten sam czujnik i filtr, ale różnią się obiektywem, mają oddzielne drzewa — różnią się one winietowaniem, polem widzenia i zniekształceniami.
+* **Format folderu**: zgodny z ustawieniem formatu eksportu — `tiff16`, `tiff8`, `png8`, `jpg8`, lub `tiff32` dla formatu TIFF (32-bitowy, procentowy). Radiance ma zawsze typ float32 i zawsze znajduje się w pliku `tiff32`.
 * **Foldery produktów**:
   * `Reflectance_Calibrated_Images/` — skalibrowana odbiciowość
   * `Debayered_Images/` — dane po liniowej demosaikacji (LATTICE): usunięto ciemne przesunięcie i przeprowadzono demosaikację, bez pola płaskiego ani demiksowania, w natywnej orientacji czujnika
@@ -70,8 +64,7 @@ Pliki są zapisywane **w folderze projektu, pogrupowane według aparatu, a nast�
 
 ### Ile plików powinno być?
 
-Nie licz według wzoru — liczba plików wyjściowych zależy od tego, które produkty zostały włączone i które mają zastosowanie do poszczególnych kamer (np. kamery RGB
-nie otrzymują danych dotyczących promieniowania/odbicia). Ostateczna liczba znajduje się w dzienniku: ostatni wiersz `[RUN-SUMMARY]` podaje dokładnie, ile plików zostało zapisanych, a wiersze z podpowiedziami wyjaśniają, co zostało pominięte.
+Nie licz według wzoru — liczba plików wyjściowych zależy od tego, które produkty zostały włączone i które mają zastosowanie do poszczególnych kamer (np. kamery RGB nie otrzymują danych dotyczących promieniowania/odbicia). Ostateczna liczba znajduje się w dzienniku: ostatni wiersz `[RUN-SUMMARY]` podaje dokładnie, ile plików zostało zapisanych, a wiersze z podpowiedziami wyjaśniają, co zostało pominięte.
 
 ***
 
@@ -79,8 +72,7 @@ nie otrzymują danych dotyczących promieniowania/odbicia). Ostateczna liczba zn
 
 ### Szybki podgląd w Eksploratorze plików
 
-**Wbudowany podgląd systemu Windows
-:**
+**Wbudowany podgląd systemu Windows:**
 
 1. Przejdź do folderu produktu (np. `tiff16/Reflectance_Calibrated_Images/`)
 2. Wybierz plik obrazu
@@ -91,19 +83,15 @@ nie otrzymują danych dotyczących promieniowania/odbicia). Ostateczna liczba zn
 ### Podgląd w zewnętrznych przeglądarkach obrazów
 
 **Zalecane przeglądarki:*** **QGIS** – darmowe oprogramowanie GIS (najlepsze do analizy wielospektralnej z georeferencjami)
-* **IrfanView** – szybka, lekka przeglądarka obrazów (obsługuje format TIFF
-)
-* **Adobe Photoshop** – profesjonalna edycja (obsługa formatu TIFF
-)
+* **IrfanView** – szybka, lekka przeglądarka obrazów (obsługuje format TIFF)
+* **Adobe Photoshop** – profesjonalna edycja (obsługa formatu TIFF)
 * **GIMP** – bezpłatna alternatywa dla programu Photoshop
-* **Zdjęcia w systemie Windows** – podstawowe przeglądanie (może nie obsługiwać 16-bitowego formatu TIFF
-)
+* **Zdjęcia w systemie Windows** – podstawowe przeglądanie (może nie obsługiwać 16-bitowego formatu TIFF)
 
 ### Podgląd w przeglądarce obrazów Chloros
 
 
-Użyj wbudowanej przeglądarki obrazów Chloros
-do zaawansowanej wizualizacji:
+Użyj wbudowanej przeglądarki obrazów Chloros do zaawansowanej wizualizacji:
 
 1. Kliknij miniaturę obrazu w przeglądarce plików
 2. Obraz otworzy się w głównym obszarze podglądu
@@ -122,9 +110,7 @@ Odbicie jest przechowywane jako liczba całkowita DN, a **wartość DN odpowiada
 | Źródło          | ρ = 1,0 wynosi | Jak to sprawdzić                                        |
 | --------------- | ---------- | -------------------------------------------------- |
 | LATTICE (M3C/M3M) | **32768** (zakres do ρ 2,0) | W pliku umieszczono tag XMP `Chloros:PixelScale=32768` |
-| Survey3
-         | **65535** (ograniczone do ρ 1,0)     | Brak tagu `Chloros:PixelScale` — ten brak jest sygnałem (produkty Survey3
-zawierają inne tagi przetwarzania typu `Chloros:*`) |
+| Survey3          | **65535** (ograniczone do ρ 1,0)     | Brak tagu `Chloros:PixelScale` — ten brak jest sygnałem (produkty Survey3 zawierają inne tagi przetwarzania typu `Chloros:*`) |
 
 **Odczytaj tag `Chloros:PixelScale` i podziel przez tę wartość** zamiast zakładać uniwersalną wartość 65535 — podzielenie odbicia LATTICE przez 65535 w sposób niewidoczny zmniejsza każdą wartość o połowę. Plik współczynników odbicia sprzed wersji 1.3.0 zapisany w formacie 8-bitowym został przycięty, a nie przeskalowany, i nie zawiera tagu skali: należy go ponownie wyeksportować w formacie 16-bitowym lub 32-bitowym zamiast go dzielić. Pełne wyjaśnienie znajduje się w sekcji [Formaty obrazów wyjściowych](../output-image-formats.md).***
 
@@ -152,15 +138,12 @@ powoduje uszkodzenie danych wyjściowych LATTICE), a pliki `ExifImageWidth` / `E
 ponieważ opisują one oryginalny zrzut — eksport o zmienionych wymiarach w przeciwnym razie
 podawałby wymiary sprzeczne z jego własną siatką rastrową.
 
-Chloros
-zapisuje również własne tagi XMP typu `Chloros:*` opisujące, jakie operacje zostały wykonane na każdym produkcie
+Chloros zapisuje również własne tagi XMP typu `Chloros:*` opisujące, jakie operacje zostały wykonane na każdym produkcie
 (na przykład `Chloros:ProcessingLevel`, `Chloros:CalibrationApplied`,
-`Chloros:VignetteCorrected`). Od wersji 1.3.0 produkty programu Survey3
-zawierają je w każdym trybie przetwarzania
+`Chloros:VignetteCorrected`). Od wersji 1.3.0 produkty programu Survey3 zawierają je w każdym trybie przetwarzania
 trybie przetwarzania, produkty indeksowe opisują sam indeks (`Chloros:ProcessingLevel=index`,
 wzór oraz to, czy został obliczony na podstawie odbicia czy promieniowania), zamiast powtarzać
-tagi surowych danych źródłowych, a produkty w folderach o nazwach dłuższych niż 260 znaków również zachowują swoje metadane
-. Zobacz [Formaty obrazów wyjściowych](../output-image-formats.md#index-products).
+tagi surowych danych źródłowych, a produkty w folderach o nazwach dłuższych niż 260 znaków również zachowują swoje metadane. Zobacz [Formaty obrazów wyjściowych](../output-image-formats.md#index-products).
 
 ***
 
@@ -173,23 +156,17 @@ tagi surowych danych źródłowych, a produkty w folderach o nazwach dłuższych
 2. Przewiń komunikaty
 3. Poszukaj żółtych ostrzeżeń lub czerwonych błędów
 4. Przeczytaj wiersze `[RUN-SUMMARY]` oraz wszelkie wskazówki
-5. Skontaktuj się z pomocą techniczną MAPIR
-, aby uzyskać pomoc
+5. Skontaktuj się z pomocą techniczną MAPIR, aby uzyskać pomoc
 
 ### Zapisywanie dziennika
 
-Aby zachować zapis przebiegu przetwarzania lub przesłać go do działu pomocy technicznej MAPIR
-:
+Aby zachować zapis przebiegu przetwarzania lub przesłać go do działu pomocy technicznej MAPIR:
 
 1. Kliknij przycisk **„Kopiuj”**lub**„Pobierz”**
 
 2. Zapisz jako plik tekstowy w folderze projektu
 3. Dołącz do dokumentacji projektu
-4. W razie napotkanych problemów wyślij go do pomocy technicznej MAPIR
-
-
-Aby zgłosić problem bezpośrednio do MAPIR
-, użyj ikony błędu (**Zgłoś błąd**) u góry zakładki „Dziennik debugowania” — zobacz [Zgłaszanie błędu z zakładki dziennika](monitoring-the-processing.md#reporting-a-bug-from-the-log-tab).***
+4. W razie napotkanych problemów wyślij go do pomocy technicznej MAPIR Aby zgłosić problem bezpośrednio do MAPIR, użyj ikony błędu (**Zgłoś błąd**) u góry zakładki „Dziennik debugowania” — zobacz [Zgłaszanie błędu z zakładki dziennika](monitoring-the-processing.md#reporting-a-bug-from-the-log-tab).***
 
 ## Typowe problemy z wynikami i ich rozwiązania
 
@@ -197,8 +174,7 @@ Aby zgłosić problem bezpośrednio do MAPIR
 
 **Możliwe przyczyny:**
 
-* Produkt nie ma zastosowania do tej kamery (np. promieniowanie/odbicie dla kamer RGB
-— informacja ta znajduje się w dzienniku)
+* Produkt nie ma zastosowania do tej kamery (np. promieniowanie/odbicie dla kamer RGB — informacja ta znajduje się w dzienniku)
 * Brakowało wymaganego odniesienia (np. współczynnik odbicia bez celu i bez promieniowania padającego `.daq`)
 * Pole wyboru eksportu produktu było wyłączone w ustawieniach projektu
 * Podczas eksportu zabrakło miejsca na dysku
@@ -223,8 +199,7 @@ Aby zgłosić problem bezpośrednio do MAPIR
 
 1. Sprawdź, czy korekcja winietowania została włączona w ustawieniach projektu
 2. Sprawdź, czy model kamery został poprawnie wykryty
-3. Skontaktuj się z pomocą techniczną MAPIR
-, jeśli winietowanie nadal występuje
+3. Skontaktuj się z pomocą techniczną MAPIR, jeśli winietowanie nadal występuje
 
 ### Problem: Nieprawidłowe kolory lub wartości
 
@@ -242,11 +217,9 @@ Aby zgłosić problem bezpośrednio do MAPIR
 3. Sprawdź jakość obrazów celów
 4. Przeprowadź ponowne przetwarzanie z zaznaczonymi właściwymi celami
 
-### Problem: Wartości NDVI
-wydają się nieprawidłowe
+### Problem: Wartości NDVI wydają się nieprawidłowe
 
-**Oczekiwane zakresy wartości NDVI
-:*** **Woda, skały, gleba**: od -0,1 do 0,2
+**Oczekiwane zakresy wartości NDVI:*** **Woda, skały, gleba**: od -0,1 do 0,2
 * **Rzadka/niezdrowa roślinność**: od 0,2 do 0,4
 * **Umiarkowana roślinność**: od 0,4 do 0,6
 * **Zdrowa, gęsta roślinność**: od 0,6 do 0,9**Jeśli wartości wykraczają poza te zakresy:**
@@ -273,10 +246,8 @@ wydają się nieprawidłowe
    * WebODM
 2. **Zachowaj metadane EXIF**: Upewnij się, że dane GPS zostały zachowane w celu geotagowania
 3. **Kalibrowane procedury**: Używaj obrazów odbicia światła w celu uzyskania naukowej dokładności — odbicie światła LATTICE zawiera tagi kalibracyjne XMP odczytywane przez Pix4D
-4. **Przetwarzaj mozaiki indeksowe**: Twórz ortomosaiki NDVI
-z poszczególnych obrazów indeksowych
-5. **Eksportuj pliki GeoTIFF
-z georeferencjami**: Do wykorzystania w aplikacjach GIS
+4. **Przetwarzaj mozaiki indeksowe**: Twórz ortomosaiki NDVI z poszczególnych obrazów indeksowych
+5. **Eksportuj pliki GeoTIFF z georeferencjami**: Do wykorzystania w aplikacjach GIS
 
 ### Do analizy GIS
 
@@ -284,11 +255,8 @@ z georeferencjami**: Do wykorzystania w aplikacjach GIS
 
 1.**Załaduj do QGIS, ArcGIS lub podobnego programu**
 
-2.**Wykorzystaj 16-bitowe obrazy odbicia w formacie TIFF
-** do analizy wielopasmowej (podziel przez wartość `Chloros:PixelScale` zawartą w pliku)
-3. **Wykorzystaj obrazy indeksowe** (NDVI
-, NDRE
-) jako gotowe do użycia warstwy roślinności
+2.**Wykorzystaj 16-bitowe obrazy odbicia w formacie TIFF** do analizy wielopasmowej (podziel przez wartość `Chloros:PixelScale` zawartą w pliku)
+3. **Wykorzystaj obrazy indeksowe** (NDVI, NDRE) jako gotowe do użycia warstwy roślinności
 4. **Kalkulator rastrowy**: Łączenie pasm w celu przeprowadzenia niestandardowej analizy
 5. **Eksport**: Tworzenie map klasyfikacyjnych, wykrywanie zmian, map stanu roślinności
 
@@ -297,8 +265,7 @@ z georeferencjami**: Do wykorzystania w aplikacjach GIS
 **Zalecany przebieg pracy:**
 
 1.**Wykorzystaj obrazy indeksowe z kolorami LUT** do tworzenia raportów wizualnych
-2. **Wyodrębnij statystyki**: średnia wartość NDVI
-dla każdego pola/działki
+2. **Wyodrębnij statystyki**: średnia wartość NDVI dla każdego pola/działki
 3. **Seria czasowa**: porównaj wskaźniki z wielu sesji
 4. **Generuj raporty**: dołącz mapy, statystyki i wizualizacje***
 
@@ -335,27 +302,17 @@ W przypadku wielu sesji/zbiorów danych:**Opcja 1: Interfejs graficzny (GUI) –
 * Stosuj spójne ustawienia szablonu
 * Przetwarzaj po jednym na raz
 
-**Opcja 2: Interfejs CLI
-Chloros
-+ (Chloros
-+ tylko)**
+**Opcja 2: Interfejs CLI Chloros+ (Chloros+ tylko)**
 
 * Zautomatyzuj przetwarzanie wsadowe
 * Przetwarzaj wiele folderów za pomocą skryptów
-* Zobacz [Dokumentację CLI
-](../CLI.md) oraz [Podręcznik CLI
-](../reference/cli-reference.md)
+* Zobacz [Dokumentację CLI](../CLI.md) oraz [Podręcznik CLI](../reference/cli-reference.md)
 
-**Opcja 3: Python
-SDK
-(tylko Chloros
-+)**
+**Opcja 3: Python SDK (tylko Chloros+)**
 
 * Sterowanie programowe
 * Integracja z potokami analitycznymi
-* Zobacz [Dokumentację API
-](../api-python-sdk.md) oraz [Podręcznik SDK
-](../reference/sdk-reference.md)
+* Zobacz [Dokumentację API](../api-python-sdk.md) oraz [Podręcznik SDK](../reference/sdk-reference.md)
 
 ***
 
@@ -386,15 +343,13 @@ Jeśli napotkasz problemy:
 * 📧 **E-mail**: info@mapir.camera (dołącz dziennik debugowania)
 * 🌐 **Pomoc techniczna**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
 * 📚 **FAQ**: [Często zadawane pytania](../faq.md)
-* 📖 **Dokumentacja**: [Podręcznik Chloros
-](../)
+* 📖 **Dokumentacja**: [Podręcznik Chloros](../)
 
 ***
 
 ## Podsumowanie: Pełny przebieg procesu
 
-Właśnie zakończyłeś cały proces przetwarzania w Chloros
-:
+Właśnie zakończyłeś cały proces przetwarzania w Chloros:
 
 1. ✅ **Utworzono projekt** – zobacz [Projekty](../projects.md)
 2. ✅ **Dodano pliki** – zobacz [Dodawanie plików](adding-files-to-a-project.md)
@@ -417,11 +372,8 @@ Właśnie zakończyłeś cały proces przetwarzania w Chloros
 ### Automatyzacja i integracja
 
 * [**Dokumentacja CLI**](../CLI.md) – Przetwarzanie wsadowe z wiersza poleceń
-* [**Python
-SDK
-**](../api-python-sdk.md) – Automatyzacja programowa
-* [**Funkcje Chloros
-+**](../#chloros) – zaawansowane możliwości przetwarzania
+* [**Python SDK**](../api-python-sdk.md) – Automatyzacja programowa
+* [**Funkcje Chloros+**](../#chloros) – zaawansowane możliwości przetwarzania
 
 ### Wsparcie i szkolenia
 

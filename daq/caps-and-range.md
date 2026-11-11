@@ -1,10 +1,8 @@
 # Profile osłon i skalibrowany zakres
 
-> Same nasadki — które z nich są dostarczane z danym czujnikiem, jak się je montuje oraz jakie mają właściwości optyczne — zostały opisane w **[instrukcji obsługi DAQ](https://mapir.gitbook.io/daq)**. Ta strona dotyczy *zgłaszania* zamontowanej nasadki do systemu Chloros
-, co jest niezbędne do prawidłowego przeprowadzenia korekcji.
+> Same nasadki — które z nich są dostarczane z danym czujnikiem, jak się je montuje oraz jakie mają właściwości optyczne — zostały opisane w **[instrukcji obsługi DAQ](https://mapir.gitbook.io/daq)**. Ta strona dotyczy *zgłaszania* zamontowanej nasadki do systemu Chloros, co jest niezbędne do prawidłowego przeprowadzenia korekcji.
 
-Każda fabryczna kalibracja radiometryczna czujnika światła DAQ opisuje *sam* czujnik. Fizyczna osłona zamontowana na dyfuzorze zmienia rodzaj światła zbieranego przez czujnik, dlatego Chloros
-stosuje zmierzony fabrycznie **profil korekcji osłony** jako dodatek do pakietu kalibracyjnego. Zgłoszenie właściwej nasadki jest częścią procesu uzyskiwania skalibrowanych danych — na tej stronie omówiono, jakie nasadki są dostępne dla poszczególnych modeli, jak je zgłaszać oraz jaki jest faktyczny skalibrowany zakres spektralny czujnika.
+Każda fabryczna kalibracja radiometryczna czujnika światła DAQ opisuje *sam* czujnik. Fizyczna osłona zamontowana na dyfuzorze zmienia rodzaj światła zbieranego przez czujnik, dlatego Chloros stosuje zmierzony fabrycznie **profil korekcji osłony** jako dodatek do pakietu kalibracyjnego. Zgłoszenie właściwej nasadki jest częścią procesu uzyskiwania skalibrowanych danych — na tej stronie omówiono, jakie nasadki są dostępne dla poszczególnych modeli, jak je zgłaszać oraz jaki jest faktyczny skalibrowany zakres spektralny czujnika.
 
 ## Dostępność nasadek w zależności od modelu
 
@@ -50,30 +48,22 @@ chloros-cli daq pool-connect --eth-host daq-e-def330.local --cap-id sunshine_cos
 chloros-cli daq pool-set-cap --sensor-id daq-e-def330 --cap-id fov_45
 ```
 
-CLI
-akceptuje składniowo pełną listę `cap_id` (`{none, fov_15, fov_30, fov_45, fov_60, fov_90, sunshine_cosine}`); każdy profil jest weryfikowany względem modelu czujnika w momencie połączenia, więc niedostępny identyfikator czujnika (na przykład identyfikator przeznaczony wyłącznie dla modelu E w przypadku DAQ-U) powoduje wyraźny błąd zamiast nieprawidłowej korekty. Domyślną wartością serwera, gdy nie przekazano żadnych danych, jest `sunshine_cosine`.
+CLI akceptuje składniowo pełną listę `cap_id` (`{none, fov_15, fov_30, fov_45, fov_60, fov_90, sunshine_cosine}`); każdy profil jest weryfikowany względem modelu czujnika w momencie połączenia, więc niedostępny identyfikator czujnika (na przykład identyfikator przeznaczony wyłącznie dla modelu E w przypadku DAQ-U) powoduje wyraźny błąd zamiast nieprawidłowej korekty. Domyślną wartością serwera, gdy nie przekazano żadnych danych, jest `sunshine_cosine`.
 
-Python
-SDK
-: nadaj nazwę czujnika w momencie nawiązywania połączenia za pomocą `connect_daq_sensor(cap_id="sunshine_cosine")` lub zmień ją w czasie wykonywania za pomocą `DAQSensorSession.set_cap("fov_45")`; zobacz [Dokumentację SDK
-](../reference/sdk-reference.md#daq-sensor-sessions).
+Python SDK: nadaj nazwę czujnika w momencie nawiązywania połączenia za pomocą `connect_daq_sensor(cap_id="sunshine_cosine")` lub zmień ją w czasie wykonywania za pomocą `DAQSensorSession.set_cap("fov_45")`; zobacz [Dokumentację SDK](../reference/sdk-reference.md#daq-sensor-sessions).
 
-Zaawansowane: profile są dostarczane w ramach instalacji Chloros
-pod nazwą `daq/cap_profiles/<u|m|e>/<cap_id>.json` i mogą być nadpisywane indywidualnie dla każdego użytkownika za pomocą `~/.chloros/daq_cap_profiles/<u|m|e>/<cap_id>.json`.
+Zaawansowane: profile są dostarczane w ramach instalacji Chloros pod nazwą `daq/cap_profiles/<u|m|e>/<cap_id>.json` i mogą być nadpisywane indywidualnie dla każdego użytkownika za pomocą `~/.chloros/daq_cap_profiles/<u|m|e>/<cap_id>.json`.
 
 Niezależnie od limitów, czujniki, które nigdy nie były ponownie kalibrowane, automatycznie otrzymują niewielką korektę ciemnego przesunięcia wywodzącą się z floty — bez konieczności podejmowania jakichkolwiek działań przez użytkownika.
 
 ## DAQ-E-S: stały dyfuzor i nachylenie
 
-**DAQ-E-S** to urządzenie typu DAQ-E z dwiema różnicami, które mają znaczenie dla Chloros
-. Wszystko inne (wykrywanie, łączenie, PTP, rejestrowanie, ustawienia urządzenia) działa dokładnie tak samo jak w przypadku DAQ-E.
+**DAQ-E-S** to urządzenie typu DAQ-E z dwiema różnicami, które mają znaczenie dla Chloros. Wszystko inne (wykrywanie, łączenie, PTP, rejestrowanie, ustawienia urządzenia) działa dokładnie tak samo jak w przypadku DAQ-E.
 
-* **Jego dyfuzor jest stały, więc nie wymaga korekcji za pomocą nasadki.** Dyfuzor znajdował się na urządzeniu podczas pomiaru jego kalibracji fabrycznej, więc kalibracja ta już odzwierciedla rzeczywiste natężenie promieniowania padającego w dół. Chloros
-nie stosuje do niego żadnego profilu ograniczenia, niezależnie od tego, o co zostanie poproszony: profil o tej nazwie jest ignorowany z wyświetleniem komunikatu, jego zapisy wskazują, że ograniczenie pochodzi z modelu, a ostrzeżenie o założonym ograniczeniu nigdy się w tym przypadku nie uruchamia. W sekcji Ustawienia projektu → Czujnik światła DAQ w jego wierszu nie ma żadnego ograniczenia, a ogólne dla projektu nadpisanie ograniczenia nie ma na niego wpływu. Nie należy ręcznie nakładać ograniczenia na jego dane: korekcja nasłonecznienia na wierzchu wskazywałaby wartość około 11 razy wyższą.
+* **Jego dyfuzor jest stały, więc nie wymaga korekcji za pomocą nasadki.** Dyfuzor znajdował się na urządzeniu podczas pomiaru jego kalibracji fabrycznej, więc kalibracja ta już odzwierciedla rzeczywiste natężenie promieniowania padającego w dół. Chloros nie stosuje do niego żadnego profilu ograniczenia, niezależnie od tego, o co zostanie poproszony: profil o tej nazwie jest ignorowany z wyświetleniem komunikatu, jego zapisy wskazują, że ograniczenie pochodzi z modelu, a ostrzeżenie o założonym ograniczeniu nigdy się w tym przypadku nie uruchamia. W sekcji Ustawienia projektu → Czujnik światła DAQ w jego wierszu nie ma żadnego ograniczenia, a ogólne dla projektu nadpisanie ograniczenia nie ma na niego wpływu. Nie należy ręcznie nakładać ograniczenia na jego dane: korekcja nasłonecznienia na wierzchu wskazywałaby wartość około 11 razy wyższą.
 * **Urządzenie jest wyposażone w 3-osiowy akcelerometr.** Charakterystyka cosinusowa dyfuzora jest ważna tylko wtedy, gdy jest on wypoziomowany, więc przechylony czujnik zgłasza błędne natężenie promieniowania bez żadnych innych objawów. Każdy odczyt z DAQ-E-S zawiera zatem informacje o jego przechyleniu, obrocie i pochyleniu, a plik `.daq` zarejestrowany z jednego z nich przechowuje je obok każdego widma (`imu_tilt_deg`, `imu_roll_deg`, `imu_pitch_deg`, …), dzięki czemu można odróżnić chmurę od uderzenia w uchwyt.
 
-Informacje na temat każdego pola położenia oraz sposobu zgłaszania błędów w strumieniu danych położenia można znaleźć w [Dokumentacji CLI
-dotyczącej DAQ-E-S](../reference/cli-reference.md#daq-e-s--fixed-diffuser-and-tilt-sensor).
+Informacje na temat każdego pola położenia oraz sposobu zgłaszania błędów w strumieniu danych położenia można znaleźć w [Dokumentacji CLI dotyczącej DAQ-E-S](../reference/cli-reference.md#daq-e-s--fixed-diffuser-and-tilt-sensor).
 
 ## Wydajność osłony przeciwsłonecznej (konfiguracja zewnętrzna)
 
@@ -97,7 +87,6 @@ W przypadku każdej wartości ilościowego natężenia promieniowania — w tym 
 | Próbkowanie spektralne | 340–1010 nm w krokach co 5 nm (135 punktów) |
 | Zakres skalibrowany radiometrycznie | **~374–974 nm** (wymuszony programowo) |
 
-Czujnik przekazuje pełną siatkę w zakresie 340–1010 nm, ale wzmocnienie radiometryczne zgodne z normami NIST obejmuje zakres ~374–974 nm. Chloros
-**odrzuca podział na odbicie bezwzględne** dla każdego pasma kamery, którego mniej niż połowa wagi spektralnej mieści się w tym zakresie, zgłaszając powód pominięcia `dls-uncalibrated-band-<nm>` zamiast generować produkt nieskalibrowany. Spośród dostępnych w sprzedaży modeli kamer tylko filtr F988 wykracza poza ten zakres; w jego przypadku stosowany jest zamiast tego proces oparty na panelu odbicia — zobacz [Procesy oparte na odbiciu](reflectance.md).
+Czujnik przekazuje pełną siatkę w zakresie 340–1010 nm, ale wzmocnienie radiometryczne zgodne z normami NIST obejmuje zakres ~374–974 nm. Chloros **odrzuca podział na odbicie bezwzględne** dla każdego pasma kamery, którego mniej niż połowa wagi spektralnej mieści się w tym zakresie, zgłaszając powód pominięcia `dls-uncalibrated-band-<nm>` zamiast generować produkt nieskalibrowany. Spośród dostępnych w sprzedaży modeli kamer tylko filtr F988 wykracza poza ten zakres; w jego przypadku stosowany jest zamiast tego proces oparty na panelu odbicia — zobacz [Procesy oparte na odbiciu](reflectance.md).
 
 Informacje na temat modeli czujników, transportów i identyfikatorów czujników można znaleźć w [przeglądzie DAQ](README.md). Informacje na temat sposobu wykorzystania limitu podczas przetwarzania można znaleźć w sekcji [Rejestracja i format .daq](recording.md).

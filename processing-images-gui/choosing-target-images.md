@@ -159,7 +159,7 @@ Jeśli funkcja „Chloros” nie wykrywa obiektów poprawnie, dostosuj następuj
 **Możliwe przyczyny:**
 
 * Obrazy celów nie są zaznaczone w przeglądarce plików
-* Cel jest zbyt mały w kadrze (&lt; 30% obrazu)
+* Cel jest zbyt mały w kadrze (< 30% obrazu)
 * Słabe oświetlenie (cienie, odblaski)
 * Zbyt rygorystyczne ustawienia wykrywania celów
 

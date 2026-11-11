@@ -1,8 +1,6 @@
 # Rejestracja i format .daq
 
-Plik `.daq` to format zapisu danych z czujnika światła stosowany w programie Chloros
-
-: **baza danych SQLite** zawierająca skalibrowane klatki spektralne z jednego czujnika DAQ. Wystarczy zarejestrować jeden taki plik podczas sesji przechwytywania, a moduł przetwarzania odbicia światła będzie mógł później podzielić każdy obraz przez natężenie promieniowania padającego zmierzone dokładnie w tym momencie.
+Plik `.daq` to format zapisu danych z czujnika światła stosowany w programie Chloros: **baza danych SQLite** zawierająca skalibrowane klatki spektralne z jednego czujnika DAQ. Wystarczy zarejestrować jeden taki plik podczas sesji przechwytywania, a moduł przetwarzania odbicia światła będzie mógł później podzielić każdy obraz przez natężenie promieniowania padającego zmierzone dokładnie w tym momencie.
 
 ## Co zawiera plik .daq
 
@@ -16,15 +14,11 @@ Plik `.daq` to format zapisu danych z czujnika światła stosowany w programie C
 
 Format jest identyczny dla modeli DAQ-U, DAQ-M, DAQ-E i DAQ-E-S, więc dalsze przetwarzanie danych nie uwzględnia, które urządzenie pomiarowe dokonało rejestracji. Rejestracja z urządzenia DAQ-E-S przechowuje również dane dotyczące przechyłu, przechylenia bocznego i pochylenia urządzenia obok każdego widma.
 
-**Zapisy są zachowywane w przypadku przerwy w zasilaniu (wersja 1.3.0).**Zapis na żywo jest zapisywany z dziennikiem i pełną synchronizacją dysku przy każdym zatwierdzeniu, więc przerwa w zasilaniu lub zakończenie procesu powoduje utratę danych z ostatnich około 3 sekund, a nie całego pliku. Zapis zatrzymany w trakcie zapisywania może pozostawić plik `<name>.daq-journal` obok pliku `.daq`:**należy zachować i skopiować oba pliki razem.** Program Chloros
-
-przywraca dziennik do poprzedniego stanu przy pierwszym odczycie pliku. Zajęty dysk opóźnia zapis pliku, ale nigdy nie wpływa na odczyty czujnika.
+**Zapisy są zachowywane w przypadku przerwy w zasilaniu (wersja 1.3.0).**Zapis na żywo jest zapisywany z dziennikiem i pełną synchronizacją dysku przy każdym zatwierdzeniu, więc przerwa w zasilaniu lub zakończenie procesu powoduje utratę danych z ostatnich około 3 sekund, a nie całego pliku. Zapis zatrzymany w trakcie zapisywania może pozostawić plik `<name>.daq-journal` obok pliku `.daq`:**należy zachować i skopiować oba pliki razem.** Program Chloros przywraca dziennik do poprzedniego stanu przy pierwszym odczycie pliku. Zajęty dysk opóźnia zapis pliku, ale nigdy nie wpływa na odczyty czujnika.
 
 **Urządzenie DAQ-E, które przestaje przesyłać dane, zostaje ponownie podłączone (wersja 1.3.0).** Gdy strumień danych z urządzenia DAQ-E milknie (z powodu wyłączenia i ponownego włączenia zasilania przełącznika lub utraty połączenia), backend ponownie je podłącza z zachowaniem dotychczasowych ustawień, a nagrywanie na tym urządzeniu jest kontynuowane w tym samym pliku `.daq` z zaznaczoną w pliku przerwą.
 
-Kalibrowane nagrywanie wymaga fabrycznego pakietu kalibracyjnego czujnika. W przypadku urządzeń DAQ-U i DAQ-M backend pobiera pakiet z chmury MAPIR
-
-na podstawie identyfikatora czujnika (jeśli nie jest to możliwe, nagrywanie zostaje odrzucone); urządzenia DAQ-E są wyłączone z tego wymogu, ponieważ przechowują kalibrację w pamięci urządzenia.
+Kalibrowane nagrywanie wymaga fabrycznego pakietu kalibracyjnego czujnika. W przypadku urządzeń DAQ-U i DAQ-M backend pobiera pakiet z chmury MAPIR na podstawie identyfikatora czujnika (jeśli nie jest to możliwe, nagrywanie zostaje odrzucone); urządzenia DAQ-E są wyłączone z tego wymogu, ponieważ przechowują kalibrację w pamięci urządzenia.
 
 ## Nagrywanie z poziomu GUI
 
@@ -45,11 +39,7 @@ Pliki są zapisywane w formacie `<project>/light_sensor/`, a po zatrzymaniu nagr
 
 
 
-CLI
-
-nagrywa za pośrednictwem puli czujników backendu (backend musi być uruchomiony — polecenia te są lekkimi klientami HTTP
-
-):
+CLI nagrywa za pośrednictwem puli czujników backendu (backend musi być uruchomiony — polecenia te są lekkimi klientami HTTP):
 
 ```bash
 # Connect the sensor into the backend pool
@@ -69,40 +59,22 @@ Pobierz wartość `--sensor-id` z `chloros-cli daq pool-list`. Dwie wartości do
 | Opcja | Wartość domyślna |
 | --- | --- |
 | `--duration` | `0` — rejestruj do `pool-record --stop` |
-| `--output` / `-o` | `~/Documents/DAQ Live View/` w systemie plików **backendu**, a nie CLI
+| `--output` / `-o` | `~/Documents/DAQ Live View/` w systemie plików **backendu**, a nie CLI |
 
-|
-
-Rozróżnienie katalogów wyjściowych ma znaczenie, gdy CLI
-
-kieruje dane do backendu na innym komputerze: plik trafia tam, gdzie działa backend. Gdy backend znajduje się na tym samym komputerze, ścieżka względna `-o` (taka jak `./out` powyżej) jest rozpoznawana względem folderu, w którym uruchomiono polecenie.
+Rozróżnienie katalogów wyjściowych ma znaczenie, gdy CLI kieruje dane do backendu na innym komputerze: plik trafia tam, gdzie działa backend. Gdy backend znajduje się na tym samym komputerze, ścieżka względna `-o` (taka jak `./out` powyżej) jest rozpoznawana względem folderu, w którym uruchomiono polecenie.
 
 ## Nagrywanie z języka Python
 
-`DAQSensorSession` (zwracane przez `chloros_sdk.connect_daq_sensor()`) udostępnia to samo nagranie z puli: `record_start(output_dir=None, device_name=None)` zwraca ścieżkę do pliku, a `record_stop()` zwraca `{path, rows}`. Pełny opis API
-
-sesji znajduje się w [Dokumentacji SDK
-
-](../reference/sdk-reference.md). Klasy SDK
-
-obsługujące sprzęt bezpośrednio (tylko w instalacjach na komputerach stacjonarnych) domyślnie zapisują nagrania do `~/Documents/DAQ/`; w przypadku wydanych kompilacji obsługiwana jest powyższa ścieżka zbiorcza.
+`DAQSensorSession` (zwracane przez `chloros_sdk.connect_daq_sensor()`) udostępnia to samo nagranie z puli: `record_start(output_dir=None, device_name=None)` zwraca ścieżkę do pliku, a `record_stop()` zwraca `{path, rows}`. Pełny opis API sesji znajduje się w [Dokumentacji SDK](../reference/sdk-reference.md). Klasy SDK obsługujące sprzęt bezpośrednio (tylko w instalacjach na komputerach stacjonarnych) domyślnie zapisują nagrania do `~/Documents/DAQ/`; w przypadku wydanych kompilacji obsługiwana jest powyższa ścieżka zbiorcza.
 
 ## Korzystanie z pliku .daq podczas przetwarzania
 
-Aby obliczyć współczynnik odbicia na podstawie obrazów, program Chloros
-
-potrzebuje natężenia promieniowania padającego dopasowanego do każdej ekspozycji:
+Aby obliczyć współczynnik odbicia na podstawie obrazów, program Chloros potrzebuje natężenia promieniowania padającego dopasowanego do każdej ekspozycji:
 
 * **Należy zachować plik `.daq` wraz z obrazami.**Podczas przetwarzania potok automatycznie ustala**natężenie promieniowania padającego zgodne z sygnaturą czasową** na podstawie zarejestrowanego pliku `.daq` (dowolny model DAQ) — lub na podstawie natywnego pliku `.csv` — znajdującego się obok obrazów. Nagrania z interfejsu graficznego spełniają ten warunek automatycznie, ponieważ są dodawane do projektu w momencie ich zakończenia.
-* **Kalibracja jest pobierana na żądanie.** Jeśli pakiet kalibracji fabrycznej dla danej kamery lub urządzenia DAQ nie został jeszcze zapisany w lokalnej pamięci podręcznej, program Chloros
-
-automatycznie pobiera go z chmury MAPIR
-
-przy pierwszym użyciu (wymagane jednorazowe połączenie z Internetem; zapisywany w pamięci podręcznej pod nazwą `~/.chloros/`).
+* **Kalibracja jest pobierana na żądanie.** Jeśli pakiet kalibracji fabrycznej dla danej kamery lub urządzenia DAQ nie został jeszcze zapisany w lokalnej pamięci podręcznej, program Chloros automatycznie pobiera go z chmury MAPIR przy pierwszym użyciu (wymagane jednorazowe połączenie z Internetem; zapisywany w pamięci podręcznej pod nazwą `~/.chloros/`).
 * **Przechwytywane na żywo obrazy zapisują własny plik towarzyszący.** W przypadku każdej klatki odbicia światła zarejestrowanej na żywo faktycznie wykorzystany odczyt z modułu DAQ jest zapisywany jako plik `.daq` w folderze `daq/` danego zapisu, dzięki czemu zapis można później ponownie przetworzyć bez konieczności korzystania z oryginalnego nagrania.
-* **Nagrania z rejestratorów `chloros_scripts` (wersja 1.3.0).**Plik `.daq` zapisany przez publiczne rejestratory [`chloros_scripts`](https://github.com/mapircamera/chloros_scripts) jest wymieniony jako model DAQ, który go utworzył, a jego limit można ustawić w**Ustawienia projektu → Czujnik światła DAQ**, tak jak w przypadku każdego innego nagrania. Rejestratory te zapisują surowe wartości zliczeń czujnika; Chloros
-
-pobiera fabryczną kalibrację czujnika przez port szeregowy i ją stosuje.
+* **Nagrania z rejestratorów `chloros_scripts` (wersja 1.3.0).**Plik `.daq` zapisany przez publiczne rejestratory [`chloros_scripts`](https://github.com/mapircamera/chloros_scripts) jest wymieniony jako model DAQ, który go utworzył, a jego limit można ustawić w**Ustawienia projektu → Czujnik światła DAQ**, tak jak w przypadku każdego innego nagrania. Rejestratory te zapisują surowe wartości zliczeń czujnika; Chloros pobiera fabryczną kalibrację czujnika przez port szeregowy i ją stosuje.
 * **Czyje to odczyty (1.3.0).**Obok każdego zapisu `.daq` znajduje się `.daq.cameras.json`, który określa nazwę kamery (kamer), których klatki opisuje dany odczyt, a przetwarzanie dopasowuje go**wyłącznie do obrazów z tych kamer**. Samodzielna kamera bez własnego czujnika światła nie korzysta zatem już z odczytu innej kamery — należy przypisać do niej czujnik lub zarejestrować własny. Nagranie wykonane za pomocą samego DAQ (GUI Record, `daq pool-record`) oraz każdy plik `.daq` bez tego pliku (w tym starsze przechwyty) nadal obsługuje każdą kamerę.
 
 ## Odzyskiwanie natężenia promieniowania
@@ -111,9 +83,7 @@ Przetwarzanie projektu powoduje również wyeksportowanie wszystkich zapisów z 
 `Light Sensor/` obok produktów obrazowych. Nie wymaga to **obecności** obrazów:
 samodzielny zapis z czujnika światła stanowi kompletny zapis, a folder zawierający wyłącznie pliki `.daq`
 jest prawidłowym danymi wejściowymi. Projekt zawierający wyłącznie zapisy z czujników światła wyświetla ich listę i
-przetwarza je zarówno w aplikacji, jak i w interfejsie CLI
-
-, a po zakończeniu przetwarzania pozostają one na liście. Raport z przetwarzania
+przetwarza je zarówno w aplikacji, jak i w interfejsie CLI, a po zakończeniu przetwarzania pozostają one na liście. Raport z przetwarzania
 podaje liczbę zapisanych produktów z czujników światła.
 
 | Produkt | Co to jest |
@@ -132,9 +102,7 @@ nic nie jest buforowane lokalnie.
 **DAQ-A** powstał przed wprowadzeniem systemu pakietów kalibracyjnych dla poszczególnych numerów seryjnych i nie ma żadnego pakietu do
 pobrania. Nie jest to przeoczenie: urządzenie DAQ-A jest kalibrowane w terenie względem
 celu odbijającego, a kalibracja oparta na celu wymaga jedynie *względnej*
-charakterystyki czujnika — a właśnie tym są jego surowe odczyty. Firma Chloros
-
-kalibruje urządzenia przy ich użyciu do dziś.
+charakterystyki czujnika — a właśnie tym są jego surowe odczyty. Firma Chloros kalibruje urządzenia przy ich użyciu do dziś.
 
 Zatem zapis z DAQ-A można wyeksportować, ale pod inną nazwą:
 
@@ -153,12 +121,8 @@ tylko w przypadku rzeczywistego natężenia promieniowania — moc całkowita, l
 obliczane na podstawie liczb zliczeń.
 
 Starsze zapisy DAQ-A-SD (schemat v1.01 / v1.02) rejestrują jedynie czas zapisu pliku, a nie
-znacznik czasu dla każdego odczytu. Chloros
-
-nie będzie dopasowywać obrazów do tych danych — przyporządkowanie klatki do
+znacznik czasu dla każdego odczytu. Chloros nie będzie dopasowywać obrazów do tych danych — przyporządkowanie klatki do
 czasu zapisu byłoby błędne, choć na pierwszy rzut oka nie wyglądałoby na błędne — ale eksport odczytuje je poprawnie, a
-plik CSV
-
-wskazuje, na którym zegarze się znajdują.
+plik CSV wskazuje, na którym zegarze się znajdują.
 
 Aby zapoznać się z pełnym opisem procesu pomiaru odbicia — z jednym czujnikiem i kamerą oraz z dwoma czujnikami (oświetlenie otoczenia/obiekt) — zobacz [Procesy pomiaru odbicia](reflectance.md).

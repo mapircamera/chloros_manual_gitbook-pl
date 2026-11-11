@@ -2,9 +2,7 @@
 
 Pasek boczny „Ustawienia projektu” <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line">
 
-w programie Chloros
-
-pozwala skonfigurować wszystkie aspekty przetwarzania obrazów, wykrywania celów kalibracyjnych, obliczania wskaźników wielospektralnych oraz opcji eksportu dla danego projektu. Ustawienia te są zapisywane wraz z projektem i można je zapisać jako szablony do ponownego wykorzystania w wielu projektach.
+w programie Chloros pozwala skonfigurować wszystkie aspekty przetwarzania obrazów, wykrywania celów kalibracyjnych, obliczania wskaźników wielospektralnych oraz opcji eksportu dla danego projektu. Ustawienia te są zapisywane wraz z projektem i można je zapisać jako szablony do ponownego wykorzystania w wielu projektach.
 
 ## Dostęp do ustawień projektu
 
@@ -40,9 +38,7 @@ na lewym pasku bocznym
 
 ## Wykrywanie celów
 
-Te ustawienia kontrolują sposób, w jaki Chloros
-
-wykrywa i przetwarza cele kalibracyjne na obrazach. Oba są aktywne tylko wtedy, gdy włączona jest opcja **Kalibracja odbicia / balans bieli** (w przeciwnym razie są wyszarzone, ponieważ wykrywanie celów jest całkowicie pomijane).
+Te ustawienia kontrolują sposób, w jaki Chloros wykrywa i przetwarza cele kalibracyjne na obrazach. Oba są aktywne tylko wtedy, gdy włączona jest opcja **Kalibracja odbicia / balans bieli** (w przeciwnym razie są wyszarzone, ponieważ wykrywanie celów jest całkowicie pomijane).
 
 ### Minimalny obszar próbki kalibracyjnej (px)
 
@@ -68,9 +64,7 @@ wykrywa i przetwarza cele kalibracyjne na obrazach. Oba są aktywne tylko wtedy,
 
 ## Przetwarzanie
 
-Te ustawienia określają sposób, w jaki program Chloros
-
-przetwarza i kalibruje obrazy.
+Te ustawienia określają sposób, w jaki program Chloros przetwarza i kalibruje obrazy.
 
 ### Korekcja winietowania
 
@@ -84,9 +78,7 @@ przetwarza i kalibruje obrazy.
 * **Typ**: Pole wyboru
 * **Domyślnie**: Włączone (zaznaczone)
 * **Opis**: Włącza kalibrację odbicia — na podstawie wykrytych w kadrze celów kalibracyjnych i/lub danych o natężeniu światła z czujnika DAQ, w zależności od kamery i dostępnych danych. Normalizuje to wartości odbicia w całym zbiorze danych i zapewnia spójność pomiarów niezależnie od warunków oświetleniowych.
-* **Gdy opcja jest wyłączona**: Wykrywanie celów jest całkowicie pomijane i**żadna kamera nie może wygenerować produktu odbicia** — dotyczy to zarówno systemu opartego na celach Survey3
-
-, jak i systemu opartego na DAQ LATTICE. Powiązane ustawienia (*Eksportuj odbicie*, *Minimalny interwał ponownej kalibracji* oraz progi wykrywania celów) są wyszarzone.
+* **Gdy opcja jest wyłączona**: Wykrywanie celów jest całkowicie pomijane i**żadna kamera nie może wygenerować produktu odbicia** — dotyczy to zarówno systemu opartego na celach Survey3, jak i systemu opartego na DAQ LATTICE. Powiązane ustawienia (*Eksportuj odbicie*, *Minimalny interwał ponownej kalibracji* oraz progi wykrywania celów) są wyszarzone.
 
 ### Produkty rezerwowe dla danych nieskalibrowanych: Eksport odpowiedzi czujnika / Eksport z korekcją winietowania
 
@@ -103,45 +95,25 @@ W przypadku projektów zawierających ujęcia LATTICE każda zaimportowana klatk
 
 | Ustawienie | Folder wyjściowy | Co eksportuje |
 | --- | --- | --- |
-| **Eksport po usunięciu efektu bayera** | `Debayered_Images/` | Obraz po liniowym usunięciu efektu bayera: po usunięciu ciemnego przesunięcia z pakietu kalibracyjnego, a następnie z zastosowaniem demosaic uwzględniającego krawędzie, bez korekcji liniowości, płaskiego pola ani demiksowania — ten sam plik, jaki ujęcie zapisuje na poziomie po usunięciu efektu bayera. Zachowana jest natywna orientacja czujnika (zapisana w XMP). Dotyczy kamer RGB
-
-i wielospektralnych. |
-| **Eksport podglądu** | `Preview_Images/` | Podgląd wyświetlany na ekranie. RGB
-
-= balans bieli (źródło światła DAQ, jeśli dostępne, w przeciwnym razie „szary świat”) + gamma; wielospektralne = rozciągnięcie w fałszywych kolorach. |
-| **Eksport promieniowania** | `Radiance_Images/` | Promieniowanie spektralne typu Float32 w W/m²/sr/nm. Tylko dla obrazów wielospektralnych (M3C/M3M) — nie dotyczy obrazów źródłowych RGB
-
-. Zawsze zapisywane jako 32-bitowy plik TIFF
-
-, niezależnie od ustawienia *Kalibrowany format obrazu*. |
+| **Eksport po usunięciu efektu bayera** | `Debayered_Images/` | Obraz po liniowym usunięciu efektu bayera: po usunięciu ciemnego przesunięcia z pakietu kalibracyjnego, a następnie z zastosowaniem demosaic uwzględniającego krawędzie, bez korekcji liniowości, płaskiego pola ani demiksowania — ten sam plik, jaki ujęcie zapisuje na poziomie po usunięciu efektu bayera. Zachowana jest natywna orientacja czujnika (zapisana w XMP). Dotyczy kamer RGB i wielospektralnych. |
+| **Eksport podglądu** | `Preview_Images/` | Podgląd wyświetlany na ekranie. RGB = balans bieli (źródło światła DAQ, jeśli dostępne, w przeciwnym razie „szary świat”) + gamma; wielospektralne = rozciągnięcie w fałszywych kolorach. |
+| **Eksport promieniowania** | `Radiance_Images/` | Promieniowanie spektralne typu Float32 w W/m²/sr/nm. Tylko dla obrazów wielospektralnych (M3C/M3M) — nie dotyczy obrazów źródłowych RGB. Zawsze zapisywane jako 32-bitowy plik TIFF, niezależnie od ustawienia *Kalibrowany format obrazu*. |
 | **Eksport współczynnika odbicia**| `Reflectance_Calibrated_Images/` | Współczynnik odbicia typu Uint16, skalowany tak, że**32768 = współczynnik odbicia 1,0** (oznaczone jako XMP `Chloros:PixelScale`). Tylko w przypadku obrazów wielospektralnych, zapisywane, gdy pasujący rekord `.daq` dla promieniowania padającego (lub cel w ramce, który przeszedł kontrolę jakości) obejmuje daną ramkę. |
 
-* Kamery główne typu RGB
-
-emitują dane po debayeringu + podgląd; promieniowanie/odbicie są w ich przypadku pomijane, ponieważ nie mają zastosowania.
+* Kamery główne typu RGB emitują dane po debayeringu + podgląd; promieniowanie/odbicie są w ich przypadku pomijane, ponieważ nie mają zastosowania.
 * Głębia bitowa danych po debayeringu/podglądu zależy od ustawienia *Format obrazu skalibrowanego*; promieniowanie ma zawsze typ float32.
-* Te cztery przełączniki nie mają wpływu na przetwarzanie danych typu *Survey3
-
-*.
+* Te cztery przełączniki nie mają wpływu na przetwarzanie danych typu *Survey3 *.
 * Produkty promieniowania i odbicia z wielospektralnych kamer M3C mogą również zapisywać **maskę ograniczenia** do folderu `clamp_masks/` znajdującego się obok folderów produktów, rejestrując miejsca, w których podczas rozdzielania pasm wartość ujemna została ograniczona do zera. Zobacz [Formaty obrazów wyjściowych](../output-image-formats.md#clamp-masks).
 
-Te same cztery przełączniki istnieją w trybie bezinterfejsu graficznego jako `chloros-cli process --debayered / --preview / --radiance / --reflectance`. Zastąpiły one starą flagę CLI
-
-’ową `--radiometric-output`, która już nie istnieje.
+Te same cztery przełączniki istnieją w trybie bezinterfejsu graficznego jako `chloros-cli process --debayered / --preview / --radiance / --reflectance`. Zastąpiły one starą flagę CLI’ową `--radiometric-output`, która już nie istnieje.
 
 {% hint style="warning" %}
-**Wyłączenie wszystkich odpowiednich produktów powoduje niepowodzenie przebiegu.** Od wersji 1.2.0 przebieg przetwarzania, w którym zażądano produktów, ale nie zapisano żadnego produktu obrazowego, zgłasza błąd, a interfejs CLI
-
-kończy działanie z wynikiem innym niż zero, zamiast zgłaszać ciche zakończenie sukcesem. W logu podana jest nazwa produktu, którego nie udało się zapisać, oraz przyczyna. Celowy przebieg zawierający wyłącznie metadane (bez żadnych żądań) nadal kończy się powodzeniem.
+**Wyłączenie wszystkich odpowiednich produktów powoduje niepowodzenie przebiegu.** Od wersji 1.2.0 przebieg przetwarzania, w którym zażądano produktów, ale nie zapisano żadnego produktu obrazowego, zgłasza błąd, a interfejs CLI kończy działanie z wynikiem innym niż zero, zamiast zgłaszać ciche zakończenie sukcesem. W logu podana jest nazwa produktu, którego nie udało się zapisać, oraz przyczyna. Celowy przebieg zawierający wyłącznie metadane (bez żadnych żądań) nadal kończy się powodzeniem.
 {% endhint %}
 
-### Źródło odbicia (ustawienie projektu, konfigurowane za pomocą CLI
+### Źródło odbicia (ustawienie projektu, konfigurowane za pomocą CLI)
 
-)
-
-Projekt przechowuje również informację o tym, jakiego **odniesienia odbicia** używa produkt odbicia LATTICE. W panelu ustawień nie ma dedykowanego elementu sterującego; wartość jest przechowywana w konfiguracji projektu jako `Processing → "Target reflectance source"` i ustawia się ją za pomocą `chloros-cli process --reflectance-source {auto,target,daq}` (w SDK
-
-`configure()` nie ma dla tego parametru słowa kluczowego):
+Projekt przechowuje również informację o tym, jakiego **odniesienia odbicia** używa produkt odbicia LATTICE. W panelu ustawień nie ma dedykowanego elementu sterującego; wartość jest przechowywana w konfiguracji projektu jako `Processing → "Target reflectance source"` i ustawia się ją za pomocą `chloros-cli process --reflectance-source {auto,target,daq}` (w SDK `configure()` nie ma dla tego parametru słowa kluczowego):
 
 * **`auto`** (domyślnie): cel kalibracyjny w ramce, który przeszedł kontrolę jakości (QA), staje się odniesieniem bezwzględnym; w przypadku braku celu lub niepowodzenia kontroli jakości stosowana jest wartość dzielnika promieniowania padającego z systemu DAQ (ρ = πL/E). Cel, który przeszedł kontrolę jakości z flagą (opuszczony panel lub niesprawne pasmo), nie jest automatycznie preferowany: łańcuchy „cel”, „cel+DAQ” i „tylko DAQ” są wypróbowywane w kolejności zgodnej z ich wynikami pomiarowymi na panelach testowych.
 * **`target`**: ścisła reflektancja oparta na celu — bez zastępowania przez DAQ.
@@ -156,30 +128,18 @@ Skanowanie **zmierzonych** celów w poszczególnych jednostkach jest wyszukiwane
 * **Typ**: Wybór z listy rozwijanej
 * **Opcje**:
   * Standardowa (szybka, średnia jakość)
-  * Z uwzględnieniem tekstury (powolna, najwyższa jakość) \[Chloros
-
-+]
+  * Z uwzględnieniem tekstury (powolna, najwyższa jakość) \[Chloros+]
 * **Domyślnie**: Standardowa (szybka, średnia jakość)
-* **Opis**: Wybiera algorytm demosaicingu używany do konwersji surowych danych z czujnika o układzie Bayera na pełnokolorowe obrazy. Metoda „Standardowa (szybka, średnia jakość)” zapewnia optymalną równowagę między szybkością przetwarzania a jakością obrazu. Metoda „Z uwzględnieniem tekstury (powolna, najwyższa jakość)” \[Chloros
-
-+] wykorzystuje wysokiej jakości algorytm demosaicingu uwzględniający krawędzie w połączeniu z modelem usuwania szumu opartym na sztucznej inteligencji (AI/ML), który eliminuje niemal cały szum powstały podczas demosaicingu. Model uwzględniający teksturę wymaga do działania pamięci GPU (VRAM). Zalecamy korzystanie z niego, gdy masz do dyspozycji &gt;4 GB pamięci VRAM, co zapewni szybsze przetwarzanie.
-* **Gdy wiersz jest rozwijanym menu**: menu rozwijane z dwiema opcjami pojawia się tylko wtedy, gdy**oba** warunki są spełnione — użytkownik jest zalogowany z kwalifikującą się subskrypcją Chloros
-
-+ oraz **projekt** nie zawiera żadnych ujęć LATTICE. W przeciwnym razie wiersz wyświetla się jako zwykły tekst o treści `Standard (Fast, Medium Quality)` bez możliwości wyboru.
-* **Uwaga dotycząca LATTICE**: Nie istnieje model Texture Aware wytrenowany dla LATTICE, a potok wymusza standardową demosaikę dla klatek LATTICE niezależnie od zapisanej wartości. Jeśli dodasz folder LATTICE do projektu, w którym opcja Texture Aware była już zaznaczona, Chloros
-
-przywróci ustawienie do wartości Standard zamiast pozostawić nieaktualną wartość w `project.json`.
+* **Opis**: Wybiera algorytm demosaicingu używany do konwersji surowych danych z czujnika o układzie Bayera na pełnokolorowe obrazy. Metoda „Standardowa (szybka, średnia jakość)” zapewnia optymalną równowagę między szybkością przetwarzania a jakością obrazu. Metoda „Z uwzględnieniem tekstury (powolna, najwyższa jakość)” \[Chloros+] wykorzystuje wysokiej jakości algorytm demosaicingu uwzględniający krawędzie w połączeniu z modelem usuwania szumu opartym na sztucznej inteligencji (AI/ML), który eliminuje niemal cały szum powstały podczas demosaicingu. Model uwzględniający teksturę wymaga do działania pamięci GPU (VRAM). Zalecamy korzystanie z niego, gdy masz do dyspozycji >4 GB pamięci VRAM, co zapewni szybsze przetwarzanie.
+* **Gdy wiersz jest rozwijanym menu**: menu rozwijane z dwiema opcjami pojawia się tylko wtedy, gdy**oba** warunki są spełnione — użytkownik jest zalogowany z kwalifikującą się subskrypcją Chloros+ oraz **projekt** nie zawiera żadnych ujęć LATTICE. W przeciwnym razie wiersz wyświetla się jako zwykły tekst o treści `Standard (Fast, Medium Quality)` bez możliwości wyboru.
+* **Uwaga dotycząca LATTICE**: Nie istnieje model Texture Aware wytrenowany dla LATTICE, a potok wymusza standardową demosaikę dla klatek LATTICE niezależnie od zapisanej wartości. Jeśli dodasz folder LATTICE do projektu, w którym opcja Texture Aware była już zaznaczona, Chloros przywróci ustawienie do wartości Standard zamiast pozostawić nieaktualną wartość w `project.json`.
 
 ### Minimalny interwał ponownej kalibracji
 
 * **Typ**: Liczba
 * **Zakres**: od 0 do 3 600 sekund
 * **Wartość domyślna**: 0 sekund
-* **Opis**: Ustawia minimalny odstęp czasowy (w sekundach) między wykorzystaniem celów kalibracyjnych. Gdy wartość wynosi 0, Chloros
-
-wykorzysta każdy wykryty cel kalibracyjny. Gdy ustawiona zostanie wyższa wartość, Chloros
-
-wykorzysta tylko cele kalibracyjne, które są od siebie oddalone o co najmniej tę liczbę sekund, co skraca czas przetwarzania zestawów danych zawierających częste ujęcia celów kalibracyjnych.
+* **Opis**: Ustawia minimalny odstęp czasowy (w sekundach) między wykorzystaniem celów kalibracyjnych. Gdy wartość wynosi 0, Chloros wykorzysta każdy wykryty cel kalibracyjny. Gdy ustawiona zostanie wyższa wartość, Chloros wykorzysta tylko cele kalibracyjne, które są od siebie oddalone o co najmniej tę liczbę sekund, co skraca czas przetwarzania zestawów danych zawierających częste ujęcia celów kalibracyjnych.
 * **Kiedy dostosować**:
   * Ustaw wartość 0, aby uzyskać maksymalną dokładność kalibracji przy zmiennych warunkach oświetleniowych
   * Zwiększ wartość (np. do 60–300 sekund), aby przyspieszyć przetwarzanie, gdy oświetlenie jest stałe, a obrazy celów kalibracyjnych pojawiają się często
@@ -195,11 +155,7 @@ wykorzysta tylko cele kalibracyjne, które są od siebie oddalone o co najmniej 
 
 * **Typ**: Pole wyboru
 * **Domyślnie**: Wyłączone (niezaznaczone)
-* **Opis**: Włącza stosowanie korekcji kinematycznych po przetworzeniu (PPK) z rejestratorów danych MAPIR
-
-DAQ wyposażonych w GPS (GNSS). Po włączeniu tej opcji program Chloros
-
-wykorzysta wszystkie pliki dziennika .daq zawierające dane dotyczące czasu naświetlania, znajdujące się w katalogu projektu, i zastosuje precyzyjne korekcje geolokalizacyjne do zdjęć.
+* **Opis**: Włącza stosowanie korekcji kinematycznych po przetworzeniu (PPK) z rejestratorów danych MAPIR DAQ wyposażonych w GPS (GNSS). Po włączeniu tej opcji program Chloros wykorzysta wszystkie pliki dziennika .daq zawierające dane dotyczące czasu naświetlania, znajdujące się w katalogu projektu, i zastosuje precyzyjne korekcje geolokalizacyjne do zdjęć.
 * **Wymagania**: W katalogu projektu musi znajdować się plik dziennika .daq zawierający wpisy dotyczące pinów ekspozycji
 * **Kiedy włączyć**: Zaleca się zawsze włączać korekcję PPK, jeśli w pliku dziennika .daq znajdują się wpisy dotyczące ekspozycji.
 
@@ -248,9 +204,7 @@ Każdy wiersz zawiera plik, model czujnika oraz korekcję nasadki rozpraszające
 * **Opcje**: `Auto` oraz profile korekcji nasadki obowiązujące dla typów czujników obecnych w projekcie
 * **Domyślnie**: Auto
 * **Zapisywane jako**: `Processing → "DAQ cap id"` (domyślnie `auto`)
-* **Opis**: `Auto` wykorzystuje osłonę zarejestrowaną w każdym pliku (w przypadku braku rejestracji przyjmowana jest osłona typu „Sunshine”, jednak urządzenia DAQ-U, DAQ-M i DAQ-E są dostarczane bez osłony, a program Chloros
-
-nie jest w stanie rozpoznać, jaka osłona została zamontowana, więc podczas przetwarzania pojawia się ostrzeżenie dotyczące domyślnej nasadki: należy wybrać nasadkę, która była zamontowana). Wybranie konkretnej nasadki zastępuje ustawienia **wszystkich** plików pomiarów w kierunku w dół w projekcie, z wyjątkiem plików z DAQ-E-S, którego dyfuzor stanowi część kalibracji; w projekcie zawierającym wyłącznie dane z DAQ-E-S nie wyświetla się lista rozwijana: surowe zapisy są korygowane przy użyciu tej nasadki, a zapisy, które już zawierają korekcję, są ponownie kalibrowane (zapisana korekcja jest cofana, a zastosowana zostaje wybrana).
+* **Opis**: `Auto` wykorzystuje osłonę zarejestrowaną w każdym pliku (w przypadku braku rejestracji przyjmowana jest osłona typu „Sunshine”, jednak urządzenia DAQ-U, DAQ-M i DAQ-E są dostarczane bez osłony, a program Chloros nie jest w stanie rozpoznać, jaka osłona została zamontowana, więc podczas przetwarzania pojawia się ostrzeżenie dotyczące domyślnej nasadki: należy wybrać nasadkę, która była zamontowana). Wybranie konkretnej nasadki zastępuje ustawienia **wszystkich** plików pomiarów w kierunku w dół w projekcie, z wyjątkiem plików z DAQ-E-S, którego dyfuzor stanowi część kalibracji; w projekcie zawierającym wyłącznie dane z DAQ-E-S nie wyświetla się lista rozwijana: surowe zapisy są korygowane przy użyciu tej nasadki, a zapisy, które już zawierają korekcję, są ponownie kalibrowane (zapisana korekcja jest cofana, a zastosowana zostaje wybrana).
 * **Ważne**: Wybrana korekcja musi odpowiadać korekcji fizycznie zamontowanej podczas rejestracji. Ani czujnik, ani oprogramowanie nie są w stanie wykryć fizycznej korekcji — niezgodny identyfikator korekcji powoduje błędną korekcję widm.
 
 Celowo zastosowano **jedną** opcję kontrolną dla całego projektu zamiast list rozwijanych dla poszczególnych plików: ustawienie to dotyczy każdego źródła promieniowania padającego w projekcie.***
@@ -294,54 +248,26 @@ Te ustawienia pozwalają skonfigurować indeksy wielospektralne do analizy i wiz
 ### Dodaj indeks
 
 * **Typ**: Specjalny panel konfiguracji indeksów
-* **Opis**: Otwiera interaktywny panel, w którym można wybierać i konfigurować wielospektralne indeksy roślinności (NDVI
-
-, NDRE
-
-, EVI
-
-itp.) do obliczenia podczas przetwarzania obrazu. Można dodać wiele indeksów, z których każdy ma własne ustawienia wizualizacji.
-* **Dostępne wskaźniki**: Lista rozwijana w interfejsie graficznym zawiera**27** predefiniowanych wzorów wskaźników wielospektralnych (pełna lista, w tym nazwy akceptowane również przez opcję CLI
-
-/SDK
-
-`--indices`).
+* **Opis**: Otwiera interaktywny panel, w którym można wybierać i konfigurować wielospektralne indeksy roślinności (NDVI, NDRE, EVI itp.) do obliczenia podczas przetwarzania obrazu. Można dodać wiele indeksów, z których każdy ma własne ustawienia wizualizacji.
+* **Dostępne wskaźniki**: Lista rozwijana w interfejsie graficznym zawiera**27** predefiniowanych wzorów wskaźników wielospektralnych (pełna lista, w tym nazwy akceptowane również przez opcję CLI/SDK `--indices`).
 * **Funkcje**:
   * Wybór spośród predefiniowanych wzorów indeksów
   * Przeciąganie kanałów filtrów kamery do odpowiednich pól pasmowych wzoru
   * Konfiguracja gradientów kolorów wizualizacji (LUT – tabele odnośników)
   * Ustawianie wartości progowych i trybów przycinania
   * Tworzenie niestandardowych wzorów indeksów
-* **Uwaga**: Indeksy nie są obliczane dla jednopasmowych kamer monochromatycznych LATTICE M3M — indeksy wielopasmowe są niezdefiniowane w przypadku jednego pasma. Nie ma to wpływu na modele Survey3
-
-i LATTICE M3C.
+* **Uwaga**: Indeksy nie są obliczane dla jednopasmowych kamer monochromatycznych LATTICE M3M — indeksy wielopasmowe są niezdefiniowane w przypadku jednego pasma. Nie ma to wpływu na modele Survey3 i LATTICE M3C.
 
 <!-- SCREENSHOT-NEEDED: Project Settings > Index section with one index added and expanded: the filter dropdown, the formula dropdown open showing preset names, the coloured channel circles above the rendered formula, and the "+ Add LUT" button below it. -->
 
 
 
-Każdy dodany wskaźnik renderuje swoją formułę jako wyrażenie matematyczne, z kolorowym kółkiem dla każdego miejsca na pasmo: czerwony = Red
+Każdy dodany wskaźnik renderuje swoją formułę jako wyrażenie matematyczne, z kolorowym kółkiem dla każdego miejsca na pasmo: czerwony = Red, zielony = Green, niebieski = Blue, pomarańczowy = Orange, cyjan = Cyan, fioletowy = NIR, magenta = RE. Przeciągnij okrąg z wiersza nad formułą na slot, aby go przypisać; kliknij dwukrotnie przypisany slot, aby go wyczyścić. Indeks jest obliczany tylko wtedy, gdy każdy slot używany w formule ma przypisany kanał.
 
-, zielony = Green
-
-, niebieski = Blue
-
-, pomarańczowy = Orange
-
-, cyjan = Cyan
-
-, fioletowy = NIR
-
-, magenta = RE. Przeciągnij okrąg z wiersza nad formułą na slot, aby go przypisać; kliknij dwukrotnie przypisany slot, aby go wyczyścić. Indeks jest obliczany tylko wtedy, gdy każdy slot używany w formule ma przypisany kanał.
-
-### Formuły niestandardowe (funkcja Chloros
-
-+)
+### Formuły niestandardowe (funkcja Chloros+)
 
 * **Typ**: Tablica definicji formuł niestandardowych
-* **Dostępność**: Wymaga zalogowania się przy użyciu kwalifikującej się subskrypcji Chloros
-
-+.
+* **Dostępność**: Wymaga zalogowania się przy użyciu kwalifikującej się subskrypcji Chloros+.
 * **Opis**: Umożliwia tworzenie i zapisywanie niestandardowych formuł indeksów wielospektralnych przy użyciu operacji matematycznych na pasmach. Formuły niestandardowe są zapisywane wraz z ustawieniami projektu i można z nich korzystać tak samo jak z wbudowanych indeksów.
 * **Jak utworzyć**:
   1. W panelu konfiguracji indeksu otwórz kalkulator formuł niestandardowych
@@ -351,20 +277,8 @@ Każdy dodany wskaźnik renderuje swoją formułę jako wyrażenie matematyczne,
   * Sloty pasm: `x`, `y`, `z`, `a`, `b`, `c` — sześć pozycji, które można przypisać do rzeczywistych kanałów poprzez przeciągnięcie
   * Operatory: `+`, `-`, `*`, `/`, `^` oraz `()` do grupowania
   * Funkcje: `sqrt()`, `log()`, `ln()`, `abs()`, `sign()`, `log1p()`, `log2()`
-* **Dlaczego symbole, a nie nazwy zespołów**: wzór zapisany jako `(y-x)/(y+x)` działa na każdym aparacie, ponieważ mapowanie metodą „przeciągnij i upuść” decyduje, czy `y` to NIR
-
-850 nm filtra RGN
-
-, czy NIR
-
-808 nm filtra OCN
-
-. Wbudowane ustawienia wstępne są przechowywane w ten sam sposób — zobacz [Wzory indeksów wielospektralnych](multispectral-index-formulas.md), aby poznać dokładną postać symbolową wszystkich 27 wzorów.
-* **Gdzie działają**: formuły niestandardowe są zapisywane wraz z ustawieniami projektu i można z nich korzystać zarówno w [Sandboxie indeksów/LUT](../image-viewer-gui/index-lut-sandbox.md), jak i podczas przetwarzania. Nie są one**akceptowane** przez listę nazw CLI
-
-/SDK
-
-`--indices`, która rozszerza jedynie 22 nazwy wbudowanych ustawień wstępnych.
+* **Dlaczego symbole, a nie nazwy zespołów**: wzór zapisany jako `(y-x)/(y+x)` działa na każdym aparacie, ponieważ mapowanie metodą „przeciągnij i upuść” decyduje, czy `y` to NIR 850 nm filtra RGN, czy NIR 808 nm filtra OCN. Wbudowane ustawienia wstępne są przechowywane w ten sam sposób — zobacz [Wzory indeksów wielospektralnych](multispectral-index-formulas.md), aby poznać dokładną postać symbolową wszystkich 27 wzorów.
+* **Gdzie działają**: formuły niestandardowe są zapisywane wraz z ustawieniami projektu i można z nich korzystać zarówno w [Sandboxie indeksów/LUT](../image-viewer-gui/index-lut-sandbox.md), jak i podczas przetwarzania. Nie są one**akceptowane** przez listę nazw CLI/SDK `--indices`, która rozszerza jedynie 22 nazwy wbudowanych ustawień wstępnych.
 
 ***
 
@@ -376,49 +290,25 @@ Te ustawienia kontrolują format i jakość eksportowanych, przetworzonych obraz
 
 * **Typ**: Lista rozwijana
 * **Opcje**:
-  * **TIFF
-
-(16-bit)** – nieskompresowany format TIFF
-
-16-bitowy
-  * **TIFF
-
-(8-bitowy)** – nieskompresowany 8-bitowy format TIFF
+  * **TIFF (16-bit)** – nieskompresowany format TIFF 16-bitowy
+  * **TIFF (8-bitowy)** – nieskompresowany 8-bitowy format TIFF
 
 
-  * **TIFF
-
-(32-bitowy, procentowy)** – 32-bitowy format TIFF
-
-z wartościami odbicia wyrażonymi w procentach
-  * **PNG
-
-(8-bitowy)** – skompresowany 8-bitowy format PNG
+  * **TIFF (32-bitowy, procentowy)** – 32-bitowy format TIFF z wartościami odbicia wyrażonymi w procentach
+  * **PNG (8-bitowy)** – skompresowany 8-bitowy format PNG
 
 
   * **JPG (8-bitowy)** — skompresowany 8-bitowy format JPEG
 
 
-* **Domyślnie**: TIFF
-
-(16-bitowy); w przypadku projektu opartego wyłącznie na 8-bitach wyświetla się opcja TIFF
-
-(8-bitowy) i dostępne są wyłącznie formaty 8-bitowe
+* **Domyślnie**: TIFF (16-bitowy); w przypadku projektu opartego wyłącznie na 8-bitach wyświetla się opcja TIFF (8-bitowy) i dostępne są wyłącznie formaty 8-bitowe
 * **Opis**: Wybiera format pliku do zapisywania przetworzonych i skalibrowanych obrazów. Eksportowane pliki są umieszczane w podfolderach odpowiadających poszczególnym formatom wewnątrz folderu każdej kamery (`tiff16`, `tiff32`, `png8`, `jpg8`), przy czym na każdy produkt przypada jeden folder `<Product>_Images/`. Eksportowane pliki zachowują nazwę pliku źródłowego — to folder, a nie rozszerzenie nazwy pliku, identyfikuje produkt.
 * **Zalecenia dotyczące formatów**:
-  * **TIFF
-
-(16-bitowy)**: Zalecany do analiz naukowych i profesjonalnych procesów roboczych. Zapewnia maksymalną jakość danych bez artefaktów kompresji. Najlepszy do analizy wielospektralnej i dalszego przetwarzania w oprogramowaniu GIS.
-  * **Format TIFF
-
-(32-bitowy, procentowy)**: Najlepszy do procesów roboczych wymagających wartości odbicia wyrażonych w procentach (0–100%). Zapewnia maksymalną precyzję pomiarów radiometrycznych.
-  * **PNG
-
-(8-bitowy)**: Dobry do przeglądania w sieci i ogólnej wizualizacji. Mniejsze rozmiary plików dzięki bezstratnej kompresji, ale z ograniczonym zakresem dynamicznym.
+  * **TIFF (16-bitowy)**: Zalecany do analiz naukowych i profesjonalnych procesów roboczych. Zapewnia maksymalną jakość danych bez artefaktów kompresji. Najlepszy do analizy wielospektralnej i dalszego przetwarzania w oprogramowaniu GIS.
+  * **Format TIFF (32-bitowy, procentowy)**: Najlepszy do procesów roboczych wymagających wartości odbicia wyrażonych w procentach (0–100%). Zapewnia maksymalną precyzję pomiarów radiometrycznych.
+  * **PNG (8-bitowy)**: Dobry do przeglądania w sieci i ogólnej wizualizacji. Mniejsze rozmiary plików dzięki bezstratnej kompresji, ale z ograniczonym zakresem dynamicznym.
   * **JPG (8-bitowy)**: Najmniejsze rozmiary plików, najlepszy wyłącznie do podglądów i wyświetlania w sieci. Wykorzystuje kompresję stratną, która nie nadaje się do analiz naukowych.
-* **Uwaga**: Dane LATTICE radiance są zawsze eksportowane jako 32-bitowe pliki TIFF
-
-typu float, niezależnie od tego ustawienia.
+* **Uwaga**: Dane LATTICE radiance są zawsze eksportowane jako 32-bitowe pliki TIFF typu float, niezależnie od tego ustawienia.
 
 ***
 
@@ -429,22 +319,12 @@ Ta funkcja pozwala zapisać bieżące ustawienia projektu jako szablon, który m
 * **Typ**: Pole tekstowe + przycisk „Zapisz”
 * **Opis**: Wprowadź opisową nazwę szablonu ustawień i kliknij ikonę zapisu. Szablon zapisze wszystkie bieżące ustawienia projektu (wykrywanie obiektów, opcje przetwarzania, indeksy, oraz format eksportu) w celu łatwego ponownego wykorzystania w przyszłych projektach. Szablony są przechowywane w folderze `Project Templates/` w folderze zapisu projektu i można je również wybierać lub eksportować z menu głównego (*Wybierz szablon* / *Zapisz szablon* / *Eksportuj szablon*).
 * **Przykłady zastosowań**:
-  * Tworzenie szablonów dla różnych systemów kamer (RGB
-
-, wielospektralne, NIR
-
-)
+  * Tworzenie szablonów dla różnych systemów kamer (RGB, wielospektralne, NIR)
   * Zapisywanie standardowych konfiguracji dla określonych rodzajów upraw lub procesów analitycznych
   * Udostępnianie spójnych ustawień członkom zespołu
 * **Sposób użycia**:
   1. Skonfiguruj wszystkie żądane ustawienia projektu
-  2. Wprowadź nazwę szablonu (np. „RedEdge
-
-Survey3
-
-NDVI
-
-Standard”)
+  2. Wprowadź nazwę szablonu (np. „RedEdge Survey3 NDVI Standard”)
   3. Kliknij ikonę zapisu
   4. Szablon można teraz wczytać podczas tworzenia nowych projektów
 
@@ -455,42 +335,22 @@ Standard”)
 To ustawienie określa domyślną lokalizację zapisywania nowych projektów.
 
 * **Typ**: Wyświetlanie ścieżki katalogu + przycisk edycji
-* **Domyślnie (system Windows
-
-)**: `Documents\MAPIR\Chloros Projects` w folderze „Dokumenty” — zazwyczaj `C:\Users\[Username]\Documents\MAPIR\Chloros Projects` lub w miejscu, do którego usługa OneDrive lub profil mobilny przeniosły folder „Dokumenty”
-* **Domyślnie (system Linux
-
-)**: `~/Documents/MAPIR/Chloros Projects`
-* **Opis**: Wyświetla bieżący katalog domyślny, w którym tworzone są nowe projekty Chloros
-
-. Kliknij ikonę edycji, aby wybrać inny katalog. Zmiana ta jest zapisywana jako pojedynczy wiersz tekstu w pliku `~/.chloros/working_directory.txt` — w systemie Windows
-
-jest to plik `C:\Users\<Username>\.chloros\working_directory.txt`. Jeśli ten plik nie istnieje lub wskazuje ścieżkę, która już nie istnieje, Chloros
-
-powraca do powyższego ustawienia domyślnego. Interfejs CLI
-
-odczytuje i zapisuje ten sam plik, więc `chloros-cli` i interfejs graficzny zawsze są zgodne co do lokalizacji projektów.
+* **Domyślnie (system Windows)**: `Documents\MAPIR\Chloros Projects` w folderze „Dokumenty” — zazwyczaj `C:\Users\[Username]\Documents\MAPIR\Chloros Projects` lub w miejscu, do którego usługa OneDrive lub profil mobilny przeniosły folder „Dokumenty”
+* **Domyślnie (system Linux)**: `~/Documents/MAPIR/Chloros Projects`
+* **Opis**: Wyświetla bieżący katalog domyślny, w którym tworzone są nowe projekty Chloros. Kliknij ikonę edycji, aby wybrać inny katalog. Zmiana ta jest zapisywana jako pojedynczy wiersz tekstu w pliku `~/.chloros/working_directory.txt` — w systemie Windows jest to plik `C:\Users\<Username>\.chloros\working_directory.txt`. Jeśli ten plik nie istnieje lub wskazuje ścieżkę, która już nie istnieje, Chloros powraca do powyższego ustawienia domyślnego. Interfejs CLI odczytuje i zapisuje ten sam plik, więc `chloros-cli` i interfejs graficzny zawsze są zgodne co do lokalizacji projektów.
 * **Szablony projektów** znajdują się w podfolderze `Project Templates/` tego katalogu.
 * **Kiedy należy zmienić**:
   * Ustaw na dysk sieciowy w celu współpracy zespołowej
   * Zmień na dysk z większą przestrzenią dyskową w przypadku dużych zbiorów danych
   * Porządkuj projekty według roku, klienta lub typu projektu w różnych folderach
 * **Uwaga**: Zmiana tego ustawienia ma wpływ wyłącznie na NOWE projekty. Istniejące projekty pozostają w swoich pierwotnych lokalizacjach.
-* **Długość ścieżki w systemie Windows**: o ile nie włączono długich ścieżek w systemie Windows
-
-(opcja **Włącz długie ścieżki w systemie Windows** w instalatorze), folder projektu o nazwie dłuższej niż około 130 znaków zostanie odrzucony przed przetworzeniem, ponieważ jego produkty przekroczyłyby limit 260 znaków dla ścieżek w systemie Windows
-
-. Zobacz [Rozpoczynanie przetwarzania](../processing-images-gui/starting-the-processing.md#the-project-folder-is-too-deep-for-this-computer).
+* **Długość ścieżki w systemie Windows**: o ile nie włączono długich ścieżek w systemie Windows (opcja **Włącz długie ścieżki w systemie Windows** w instalatorze), folder projektu o nazwie dłuższej niż około 130 znaków zostanie odrzucony przed przetworzeniem, ponieważ jego produkty przekroczyłyby limit 260 znaków dla ścieżek w systemie Windows. Zobacz [Rozpoczynanie przetwarzania](../processing-images-gui/starting-the-processing.md#the-project-folder-is-too-deep-for-this-computer).
 
 ***
 
 ## Trwałość ustawień
 
-Projekt Chloros
-
-to **folder**. Wszystkie ustawienia projektu są zapisywane w pliku `project.json` znajdującym się w tym folderze; podłączony sprzęt jest zapamiętywany wraz z nimi w plikach `cameras.json` i `sensors.json`, więc ponowne otwarcie projektu powoduje również ponowne podłączenie kamer i czujników światła. Po ponownym otwarciu projektu wszystkie ustawienia są przywracane dokładnie tak, jak zostały pozostawione. Zapisane projekty można również obsługiwać w trybie bezinterfejsu za pomocą pliku `chloros-cli project` lub pliku `open_project` z zestawu SDK
-
-.
+Projekt Chloros to **folder**. Wszystkie ustawienia projektu są zapisywane w pliku `project.json` znajdującym się w tym folderze; podłączony sprzęt jest zapamiętywany wraz z nimi w plikach `cameras.json` i `sensors.json`, więc ponowne otwarcie projektu powoduje również ponowne podłączenie kamer i czujników światła. Po ponownym otwarciu projektu wszystkie ustawienia są przywracane dokładnie tak, jak zostały pozostawione. Zapisane projekty można również obsługiwać w trybie bezinterfejsu za pomocą pliku `chloros-cli project` lub pliku `open_project` z zestawu SDK.
 
 ### Hierarchia ustawień
 
@@ -514,11 +374,7 @@ Ustawienia przetwarzania są odczytywane w momencie rozpoczęcia cyklu przetwarz
 
 ## Opis kluczy konfiguracyjnych
 
-W przypadku automatyzacji (CLI
-
-: `--config`, SDK
-
-: `configure` lub bezpośredniego odczytu `project.json`) są to dokładne klucze znajdujące się w pliku `Project Settings`:
+W przypadku automatyzacji (CLI: `--config`, SDK: `configure` lub bezpośredniego odczytu `project.json`) są to dokładne klucze znajdujące się w pliku `Project Settings`:
 
 | Ścieżka klucza | Typ | Wartość domyślna |
 | --- | --- | --- |
@@ -553,23 +409,11 @@ Znajdują się one w tym samym drzewie `Project Settings` i są odczytywane podc
 
 | Ścieżka klucza | Typ | Domyślna | Ustawiana przez |
 | --- | --- | --- | --- |
-| `Processing → LATTICE input level` | `"auto" \| "raw" \| "debayered" \| "processed"` | `"auto"` | `chloros-cli process --input-level`, SDK
-
-`input_level=`. Zastępuje sposób interpretacji plików TIFF
-
-wejściowych LATTICE; `auto` wywodzi to z tagu XMP każdego pliku `Chloros:ProcessingLevel` oraz liczby kanałów. Ignorowane w przypadku przechwytywania danych `.raw` w programie Survey3
-
-. Celowo nie jest to ustawienie w interfejsie graficznym — opcja „auto” jest poprawna w każdym normalnym przypadku. |
-| `Processing → Target reflectance dir` | ciąg znaków ścieżki | `""` | `chloros-cli process --target-reflectance-dir` lub docelowe API
-
-projektu |
+| `Processing → LATTICE input level` | `"auto" \| "raw" \| "debayered" \| "processed"` | `"auto"` | `chloros-cli process --input-level`, SDK `input_level=`. Zastępuje sposób interpretacji plików TIFF wejściowych LATTICE; `auto` wywodzi to z tagu XMP każdego pliku `Chloros:ProcessingLevel` oraz liczby kanałów. Ignorowane w przypadku przechwytywania danych `.raw` w programie Survey3. Celowo nie jest to ustawienie w interfejsie graficznym — opcja „auto” jest poprawna w każdym normalnym przypadku. |
+| `Processing → Target reflectance dir` | ciąg znaków ścieżki | `""` | `chloros-cli process --target-reflectance-dir` lub docelowe API projektu |
 | `Processing → Target reflectance config` | słownik indeksowany numerem seryjnym kamery | `{}` | Rejestracja celu w kadrze (tryb `fixed_block` / `fixed_strip` / `aruco`) |
-| `Processing → DAQ-U log path` | ciąg znaków ścieżki | `""` | SDK
-
-`process_folder(daq_log_path=…)`. Wskazuje na nagranie `.daq` lub folder zawierający takie nagrania |
-| `Target Detection → Minimum calibration target squares` | liczba | `4` | Domyślne ustawienie starszego typu; brak kontroli i brak flagi CLI
-
-|
+| `Processing → DAQ-U log path` | ciąg znaków ścieżki | `""` | SDK `process_folder(daq_log_path=…)`. Wskazuje na nagranie `.daq` lub folder zawierający takie nagrania |
+| `Target Detection → Minimum calibration target squares` | liczba | `4` | Domyślne ustawienie starszego typu; brak kontroli i brak flagi CLI |
 | `UI → Grid thumbnail size` | liczba | `160` | Suwak powiększania miniatur w siatce obrazów |
 
 Dwa ustawienia przeglądarki są przechowywane **na najwyższym poziomie w `project.json`**, całkowicie poza `Project Settings`, ponieważ dotyczą one stanu wyświetlania, a nie ustawień przetwarzania:
@@ -582,26 +426,16 @@ Dwa ustawienia przeglądarki są przechowywane **na najwyższym poziomie w `proj
 
 ## Najlepsze praktyki
 
-1. **Zacznij od ustawień domyślnych**: Ustawienia domyślne sprawdzają się dobrze w przypadku większości systemów kamerowych MAPIR
-
-i typowych procesów pracy.
+1. **Zacznij od ustawień domyślnych**: Ustawienia domyślne sprawdzają się dobrze w przypadku większości systemów kamerowych MAPIR i typowych procesów pracy.
 2. **Twórz szablony**: Po zoptymalizowaniu ustawień dla konkretnego przepływu pracy lub kamery zapisz je jako szablon, aby zapewnić spójność w różnych projektach.
 3. **Przetestuj przed pełnym przetwarzaniem**: Eksperymentując z nowymi ustawieniami, przetestuj je na niewielkim podzbiorze obrazów przed przetworzeniem całego zbioru danych.
-4. **Dokumentuj swoje ustawienia**: Używaj opisowych nazw szablonów, które wskazują system kamer, rodzaj przetwarzania i przeznaczenie (np. „Survey3
-
-\_RGB\_NDVI\_Agriculture”).
+4. **Dokumentuj swoje ustawienia**: Używaj opisowych nazw szablonów, które wskazują system kamer, rodzaj przetwarzania i przeznaczenie (np. „Survey3\_RGB\_NDVI\_Agriculture”).
 5. **Wybór formatu eksportu**: Wybierz format eksportu w zależności od przeznaczenia:
    * Analiza naukowa → TIFF (16-bitowy lub 32-bitowy)
-   * Przetwarzanie GIS → TIFF
-
-(16-bitowy)
-   * Szybka wizualizacja → PNG
-
-(8-bitowy)
+   * Przetwarzanie GIS → TIFF (16-bitowy)
+   * Szybka wizualizacja → PNG (8-bitowy)
    * Udostępnianie w sieci → JPG (8-bitowy)
 
 ***
 
-Więcej informacji na temat wskaźników wielospektralnych w programie Chloros
-
-można znaleźć na stronie [Wzory wskaźników wielospektralnych](multispectral-index-formulas.md).
+Więcej informacji na temat wskaźników wielospektralnych w programie Chloros można znaleźć na stronie [Wzory wskaźników wielospektralnych](multispectral-index-formulas.md).

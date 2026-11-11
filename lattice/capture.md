@@ -26,28 +26,10 @@ Trzy przyciski trybów u góry panelu:
 | **Ciągłe**| Przechwytywanie jedno po drugim aż do spełnienia warunku zatrzymania. | Zatrzymanie po**liczbie zdjęć** (domyślnie 1) *lub* **czasie trwania sesji** (domyślnie 10 s; jednostki: sekundy / minuty / godziny / dni). |
 | **Interwał**(timelapse) | Seria zdjęć według timera. |**Liczba zdjęć / interwał**(domyślnie 1) ·**Co**N jednostek (domyślnie 5 s) ·**Przez** N jednostek (domyślnie 1 m). |
 
-W trybie ciągłym lub interwałowym przycisk „Zrób wszystkie zdjęcia” zmienia się podczas działania w przycisk **Zatrzymaj (N)**, zliczając zdjęcia w miarę ich pojawiania się. Zapełnienie dysku zatrzymuje przebieg (zobacz [Przebieg funkcji „Zrób wszystkie zdjęcia”](#the-capture-all-flow)).**Tryb ciągły dla macierzy działa wewnątrz backendu (nowość w wersji 1.3.0).** Gdy wszystkie kamery na liście należą do macierzy (kamery autonomiczne są ukryte lub wykluczone), tryb ciągły nie wysyła już jednego żądania na każdy przechwyt: backend Chloros
-
-sam uruchamia pętlę przechwytywania, zapisując jedną zsynchronizowaną grupę podczas wybierania kolejnej, a przycisk sprawdza jej liczbę. Jeśli na liście znajdują się kamery autonomiczne, Chloros
-
-przechwytuje dane pasmo po pasmie, tak jak dotychczas.
+W trybie ciągłym lub interwałowym przycisk „Zrób wszystkie zdjęcia” zmienia się podczas działania w przycisk **Zatrzymaj (N)**, zliczając zdjęcia w miarę ich pojawiania się. Zapełnienie dysku zatrzymuje przebieg (zobacz [Przebieg funkcji „Zrób wszystkie zdjęcia”](#the-capture-all-flow)).**Tryb ciągły dla macierzy działa wewnątrz backendu (nowość w wersji 1.3.0).** Gdy wszystkie kamery na liście należą do macierzy (kamery autonomiczne są ukryte lub wykluczone), tryb ciągły nie wysyła już jednego żądania na każdy przechwyt: backend Chloros sam uruchamia pętlę przechwytywania, zapisując jedną zsynchronizowaną grupę podczas wybierania kolejnej, a przycisk sprawdza jej liczbę. Jeśli na liście znajdują się kamery autonomiczne, Chloros przechwytuje dane pasmo po pasmie, tak jak dotychczas.
 
 {% hint style="warning" %}
-**Szybkie przechwytywanie w systemie Windows
-
-: należy wykluczyć backend Chloros
-
-z skanowania przez Microsoft Defender.** Skanowanie w czasie rzeczywistym każdego pliku zapisywanego podczas przechwytywania z dużą częstotliwością pochłania około 30% szybkości przechwytywania w testach MAPIR
-
-(setki plików na sekundę przy niewielkim obszarze zainteresowania). Instalator dla systemu Windows
-
-oferuje opcję **„Wyklucz backend Chloros
-
-a ze skanowania przez Microsoft Defender (znacznie szybsze przechwytywanie z kamery; zalecane)”**, domyślnie zaznaczoną, która usuwa to wykluczenie podczas odinstalowywania. Jeśli opcja ta została odznaczona, uruchom ponownie instalator z zaznaczoną opcją lub dodaj wykluczenie procesu Defender dla `chloros-backend.exe` (w folderze `backend` w folderze instalacyjnym Chloros
-
-). Gdy program Defender wykorzystuje jedno lub więcej rdzeni procesora podczas ciągłego przechwytywania obrazu z macierzy, backend Chloros
-
-odnotowuje to jednorazowo w swoim dzienniku, podając te same dwa sposoby rozwiązania problemu.
+**Szybkie przechwytywanie w systemie Windows: należy wykluczyć backend Chloros z skanowania przez Microsoft Defender.** Skanowanie w czasie rzeczywistym każdego pliku zapisywanego podczas przechwytywania z dużą częstotliwością pochłania około 30% szybkości przechwytywania w testach MAPIR (setki plików na sekundę przy niewielkim obszarze zainteresowania). Instalator dla systemu Windows oferuje opcję **„Wyklucz backend Chloros a ze skanowania przez Microsoft Defender (znacznie szybsze przechwytywanie z kamery; zalecane)”**, domyślnie zaznaczoną, która usuwa to wykluczenie podczas odinstalowywania. Jeśli opcja ta została odznaczona, uruchom ponownie instalator z zaznaczoną opcją lub dodaj wykluczenie procesu Defender dla `chloros-backend.exe` (w folderze `backend` w folderze instalacyjnym Chloros). Gdy program Defender wykorzystuje jedno lub więcej rdzeni procesora podczas ciągłego przechwytywania obrazu z macierzy, backend Chloros odnotowuje to jednorazowo w swoim dzienniku, podając te same dwa sposoby rozwiązania problemu.
 {% endhint %}
 
 <!-- SCREENSHOT-NEEDED: the capture-mode area of Capture Settings with Interval selected — showing the "Captures / interval", "Every N (unit)" and "For N (unit)" rows with their defaults (1, 5 s, 1 m). -->
@@ -67,26 +49,16 @@ Tekst pomocy w tym panelu podsumowuje to następująco: wybierz, które kamery i
 
 Istnieje sześć typów eksportu: **Raw, Debayered, Radiance, Reflectance, Preview, Index**. W wierszu każdej kamery pojawiają się tylko te typy, które są dla niej dostępne:
 
-| Typ eksportu | Zawartość | RGB
-
-(FRGB) | Multispektralny Bayer (FRGN/FOCN/FNGB) | Mono (M3M) |
+| Typ eksportu | Zawartość | RGB (FRGB) | Multispektralny Bayer (FRGN/FOCN/FNGB) | Mono (M3M) |
 | --- | --- | --- | --- | --- |
 | **Raw** | Mozaika Bayera (mono: pojedyncze pasmo) bezpośrednio z czujnika | ✓ | ✓ | ✓ |
-| **Po usunięciu mozaiki** | Liniowe usuwanie mozaiki: z pliku surowego usunięto ciemne przesunięcie (DSNU) z pakietu kalibracyjnego, a następnie zastosowano demosaikowanie uwzględniające krawędzie — bez korekcji liniowości, płaskiego pola ani rozdzielania kolorów. Zapisane jako 3-kanałowy plik RGB
-
-TIFF
-
-(mono: 1-kanałowa skala szarości) | ✓ | ✓ | ✓ |
-| **Podgląd** | Pełny łańcuch wyświetlania (balans bieli + gamma zgodnie z profilem aparatu, a także ustawienie „Highlights” aparatu RGB
-
-; wielospektralne: rozciągnięcie w fałszywych kolorach) | ✓ | ✓ | ✓ |
+| **Po usunięciu mozaiki** | Liniowe usuwanie mozaiki: z pliku surowego usunięto ciemne przesunięcie (DSNU) z pakietu kalibracyjnego, a następnie zastosowano demosaikowanie uwzględniające krawędzie — bez korekcji liniowości, płaskiego pola ani rozdzielania kolorów. Zapisane jako 3-kanałowy plik RGB TIFF (mono: 1-kanałowa skala szarości) | ✓ | ✓ | ✓ |
+| **Podgląd** | Pełny łańcuch wyświetlania (balans bieli + gamma zgodnie z profilem aparatu, a także ustawienie „Highlights” aparatu RGB; wielospektralne: rozciągnięcie w fałszywych kolorach) | ✓ | ✓ | ✓ |
 | **Promieniowanie** | float32 W/m²/sr/nm poprzez pełny łańcuch radiometryczny | — (niedostępne) | ✓ | ✓ |
 | **Odbicie** | uint16 ρ (32768 = 1,0) | — (nie jest dostępne) | ✓ — wyświetlane tylko wtedy, gdy kamera posiada czujnik światła DAQ (własny lub odziedziczony po macierzy) | tak samo jak w przypadku wielospektralnym |
 | **Indeks** | Renderowanie indeksu roślinności (LUT) | — | ✓ — wymaga włączonego, niepustego wyrażenia indeksu w kamerze i nie jest dostępne dla elementów macierzy połączonej (macierz posiada jeden wspólny indeks) | — (indeks wymaga ≥2 pasm; patrz [Kamery mono i wskaźniki wegetacji](mono-indices.md)) |
 
-Promieniowanie i odbicie nigdy nie są dostępne dla kamer RGB
-
-— promieniowanie na piksel Bayera nie ma znaczenia w przypadku szerokopasmowego czujnika fotometrycznego.
+Promieniowanie i odbicie nigdy nie są dostępne dla kamer RGB — promieniowanie na piksel Bayera nie ma znaczenia w przypadku szerokopasmowego czujnika fotometrycznego.
 
 ### Najszybsze przechwytywanie
 
@@ -151,15 +123,11 @@ Pliki przechwycone są zapisywane w ramach otwartego projektu w lokalizacji `<pr
 * **Jedna asymetria, o której warto wiedzieć:** poziom wyświetlania jest przechowywany w folderze o nazwie `preview/`, podczas gdy pliki zachowują w nazwie `_display` — folder i przyrostek różnią się tylko dla tego poziomu.
 * Nieznane poziomy są umieszczane w folderze o własnej nazwie; jeśli nie można utworzyć podfolderu, plik jest zapisywany w katalogu głównym nagrań, zamiast zostać utracony.
 * Pliki TIFF z nagraniami są domyślnie kompresowane bezstratnie (DEFLATE) i zawierają pełne metadane dotyczące kalibracji i przetwarzania **wewnątrz pliku XMP** — ujęcia są samopisujące się i nie zawierają żadnych plików towarzyszących poza plikiem `.daq` (oraz jego odpowiednikiem `.daq.cameras.json`).
-* **Maski ograniczające (nowość w wersji 1.3.0).**W przypadkach, gdy proces rozdzielania spektralnego 3×3 wymagał ograniczenia pasma do wartości 0 w co najmniej jednym pikselu, produkty dotyczące promieniowania, odbicia i indeksu otrzymują maskę dla każdego piksela, `clamp_masks/<product folder>/<product name>_clampmask.tif` (bit 0 = pasmo w kanale R produktu, bit 1 = G, bit 2 = B); tag XMP produktu `Chloros:UnmixClampMask` wskazuje na tę maskę. Maski znajdują się**obok** folderów produktów, nigdy w ich wnętrzu, więc folder produktu, taki jak `reflectance/`, można przekazać do oprogramowania fotogrametrycznego w obecnej postaci. Własny moduł importu programu Chloros
-
-pomija maski.
+* **Maski ograniczające (nowość w wersji 1.3.0).**W przypadkach, gdy proces rozdzielania spektralnego 3×3 wymagał ograniczenia pasma do wartości 0 w co najmniej jednym pikselu, produkty dotyczące promieniowania, odbicia i indeksu otrzymują maskę dla każdego piksela, `clamp_masks/<product folder>/<product name>_clampmask.tif` (bit 0 = pasmo w kanale R produktu, bit 1 = G, bit 2 = B); tag XMP produktu `Chloros:UnmixClampMask` wskazuje na tę maskę. Maski znajdują się**obok** folderów produktów, nigdy w ich wnętrzu, więc folder produktu, taki jak `reflectance/`, można przekazać do oprogramowania fotogrametrycznego w obecnej postaci. Własny moduł importu programu Chloros pomija maski.
 * **Orientacja (1.3.0).** Produkty typu „Preview”, „Radiance”, „Reflectance” i „Index” z aparatu autonomicznego są obracane zgodnie z ustawieniem „Mirror/Rotation”; pliki „Raw” i „Debayered” pozostają w orientacji, w jakiej zostały odczytane przez czujnik. Wszystkie pliki wchodzące w skład tablicy pozostają w formacie natywnym. Każdy plik zapisuje to ustawienie w swoim pliku XMP, więc ponowne przetwarzanie stosuje je w ten sam sposób.
 * **Do której kamery należy plik `.daq` (1.3.0).** Podczas przetwarzania identyfikator `.daq` danego ujęcia jest dopasowywany wyłącznie do obrazów pochodzących z kamer wymienionych w jego identyfikatorze `.daq.cameras.json`. Samodzielna kamera bez własnego czujnika światła nie korzysta zatem już z odczytów innej kamery — należy przypisać do niej czujnik lub zarejestrować go w zakładce „Czujniki światła”. Zapis z czujnika światła (oraz każdy `.daq` bez tego pliku, w tym starsze przechwyty) nadal obsługuje każdą kamerę.
 
-Jest to ten sam układ, jaki pliki `chloros-cli lattice capture` / `array-capture` zapisują w katalogu `-o` — opisany w [Podręczniku CLI
-
-§ Jak wygląda folder z przechwyconymi danymi](../reference/cli-reference.md#what-a-captures-folder-looks-like).
+Jest to ten sam układ, jaki pliki `chloros-cli lattice capture` / `array-capture` zapisują w katalogu `-o` — opisany w [Podręczniku CLI § Jak wygląda folder z przechwyconymi danymi](../reference/cli-reference.md#what-a-captures-folder-looks-like).
 
 <!-- SCREENSHOT-NEEDED: OS file explorer showing a real <project>/captures/ folder after a multi-level array capture — the raw/debayered/radiance/reflectance/preview subfolders, the daq/ and clamp_masks/ folders, and sync_<ts>_SN<serial>_<level>.tif filenames visible inside one subfolder. -->
 
@@ -179,11 +147,7 @@ chloros-cli process "C:/ChlorosProjects/MyField/captures"
 Bezpośrednie nazwanie podfolderu poziomu (np. `…/captures/raw/`) również działa, ale powoduje pominięcie folderu `daq/` — skopiuj go obok podczas-wyprowadzania produktu radiometrycznego z `raw/`, w przeciwnym razie nie będzie z czym dopasować sygnatury czasowej.
 
 {% hint style="warning" %}
-**Przetwarzanie zawsze rozpoczyna się od `raw`.** W ramach każdego przechwycenia źródłem potoku danych jest surowa klatka; pliki `debayered`, `radiance`, `reflectance`, oraz `preview` występują jako tryby wyświetlania, ale nigdy nie są ponownie wprowadzane do potoku — ponowne przetwarzanie produktu pochodnego spowodowałoby ponowne zastosowanie winietowania, koloru i obliczeń promieniowania już wbudowanych w jego piksele, więc Chloros
-
-rezygnuje z tego, zamiast przeprowadzać podwójne przetwarzanie. Rendery `index/` i `composite/` nie są w ogóle przetwarzane (są to pliki wyjściowe, a nie przechwycone). Folder „captures” zapisany **bez** importowanych danych surowych wyświetla się normalnie, ale `process` pomija go i informuje o tym; `--input-level {raw,debayered,processed}` jest celowym rozwiązaniem awaryjnym, które wymusza punkt wejścia. Dokładne komunikaty o pominięciu można znaleźć w [Podręczniku CLI
-
-](../reference/cli-reference.md#what-a-captures-folder-looks-like).
+**Przetwarzanie zawsze rozpoczyna się od `raw`.** W ramach każdego przechwycenia źródłem potoku danych jest surowa klatka; pliki `debayered`, `radiance`, `reflectance`, oraz `preview` występują jako tryby wyświetlania, ale nigdy nie są ponownie wprowadzane do potoku — ponowne przetwarzanie produktu pochodnego spowodowałoby ponowne zastosowanie winietowania, koloru i obliczeń promieniowania już wbudowanych w jego piksele, więc Chloros rezygnuje z tego, zamiast przeprowadzać podwójne przetwarzanie. Rendery `index/` i `composite/` nie są w ogóle przetwarzane (są to pliki wyjściowe, a nie przechwycone). Folder „captures” zapisany **bez** importowanych danych surowych wyświetla się normalnie, ale `process` pomija go i informuje o tym; `--input-level {raw,debayered,processed}` jest celowym rozwiązaniem awaryjnym, które wymusza punkt wejścia. Dokładne komunikaty o pominięciu można znaleźć w [Podręczniku CLI](../reference/cli-reference.md#what-a-captures-folder-looks-like).
 {% endhint %}
 
 Dwie kolejne cechy, o których warto wiedzieć podczas tworzenia skryptów do ponownego przetwarzania:
@@ -197,9 +161,7 @@ Dwie kolejne cechy, o których warto wiedzieć podczas tworzenia skryptów do po
 
 Wszystkie operacje opisane na tej stronie można wykonać w trybie bezinterfejsowym. Tryby przechwytywania w GUI odpowiadają bezpośrednio `chloros-cli lattice array-capture`:
 
-| GUI | CLI
-
-|
+| GUI | CLI |
 | --- | --- |
 | Pojedynczy | `chloros-cli lattice array-capture` |
 | Ciągły | `array-capture --continuous [--count N] [--duration S]` |
@@ -210,6 +172,4 @@ Wszystkie operacje opisane na tej stronie można wykonać w trybie bezinterfejso
 | Nagrywanie wideo indeksowego | `chloros-cli lattice array-record` |
 | Nagrywanie serii surowych danych / Tworzenie wideo | `chloros-cli lattice array-burst` / `array-build-video` |
 
-Pełne tabele flag, opcja przechwytywania z ustabilizowaną ekspozycją w trybie inteligentnej automatycznej ekspozycji (`--smart`) oraz model stałej częstotliwości zostały omówione w sekcji [Podręcznik CLI
-
-: § Tryby przechwytywania, rejestratory i przetwarzanie offline](../reference/cli-reference.md#capture-modes-recorders--offline-reprocess).
+Pełne tabele flag, opcja przechwytywania z ustabilizowaną ekspozycją w trybie inteligentnej automatycznej ekspozycji (`--smart`) oraz model stałej częstotliwości zostały omówione w sekcji [Podręcznik CLI: § Tryby przechwytywania, rejestratory i przetwarzanie offline](../reference/cli-reference.md#capture-modes-recorders--offline-reprocess).

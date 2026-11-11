@@ -1,10 +1,6 @@
 # Monitorowanie przetwarzania
 
-Po rozpoczęciu przetwarzania Chloros
-
-oferuje kilka sposobów monitorowania postępów, sprawdzania ewentualnych problemów oraz zrozumienia, co dzieje się z danymi użytkownika. Na tej stronie wyjaśniono, jak śledzić przebieg przetwarzania i interpretować informacje dostarczane przez Chloros
-
-.
+Po rozpoczęciu przetwarzania Chloros oferuje kilka sposobów monitorowania postępów, sprawdzania ewentualnych problemów oraz zrozumienia, co dzieje się z danymi użytkownika. Na tej stronie wyjaśniono, jak śledzić przebieg przetwarzania i interpretować informacje dostarczane przez Chloros.
 
 ## Omówienie paska postępu
 
@@ -12,9 +8,7 @@ Pasek postępu w górnym nagłówku pokazuje stan przetwarzania w czasie rzeczyw
 
 ### Pasek postępu w trybie bezpłatnym
 
-Dla użytkowników bez licencji Chloros
-
-+:
+Dla użytkowników bez licencji Chloros+:
 
 **2-etapowe wyświetlanie postępu:**
 
@@ -25,13 +19,9 @@ Dla użytkowników bez licencji Chloros
 * Nazwę bieżącego etapu
 * Prostą wizualizację w postaci poziomego paska
 
-### Pasek postępu Chloros
+### Pasek postępu Chloros+
 
-+
-
-Dla użytkowników posiadających licencję Chloros
-
-+:
+Dla użytkowników posiadających licencję Chloros+:
 
 **4-etapowe wyświetlanie postępu:**
 
@@ -44,9 +34,7 @@ Dla użytkowników posiadających licencję Chloros
 * Każdy etap pokazuje indywidualny postęp (0–100%)
 
 {% hint style="info" %}
-**Zgodność z CLI**: podczas działania `chloros-cli process` te same cztery wątki zgłaszają statusy „Wykrywanie”, „Analiza”, „Przetwarzanie” i „Eksportowanie”, a `chloros-cli export-status` pokazuje na żywo postęp eksportu w wątku 4 z innego terminala. Zobacz [Podręcznik CLI
-
-](../reference/cli-reference.md).
+**Zgodność z CLI**: podczas działania `chloros-cli process` te same cztery wątki zgłaszają statusy „Wykrywanie”, „Analiza”, „Przetwarzanie” i „Eksportowanie”, a `chloros-cli export-status` pokazuje na żywo postęp eksportu w wątku 4 z innego terminala. Zobacz [Podręcznik CLI](../reference/cli-reference.md).
 {% endhint %}
 
 ***
@@ -61,9 +49,7 @@ Dla użytkowników posiadających licencję Chloros
 
 **Co się dzieje:**
 
-* Chloros
-
-skanuje obrazy zaznaczone polem wyboru „Cel” (wszystkie obrazy, jeśli żadne nie są zaznaczone)
+* Chloros skanuje obrazy zaznaczone polem wyboru „Cel” (wszystkie obrazy, jeśli żadne nie są zaznaczone)
 * Algorytmy wizji komputerowej identyfikują panele kalibracyjne
 * Wartości odbicia światła są wyodrębniane z każdego panelu
 * Rejestrowane są znaczniki czasu celów w celu prawidłowego zaplanowania kalibracji
@@ -92,9 +78,7 @@ skanuje obrazy zaznaczone polem wyboru „Cel” (wszystkie obrazy, jeśli żadn
 * Odczyt metadanych EXIF obrazów (znaczniki czasu, ustawienia ekspozycji)
 * Określanie strategii kalibracji na podstawie znaczników czasu celów i dostępnych danych DAQ dotyczących promieniowania w dół
 * Organizowanie kolejki przetwarzania obrazów
-* Przygotowywanie procesów przetwarzania równoległego (tylko Chloros
-
-+)
+* Przygotowywanie procesów przetwarzania równoległego (tylko Chloros+)
 
 **Czas trwania:** 5–30 sekund**Wskaźnik postępu:**
 
@@ -121,9 +105,7 @@ skanuje obrazy zaznaczone polem wyboru „Cel” (wszystkie obrazy, jeśli żadn
 * Obrazy przetworzone / Łączna liczba obrazów
 
 **Sposób przetwarzania:*** **Tryb swobodny**: Przetwarza po jednym obrazie na raz, sekwencyjnie
-* **Tryb Chloros
-
-+**: Uruchamia pulę procesów dostosowującą się do sprzętu — 1–4 procesy działające równolegle w systemach z kartami graficznymi (w zależności od pamięci VRAM), jeden proces na każdy fizyczny rdzeń (minus jeden) w systemach opartych wyłącznie na procesorze. Zobacz [Dynamiczna adaptacja obliczeniowa](../processing-architecture/dynamic-compute-adaptation.md)
+* **Tryb Chloros+**: Uruchamia pulę procesów dostosowującą się do sprzętu — 1–4 procesy działające równolegle w systemach z kartami graficznymi (w zależności od pamięci VRAM), jeden proces na każdy fizyczny rdzeń (minus jeden) w systemach opartych wyłącznie na procesorze. Zobacz [Dynamiczna adaptacja obliczeniowa](../processing-architecture/dynamic-compute-adaptation.md)
 * **Przyspieszenie GPU**: Znacznie przyspiesza ten etap**Na co należy zwrócić uwagę:**
 
 * Stały postęp w liczbie obrazów
@@ -169,17 +151,13 @@ na lewym pasku bocznym
 
 ### Interpretacja komunikatów dziennika Wiersze dziennika
 
-Chloros
-
-a mają przedrostek w postaci tagów w nawiasach, określających nazwę podsystemu — na przykład `[PROCESSING]`, `[RUN-SUMMARY]`, `[LATTICE-EXPORT]`, `[EXPORT-CHECK]`, `[IMPORT-LEVEL]`. Najważniejsze do zapamiętania jest **podsumowanie przebiegu**, wyświetlane na końcu każdego przebiegu (w tym przebiegów zatrzymanych):
+Chloros a mają przedrostek w postaci tagów w nawiasach, określających nazwę podsystemu — na przykład `[PROCESSING]`, `[RUN-SUMMARY]`, `[LATTICE-EXPORT]`, `[EXPORT-CHECK]`, `[IMPORT-LEVEL]`. Najważniejsze do zapamiętania jest **podsumowanie przebiegu**, wyświetlane na końcu każdego przebiegu (w tym przebiegów zatrzymanych):
 
 ```
 [RUN-SUMMARY] 49 image(s) in 2 camera group(s); 4 target(s) detected; 45 image(s) calibrated; 180 file(s) written.
 ```
 
-Dodatkowe wiersze z wskazówkami `[RUN-SUMMARY]` pojawiają się zawsze, gdy coś wymaga wyjaśnienia — na przykład w przypadku przebiegu, który nie dał żadnych wyników, lub kamera, dla której żądany produkt został pominięty jako nieodpowiedni. Wiersze `[EXPORT-CHECK]` wyjaśniają pominięcia dla poszczególnych kamer (np. dlaczego kamera RGB
-
-nie otrzymała produktu promieniowania).
+Dodatkowe wiersze z wskazówkami `[RUN-SUMMARY]` pojawiają się zawsze, gdy coś wymaga wyjaśnienia — na przykład w przypadku przebiegu, który nie dał żadnych wyników, lub kamera, dla której żądany produkt został pominięty jako nieodpowiedni. Wiersze `[EXPORT-CHECK]` wyjaśniają pominięcia dla poszczególnych kamer (np. dlaczego kamera RGB nie otrzymała produktu promieniowania).
 
 Ogólne poziomy ważności komunikatów (poniższe przykłady mają charakter ilustracyjny, a nie dosłowny):
 
@@ -193,9 +171,7 @@ Problemy o charakterze niekrytycznym, które nie zatrzymują przetwarzania — n
 
 **Działanie:** Sprawdź ostrzeżenia po zakończeniu przetwarzania, ale nie przerywaj go
 
-#### Komunikaty o błędach (kolor Red
-
-)
+#### Komunikaty o błędach (kolor Red)
 
 Krytyczne problemy, które mogą spowodować niepowodzenie przetwarzania — np. zapełniony dysk, uszkodzony plik obrazu lub brak wykrytych obiektów podczas kalibracji odbicia.
 
@@ -210,17 +186,9 @@ Krytyczne problemy, które mogą spowodować niepowodzenie przetwarzania — np.
 | Nie znaleziono celów                      | Nie wykryto celów kalibracyjnych               | Oznacz obrazy celów lub wyłącz kalibrację odbicia |
 | Niewystarczająca ilość miejsca na dysku               | Za mało miejsca na dane wyjściowe                 | Zwolnij miejsce na dysku                                    |
 | Pomijanie uszkodzonego pliku               | Plik obrazu jest uszkodzony                         | Skopiuj plik ponownie z karty SD                             |
-| `[IMPORT-LEVEL] Skipping ... no raw source` | Nie można przetworzyć przechwycenia bez klatki surowej | Przechwyć ponownie z klatką surową, lub skorzystaj z interfejsu CLI
-
-`--input-level`  |
+| `[IMPORT-LEVEL] Skipping ... no raw source` | Nie można przetworzyć przechwycenia bez klatki surowej | Przechwyć ponownie z klatką surową, lub skorzystaj z interfejsu CLI `--input-level`  |
 | `[RUN-SUMMARY] ... 0 file(s) written` | Przetwarzanie nie wygenerowało żadnych produktów obrazowych — zgłoszono jako błąd z wskazówkami | Przeczytaj wiersze z wskazówkami; sprawdź, co zostało pominięte i dlaczego |
-| `[PROCESS] refused: The project folder is too deep for this computer…` | Długie ścieżki w systemie Windows
-
-są wyłączone, a folder projektu jest zbyt głęboko zagnieżdżony, co przekracza limit 260 znaków dla ścieżki; nic nie zostało przetworzone | Użyj krótszego folderu projektu (komunikat podaje najdłuższą dopuszczalną ścieżkę) lub włącz obsługę długich ścieżek w systemie Windows
-
-i uruchom ponownie program Chloros
-
-— zobacz [Rozpoczynanie przetwarzania](starting-the-processing.md#the-project-folder-is-too-deep-for-this-computer) |
+| `[PROCESS] refused: The project folder is too deep for this computer…` | Długie ścieżki w systemie Windows są wyłączone, a folder projektu jest zbyt głęboko zagnieżdżony, co przekracza limit 260 znaków dla ścieżki; nic nie zostało przetworzone | Użyj krótszego folderu projektu (komunikat podaje najdłuższą dopuszczalną ścieżkę) lub włącz obsługę długich ścieżek w systemie Windows i uruchom ponownie program Chloros — zobacz [Rozpoczynanie przetwarzania](starting-the-processing.md#the-project-folder-is-too-deep-for-this-computer) |
 | `[unmix-clamp-mask] …` | Nie udało się zapisać maski ograniczeń produktu LATTICE; sam produkt działa poprawnie i wyświetla komunikat `Chloros:UnmixClampMask=unavailable` | Sprawdź ilość miejsca na dysku i uprawnienia do folderu, a następnie ponownie przetwórz dane, jeśli potrzebujesz tej maski |
 
 ### Kopiowanie danych dziennika
@@ -236,26 +204,14 @@ Aby skopiować dziennik w celu rozwiązywania problemów lub uzyskania pomocy te
 
 ### Zgłaszanie błędu z karty dziennika
 
-Nowość w wersji 1.3.0: ikona błędu (**Zgłoś błąd**) u góry karty „Dziennik debugowania” wysyła zgłoszenie bezpośrednio do MAPIR
-
-.
+Nowość w wersji 1.3.0: ikona błędu (**Zgłoś błąd**) u góry karty „Dziennik debugowania” wysyła zgłoszenie bezpośrednio do MAPIR.
 
 1. Kliknij ikonę błędu u góry karty „Dziennik debugowania”
 2. Opisz problem: co robiłeś, czego się spodziewałeś i co się faktycznie stało (wymagane)
 3. Opcjonalnie zaznacz **Dodaj kilka obrazów (maksymalnie 10)**i wybierz obrazy z otwartego projektu lub użyj opcji**Przeglądaj...**, aby wybrać dowolny inny plik obrazu
 4. Kliknij **Wyślij**
 
-Raport zawiera Twój opis, wszelkie załączone zdjęcia, logi Chloros
-
-oraz szczegóły systemowe (wersja Chloros
-
-, system operacyjny, karta graficzna i ustawienia projektu). Aby wysłać raport, musisz być zalogowany do Chloros
-
-(zakładka „Użytkownik”). Podczas wysyłania możesz zamknąć okno; po zakończeniu do dziennika zostanie zapisany numer referencyjny, np. `Bug report sent. Reference: BR-…` — podaj go, kontaktując się z MAPIR
-
-. Jeśli nie da się przesłać raportu (na przykład z powodu braku połączenia z Internetem), Chloros
-
-zapisuje go na komputerze i wyświetla ścieżkę dostępu, dzięki czemu można go wysłać pocztą elektroniczną na adres support@mapir.camera.
+Raport zawiera Twój opis, wszelkie załączone zdjęcia, logi Chloros oraz szczegóły systemowe (wersja Chloros, system operacyjny, karta graficzna i ustawienia projektu). Aby wysłać raport, musisz być zalogowany do Chloros (zakładka „Użytkownik”). Podczas wysyłania możesz zamknąć okno; po zakończeniu do dziennika zostanie zapisany numer referencyjny, np. `Bug report sent. Reference: BR-…` — podaj go, kontaktując się z MAPIR. Jeśli nie da się przesłać raportu (na przykład z powodu braku połączenia z Internetem), Chloros zapisuje go na komputerze i wyświetla ścieżkę dostępu, dzięki czemu można go wysłać pocztą elektroniczną na adres support@mapir.camera.
 
 ***
 
@@ -269,33 +225,25 @@ zapisuje go na komputerze i wyświetla ścieżkę dostępu, dzięki czemu można
 * Pozostałe rdzenie są w stanie bezczynności lub dostępne
 * System pozostaje responsywny
 
-**Tryb równoległy Chloros
-
-+:**
+**Tryb równoległy Chloros+:**
 
 * Wiele rdzeni o wysokim stopniu wykorzystania — ich liczba zależy od strategii wybranej w ramach [Dynamicznej adaptacji obliczeniowej](../processing-architecture/dynamic-compute-adaptation.md)
 * System może wydawać się mniej responsywny
 
 **Aby monitorować:**
 
-* Menedżer zadań systemu Windows
-
-(Ctrl+Shift+Esc)
+* Menedżer zadań systemu Windows (Ctrl+Shift+Esc)
 * Zakładka „Wydajność” → sekcja „Procesor”
-* Poszukaj procesów „Chloros
-
-” lub „chloros-backend”
+* Poszukaj procesów „Chloros” lub „chloros-backend”
 
 ### Wykorzystanie pamięci (RAM)
 
 **Typowe wykorzystanie:**
 
-* Małe projekty (&lt; 100 obrazów): 2–4 GB
+* Małe projekty (< 100 obrazów): 2–4 GB
 * Średnie projekty (100–500 obrazów): 4–8 GB
 * Duże projekty (ponad 500 obrazów): 8–16 GB
-* Tryb równoległy Chloros
-
-+ zużywa więcej pamięci RAM
+* Tryb równoległy Chloros+ zużywa więcej pamięci RAM
 
 **Jeśli brakuje pamięci:**
 
@@ -303,9 +251,7 @@ zapisuje go na komputerze i wyświetla ścieżkę dostępu, dzięki czemu można
 * Zamknij inne aplikacje
 * Zwiększ pojemność pamięci RAM, jeśli regularnie przetwarzasz duże zbiory danych
 
-### Wykorzystanie procesora graficznego (GPU) (Chloros
-
-+ z CUDA)
+### Wykorzystanie procesora graficznego (GPU) (Chloros+ z CUDA)
 
 Gdy przyspieszenie GPU jest włączone:
 
@@ -343,9 +289,7 @@ Gdy przyspieszenie GPU jest włączone:
 
 * Sprawdź dziennik debugowania pod kątem błędów
 * Sprawdź dostępną przestrzeń dyskową
-* Sprawdź w Menedżerze zadań, czy program Chloros
-
-działa
+* Sprawdź w Menedżerze zadań, czy program Chloros działa
 
 **Często pojawiają się komunikaty o błędach:**
 
@@ -355,9 +299,7 @@ działa
 
 **System przestaje odpowiadać:**
 
-* Tryb równoległy Chloros
-
-+ zużywa zbyt wiele zasobów
+* Tryb równoległy Chloros+ zużywa zbyt wiele zasobów
 * Rozważ zmniejszenie liczby równoległych zadań lub modernizację sprzętu
 * Tryb swobodny jest mniej wymagający pod względem zasobów
 
@@ -396,9 +338,7 @@ Przerwij przetwarzanie, jeśli zauważysz:
 
 1. Jeśli proces dopiero się rozpoczął i znajduje się w fazie wykrywania: zatrzymaj, zaznacz obiekty docelowe, uruchom ponownie
 2. Na przyszłość: używaj dysku SSD, zmniejsz liczbę indeksów, zmodernizuj sprzęt
-3. Rozważ użycie interfejsu CLI
-
-do przetwarzania wsadowego dużych zbiorów danych
+3. Rozważ użycie interfejsu CLI do przetwarzania wsadowego dużych zbiorów danych
 
 ### Ostrzeżenia dotyczące „miejsca na dysku”
 
@@ -408,9 +348,7 @@ do przetwarzania wsadowego dużych zbiorów danych
 2. Przenieś projekt na dysk z większą ilością miejsca
 3. Zmniejsz liczbę indeksów do eksportu
 4. Wyłącz niepotrzebne produkty eksportowe LATTICE (Ustawienia projektu → Przetwarzanie)
-5. Używaj formatu JPG zamiast TIFF
-
-a (mniejsze pliki)
+5. Używaj formatu JPG zamiast TIFF a (mniejsze pliki)
 
 ### Częste komunikaty o „uszkodzonych plikach”
 
@@ -427,9 +365,7 @@ a (mniejsze pliki)
 
 1. Zapewnij odpowiednią wentylację
 2. Oczyść otwory wentylacyjne komputera z kurzu
-3. Zmniejsz obciążenie przetwarzania (użyj trybu „Free” zamiast „Chloros
-
-+”)
+3. Zmniejsz obciążenie przetwarzania (użyj trybu „Free” zamiast „Chloros+”)
 4. Przetwarzaj w chłodniejszych porach dnia
 
 ***

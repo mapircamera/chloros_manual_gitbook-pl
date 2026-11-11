@@ -4,11 +4,7 @@
 
 ## Czym są warstwy obrazów?
 
-„Warstwa” w programie Chloros
-
-to jeden **plik produktu**przypisany do jednego obrazu źródłowego. Import zapewnia pliki źródłowe; przetwarzanie dodaje warstwę dla każdego produktu wygenerowanego w ramach danego przebiegu. Eksportowane pliki zachowują nazwę pliku źródłowego — to**folder** identyfikuje produkt, a nazwa warstwy jest etykietą nadaną temu folderowi przez Chloros
-
-.
+„Warstwa” w programie Chloros to jeden **plik produktu**przypisany do jednego obrazu źródłowego. Import zapewnia pliki źródłowe; przetwarzanie dodaje warstwę dla każdego produktu wygenerowanego w ramach danego przebiegu. Eksportowane pliki zachowują nazwę pliku źródłowego — to**folder** identyfikuje produkt, a nazwa warstwy jest etykietą nadaną temu folderowi przez Chloros.
 
 <!-- SCREENSHOT-NEEDED: Image Viewer full screen with the layer dropdown open on a processed LATTICE multispectral image, showing the full list: TIFF base, RAW (Original), RAW (Debayered), RAW (Preview), RAW (Radiance), RAW (Reflectance), and one RAW (NDVI Index) entry. -->
 
@@ -20,17 +16,7 @@ to jeden **plik produktu**przypisany do jednego obrazu źródłowego. Import zap
 
 | Warstwa | Co to jest |
 | --- | --- |
-| **JPG**(lub**PNG
-
-**/**TIFF
-
-**) | Plik bazowy, który został zaimportowany wraz z przechwyconym obrazem. Program Survey3
-
-importuje plik `.JPG` obok każdego pliku `.RAW`; przechwytywanie za pomocą LATTICE dostarcza podgląd wyświetlania w formacie PNG
-
-lub TIFF
-
-. Oznaczony zgodnie z tym, co faktycznie zostało zaimportowane |
+| **JPG**(lub**PNG**/**TIFF**) | Plik bazowy, który został zaimportowany wraz z przechwyconym obrazem. Program Survey3 importuje plik `.JPG` obok każdego pliku `.RAW`; przechwytywanie za pomocą LATTICE dostarcza podgląd wyświetlania w formacie PNG lub TIFF. Oznaczony zgodnie z tym, co faktycznie zostało zaimportowane |
 | **RAW (oryginał)** | Źródłowa klatka w formacie RAW, poddana debayeringowi w celu wyświetlenia, bez zastosowania żadnych korekt. Dostępna od momentu importu — nie wymaga przetwarzania |
 
 Zrzut z LATTICE, którego plikiem bazowym **jest** klatka surowa, nie ma oddzielnego wpisu bazowego: obejmuje go już `RAW (Original)`.
@@ -57,31 +43,19 @@ LATTICE przechwytuje rozgałęzienia do tych poziomów w jednym przebiegu przetw
 
 | Warstwa | Zapisywana do | Dotyczy |
 | --- | --- | --- |
-| **RAW (po usunięciu efektu bayera)** | `Debayered_Images/` | RGB
-
-i wielospektralne |
+| **RAW (po usunięciu efektu bayera)** | `Debayered_Images/` | RGB i wielospektralne |
 | **RAW (podgląd)** | `Preview_Images/` | Multispektralne (rozciągnięcie w fałszywych kolorach) |
-| **Zrównoważona biel** | `Preview_Images/` | Kamery główne RGB
-
-— podgląd RGB
-
-jest zarejestrowany pod tą nazwą, aby był zgodny z warstwą Survey3
-
-o tej samej nazwie |
+| **Zrównoważona biel** | `Preview_Images/` | Kamery główne RGB — podgląd RGB jest zarejestrowany pod tą nazwą, aby był zgodny z warstwą Survey3 o tej samej nazwie |
 | **RAW (radiancja)** | `Radiance_Images/` | Tylko wielospektralne |
 | **RAW (odbicie)** | `Reflectance_Calibrated_Images/` | Tylko wielospektralne i tylko wtedy, gdy pasujący zapis `.daq` z promieniowaniem w dół lub cel w kadrze, który przeszedł kontrolę jakości, pokrywa kadr |
 
-Kamery główne RGB
-
-nie posiadają radiometrii dla poszczególnych pasm, więc promieniowanie i odbicie są w ich przypadku pomijane jako **nie mające zastosowania** — informacja ta pojawia się w dzienniku, a nie jest pomijana bez powiadomienia.
+Kamery główne RGB nie posiadają radiometrii dla poszczególnych pasm, więc promieniowanie i odbicie są w ich przypadku pomijane jako **nie mające zastosowania** — informacja ta pojawia się w dzienniku, a nie jest pomijana bez powiadomienia.
 
 {% hint style="info" %}
 **Warstwy surowe i po debayeringu są dopasowane do produktów (nowość w wersji 1.3.0).**Pliki surowe i po debayeringu LATTICE są zapisywane w natywnej orientacji czujnika, a orientacja ta jest zapisywana w pliku XMP; pozostałe produkty są zapisywane z już zastosowaną orientacją. Przeglądarka i siatka obrazu przełączają wyświetlanie między trybami**RAW (oryginalny)**i**RAW (po usunięciu efektu bayera)** zgodnie z tym zapisem, dzięki czemu klatka nie odwraca się już podczas przełączania między warstwą produktu a warstwą surową. Dotyczy to wyłącznie wyświetlania — pliki nigdy nie są przepisywane. Pliki bez zapisu orientacji (zarejestrowane przed wersją 1.3.0 lub zapisane przez inne oprogramowanie) są wyświetlane zgodnie z orientacją, w jakiej zostały zapisane. Zobacz [Formaty obrazów wyjściowych](../output-image-formats.md#orientation).
 {% endhint %}
 
-Maski ograniczające (`*_clampmask.tif` w folderze `clamp_masks/`) nie są warstwami: program Chloros
-
-pomija je podczas importu. Zobacz [Formaty obrazów wyjściowych](../output-image-formats.md#clamp-masks).
+Maski ograniczające (`*_clampmask.tif` w folderze `clamp_masks/`) nie są warstwami: program Chloros pomija je podczas importu. Zobacz [Formaty obrazów wyjściowych](../output-image-formats.md#clamp-masks).
 
 ### Warstwy indeksu, LUT i piaskownicy
 
@@ -124,87 +98,41 @@ Powiększanie i przesuwanie obrazu działa również między obrazami, co ułatw
 
 | Warstwa | Podawana jednostka | Uwagi |
 | --- | --- | --- |
-| Podstawowa (podgląd JPG / PNG
-
-/ TIFF
-
-) | DN, 0–255 | Wartości wyświetlane, skorygowane pod kątem gamma dla RGB
-
-. Wyłącznie do oględzin |
+| Podstawowa (podgląd JPG / PNG / TIFF) | DN, 0–255 | Wartości wyświetlane, skorygowane pod kątem gamma dla RGB. Wyłącznie do oględzin |
 | RAW (oryginał) | DN | Surowe wartości cyfrowe z czujnika. Oś histogramu wskazuje głębię: 255 (8-bitowa), 4095 (12-bitowa) lub 65535 (16-bitowa) |
 | RAW (po usunięciu efektu bayera) | DN | Liniowy, bez rozciągania obrazu |
 | RAW (podgląd) / z balansem bieli | DN | Wynik wyświetlania — rozciągnięty lub skorygowany pod kątem gamma. Nie służy do pomiarów |
 | RAW (promieniowanie) | **W/m²/sr/nm** | Promieniowanie fizyczne typu Float32. Brak kolumny DN |
 | RAW (odbicie) | DN **i %** | Procent obliczony według własnej skali pliku — patrz poniżej |
-| Eksporty indeksu / LUT / sandbox | Wartość indeksu lub składowe RGB
-
-| Jednokanałowy plik indeksu podaje wartość indeksu; plik LUT z mapą kolorów podaje składowe Red
-
-/Green
-
-/Blue
-
-|
+| Eksporty indeksu / LUT / sandbox | Wartość indeksu lub składowe RGB | Jednokanałowy plik indeksu podaje wartość indeksu; plik LUT z mapą kolorów podaje składowe Red /Green /Blue |
 
 ### Odbicie: skala jest określona dla danego pliku
 
 {% hint style="warning" %}
-**„Podzielenie przez 65 535” jest poprawne tylko w przypadku programu Survey3
-
-.** Odbicie LATTICE jest przechowywane w innej skali, a mieszanie tych dwóch dzielników jest najczęstszym sposobem uzyskania wartości odbicia, które są dokładnie o połowę mniejsze od tych, które powinny być.
+**„Podzielenie przez 65 535” jest poprawne tylko w przypadku programu Survey3.** Odbicie LATTICE jest przechowywane w innej skali, a mieszanie tych dwóch dzielników jest najczęstszym sposobem uzyskania wartości odbicia, które są dokładnie o połowę mniejsze od tych, które powinny być.
 {% endhint %}
 
 | Źródło | DN odpowiadający współczynnikowi odbicia 1,0 | Identyfikator |
 | --- | --- | --- |
 | **LATTICE**(M3C / M3M) |**32768** | Tag XMP `Chloros:PixelScale=32768` umieszczany w każdym eksporcie współczynnika odbicia LATTICE. Dwukrotny zapas oznacza, że wartości ρ powyżej 1,0 mogą być przedstawione, a nie obcięte |
-| **Survey3**| **65535** | Brak tagu skali XMP Chloros
+| **Survey3**| **65535** | Brak tagu skali XMP Chloros — kalibracja Survey3 zapisuje ρ × dtype-max i obcina wartość przy 1,0 |
 
-— kalibracja Survey3
-
-zapisuje ρ × dtype-max i obcina wartość przy 1,0 |
-
-W przypadku GIS i skryptów: odczytaj z pliku `Chloros:PixelScale` i podziel przez tę wartość. Jeśli tag nie występuje, plik ma skalę Survey3
-
-(65535). Przeglądarka, środowisko testowe indeksu/LUT oraz eksport indeksu ustalają skalę w ten sam sposób, więc liczba odczytywana przy kursorze jest tą samą liczbą, której użyto w obliczeniach indeksu.
+W przypadku GIS i skryptów: odczytaj z pliku `Chloros:PixelScale` i podziel przez tę wartość. Jeśli tag nie występuje, plik ma skalę Survey3 (65535). Przeglądarka, środowisko testowe indeksu/LUT oraz eksport indeksu ustalają skalę w ten sam sposób, więc liczba odczytywana przy kursorze jest tą samą liczbą, której użyto w obliczeniach indeksu.
 
 Przechowywanie specyficzne dla formatu w oparciu o tę skalę:
 
-* **Format TIFF
-
-(32-bitowy, procentowy)** przechowuje wartość DN / 65535 jako liczbę zmiennoprzecinkową
-* **Format PNG
-
-(8-bitowy)**i**JPG (8-bitowy)** przechowują wartość DN × 255 / 65535
+* **Format TIFF (32-bitowy, procentowy)** przechowuje wartość DN / 65535 jako liczbę zmiennoprzecinkową
+* **Format PNG (8-bitowy)**i**JPG (8-bitowy)** przechowują wartość DN × 255 / 65535
 * **8-bitowa wartość DN pochodząca z 8-bitowego zapisu** lub plik odbicia światła zapisany przed wersją 1.3.0 jest przycięty do zakresu 0–255 i nie zawiera znacznika skali. Panel wyświetla wartość DN tylko dla tych plików, bez kolumny procentowej
 
 ### Zakresy wartości indeksów
 
 | Rodzaj indeksu | Typowy zakres | Odczyt |
 | --- | --- | --- |
-| Znormalizowana różnica (NDVI
-
-, GNDVI
-
-, NDRE
-
-, ENDVI…) | od −1 do +1 | Zdrowa roślinność zazwyczaj 0,4–0,9; goła gleba blisko 0; woda – wartości ujemne |
-| Skorygowane o glebę (SAVI
-
-, OSAVI
-
-, MSAVI2…) | w przybliżeniu od −1 do +1,5 | Odczyt podobny do NDVI
-
-, z wyeliminowanym tłem glebowym |
-| Stosunek (GRVI
-
-, GCI
-
-, MSR, CIRE…) | nieograniczony powyżej | Stosunki rosną bez ograniczeń, gdy pasmo mianownika dąży do zera |
-| EVI
-
-/ LAI
-
-| od 0 do ~1, od 0 do ~3,5 | Chmury i inne nasycone piksele powodują przekroczenie zakresu obu wskaźników — należy je najpierw zamaskować |
+| Znormalizowana różnica (NDVI, GNDVI, NDRE, ENDVI…) | od −1 do +1 | Zdrowa roślinność zazwyczaj 0,4–0,9; goła gleba blisko 0; woda – wartości ujemne |
+| Skorygowane o glebę (SAVI, OSAVI, MSAVI2…) | w przybliżeniu od −1 do +1,5 | Odczyt podobny do NDVI, z wyeliminowanym tłem glebowym |
+| Stosunek (GRVI, GCI, MSR, CIRE…) | nieograniczony powyżej | Stosunki rosną bez ograniczeń, gdy pasmo mianownika dąży do zera |
+| EVI / LAI | od 0 do ~1, od 0 do ~3,5 | Chmury i inne nasycone piksele powodują przekroczenie zakresu obu wskaźników — należy je najpierw zamaskować |
 
 Dokładne wzory leżące u podstaw każdego ustawienia wstępnego można znaleźć w sekcji [Wzory wskaźników wielospektralnych](../project-settings/multispectral-index-formulas.md).
 
@@ -236,9 +164,7 @@ Dokładne wzory leżące u podstaw każdego ustawienia wstępnego można znaleź
 1. Wybierz **RAW (Reflectance)**
 
 2. Odczytaj kolumnę**%** w panelu „Wartości kursora” — jest ona już prawidłowo przeskalowana dla tego pliku
-3. Sprawdź poprawność na podstawie znanych materiałów w klatce: zdrowa roślinność charakteryzuje się wysokim odbiciem w zakresie NIR
-
-i niskim w zakresie czerwonym; wartość odbicia celu kalibracyjnego powinna być zbliżona do opublikowanej wartości
+3. Sprawdź poprawność na podstawie znanych materiałów w klatce: zdrowa roślinność charakteryzuje się wysokim odbiciem w zakresie NIR i niskim w zakresie czerwonym; wartość odbicia celu kalibracyjnego powinna być zbliżona do opublikowanej wartości
 
 ***
 
@@ -250,25 +176,19 @@ i niskim w zakresie czerwonym; wartość odbicia celu kalibracyjnego powinna by�
 
 * Obraz nie został przetworzony — istnieją tylko warstwa bazowa i `RAW (Original)`
 * Opcja eksportu produktu jest odznaczona w ustawieniach projektu
-* Produkt nie ma zastosowania do tej kamery (promieniowanie i odbicie dla obrazu głównego w formacie RGB
-
-; dowolny wskaźnik dla jednopasmowej kamery monochromatycznej M3M)
+* Produkt nie ma zastosowania do tej kamery (promieniowanie i odbicie dla obrazu głównego w formacie RGB; dowolny wskaźnik dla jednopasmowej kamery monochromatycznej M3M)
 * Kalibracja odbicia nie miała na czym działać — brak pokrycia promieniowania padającego `.daq` oraz brak celu w kadrze, który przeszedł kontrolę jakości — więc klatka została przywrócona do trybu „Vignette Corrected” lub „Sensor Response”
 
 **Co należy zrobić**
 
-1. Sprawdź dziennik przebiegu: Chloros
-
-informuje, kiedy żądany produkt eksportowy był niemożliwy do uzyskania i dlaczego
+1. Sprawdź dziennik przebiegu: Chloros informuje, kiedy żądany produkt eksportowy był niemożliwy do uzyskania i dlaczego
 2. Sprawdź przełączniki eksportu dla poszczególnych produktów w [Ustawieniach projektu](../project-settings/project-settings.md)
 3. Sprawdź, czy folder produktu istnieje w drzewie wyników projektu
 4. Przeprowadź ponowne przetwarzanie z włączonym produktem
 
 ### Lista warstw wygląda na nieaktualną
 
-Podczas trwania przebiegu program Chloros
-
-ponownie skanuje foldery produktów projektu i uzupełnia brakujące rejestracje warstw na podstawie danych faktycznie znajdujących się na dysku, więc warstwa, której eksport zakończył się pomyślnie, pojawia się samodzielnie w ramach aktualizacji. Przełączenie się z obrazu na inną stronę i powrót do niego wymusza wykonanie nowej aktualizacji.
+Podczas trwania przebiegu program Chloros ponownie skanuje foldery produktów projektu i uzupełnia brakujące rejestracje warstw na podstawie danych faktycznie znajdujących się na dysku, więc warstwa, której eksport zakończył się pomyślnie, pojawia się samodzielnie w ramach aktualizacji. Przełączenie się z obrazu na inną stronę i powrót do niego wymusza wykonanie nowej aktualizacji.
 
 ### Wartości odbicia wydają się o połowę niższe od oczekiwanych
 

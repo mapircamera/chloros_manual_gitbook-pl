@@ -22,19 +22,7 @@ W górnym nagłówku, od lewej do prawej, znajdują się:
 * **Połącz z czujnikiem światła** — przejście do [zakładki „Czujniki światła”](daq/) w celu podłączenia czujnika światła DAQ. Działa bez otwartego projektu.
 
 {% hint style="info" %}
-**Tylko Windows**: Interfejs graficzny Chloros
-
-Desktop GUI jest dostępny w systemie Windows
-
-. Użytkownicy systemu Linux
-
-powinni zapoznać się z dokumentacją dotyczącą [CLI
-
-](CLI.md) oraz [Python
-
-SDK
-
-](api-python-sdk.md) w celu przetwarzania w trybie bezinterfejsu graficznego.
+**Tylko Windows**: Interfejs graficzny Chloros Desktop GUI jest dostępny w systemie Windows. Użytkownicy systemu Linux powinni zapoznać się z dokumentacją dotyczącą [CLI](CLI.md) oraz [Python SDK](api-python-sdk.md) w celu przetwarzania w trybie bezinterfejsu graficznego.
 {% endhint %}
 
 ### <img src=".gitbook/assets/image (2) (1) (1).png" alt="" data-size="line">
@@ -49,15 +37,9 @@ Pasek postępu <img src=".gitbook/assets/image (5).png" alt="" data-size="line">
 
 
 
-W bezpłatnym trybie Chloros
+W bezpłatnym trybie Chloros, w którym wszystkie pliki są przetwarzane sekwencyjnie, pasek postępu wyświetla 2 etapy: wykrywanie obiektów i przetwarzanie.
 
-, w którym wszystkie pliki są przetwarzane sekwencyjnie, pasek postępu wyświetla 2 etapy: wykrywanie obiektów i przetwarzanie.
-
-W płatnym trybie z licencją Chloros
-
-+, w którym wszystkie pliki są przetwarzane jednocześnie, pasek postępu wyświetla 4 etapy: wykrywanie, analizę, kalibrację i eksport. Po najechaniu kursorem myszy na pasek postępu Chloros
-
-+ rozwinie się rozszerzony panel z czterema paskami postępu, dzięki czemu można śledzić przebieg procesu. Kliknięcie górnego paska postępu spowoduje zamrożenie panelu rozwijanego, a kolejne kliknięcie – jego odblokowanie.
+W płatnym trybie z licencją Chloros+, w którym wszystkie pliki są przetwarzane jednocześnie, pasek postępu wyświetla 4 etapy: wykrywanie, analizę, kalibrację i eksport. Po najechaniu kursorem myszy na pasek postępu Chloros+ rozwinie się rozszerzony panel z czterema paskami postępu, dzięki czemu można śledzić przebieg procesu. Kliknięcie górnego paska postępu spowoduje zamrożenie panelu rozwijanego, a kolejne kliknięcie – jego odblokowanie.
 
 <figure><img src=".gitbook/assets/plus_prog.JPG" alt=""><figcaption></figcaption></figure>
 
