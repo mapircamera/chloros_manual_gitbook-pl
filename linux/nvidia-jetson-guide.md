@@ -1,6 +1,11 @@
-# Przewodnik po platformie NVIDIA Jetson
+# Przewodnik po NVIDIA Jetson —
 
-Chloros na platformie NVIDIA Jetson umożliwia przetwarzanie obrazów wielospektralnych na urządzeniach brzegowych — w terenie, na bezzałogowych statkach powietrznych (UAV) oraz w odległych instalacjach. Chloros 1.2.0 wykrywa model Jetson podczas uruchamiania i optymalizuje strategię przetwarzania pod kątem wykrytego sprzętu. **Nie jest wymagane ręczne dostosowywanie.**
+Chloros
+na platformie NVIDIA Jetson umożliwia przetwarzanie obrazów wielospektralnych na urządzeniach brzegowych — w terenie, na bezzałogowych statkach powietrznych (UAV) oraz w odległych instalacjach. Chloros
+1.3.0 rozpoznaje model Jetson podczas uruchamiania i optymalizuje strategię przetwarzania pod kątem wykrytego sprzętu. **Nie jest wymagane ręczne dostosowywanie.**
+{% hint style="info" %}
+**Pakiet Jetson 1.3.0 przetwarza dane na procesorze graficznym (GPU) urządzenia Jetson.** `chloros_1.3.0_arm64_jp6.deb` jest skompilowany dla JetPack 6 i wykorzystuje wersję PyTorch z obsługą CUDA z pakietu JetPack 6, więc przetwarzanie — w tym funkcja Texture Aware debayer — odbywa się na procesorze graficznym Orin. Pakiet nie zawiera samej biblioteki CUDA: korzysta z bibliotek CUDA i cuDNN instalowanych przez JetPack 6 (`sudo apt install nvidia-jetpack` na obrazie, na którym ich brakuje). W przypadku braku dostępnego procesora graficznego z obsługą CUDA przetwarzanie odbywa się na procesorze centralnym (CPU), a moduł Texture Aware wykorzystuje standardowy algorytm debayera.
+{% endhint %}
 
 ***
 
@@ -9,11 +14,12 @@ Chloros na platformie NVIDIA Jetson umożliwia przetwarzanie obrazów wielospekt
 | Model                | Pamięć RAM            | Strategia przetwarzania                                     | Zalecane zastosowanie                                          |
 | -------------------- | -------------- | ------------------------------------------------------- | -------------------------------------------------------- |
 | **Jetson AGX Orin**  | 32–64 GB współdzielonej pamięci | `GPU_PARALLEL` (2 procesy robocze)                              | Maksymalna wydajność, duże zbiory danych                      |
-| **Jetson Orin NX**   | 8–16 GB współdzielonej pamięci  | `GPU_PARALLEL` (2 procesy robocze, 16 GB) / `GPU_SINGLE` (8 GB)   | Główne zalecenie do zastosowań lotniczych i terenowych |
-| **Jetson Orin Nano** | 8 GB współdzielonej pamięci     | `GPU_SINGLE` (1 procesor roboczy, sekwencyjny)                     | Podstawowe rozwiązania do przetwarzania brzegowego                                 |
+| **Jetson Orin NX**   | 8–16 GB współdzielonej pamięci  | `GPU_PARALLEL` (2 procesy robocze, 16 GB) / `GPU_SINGLE` (8 GB)   | Główne zalecenie do wdrożeń w terenie              |
+| **Jetson Orin Nano** | 8 GB współdzielonej pamięci     | `GPU_SINGLE` (1 procesor roboczy, sekwencyjny)                     | Podstawowe obliczenia brzegowe                                 |
 
 {% hint style="info" %}
-Pakiet Linux dla architektury arm64 wymaga **JetPack 6**, który jest dostępny w rodzinie urządzeń Jetson Orin. Starsze modele (Nano, TX2, Xavier NX) nie obsługują JetPack 6 i nie są obsługiwane przez obecny pakiet.
+Pakiet Linux
+a dla architektury arm64 wymaga **JetPack 6**, który jest dostępny w rodzinie urządzeń Jetson Orin. Starsze modele (Nano, TX2, Xavier NX) nie obsługują JetPack 6 i nie są obsługiwane przez obecny pakiet.
 {% endhint %}
 
 ***
@@ -21,30 +27,35 @@ Pakiet Linux dla architektury arm64 wymaga **JetPack 6**, który jest dostępny 
 ## Wymagania
 
 * **JetPack 6.x** (zalecana najnowsza wersja)
-* **NVIDIA CUDA** (dołączona do JetPack)
-* **Płatny plan Chloros+** — poziom Copper lub wyższy (wymagany dla wszystkich dostępów CLI/SDK; egzekwowany po stronie serwera)
+* **NVIDIA CUDA i cuDNN** z pakietu JetPack 6 (`sudo apt install nvidia-jetpack`, jeśli w obrazie ich brakuje)
+* **Płatny plan Chloros
++** — poziom Copper lub wyższy (wymagany do wszelkiego dostępu do CLI
+/SDK
+; egzekwowany po stronie serwera)
 
 ## Instalacja
 
 ```bash
-# Install the JetPack 6 .deb package
-sudo dpkg -i chloros_1.2.0_arm64_jp6.deb
-sudo apt-get install -f
+# Install the arm64 .deb package (JetPack 6) -- apt, not dpkg -i, so the
+# Python SDK's requirements (python3-numpy, python3-requests) come too
+sudo apt install ./chloros_1.3.0_arm64_jp6.deb
 
 # Verify installation
-chloros-cli --version    # prints "Chloros CLI 1.2.0"
-
-# Install Python SDK (optional) — the bundled wheel always matches this build
-pip install --user /usr/lib/chloros/sdk/chloros_sdk-*.whl
+chloros-cli --version    # prints "Chloros CLI 1.3.0"
+python3 -c "import chloros_sdk; print(chloros_sdk.__version__)"   # the .deb installs the SDK
 
 # Run system diagnostics
 chloros-cli selftest
 ```
 
-Ogólne informacje dotyczące instalacji Linux, lokalizacji plików i rozwiązywania problemów można znaleźć w sekcji [Instalacja Linux](linux-installation.md).
+Plik `.deb` instaluje SDK
+dla systemu `python3`, zgodny z tą kompilacją. Tylko w środowisku virtualenv należy zainstalować dołączony plik wheel: `pip install /usr/lib/chloros/sdk/chloros_sdk-*.whl` (w trybie całkowicie offline). Ogólne informacje dotyczące instalacji w systemie Linux
+, lokalizacji plików oraz rozwiązywania problemów można znaleźć w sekcji [Instalacja w systemie Linux
+](linux-installation.md).
 
 {% hint style="info" %}
-**Umieść katalog rozpakowywania na szybkim nośniku danych.** Skompilowane pliki binarne rozpakowują się do katalogu tymczasowego przy każdym uruchomieniu — co z karty SD przebiega niezwykle wolno. Chloros automatycznie korzysta z `/mnt/ssd/tmp`, jeśli ten istnieje; w przeciwnym razie należy ustawić `TMPDIR` na ścieżkę na dysku NVMe (`export TMPDIR=/mnt/nvme/tmp`).
+**Koniec z rozpakowywaniem przy uruchomieniu.** Od wersji 1.3.0 backend i interfejs CLI
+są instalowane w postaci nieopakowanej w katalogu `/usr/lib/chloros/`, więc nie rozpakowują się już do katalogu tymczasowego przy każdym uruchomieniu. Pliki tymczasowe nadal są automatycznie zapisywane w katalogu `/mnt/ssd/tmp`, o ile katalog ten istnieje; w przeciwnym razie można ustawić `TMPDIR` na ścieżkę na dysku NVMe (`export TMPDIR=/mnt/nvme/tmp`).
 {% endhint %}
 
 ***
@@ -53,23 +64,27 @@ Ogólne informacje dotyczące instalacji Linux, lokalizacji plików i rozwiązyw
 
 ### Jak to działa
 
-Podczas uruchamiania Chloros profiluje system:
+Podczas uruchamiania Chloros
+tworzy profil systemu:
 
 1. **Wykrywa model Jetson** za pomocą `/proc/device-tree/model`
-2. **Odczytuje dostępną pamięć współdzieloną GPU/CPU** (Jetson wykorzystuje pamięć zunifikowaną)
-3. **Wybiera strategię przetwarzania** (`GPU_PARALLEL`, `GPU_SINGLE` lub `CPU_PARALLEL`)
-4. **Automatycznie ustawia liczbę procesów roboczych, typ potoku oraz alokację pamięci**Decyzja zależy od**całkowitej wielkości współdzielonej pamięci RAM**, a nie od nazwy modelu:
+2. **Odczytuje dostępną pamięć współdzieloną GPU/CPU** (Jetson korzysta z pamięci zunifikowanej)
+3. **Pyta PyTorch, czy może korzystać z CUDA** — jeśli zainstalowano CUDA i cuDNN z pakietu JetPack 6, jest to możliwe
+4. **Automatycznie wybiera strategię przetwarzania** (`GPU_PARALLEL`, `GPU_SINGLE` lub `CPU_PARALLEL`) oraz liczbę procesów roboczych
 
-* **Poniżej 12 GB całkowitej pamięci RAM**(wszystkie urządzenia Jetson o pojemności 8 GB): `GPU_SINGLE` z**1 procesem roboczym — celowe przetwarzanie sekwencyjne**. Pamięć jest zbyt ograniczona dla równoczesnych procesów roboczych, więc obrazy są przetwarzane pojedynczo. Na urządzeniach Jetson z**8 GB lub mniej** wątek 3 całkowicie pomija pulę procesów roboczych i wykonuje operacje dla poszczególnych obrazów w ramach tego samego procesu.
-* **12 GB lub więcej**(Orin NX 16 GB, AGX Orin): pamięć zunifikowana kwalifikuje się do `GPU_PARALLEL`, ale liczba procesów roboczych jest**ograniczona do 2 na Jetsonie** — procesor graficzny, pamięć RAM procesów roboczych oraz konteksty CUDA poszczególnych procesów czerpią zasoby z tej samej wspólnej puli, więc większa liczba procesów roboczych wiąże się z ryzykiem błędów spowodowanych brakiem pamięci.
+Decyzja zależy od **całkowitej ilości współdzielonej pamięci RAM**, a nie od nazwy modelu:
+
+* **Przy całkowitej pamięci RAM poniżej 12 GB**(wszystkie urządzenia Jetson z 8 GB pamięci):**1 procesor roboczy — celowe przetwarzanie sekwencyjne**. Pamięć jest zbyt ograniczona dla równoległej pracy procesorów roboczych, więc obrazy są przetwarzane pojedynczo. Na urządzeniach Jetson z**8 GB lub mniej** wątek 3 całkowicie pomija pulę procesów roboczych i wykonuje operacje na poszczególnych obrazach w ramach tego samego procesu. W logach zaplecza strategia ta nosi nazwę `GPU_SINGLE`.
+* **12 GB lub więcej**(Orin NX 16 GB, AGX Orin): pamięć zunifikowana kwalifikuje się do strategii `GPU_PARALLEL`, ale liczba procesów roboczych jest**ograniczona do 2 na Jetsonie** — procesor graficzny, pamięć RAM procesów roboczych oraz konteksty CUDA dla poszczególnych procesów czerpią z tej samej wspólnej puli, więc większa liczba procesów roboczych wiąże się z ryzykiem błędów spowodowanych brakiem pamięci.
+* **Brak działającej biblioteki CUDA** (brak bibliotek CUDA w JetPacku): `CPU_PARALLEL` przy 12 GB lub więcej, poniżej jeden obraz na raz.
 
 Można zastąpić automatyczny wybór za pomocą zmiennej środowiskowej `CHLOROS_STRATEGY` — zobacz [Dynamiczna adaptacja obliczeniowa](../processing-architecture/dynamic-compute-adaptation.md#manual-strategy-override).
 
 ### Zachowanie w poszczególnych modelach
 
-| Model Jetson                | Strategia       | Procesy robocze | Wykonanie                                      |
+| Model Jetson                | Strategia       | Pracownicy | Wykonanie                                      |
 | --------------------------- | -------------- | ------- | ---------------------------------------------- |
-| **Jetson Orin Nano 8 GB**    | `GPU_SINGLE`   | 1       | Sekwencyjna pętla wewnątrzprocesowa (`tiled_gpu` w przypadku niedoboru pamięci) |
+| **Jetson Orin Nano 8 GB**    | `GPU_SINGLE`   | 1       | Sekwencyjna pętla wewnątrzprocesowa (`tiled_gpu` przy ograniczonej pamięci) |
 | **Jetson Orin NX 8 GB**      | `GPU_SINGLE`   | 1       | Sekwencyjna pętla wewnątrzprocesowa                     |
 | **Jetson Orin NX 16 GB**     | `GPU_PARALLEL` | 2       | Równoległe procesy robocze, ścieżka `fused_gpu`  |
 | **Jetson AGX Orin 32–64 GB** | `GPU_PARALLEL` | 2       | Równoległe procesy robocze, ścieżka `fused_gpu`  |
@@ -80,7 +95,7 @@ Kluczową różnicą między platformami jest **pamięć**. Jetson z 8 GB pamię
 
 Każdy model Jetson posiada również profil sprzętowy, który określa, jaką część wspólnej puli pamięci może zająć przetwarzanie, oraz skaluje rozmiary partii:
 
-| Model | Górna granica budżetu GPU | Współczynnik wielokrotności rozmiaru partii | Rezerwa dla systemu/wyświetlacza |
+| Model | Górna granica budżetu GPU | Współczynnik wielkości partii | Zarezerwowane dla systemu/wyświetlacza |
 | --- | --- | --- | --- |
 | **Jetson Orin Nano** | 70% | ×0,8 | 2,0 GB |
 | **Jetson Orin NX** | 75% | ×1,0 | 3,0 GB |
@@ -94,10 +109,13 @@ Pełne informacje na temat adaptacji obliczeniowej można znaleźć w sekcji [Dy
 
 ## Ograniczenie częstotliwości GPU dla funkcji Texture Aware w modelach Nano i Orin Nano
 
-Algorytm debayeringu z obsługą tekstur wykorzystuje inferencję sieci neuronowej na GPU, co może wywołać **ostrzeżenia o nadmiernym natężeniu prądu**w modelach Jetson o niskim poborze mocy (klasa 10–15 W) przy pełnej częstotliwości taktowania GPU. Przed rozpoczęciem przetwarzania przez algorytm Texture Aware na**Jetson Nano lub Orin Nano**moduł Chloros sprawdza maksymalną częstotliwość procesora graficznego i ogranicza ją do**510 MHz** (510000000), jeśli aktualna częstotliwość jest wyższa:
+Algorytm debayeringu z obsługą tekstur wykorzystuje inferencję sieci neuronowej na GPU, co może wywołać **ostrzeżenia o nadmiernym natężeniu prądu**w modelach Jetson o niskim poborze mocy (klasa 10–15 W) przy pełnej częstotliwości taktowania GPU. Po przekazaniu `--debayer texture-aware` na**Jetson Nano lub Orin Nano**, CLI
+sprawdza maksymalną częstotliwość procesora graficznego i ogranicza ją do **510 MHz** (510000000), jeśli aktualna częstotliwość jest wyższa:
 
-* Jeśli skrypt CLI może zapisać wartość w węźle sysfs częstotliwości procesora graficznego, ograniczenie jest **stosowane automatycznie**, a na ekranie wyświetlany jest komunikat potwierdzający.
-* Jeśli nie (wymagane uprawnienia roota), CLI wyświetla dokładne polecenie `sudo` służące do ręcznego zastosowania ograniczenia, czeka chwilę, abyś mógł je przeczytać, a następnie kontynuuje — przetwarzanie nadal trwa, ale mogą pojawić się ostrzeżenia o nadmiernym natężeniu prądu.
+* Jeśli CLI
+może zapisać węzeł sysfs częstotliwości procesora graficznego, ograniczenie jest **stosowane automatycznie**, a na ekranie wyświetla się potwierdzenie.
+* Jeśli nie (wymagane uprawnienia roota), CLI
+wyświetla dokładne polecenie `sudo` umożliwiające ręczne zastosowanie ograniczenia, czeka chwilę, abyś mógł je przeczytać, a następnie kontynuuje działanie — przetwarzanie nadal przebiega, ale mogą pojawić się ostrzeżenia o nadmiernym poborze prądu.
 
 Aby samodzielnie zastosować ograniczenie przed przetwarzaniem:
 
@@ -105,23 +123,25 @@ Aby samodzielnie zastosować ograniczenie przed przetwarzaniem:
 echo 510000000 | sudo tee /sys/devices/platform/bus@0/17000000.gpu/devfreq/17000000.gpu/max_freq
 ```
 
-Modele o wyższej mocy (Orin NX 25 W, AGX Orin 60 W) działają z pełną prędkością procesora graficznego; ograniczenie nie jest stosowane. Standardowy algorytm debayeringu nigdy nie uruchamia ograniczenia w żadnym modelu.
+Modele o większej mocy (Orin NX 25 W, AGX Orin 60 W) działają z pełną prędkością procesora graficznego; ograniczenie nie jest stosowane. Standardowy algorytm debayeringu nigdy nie uruchamia ograniczenia na żadnym modelu.
 
 {% hint style="info" %}
-**Tryb „Texture Aware” na Jetsonie zawsze przetwarza po jednym obrazie na raz.** Każdy procesor roboczy potrzebowałby własnego kontekstu CUDA (~1 GB) oraz własnej kopii modelu odszumiającego, na co nie pozwala pamięć zunifikowana — dlatego na Jetsonie ścieżka „Texture Aware” jest przypisana do jednego procesora roboczego, a dostęp do procesora graficznego jest zserializowany. Należy spodziewać się, że tryb „Texture Aware” będzie znacznie wolniejszy niż tryb „Standard” na każdym urządzeniu Jetson.
+**Tryb „Texture Aware” na Jetsonie zawsze przetwarza jeden obraz na raz.** Każdy procesor roboczy wymagałby własnego kontekstu CUDA (~1 GB) oraz własnej kopii modelu odszumiającego, na co nie pozwala pamięć zunifikowana — dlatego na platformie Jetson ścieżka „Texture Aware” jest przypisana do jednego procesora roboczego, a dostęp do procesora graficznego jest zserializowany. Należy spodziewać się, że na dowolnym urządzeniu Jetson funkcja „Texture Aware” będzie znacznie wolniejsza niż tryb standardowy. Tryb „Texture Aware” ma zastosowanie do obrazów z Survey3
+: dane z LATTICE są zawsze przetwarzane przy użyciu standardowego algorytmu debayeringu. W przypadku braku nadającego się do użytku procesora graficznego CUDA uruchomienie wykorzystuje tryb „Standard”, a backend rejestruje jeden wiersz `[DEBAYER] … needs a CUDA GPU …` wyjaśniający przyczynę (pokazany wraz z `chloros-cli --verbose`).
 {% endhint %}
 
 ***
 
 ## Zarządzanie temperaturą
 
-Urządzenia Jetson mają ograniczony zapas termiczny, zwłaszcza w instalacjach zamkniętych lub pokładowych. Chloros monitoruje temperaturę układu SoC i automatycznie ogranicza rozmiary partii:
+Urządzenia Jetson mają ograniczony zapas termiczny, zwłaszcza w instalacjach zamkniętych lub powietrznych. Chloros
+monitoruje temperaturę układu SoC i automatycznie ogranicza rozmiary partii:
 
 | Temperatura         | Działanie                                            |
 | ------------------- | ------------------------------------------------- |
 | **&lt; 70°C**          | Normalna praca — pełna prędkość przetwarzania          |
-| **70°C** (Ostrzeżenie)  | Wielkość partii jest stopniowo zmniejszana (100% → 50% w zakresie od 70°C do 80°C) |
-| **80°C** (Stan krytyczny) | Agresywne ograniczanie wydajności (z 50% do 0% w zakresie od 80°C do 90°C) |
+| **70°C** (Ostrzeżenie) | Wielkość partii jest stopniowo zmniejszana (100% → 50% w zakresie od 70°C do 80°C) |
+| **80°C** (Krytyczny) | Agresywne ograniczanie wydajności (z 50% do 0% w zakresie od 80°C do 90°C) |
 | **90°C** (Wyłączenie) | Całkowite zatrzymanie przetwarzania przez procesor graficzny — wymagane schłodzenie |
 
 {% hint style="warning" %}
@@ -136,20 +156,18 @@ Urządzenia Jetson wykorzystują **pamięć zunifikowaną** — procesor graficz
 
 ### Ostrzeżenie dotyczące pamięci wymiany i zalecenia
 
-Przed rozpoczęciem przetwarzania na Jetsonie narzędzie CLI zlicza obrazy RAW w folderze wejściowym (`.tif`, `.tiff`, `.raw`, `.dng` — podglądy w formacie JPG nie są liczone), szacuje szczytowe zapotrzebowanie na pamięć dla danego zadania i **ostrzega przed rozpoczęciem**, jeśli pamięć RAM + pamięć wymiany mogą okazać się niewystarczające. Ostrzeżenie ma nagłówek `LOW MEMORY WARNING - Jetson Detected`, wyświetla liczbę obrazów, ilość pamięci RAM, aktualny rozmiar przestrzeni wymiany oraz szacowane maksymalne zapotrzebowanie, a następnie podaje dokładne polecenia `fallocate` / `chmod` / `mkswap` / `swapon` dostosowane do rozmiaru projektu (nigdy mniejsze niż 8 GB). Program wstrzymuje się na kilka sekund, aby komunikat nie zniknął w historii przewijania, a następnie kontynuuje przetwarzanie.**Szacunki dotyczące pamięci wykorzystywane przez ostrzeżenie:**
+Przed rozpoczęciem przetwarzania na urządzeniu Jetson interfejs CLI
+zlicza obrazy RAW znajdujące się w folderze wejściowym (`.tif`, `.tiff`, `.raw`, `.dng` — podglądy JPG nie są wliczane), szacuje maksymalne zapotrzebowanie na pamięć dla danego zadania i **ostrzega przed rozpoczęciem**, jeśli pamięć RAM + pamięć wymiany mogą okazać się niewystarczające. Ostrzeżenie ma nagłówek `LOW MEMORY WARNING - Jetson Detected`, wyświetla liczbę obrazów, pamięć RAM, aktualną przestrzeń wymiany oraz szacowaną wartość szczytową, a następnie podaje dokładne polecenia `fallocate` / `chmod` / `mkswap` / `swapon` dostosowane do dla danego projektu (nigdy mniejsze niż 8 GB). Program zatrzymuje się na kilka sekund, aby komunikat nie zniknął w historii przewijania, a następnie kontynuuje przetwarzanie.**Szacunkowe wartości pamięci używane w ostrzeżeniu:**
 
-| Tryb debayera | Podstawowe | Na obraz |
+| Tryb debayera | Podstawowy | Na obraz |
 | --- | --- | --- |
 | Standardowy | ~1,5 GB | ~10 MB |
-| Z uwzględnieniem tekstur | ~2,5 GB (model + środowisko uruchomieniowe Python) | ~15 MB |
+| Z uwzględnieniem tekstur | ~2,5 GB (model + środowisko uruchomieniowe Python
+a) | ~15 MB |
 
 Ostrzeżenie pojawia się, gdy szacowana wartość szczytowa przekracza sumę pamięci RAM i pamięci wymiany pomniejszoną o 1 GB marginesu bezpieczeństwa; uwzględniana jest wyłącznie pamięć wymiany **oparta na plikach** — konfiguracja oparta wyłącznie na zram nadal będzie sygnalizowana.
 
 Aby ręcznie dodać pamięć wymiany (przykład: 8 GB):
-
-
-
-<!-- SCREENSHOT-NEEDED: Terminal on a Jetson Orin (SSH session) showing the full "LOW MEMORY WARNING - Jetson Detected" block printed by `chloros-cli process` on a large folder: the image count and debayer mode line, RAM / current swap / estimated peak figures, and the fallocate/chmod/mkswap/swapon command block it recommends -->
 
 ```bash
 # Check current memory and swap
@@ -163,13 +181,21 @@ sudo swapon /swapfile
 
 # Make persistent across reboots
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-```### Obsługa błędu OOM (brak pamięci)
+```
 
-Podczas przetwarzania Chloros monitoruje pamięć GPU i zamiast ulegać awarii, płynnie ogranicza wydajność:
+<!-- SCREENSHOT-NEEDED: Terminal on a Jetson Orin (SSH session) showing the full "LOW MEMORY WARNING - Jetson Detected" block printed by `chloros-cli process` on a large folder: the image count and debayer mode line, RAM / current swap / estimated peak figures, and the fallocate/chmod/mkswap/swapon command block it recommends -->
+
+
+### Obsługa błędu OOM (Out of Memory)
+
+Podczas przetwarzania Chloros
+monitoruje pamięć GPU i zamiast ulegać awarii, płynnie ogranicza wydajność:
 
 1. Gdy wykorzystanie pamięci GPU przekroczy **85%**, rozmiary partii są prewencyjnie zmniejszane
-2. Jeśli nadal wystąpi zdarzenie braku pamięci, rozmiar partii jest **zmniejszany o połowę**, a przy każdym kolejnym zdarzeniu OOM — ponownie o połowę; każda kolejna pomyślnie przetworzona partia cofa tę karę o jeden krok
-3. W warunkach długotrwałego obciążenia potok przetwarzania przechodzi z ścieżki `fused_gpu` na ścieżkę `tiled_gpu`, charakteryzującą się oszczędnym wykorzystaniem pamięci, a w ostateczności na przetwarzanie na procesorze (CPU)
+2. Jeśli nadal wystąpi zdarzenie braku pamięci, rozmiar partii jest **zmniejszany o połowę**, a przy każdym kolejnym zdarzeniu OOM — ponownie o połowę; każda kolejna pomyślnie przetworzona partia cofa tę karę o jeden stopień
+3. W warunkach długotrwałego obciążenia potok przetwarzania przechodzi ze ścieżki `fused_gpu` na ścieżkę `tiled_gpu`, charakteryzującą się oszczędnym wykorzystaniem pamięci, a w ostateczności na przetwarzanie na procesorze (CPU)
+
+Ponieważ procesor graficzny współdzieli pamięć RAM urządzenia Jetson, pamięć RAM wraz z pamięcią wymiany nadal ograniczają czas działania — powyższe ostrzeżenie dotyczące pamięci wymiany jest sygnałem, na który należy zwrócić uwagę.
 
 ***
 
@@ -183,17 +209,19 @@ Podczas przetwarzania Chloros monitoruje pamięć GPU i zamiast ulegać awarii, 
 | Jetson Orin NX   | 10–25 W             | Gniazdo cylindryczne DC          |
 | Jetson AGX Orin  | 15–60 W             | USB-C PD lub gniazdo cylindryczne |
 
-Zaplanuj budżet energetyczny pod kątem długotrwałego przetwarzania — szczytowy pobór mocy występuje podczas intensywnie obciążającego procesor graficzny wątku 3 (przetwarzanie).
+Zaplanuj budżet energetyczny pod kątem długotrwałego przetwarzania — szczytowy pobór mocy występuje podczas intensywnego obciążenia procesora graficznego w wątku 3 (przetwarzanie).
 
 ### Zalecenia dotyczące pamięci masowej
 
-* **Dysk SSD NVMe** jest zdecydowanie zalecany w przypadku wdrożeń na platformie arm64
-* Karty SD są zbyt wolne do przetwarzania — używaj ich wyłącznie jako nośnika rozruchowego
-* Zaplanuj 2–3-krotność rozmiaru surowych danych obrazu na przetworzone dane wyjściowe
+* **Dysk SSD NVMe** jest zdecydowanie zalecany w przypadku wdrożeń opartych na architekturze arm64
+* Karty SD są zbyt wolne do przetwarzania — należy ich używać wyłącznie jako nośników rozruchowych
+* Należy zaplanować 2–3-krotność rozmiaru surowych danych obrazu na przetworzone dane wyjściowe
 
-### Praca bez monitora za pomocą SSH
+### Praca w trybie bezmonitorowym przez SSH
+Interfejs Chloros
 
-Chloros CLI idealnie nadaje się do wdrożeń Jetson w trybie bezmonitorowym:
+Chloros
+jest idealny dla wdrożeń Jetson w trybie bezmonitorowym:
 
 ```bash
 # SSH into the Jetson
@@ -208,14 +236,16 @@ chloros-cli export-status
 
 ### Zawsze aktywny backend do synchronizacji czasu LATTICE / DAQ-E
 
-Jeśli urządzenie Jetson steruje kamerami LATTICE lub czujnikami światła DAQ-E w trybie bez monitoru, należy włączyć usługę systemd backend, aby serwer główny PTP działał w trybie ciągłym (moduł jest zainstalowany, ale domyślnie nie jest włączony):
+Jeśli Twój Jetson steruje kamerami LATTICE lub czujnikami światła DAQ-E w trybie bezmonitorowym, włącz usługę systemd backend **jako swój użytkownik**, aby serwer główny PTP działał nieprzerwanie, a skrypty SDK
+mogły znaleźć uruchomiony backend (moduł jest zainstalowany, ale domyślnie nie jest włączony):
 
 ```bash
-sudo systemctl enable --now chloros-backend.service
+sudo systemctl enable --now chloros-backend@$USER.service    # $USER expands to your user name
 chloros-cli time-sync status
 ```
 
-Szczegółowe informacje, w tym sposób, w jaki pakiet umożliwia przypisanie portów PTP 319/320 bez uprawnień roota, znajdziesz w sekcji [Instalacja Linux](linux-installation.md#always-on-ptp-for-headless-hosts).
+Backend działa wtedy jako użytkownik: zapisywane przez niego dane pochodzą od Ciebie i korzysta on z Twojego `chloros-cli login`. Zobacz [Instalacja w systemie Linux
+](linux-installation.md#always-on-ptp-for-headless-hosts), aby uzyskać szczegółowe informacje, w tym na temat konta root `chloros-backend.service` oraz tego, w jaki sposób pakiet umożliwia przypisanie portów PTP 319/320 bez uprawnień roota.
 
 ### Zautomatyzowane przetwarzanie za pomocą systemd
 
@@ -272,10 +302,11 @@ sudo systemctl start chloros-process.timer
 chloros-cli process /data/flights/flight_042 \
     --output /data/processed/flight_042 \
     --format "TIFF (32-bit, Percent)" \
-    --indices NDVI NDRE GNDVI
+    --indices NDVI GNDVI OSAVI
 ```
 
-### Python SDK na Jetson
+### Zestaw PythonSDK
+dla Jetson
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -284,7 +315,7 @@ with ChlorosLocal() as chloros:
     chloros.create_project("field_survey_042")
     chloros.import_images("/data/flights/flight_042")
     chloros.configure(
-        indices=["NDVI", "NDRE", "GNDVI"],
+        indices=["NDVI", "GNDVI", "OSAVI"],
         export_format="TIFF (32-bit, Percent)",
         reflectance_calibration=True
     )
@@ -304,7 +335,7 @@ for flight in /data/flights/*/; do
     chloros-cli process "$flight" \
         --output "/data/processed/$name" \
         --format "TIFF (32-bit, Percent)" \
-        --indices NDVI NDRE
+        --indices NDVI OSAVI
     echo "Completed $name"
 done
 ```
@@ -313,21 +344,33 @@ done
 
 ## Zalecane systemy Jetson do zastosowań terenowych
 
-W przypadku zastosowań terenowych i powietrznych warto rozważyć następujące opcje płyt nośnych Jetson Orin NX 16 GB:
+W przypadku wdrożeń terenowych i powietrznych warto rozważyć następujące opcje płyt nośnych Jetson Orin NX 16 GB:
 
-* **Zastosowania lotnicze/drony**: Systemy o odporności na wibracje (MIL-STD), lekkie (poniżej 300 g), z chłodzeniem pasywnym
-* **Wymagające warunki terenowe**: Obudowy wodoodporne IP67/IP69K z obsługą kamer GigE z zasilaniem PoE
-* **Minimalne/ekonomiczne**: zestawy deweloperskie z dodatkowymi obudowami
+* **Zastosowania powietrzne/drony**: Systemy o odporności na wibracje (MIL-STD), lekkie (poniżej 300 g), z chłodzeniem pasywnym
+* **W trudnych warunkach terenowych**: obudowy wodoodporne o stopniu ochrony IP67/IP69K z obsługą kamer GigE z zasilaniem PoE
+* **Minimalne wymagania/budżetowe**: zestawy deweloperskie z dodatkowymi obudowami
 
-Skontaktuj się z [pomocą techniczną MAPIR](https://www.mapir.camera/community/contact), aby uzyskać konkretne zalecenia dotyczące sprzętu dostosowanego do Twojego scenariusza wdrożenia.
+Skontaktuj się z [pomocą techniczną MAPIR
+](https://www.mapir.camera/community/contact), aby uzyskać konkretne zalecenia dotyczące sprzętu dostosowanego do Twojego scenariusza wdrożenia.
 
 ***
 
 ## Kolejne kroki
 
-* [Instalacja Linux](linux-installation.md) — Ogólne informacje dotyczące instalacji Linux
-* [Dynamiczna adaptacja mocy obliczeniowej](../processing-architecture/dynamic-compute-adaptation.md) — Pełny opis strategii obliczeniowych
+* [Instalacja systemu Linux
+](linux-installation.md) — Ogólne informacje dotyczące instalacji systemu Linux
+
+* [Dynamiczna adaptacja mocy obliczeniowej](../processing-architecture/dynamic-compute-adaptation.md) — Pełny przewodnik po strategiach obliczeniowych
 * [Potok przetwarzania](../processing-architecture/processing-pipeline.md) — Omówienie potoku 4-wątkowego
-* [CLI: Wiersz poleceń](../CLI.md) — Przewodnik po CLI
-* [API : Python SDK](../api-python-sdk.md) — Podręcznik SDK
-* [CLI — Informacje](../reference/cli-reference.md) oraz [SDK — Informacje](../reference/sdk-reference.md) — Wyczerpujące wykazy poleceń/API dla wersji 1.2.0
+* [CLI
+: wiersz poleceń](../CLI.md) — Przewodnik po CLI
+
+* [API
+: Python
+SDK
+](../api-python-sdk.md) — Przewodnik po SDK
+
+* [Podręcznik CLI
+](../reference/cli-reference.md) i [Podręcznik SDK
+](../reference/sdk-reference.md) — Wyczerpujące zestawienia poleceń i API
+dla wersji 1.3.0
