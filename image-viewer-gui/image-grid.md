@@ -26,7 +26,7 @@ Gdy okno jest zbyt wąskie, by pomieścić wszystkie przyciski, grupy zwijają s
 
 <!-- SCREENSHOT-NEEDED: Image grid toolbar of a LATTICE array project at full width, showing all three button groups inline: Per Trigger / Per Camera, three camera filter buttons labelled "LATT-M3M (serial)", and the export/view buttons including TIFF, RAW (Original), RAW (Radiance), RAW (Reflectance). -->
 
-*****
+***
 
 ## Przyciski eksportu i podglądu
 
