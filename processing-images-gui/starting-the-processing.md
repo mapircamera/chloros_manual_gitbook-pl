@@ -79,7 +79,11 @@ Chloros działa w dwóch różnych trybach przetwarzania w zależności od posia
 1. **Wykrywanie** (wątek 1) – wyszukiwanie obiektów do kalibracji
 2. **Analiza** (wątek 2) – badanie metadanych obrazu i obliczanie kalibracji
 3. **Kalibracja** (wątek 3) – usuwanie efektu bayera, korekcja winietowania, kalibracja, obliczanie indeksu
-4. **Eksport** (wątek 4) – zapisywanie przetworzonych obrazów i indeksów**Obsługa paska postępu:*** **Najedź kursorem myszy** na pasek, aby wyświetlić szczegółowy panel rozwijany z 4 etapami
+4. **Eksport** (wątek 4) – zapisywanie przetworzonych obrazów i indeksów
+
+**Obsługa paska postępu:**
+
+* **Najedź kursorem myszy** na pasek, aby wyświetlić szczegółowy panel rozwijany z 4 etapami
 * **Kliknij** pasek postępu, aby zablokować panel rozwijany w bieżącej pozycji
 * **Kliknij ponownie**, aby odblokować i ukryć panel**Czas przetwarzania:**
 
@@ -117,7 +121,9 @@ Chloros działa w dwóch różnych trybach przetwarzania w zależności od posia
 
 ### Etap 3: Kalibracja
 
-**Czym zajmuje się Chloros:*** **Korekcja winietowania**: Usuwa przyciemnienie na krawędziach spowodowane obiektywem
+**Czym zajmuje się Chloros:**
+
+* **Korekcja winietowania**: Usuwa przyciemnienie na krawędziach spowodowane obiektywem
 * **Kalibracja odbicia**: Normalizuje na podstawie docelowych wartości odbicia i/lub danych DAQ dotyczących promieniowania padającego
 * Stosuje korekty we wszystkich pasmach/kanałach
 * Wykorzystuje odpowiedni wzorzec kalibracyjny dla każdego obrazu na podstawie sygnatury czasowej

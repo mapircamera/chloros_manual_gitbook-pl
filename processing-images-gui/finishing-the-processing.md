@@ -82,7 +82,9 @@ Nie licz według wzoru — liczba plików wyjściowych zależy od tego, które p
 
 ### Podgląd w zewnętrznych przeglądarkach obrazów
 
-**Zalecane przeglądarki:*** **QGIS** – darmowe oprogramowanie GIS (najlepsze do analizy wielospektralnej z georeferencjami)
+**Zalecane przeglądarki:**
+
+* **QGIS** – darmowe oprogramowanie GIS (najlepsze do analizy wielospektralnej z georeferencjami)
 * **IrfanView** – szybka, lekka przeglądarka obrazów (obsługuje format TIFF)
 * **Adobe Photoshop** – profesjonalna edycja (obsługa formatu TIFF)
 * **GIMP** – bezpłatna alternatywa dla programu Photoshop
@@ -223,7 +225,9 @@ Aby zachować zapis przebiegu przetwarzania lub przesłać go do działu pomocy 
 
 ### Problem: Wartości NDVI wydają się nieprawidłowe
 
-**Oczekiwane zakresy wartości NDVI:*** **Woda, skały, gleba**: od -0,1 do 0,2
+**Oczekiwane zakresy wartości NDVI:**
+
+* **Woda, skały, gleba**: od -0,1 do 0,2
 * **Rzadka/niezdrowa roślinność**: od 0,2 do 0,4
 * **Umiarkowana roślinność**: od 0,4 do 0,6
 * **Zdrowa, gęsta roślinność**: od 0,6 do 0,9**Jeśli wartości wykraczają poza te zakresy:**
@@ -277,12 +281,18 @@ Aby zachować zapis przebiegu przetwarzania lub przesłać go do działu pomocy 
 
 ### Zalecana strategia tworzenia kopii zapasowych
 
-**Co należy zapisać:*** ✅ **Oryginalne obrazy RAW/JPG lub surowe ujęcia LATTICE** – archiwizuj na oddzielnym dysku/w chmurze; pliki surowe stanowią źródło procesu przetwarzania, a wszystko inne można z nich odtworzyć
+**Co należy zapisać:**
+
+* ✅ **Oryginalne obrazy RAW/JPG lub surowe ujęcia LATTICE** – archiwizuj na oddzielnym dysku/w chmurze; pliki surowe stanowią źródło procesu przetwarzania, a wszystko inne można z nich odtworzyć
 * ✅ **Pliki z czujników światła `.daq` / `.csv`** – potrzebne do późniejszego ponownego obliczenia współczynnika odbicia
 * ✅ **Wyniki przetworzenia** – zachowaj skalibrowane obrazy i wskaźniki
 * ✅ **Folder projektu** (`project.json` i pliki towarzyszące) – zawiera wszystkie ustawienia niezbędne do ponownego przetwarzania w razie potrzeby
 * ✅ **Dziennik debugowania** – dokumentuje szczegóły przetwarzania
-* ✅ **Obrazy wzorców kalibracyjnych** – do weryfikacji i ponownego przetwarzania**Zalecenia dotyczące przechowywania:*** **Natychmiastowa kopia zapasowa**: Zewnętrzny dysk twardy
+* ✅ **Obrazy wzorców kalibracyjnych** – do weryfikacji i ponownego przetwarzania
+
+**Zalecenia dotyczące przechowywania:**
+
+* **Natychmiastowa kopia zapasowa**: Zewnętrzny dysk twardy
 * **Archiwum długoterminowe**: Przechowywanie w chmurze (Google Drive, Dropbox itp.)
 * **Dane krytyczne**: Zachowaj 2–3 kopie w różnych lokalizacjach***
 

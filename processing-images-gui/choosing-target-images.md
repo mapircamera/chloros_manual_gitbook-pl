@@ -32,7 +32,9 @@ Jeśli **żadne** zdjęcia nie są zaznaczone, Chloros przechodzi w tryb skanowa
 
 Przejrzyj zaimportowane obrazy w przeglądarce plików i zidentyfikuj, które z nich zawierają cele kalibracyjne.
 
-**Typowe scenariusze:*** **Cel przed wykonaniem zdjęcia**: zarejestrowany przed rozpoczęciem sesji
+**Typowe scenariusze:**
+
+* **Cel przed wykonaniem zdjęcia**: zarejestrowany przed rozpoczęciem sesji
 * **Cel po zakończeniu sesji**: zarejestrowany po zakończeniu sesji
 * **Cele w terenie**: cele umieszczone w obszarze rejestracji
 * **Wiele celów**: 2–3 obrazy celów na sesję (zalecane)
@@ -140,9 +142,17 @@ Użyj tej kolumny, aby sprawdzić, czy zaznaczyłeś cele dla każdego typu kame
 
 ### Regulacja czułości wykrywania
 
-Jeśli funkcja „Chloros” nie wykrywa obiektów poprawnie, dostosuj następujące ustawienia w [Ustawieniach projektu](adjusting-project-settings.md):**Minimalny obszar próbki kalibracyjnej (px):*** **Domyślnie**: 25 pikseli
+Jeśli funkcja „Chloros” nie wykrywa obiektów poprawnie, dostosuj następujące ustawienia w [Ustawieniach projektu](adjusting-project-settings.md):
+
+**Minimalny obszar próbki kalibracyjnej (px):**
+
+* **Domyślnie**: 25 pikseli
 * **Zwiększ**, jeśli występują fałszywe wykrycia na małych artefaktach
-* **Zmniejsz**, jeśli cele nie są wykrywane**Minimalne skupienie celów (0–100):*** **Domyślnie**: 60
+* **Zmniejsz**, jeśli cele nie są wykrywane
+
+**Minimalne skupienie celów (0–100):**
+
+* **Domyślnie**: 60
 * **Zwiększ**, jeśli cele są rozdzielane na wiele wykrytych obiektów
 * **Zmniejsz**, jeśli cele o zróżnicowanej kolorystyce nie są w pełni wykrywane
 

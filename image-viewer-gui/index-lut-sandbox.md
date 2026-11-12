@@ -26,7 +26,8 @@ Index/LUT Sandbox to interaktywne środowisko robocze znajdujące się na pasku 
 Pasek boczny wyświetla, od góry do dołu:
 
 * nazwę obrazu i model aparatu
-* przycisk **Eksportuj/Zapisz obraz(y)**— pojawia się po zaznaczeniu opcji**Indeks**lub**LUT*** pola wyboru **Indeks**i**LUT**
+* przycisk **Eksportuj/Zapisz obraz(y)**— pojawia się po zaznaczeniu opcji**Indeks**lub**LUT**
+* pola wyboru **Indeks**i**LUT**
 * panel konfiguracji wskaźnika
 * panel **Wartości kursora** z odczytem, histogramem i kontrolką GSD
 

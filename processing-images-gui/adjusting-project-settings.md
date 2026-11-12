@@ -44,7 +44,9 @@ Panel ustawień projektu jest podzielony na poniższe sekcje. Dwie dodatkowe sek
 
 Kontroluje sposób, w jaki Chloros identyfikuje cele kalibracyjne na obrazach.
 
-**Kluczowe ustawienia:*** **Minimalny obszar próbki kalibracyjnej (px)**: Próg wielkości dla wykrywania celów (domyślnie:**25**, zakres 0–10000)
+**Kluczowe ustawienia:**
+
+* **Minimalny obszar próbki kalibracyjnej (px)**: Próg wielkości dla wykrywania celów (domyślnie:**25**, zakres 0–10000)
 * **Minimalne skupienie celów (0–100)**: Próg podobieństwa dla grupowania obszarów celów (domyślnie:**60**)**Kiedy należy dostosować:**
 
 * Zwiększ obszar próbkowania, jeśli pojawiają się fałszywe wykrycia
@@ -59,19 +61,26 @@ Ustawienia te są wyszarzone, gdy opcja **Kalibracja odbicia / balans bieli** je
 
 Główne opcje przetwarzania obrazu i kalibracji.
 
-**Kluczowe ustawienia:*** **Korekcja winietowania**: Kompensuje zaciemnienie obiektywu na krawędziach ✅ Zalecane
+**Kluczowe ustawienia:**
+
+* **Korekcja winietowania**: Kompensuje zaciemnienie obiektywu na krawędziach ✅ Zalecane
 * **Kalibracja odbicia / balans bieli**: Kalibruje obrazy przy użyciu wykrytych celów (program Survey3) i/lub danych z czujnika światła DAQ (LATTICE) ✅ Zalecane
 * **Metoda debayera**: Algorytm konwersji plików RAW na 3-kanałowe obrazy wielospektralne
 * **Minimalny interwał ponownej kalibracji**: Minimalny czas w sekundach między kolejnymi użyciami celu kalibracyjnego (domyślnie:**0** = użyj wszystkich, zakres 0–3600)**Produkty rezerwowe bez kalibracji:**Gdy nie można przeprowadzić kalibracji odbicia dla klatki (brak dostępnego celu lub kalibracja wyłączona), jest ona eksportowana jako jeden z dwóch produktów rezerwowych —**na każdy przebieg istnieje dokładnie jeden z tej pary**, wybrany przez przełącznik korekcji winietowania:
 
-* **Eksport charakterystyki czujnika**: zapisuje plik `Sensor_Response_Images` — stosowany, gdy korekcja winietowania jest**wyłączona*** **Eksport z korekcją winietowania**: zapisuje plik `Vignette_Corrected_Images` — stosowany, gdy korekcja winietowania jest**włączona**Pole wyboru, które nie jest aktywne, jest wyszarzone. Odznaczenie aktywnego pola powoduje całkowite wstrzymanie zapisu tego pliku.**Produkty eksportowe LATTICE** (wyświetlane dla każdego projektu; dotyczą one ujęć z LATTICE):
+* **Eksport charakterystyki czujnika**: zapisuje plik `Sensor_Response_Images` — stosowany, gdy korekcja winietowania jest**wyłączona**
+* **Eksport z korekcją winietowania**: zapisuje plik `Vignette_Corrected_Images` — stosowany, gdy korekcja winietowania jest**włączona**Pole wyboru, które nie jest aktywne, jest wyszarzone. Odznaczenie aktywnego pola powoduje całkowite wstrzymanie zapisu tego pliku.**Produkty eksportowe LATTICE** (wyświetlane dla każdego projektu; dotyczą one ujęć z LATTICE):
 
 * **Eksport z usuniętym efektem bayera**: liniowy obraz po usunięciu efektu bayera (`Debayered_Images`): usunięto ciemne przesunięcie z pakietu kalibracyjnego, a następnie przeprowadzono demosaicing, bez płaskiego pola ani demiksowania — ten sam plik, jaki zapisuje się podczas przechwytywania na poziomie po usunięciu efektu bayera — w natywnej orientacji czujnika. Dotyczy modułów RGB i wielospektralnych.
 * **Eksport podglądu**: podgląd wyświetlany na ekranie (`Preview_Images`). RGB = balans bieli (źródło światła DAQ, jeśli jest dostępne, w przeciwnym razie „szary świat”) + gamma; wielospektralny = rozciągnięcie w fałszywych kolorach.
 * **Eksport promieniowania**: promieniowanie spektralne typu float32 (`Radiance_Images`, W/m²/sr/nm). Tylko moduły wielospektralne — nie dotyczy plików głównych RGB.
 * **Eksport współczynnika odbicia**: współczynnik odbicia typu uint16 (`Reflectance_Calibrated_Images`, DN 32768 = ρ 1,0), gdy odczyt promieniowania padającego `.daq` lub cel w ramce pokrywa całą ramkę. Tylko moduły wielospektralne.
 
-Wszystkie cztery opcje są **domyślnie włączone**— jedna zaimportowana surowa klatka LATTICE jest rozdzielana na wszystkie włączone i odpowiednie produkty w ramach jednego przebiegu przetwarzania. Pole wyboru**Eksportuj współczynnik odbicia** jest wyszarzone, gdy kalibracja współczynnika odbicia jest wyłączona. Ustawienia, których aktywacja uniemożliwia działanie nadrzędnego przełącznika, są zawsze wyszarzone i zawierają podpowiedź wskazującą przełącznik, który należy zmienić.**Ustawienia zaawansowane:*** **Przesunięcie strefy czasowej czujnika światła**: Liczba godzin względem czasu UTC służąca do synchronizacji czasu czujnika światła (domyślnie: 0, zakres od −12 do +12)
+Wszystkie cztery opcje są **domyślnie włączone**— jedna zaimportowana surowa klatka LATTICE jest rozdzielana na wszystkie włączone i odpowiednie produkty w ramach jednego przebiegu przetwarzania. Pole wyboru**Eksportuj współczynnik odbicia** jest wyszarzone, gdy kalibracja współczynnika odbicia jest wyłączona. Ustawienia, których aktywacja uniemożliwia działanie nadrzędnego przełącznika, są zawsze wyszarzone i zawierają podpowiedź wskazującą przełącznik, który należy zmienić.
+
+**Ustawienia zaawansowane:**
+
+* **Przesunięcie strefy czasowej czujnika światła**: Liczba godzin względem czasu UTC służąca do synchronizacji czasu czujnika światła (domyślnie: 0, zakres od −12 do +12)
 * **Zastosuj korekty PPK**: Wykorzystuje dane GPS/punktów ekspozycji z plików `.daq` (domyślnie: wyłączone)
 * **Punkt ekspozycji 1/2**: Przypisuje kamery do punktów ekspozycji w konfiguracjach z dwoma kamerami
 
@@ -105,7 +114,9 @@ Skonfiguruj, które indeksy wegetacyjne mają być obliczane i eksportowane. Men
 3. Skonfiguruj ustawienia wizualizacji (kolory LUT, zakresy wartości)
 4. Dodaj dowolną liczbę wskaźników
 
-**Popularne wskaźniki:*** **NDVI**: Ogólny stan zdrowia roślinności (najczęściej stosowany)
+**Popularne wskaźniki:**
+
+* **NDVI**: Ogólny stan zdrowia roślinności (najczęściej stosowany)
 * **NDRE**: Wczesne wykrywanie stresu za pomocą RedEdge
 * **GNDVI**: Wrażliwy na stężenie chlorofilu
 * **OSAVI**: Działa dobrze w przypadku widocznej gleby
@@ -216,7 +227,11 @@ W przypadku korzystania z rejestratorów danych MAPIR DAQ z GPS w celu precyzyjn
 3. W razie potrzeby ustaw**„Przesunięcie strefy czasowej czujnika światła”** (domyślnie: 0 dla UTC)
 4. Przypisz kamery do pinów ekspozycji:
    * **Pojedyncza kamera**: automatycznie przypisana do pinu 1
-   * **Dwie kamery**: ręcznie przypisz każdą kamerę do odpowiedniego pinu**Przypisanie pinów ekspozycji:*** **Pin ekspozycji 1**: Wybierz model kamery z listy rozwijanej
+   * **Dwie kamery**: ręcznie przypisz każdą kamerę do odpowiedniego pinu
+
+**Przypisanie pinów ekspozycji:**
+
+* **Pin ekspozycji 1**: Wybierz model kamery z listy rozwijanej
 * **Pin ekspozycji 2**: Wybierz drugą kamerę lub opcję „Nie używaj”
 * Nie można przypisać tej samej kamery do obu pinów
 

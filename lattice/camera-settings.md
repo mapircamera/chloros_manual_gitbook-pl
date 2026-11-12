@@ -204,7 +204,7 @@ Wszystko w tej sekcji dotyczy **wyłącznie strony wyświetlania**— zmienia to
 * **Liniowy** — sygnał ciemności + pole płaskie + balans bieli; brak macierzy kolorów, brak gamma.
 * **Naturalny** *(domyślny)* — liniowy plus zmierzona macierz korekcji kolorów i krzywa tonów dostosowująca się do sceny.
 * **Wzbogacony**— Naturalny plus intensywność i lokalny kontrast CLAHE. Dodatkowy koszt dotyczy**wyłącznie podglądu na żywo** — zapisane zdjęcia zawsze otrzymują pełne wykończenie niezależnie od profilu.
-* ****Temperatura niestandardowa** — tryb Natural z balansem bieli ustawionym na wybraną wartość w kelwinach.
+* **Temperatura niestandardowa** — tryb Natural z balansem bieli ustawionym na wybraną wartość w kelwinach.
 
 {% hint style="warning" %}
 W przypadku trybów Naturalny, Ulepszony i Niestandardowa temperatura w panelu wyświetlana jest uwaga dotycząca tonacji: klatki są rozjaśniane w zależności od konkretnej sceny, więc zapisane obrazy *wyświetlane* nie są porównywalne między sobą. **Eksportuj promieniowanie lub współczynnik odbicia w celu przeprowadzenia pomiarów.**
@@ -375,7 +375,7 @@ Panel tylko do odczytu odświeżany co 5 s:
 
 * **Etykieta poziomu**: „Jednoczesne przechwytywanie” (zielony) · „Jednoczesne przechwytywanie (emitowanie FTD z przesunięciem)” (zielony) · „Przechwytywanie z przesunięciem (odchylenie 100 ms)” (bursztynowy) · „Konfiguracja zbyt duża” (czerwony).
 * **Stan klatki**: „x,xx % niekompletne” — zielony poniżej 1 %, bursztynowy poniżej 5 %, czerwony przy 5 % lub więcej.
-* ****Linia łącza**: „NIC {mbps} Mbps – stała prędkość {MB/s} MB/s”.
+* **Linia łącza**: „NIC {mbps} Mbps – stała prędkość {MB/s} MB/s”.
 
 Jest to aktualny budżet przepustowości macierzy. Aby zapoznać się z podstawowymi parametrami fps i modelem sieciowym — oraz dowiedzieć się, co należy zmienić, gdy poziom przejdzie na kolor bursztynowy lub czerwony — zobacz [Macierze wielokamerowe](arrays.md) oraz [Podręcznik CLI](../reference/cli-reference.md).
 
@@ -401,7 +401,7 @@ Skrócony przewodnik po tym, co znajduje się gdzie, gdy kamera jest elementem m
 Inne zachowania dotyczące całej matrycy:
 
 * **Wyświetlanie połączone vs oddzielne** wybiera się podczas podłączania matrycy: połączone = jedna wyrównana kompozytowa płytka (kamery przesyłają obraz wyłącznie poprzez widok podzielony); oddzielne = każda kamera renderuje własną zsynchronizowaną płytkę. Kamera nigdy nie wyświetla jednocześnie samodzielnego obrazu i płytki matrycy.
-* ****Automatyczne ponowne połączenie**: otwarcie zapisanego projektu przywraca kamery i matryce oraz ponownie stosuje wszystkie zapisane ustawienia do zaplecza przed wznowieniem strumieni.
+* **Automatyczne ponowne połączenie**: otwarcie zapisanego projektu przywraca kamery i matryce oraz ponownie stosuje wszystkie zapisane ustawienia do zaplecza przed wznowieniem strumieni.
 * **Filtrowanie podczas przechwytywania**: ukryte lub wstrzymane kamery są wykluczane z funkcji „Capture All”; matryca jest całkowicie zablokowana tylko wtedy, gdy WSZYSTKIE elementy są ukryte/wstrzymane. Zobacz [Ustawienia i tryby przechwytywania](capture.md).
 
 ## Jak zachowywane są ustawienia

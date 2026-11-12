@@ -28,7 +28,11 @@ Dla użytkowników posiadających licencję Chloros+:
 1.**Wykrywanie** – wyszukiwanie celów kalibracyjnych
 2. **Analiza** – badanie obrazów i przygotowywanie potoku przetwarzania
 3. **Kalibracja** – stosowanie korekcji winietowania i odbicia
-4. **Eksport** – zapisywanie przetworzonych plików**Funkcje interaktywne:*** **Najedź kursorem** na pasek postępu, aby wyświetlić rozwijany panel z 4 etapami
+4. **Eksport** – zapisywanie przetworzonych plików
+
+**Funkcje interaktywne:**
+
+* **Najedź kursorem** na pasek postępu, aby wyświetlić rozwijany panel z 4 etapami
 * **Kliknij** pasek postępu, aby zamrozić/przypiąć rozwijany panel
 * **Kliknij ponownie**, aby odblokować panel i przywrócić automatyczne ukrywanie po odsunięciu kursora
 * Każdy etap pokazuje indywidualny postęp (0–100%)
@@ -92,7 +96,9 @@ Dla użytkowników posiadających licencję Chloros+:
 
 ### Etap 3: Kalibracja
 
-**Co się dzieje:*** **Debayering**: Konwersja wzorca RAW Bayera na 3 kanały (pomijana w przypadku modułów monochromatycznych LATTICE, z odpowiednią adnotacją)
+**Co się dzieje:**
+
+* **Debayering**: Konwersja wzorca RAW Bayera na 3 kanały (pomijana w przypadku modułów monochromatycznych LATTICE, z odpowiednią adnotacją)
 * **Korekcja winietowania**: Usuwanie przyciemnienia na krawędziach obiektywu
 * **Kalibracja odbicia**: Normalizacja względem wartości docelowych i/lub sygnału DAQ
 * **Obliczanie wskaźników**: Obliczanie wskaźników wielospektralnych
@@ -104,7 +110,9 @@ Dla użytkowników posiadających licencję Chloros+:
 * Aktualnie przetwarzany obraz
 * Obrazy przetworzone / Łączna liczba obrazów
 
-**Sposób przetwarzania:*** **Tryb swobodny**: Przetwarza po jednym obrazie na raz, sekwencyjnie
+**Sposób przetwarzania:**
+
+* **Tryb swobodny**: Przetwarza po jednym obrazie na raz, sekwencyjnie
 * **Tryb Chloros+**: Uruchamia pulę procesów dostosowującą się do sprzętu — 1–4 procesy działające równolegle w systemach z kartami graficznymi (w zależności od pamięci VRAM), jeden proces na każdy fizyczny rdzeń (minus jeden) w systemach opartych wyłącznie na procesorze. Zobacz [Dynamiczna adaptacja obliczeniowa](../processing-architecture/dynamic-compute-adaptation.md)
 * **Przyspieszenie GPU**: Znacznie przyspiesza ten etap**Na co należy zwrócić uwagę:**
 

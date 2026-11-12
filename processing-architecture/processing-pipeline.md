@@ -45,7 +45,11 @@ Wątek obliczeniowy obciążony pracą procesora. Podczas przebiegu typu Survey3
 
 ### Wątek 3: Przetwarzanie (GPU)
 
-**Cel**: Zastosowanie korekt i obliczenie wskaźników wegetacyjnych.**Jest to wątek wymagający największej mocy obliczeniowej.*** **Debayering**: konwersja danych RAW w formacie Bayera na obrazy wielokanałowe
+**Cel**: Zastosowanie korekt i obliczenie wskaźników wegetacyjnych.
+
+**Jest to wątek wymagający największej mocy obliczeniowej.**
+
+* **Debayering**: konwersja danych RAW w formacie Bayera na obrazy wielokanałowe
   * Standardowy (szybki, średnia jakość) — domyślny, `--debayer standard`
   * Z uwzględnieniem tekstury (powolny, najwyższa jakość) — tylko Chloros+, `--debayer texture-aware`, wykorzystuje model usuwania szumów oparty na AI/ML
   * Zdjęcia LATTICE mono (M3M) są jednopasmowe: w ich przypadku pomija się etapy demosaikowania i balansu bieli (z jednowierszowym komunikatem w dzienniku), podczas gdy wszelkie obrazy M3C/Bayer w tej samej serii nadal są poddawane tym etapom

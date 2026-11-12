@@ -57,7 +57,11 @@ output/
 └── *.daq          the downwelling reading matched to the capture
 ```
 
-**Wskaż folder w katalogu głównym zrzutów** (`output/` powyżej). Jeśli wybrany folder sam w sobie nie zawiera żadnych obrazów, ale ma podfoldery, Chloros automatycznie przechodzi do nich — podfoldery tego poziomu oraz katalog główny `.daq` są pobierane za jednym razem.**Jak przebiega import zrzutów:*** Każdy zrzut jest importowany jako **pojedynczy obraz**, pogrupowany według zrzutu (a nie jako osobny wpis dla każdego poziomu). Pozostałe poziomy tego samego zrzutu pojawiają się jako tryby wyświetlania tego jednego obrazu.
+**Wskaż folder w katalogu głównym zrzutów** (`output/` powyżej). Jeśli wybrany folder sam w sobie nie zawiera żadnych obrazów, ale ma podfoldery, Chloros automatycznie przechodzi do nich — podfoldery tego poziomu oraz katalog główny `.daq` są pobierane za jednym razem.
+
+**Jak przebiega import zrzutów:**
+
+* Każdy zrzut jest importowany jako **pojedynczy obraz**, pogrupowany według zrzutu (a nie jako osobny wpis dla każdego poziomu). Pozostałe poziomy tego samego zrzutu pojawiają się jako tryby wyświetlania tego jednego obrazu.
 * **Przetwarzanie zawsze rozpoczyna się od surowej klatki.** Pozostałe poziomy są widoczne, ale tylko `raw` jest przekazywany przez potok przetwarzania — ponowne przetwarzanie już przetworzonego produktu spowodowałoby podwójne zastosowanie korekt, więc Chloros tego nie wykonuje. Ponownie zaimportowany eksport nigdy nie może zająć miejsca przeznaczonego na surowy plik sesji.
 * Folder sesji zapisany **bez** surowych plików importuje się i wyświetla normalnie, ale przetwarzanie pomija go i odnotowuje to w dzienniku. (Flaga CLI `--input-level` może wymusić punkt wejścia w tym przypadku — zobacz [Podręcznik CLI](../reference/cli-reference.md#what-a-captures-folder-looks-like).)
 * Od wersji 1.3.0 folder z ujęciami może również zawierać folder `clamp_masks/` (maski na poziom pikseli dla poziomów promieniowania i odbicia — zobacz [Formaty obrazów wyjściowych](../output-image-formats.md#clamp-masks)). Maska nie jest obrazem sceny, a program Chloros pomija je podczas importu niezależnie od tego, gdzie się znajdują.

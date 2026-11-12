@@ -21,9 +21,9 @@ Seria LATTICE to modułowy system kamer wielospektralnych oparty na czujniku Son
 
 ```
 <sensor>-<lens>-F<filter>        e.g.  M3C-L41-FRGN,  M3M-L87-F550
-```. Program
+```
 
-Chloros wyświetla ją z prefiksem `LATT-` (na przykład `LATT-M3M-L41-F550`), a ten ciąg znaków steruje wszystkimi dalszymi procesami — profil czujnika, układ pasm i kalibracja są ustalane automatycznie; nie ma potrzeby konfigurowania poszczególnych kamer. Numer obiektywu oznacza **poziome pole widzenia w stopniach**: `L41` = wąskie 41°, `L87` = szerokie 87°.
+Program Chloros wyświetla ją z prefiksem `LATT-` (na przykład `LATT-M3M-L41-F550`), a ten ciąg znaków steruje wszystkimi dalszymi procesami — profil czujnika, układ pasm i kalibracja są ustalane automatycznie; nie ma potrzeby konfigurowania poszczególnych kamer. Numer obiektywu oznacza **poziome pole widzenia w stopniach**: `L41` = wąskie 41°, `L87` = szerokie 87°.
 
 Istnieją dwie konfiguracje czujników:
 

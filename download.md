@@ -260,10 +260,15 @@ ie 1.3.0** na stronie [Pierwsze kroki](./).**Wersja 1.2.0**— pełną listę zm
 
 **Data wydania: 10 lutego 2026 r.**
 
-**Nowe funkcje*** **Metoda debayeringu uwzględniająca teksturę \[Tylko Chloros+] —** Metoda „Texture Aware” wykorzystuje wysokiej jakości algorytm debayeringu uwzględniający krawędzie w połączeniu z modelem odszumiania opartym na sztucznej inteligencji i uczeniu maszynowym, który usuwa niemal cały szum powstały podczas debayeringu.
-* **Obsługa celów kalibracyjnych T4P*** **Szybsze przetwarzanie Chloros+ na GPU, lepsze zarządzanie pamięcią**
+**Nowe funkcje**
 
-**Poprawki błędów*** Całkowicie nowy interfejs użytkownika (GUI), który powinien teraz działać na wszystkich komputerach z systemem Windows.
+* **Metoda debayeringu uwzględniająca teksturę \[Tylko Chloros+] —** Metoda „Texture Aware” wykorzystuje wysokiej jakości algorytm debayeringu uwzględniający krawędzie w połączeniu z modelem odszumiania opartym na sztucznej inteligencji i uczeniu maszynowym, który usuwa niemal cały szum powstały podczas debayeringu.
+* **Obsługa celów kalibracyjnych T4P**
+* **Szybsze przetwarzanie Chloros+ na GPU, lepsze zarządzanie pamięcią**
+
+**Poprawki błędów**
+
+* Całkowicie nowy interfejs użytkownika (GUI), który powinien teraz działać na wszystkich komputerach z systemem Windows.
 
 </details>
 
@@ -273,14 +278,18 @@ ie 1.3.0** na stronie [Pierwsze kroki](./).**Wersja 1.2.0**— pełną listę zm
 
 **Data wydania: 5 stycznia 2026 r.**
 
-**Nowe funkcje*** **Przełącznik obraz/metadane**: Dodano przełącznik w przeglądarce plików, umożliwiający wyświetlanie metadanych wybranego obrazu w tabeli zamiast w siatce obrazów
+**Nowe funkcje**
+
+* **Przełącznik obraz/metadane**: Dodano przełącznik w przeglądarce plików, umożliwiający wyświetlanie metadanych wybranego obrazu w tabeli zamiast w siatce obrazów
 * **Suwak powiększenia siatki obrazów**: Nowy suwak w interfejsie użytkownika do regulacji rozmiaru miniatur (obsługuje również skrót klawiszowy CTRL + kółko myszy)
 * **Przyciski eksportu siatki obrazów**: Przyciski w górnym rzędzie służące do przełączania miniatur z formatu JPG na przetworzone pliki eksportowe (Targets, Reflectance, Index, LUT)
 * **Zakładka „Mapa”**: Nowa interaktywna mapa 2D pokazująca znaczniki lokalizacji GPS na obrazach
   * Obsługuje Mapy Google i kafelki mapowe ESRI (automatycznie wybiera najlepszą usługę kafelkową w zależności od dostępności poziomu powiększenia)
   * Podgląd miniatur po najechaniu kursorem myszy na znaczniki na mapie
 
-**Poprawki błędów*** Ulepszona obsługa instalacji programu Chloros na komputerach z systemem operacyjnym w języku innym niż angielski
+**Poprawki błędów**
+
+* Ulepszona obsługa instalacji programu Chloros na komputerach z systemem operacyjnym w języku innym niż angielski
 
 </details>
 
@@ -290,13 +299,21 @@ ie 1.3.0** na stronie [Pierwsze kroki](./).**Wersja 1.2.0**— pełną listę zm
 
 **Data wydania: 20 grudnia 2025 r.**
 
-**Nowe funkcje*** Pierwsze uruchomienie
+**Nowe funkcje**
 
-**Ulepszenia*** Pierwsze uruchomienie
+* Pierwsze uruchomienie
 
-**Poprawki błędów*** Pierwsze uruchomienie
+**Ulepszenia**
 
-**Znane problemy*** Pierwsze uruchomienie
+* Pierwsze uruchomienie
+
+**Poprawki błędów**
+
+* Pierwsze uruchomienie
+
+**Znane problemy**
+
+* Pierwsze uruchomienie
 
 </details>
 
