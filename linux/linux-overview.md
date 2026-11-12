@@ -10,7 +10,8 @@ Chloros 1.3.0 zapewnia natywną obsługę systemu Linux dla **CLI**oraz**Python 
 
 ## Tabela zgodności z platformami
 
-| Funkcja | Windows (GUI) | Windows (CLI/SDK) | Linux amd64 (CLI/ --- | --- | --- | --- |
+| Funkcja | Windows (GUI) | Windows (CLI/SDK) | Linux amd64 (CLI/SDK) | Linux arm64 / Jetson (CLI/SDK) |
+| --- | --- | --- | --- | --- |
 | **GUI na pulpicie** | Tak | Nie dotyczy | Nie | Nie |
 | **Interfejs CLI** (`chloros-cli`) | Tak | Tak | Tak | Tak |
 | **Python SDK** (`chloros-sdk`) | Tak | Tak | Tak | Tak |
@@ -22,7 +23,9 @@ Chloros 1.3.0 zapewnia natywną obsługę systemu Linux dla **CLI**oraz**Python 
 | **Debayering z uwzględnieniem tekstur** (wymaga procesora graficznego z obsługą CUDA) | Tak (Chloros+) | Tak (Chloros+) | Tak (Chloros+) | Tak (Chloros+) |
 | **Dynamiczna adaptacja obliczeniowa** | Tak | Tak | Tak | Tak |
 | **Backend jako usługa systemowa** (`chloros-backend@<user>.service`) | Nie | Nie | Tak (opcjonalnie) | Tak (opcjonalnie) |
-| **Narzędzie do aktualizacji na miejscu** (`chloros-cli update`) | Nie (uruchom instalator) | Nie (uruchom instalator) | Tak | Tak |***
+| **Narzędzie do aktualizacji na miejscu** (`chloros-cli update`) | Nie (uruchom instalator) | Nie (uruchom instalator) | Tak | Tak |
+
+***
 
 ## Obsługiwane architektury
 
@@ -35,7 +38,9 @@ Chloros 1.3.0 zapewnia natywną obsługę systemu Linux dla **CLI**oraz**Python 
 
 * **Ubuntu 22.04 LTS lub nowszy** (amd64)
 * **Debian 12 lub nowszy** (amd64)
-* **NVIDIA JetPack 6** (arm64 — platformy Jetson Orin)***
+* **NVIDIA JetPack 6** (arm64 — platformy Jetson Orin)
+
+***
 
 ## Co zyskują użytkownicy systemu Linux
 
@@ -54,7 +59,9 @@ Chloros 1.3.0 zapewnia natywną obsługę systemu Linux dla **CLI**oraz**Python 
 
 * **Graficzny interfejs użytkownika** — brak interfejsu graficznego; cała obsługa odbywa się za pośrednictwem CLI lub Python SDK
 * **Przeglądarka obrazów** — brak interaktywnej przeglądarki obrazów, widoku siatki ani znaczników na mapie
-* **Wizualne zarządzanie projektami** — projekty są tworzone i sterowane za pomocą poleceń CLI oraz wywołań SDK (sam sprzęt — kamery, czujniki, urządzenia przechwytujące — pozostaje w pełni sterowany z terminala)***
+* **Wizualne zarządzanie projektami** — projekty są tworzone i sterowane za pomocą poleceń CLI oraz wywołań SDK (sam sprzęt — kamery, czujniki, urządzenia przechwytujące — pozostaje w pełni sterowany z terminala)
+
+***
 
 ## Wymagania licencyjne
 

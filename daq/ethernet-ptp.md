@@ -102,4 +102,4 @@ Szczegóły dla użytkowników wymagających ścisłej synchronizacji:
 | Domena rozgłoszeniowa | Host i czujnik znajdują się w tym samym segmencie L2; mDNS nie przekierowuje ruchu |
 | Zapora sieciowa | Windows: reguła instalatora **Chloros Backend (UDP-In)** zezwala na przepływ strumienia DAQ-E (UDP 5002), mDNS (5353) i PTP (319/320); zapora sieciowa innej firmy musi mieć takie same ustawienia. Linux: `.deb` otwiera te porty w `ufw` / `firewalld` tylko wtedy, gdy zapora sieciowa była aktywna w momencie instalacji — należy je samodzielnie zezwolić w przypadku zapory włączonej później |
 | Host z wieloma kartami sieciowymi | Funkcja wykrywania przeszukuje mDNS z rezerwowym wykorzystaniem ARP; `--eth-host <ip-or-hostname>` pomija wykrywanie i łączy się bezpośrednio |
-| Ponowne skanowanie w GUI | Funkcja wykrywania działa tylko wtedy, gdy okno dialogowe połączenia jest otwarte; użyj opcji Odśwież |</version>
+| Ponowne skanowanie w GUI | Funkcja wykrywania działa tylko wtedy, gdy okno dialogowe połączenia jest otwarte; użyj opcji Odśwież |

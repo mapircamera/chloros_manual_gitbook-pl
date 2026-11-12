@@ -70,7 +70,9 @@ Pełny opis wzorów — wszystkie trzy listy ustawień wstępnych oraz informacj
 
 ### Z zaznaczoną opcją „Indeks”, ale bez tabeli LUT
 
-Obraz jest rysowany w **skali szarości**, rozciągnięty między dwiema wartościami progowymi. Jest to zamierzone: obraz indeksowy stanowi dane skalarne, a skala szarości jest jego wiernym odwzorowaniem. Aby uzyskać kolor, należy dodać tabelę LUT.***
+Obraz jest rysowany w **skali szarości**, rozciągnięty między dwiema wartościami progowymi. Jest to zamierzone: obraz indeksowy stanowi dane skalarne, a skala szarości jest jego wiernym odwzorowaniem. Aby uzyskać kolor, należy dodać tabelę LUT.
+
+***
 
 ## Praca z tabelami LUT (Look-Up Tables)**Tabela odnośników** przyporządkowuje wartości indeksowe do kolorów: na wejściu NDVI 0,65, na wyjściu określony odcień zieleni. Nie zmienia to danych — zmienia jedynie sposób ich odczytu.
 
@@ -134,7 +136,9 @@ Przykładowe okna NDVI:
 | Tylko zdrowa roślinność                 | 0,5  | 0,9 |
 | Podkreśl stres                        | 0,2  | 0,5 |
 
-Zawężenie przedziału zwiększa kontrast w obszarze zainteresowania i powoduje, że wszystko inne znajduje się poza zakresem — gdzie **tryb przycinania** decyduje o tym, co się z tym stanie.***
+Zawężenie przedziału zwiększa kontrast w obszarze zainteresowania i powoduje, że wszystko inne znajduje się poza zakresem — gdzie **tryb przycinania** decyduje o tym, co się z tym stanie.
+
+***
 
 ## Tryby przycinania
 

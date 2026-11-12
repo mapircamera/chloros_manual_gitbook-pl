@@ -15,7 +15,9 @@ Images In → [Thread 1: Detection] → [Thread 2: Calibration] → [Thread 3: P
 
 Każdy obraz przechodzi kolejno przez wszystkie cztery wątki. Dzięki wielowątkowemu przetwarzaniu w Chloros+ wiele obrazów zajmuje jednocześnie różne wątki — podczas gdy wątek 3 przetwarza jeden obraz, wątek 1 może wykrywać następny, wątek 2 kalibrować kolejny, a wątek 4 zapisywać gotowy obraz na dysk.
 
-Postęp jest raportowany dla każdego wątku i przesyłany strumieniowo za pośrednictwem Server-Sent Events (backend publikuje je na `/api/events`). W podglądzie postępu na żywo w interfejsie CLI cztery etapy są oznaczone jako **Wykrywanie, Analiza, Przetwarzanie, Eksport**.***
+Postęp jest raportowany dla każdego wątku i przesyłany strumieniowo za pośrednictwem Server-Sent Events (backend publikuje je na `/api/events`). W podglądzie postępu na żywo w interfejsie CLI cztery etapy są oznaczone jako **Wykrywanie, Analiza, Przetwarzanie, Eksport**.
+
+***
 
 ## Szczegóły dotyczące wątków
 

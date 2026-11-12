@@ -197,7 +197,9 @@ Odblokuj zaawansowane funkcje dzięki subskrypcji Chloros+:
 * **🐻 Zaawansowana metoda debayeringu uwzględniająca teksturę** – wysokiej jakości debayering uwzględniający krawędzie w połączeniu z modelem usuwania szumu opartym na AI/ML, który eliminuje niemal cały szum powstały podczas debayeringu.
 * 🧮 **Formuły niestandardowe** – Twórz własne wskaźniki wielospektralne
 
-<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">Zobacz plany i ceny Chloros+</a></p>***
+<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">Zobacz plany i ceny Chloros+</a></p>
+
+***
 
 ## Pomoc dotycząca instalacji
 
@@ -238,7 +240,9 @@ Potrzebujesz pomocy przy instalacji lub konfiguracji?
 * 📧 **E-mail**: info@mapir.camera
 * 🌐 **Strona internetowa**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
 * 📚 **Dokumentacja**: [Pierwsze kroki](./)
-* ❓ **FAQ**: [Często zadawane pytania](faq.md)***
+* ❓ **FAQ**: [Często zadawane pytania](faq.md)
+
+***
 
 ## Aktualizacje oprogramowania
 

@@ -78,7 +78,9 @@ Każde zdjęcie z danymi GPS otrzymuje znacznik w swoich współrzędnych.
 | Dostawca        | Uwagi                                                                                                                                                             |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Google Maps** | Szeroki zasięg na całym świecie; obsługuje wszystkie cztery typy kafelków                                                                                                            |
-| **Esri ArcGIS**| Często zdjęcia lotnicze o wyższej rozdzielczości w określonych regionach. Typ kafelków**Teren** nie jest dostępny dla Esri, a jego przycisk jest nieaktywny, gdy wybrano Esri |***
+| **Esri ArcGIS**| Często zdjęcia lotnicze o wyższej rozdzielczości w określonych regionach. Typ kafelków**Teren** nie jest dostępny dla Esri, a jego przycisk jest nieaktywny, gdy wybrano Esri |
+
+***
 
 ## Rodzaje kafelków mapy
 
@@ -93,7 +95,9 @@ Wybierz rodzaj warstwy mapy za pomocą przycisków (od lewej do prawej):
 | **Satelita**        | Szczegółowe zdjęcia satelitarne, bez etykiet — opcja wymagająca największej przepustowości |
 | **Hybrydowa** (domyślna) | Zdjęcia satelitarne z naniesionymi drogami i etykietami                |
 
-Karta „Mapa” otwiera się w trybie **Hybrydowym**. Wybrany tryb jest przenoszony przy zmianie dostawcy, o ile ten to obsługuje.***
+Karta „Mapa” otwiera się w trybie **Hybrydowym**. Wybrany tryb jest przenoszony przy zmianie dostawcy, o ile ten to obsługuje.
+
+***
 
 ## Nawigacja po mapie
 
@@ -141,7 +145,9 @@ Karta „Mapa” otwiera się w trybie **Hybrydowym**. Wybrany tryb jest przenos
 
 ### Mapa jest pusta lub przestały się ładować kafelki
 
-Dostawcy kafelków to usługi internetowe. Jeśli kafelki przestaną się ładować, sprawdź połączenie sieciowe urządzenia, a następnie spróbuj zmienić dostawcę. Jeśli byłeś w trybie bardzo dużego powiększenia, naciśnij przycisk resetowania **×**, aby powrócić do normalnego poziomu powiększenia i pozwolić mapie ponownie zażądać kafelków.***
+Dostawcy kafelków to usługi internetowe. Jeśli kafelki przestaną się ładować, sprawdź połączenie sieciowe urządzenia, a następnie spróbuj zmienić dostawcę. Jeśli byłeś w trybie bardzo dużego powiększenia, naciśnij przycisk resetowania **×**, aby powrócić do normalnego poziomu powiększenia i pozwolić mapie ponownie zażądać kafelków.
+
+***
 
 ## Powiązane strony
 

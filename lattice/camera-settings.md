@@ -196,7 +196,9 @@ Wszystko w tej sekcji dotyczy **wyłącznie strony wyświetlania**— zmienia to
 | **Nasycenie** | 0–200 (100 = neutralne) | 100 | Tylko RGB | Nasycenie HSV w podglądzie na żywo. |
 | **Kontrast** | 0–200 (100 = neutralny) | 100 | Tylko RGB | Kontrast liniowy wokół średniej szarości w podglądzie na żywo. |
 | **Odbicie lustrzane w poziomie / Odbicie lustrzane w pionie** | Pola wyboru | Wyłączone | Wszystkie | Odwróć podgląd w poziomie / w pionie. |
-| **Obrót**| 0° / 90° / 180° / 270° | 0° | Wszystkie | Obróć podgląd. Orientacja jest stosowana na końcu łańcucha podglądu zaplecza.**Zapisane ujęcia (1.3.0):**produkty samodzielnego aparatu, takie jak Podgląd, Radiancja, Odbicie i Indeks, są obracane za pomocą funkcji Odbicie lustrzane/Obrót, podczas gdy**pliki RAW i po usunięciu efektu Bayesa zachowują orientację natywną dla kamery**; każdy plik z ujęciem zapisuje to ustawienie w metadanych XMP, więc późniejsze przetwarzanie pliku RAW stosuje je w ten sam sposób.**Pliki składowe tablicy zachowują orientację natywną** (ustawienie jest zapisywane, ale nie stosowane), a widoki złożone z tablicy ignorują je. |**Semantyka profili kolorów** (kamery RGB):
+| **Obrót**| 0° / 90° / 180° / 270° | 0° | Wszystkie | Obróć podgląd. Orientacja jest stosowana na końcu łańcucha podglądu zaplecza.**Zapisane ujęcia (1.3.0):**produkty samodzielnego aparatu, takie jak Podgląd, Radiancja, Odbicie i Indeks, są obracane za pomocą funkcji Odbicie lustrzane/Obrót, podczas gdy**pliki RAW i po usunięciu efektu Bayesa zachowują orientację natywną dla kamery**; każdy plik z ujęciem zapisuje to ustawienie w metadanych XMP, więc późniejsze przetwarzanie pliku RAW stosuje je w ten sam sposób.**Pliki składowe tablicy zachowują orientację natywną** (ustawienie jest zapisywane, ale nie stosowane), a widoki złożone z tablicy ignorują je. |
+
+**Semantyka profili kolorów** (kamery RGB):
 
 * **Raw** — całkowite pominięcie łańcucha przetwarzania.
 * **Liniowy** — sygnał ciemności + pole płaskie + balans bieli; brak macierzy kolorów, brak gamma.

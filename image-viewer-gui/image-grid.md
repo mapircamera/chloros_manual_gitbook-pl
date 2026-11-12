@@ -10,7 +10,9 @@ Użyj suwaka powiększenia w prawym górnym rogu, aby dostosować rozmiar miniat
 * **Ctrl + `+`**/**Ctrl + `=`**oraz**Ctrl + `−`** zwiększają rozmiar o 4 px przy każdym naciśnięciu. Zakres skali klawiaturowej kończy się na 64 px po stronie mniejszej, a po stronie większej – na rozmiarze, który dokładnie mieści dwie miniatury w każdym wierszu w bieżącym oknie.
 * Wybrany rozmiar jest zapisywany wraz z projektem (`UI → Grid thumbnail size` w `project.json`, domyślnie `160`), więc ponowne otwarcie projektu powoduje jego przywrócenie.
 
-<figure><img src="../.gitbook/assets/chloros_grid_zoom.gif" alt=""><figcaption></figcaption></figure>*Rozdzielczość* miniatur to ustawienie niezależne od *rozmiaru* miniatur: zobacz **Wyświetlanie → Rozdzielczość miniatur obrazów** w [Ustawieniach projektu](../project-settings/project-settings.md) (domyślnie 512 pikseli na dłuższym boku). Rozmiar określa, jak duża jest rysowana kafelka; rozdzielczość określa, ile szczegółów jest pobieranych w celu jej wypełnienia.***
+<figure><img src="../.gitbook/assets/chloros_grid_zoom.gif" alt=""><figcaption></figcaption></figure>*Rozdzielczość* miniatur to ustawienie niezależne od *rozmiaru* miniatur: zobacz **Wyświetlanie → Rozdzielczość miniatur obrazów** w [Ustawieniach projektu](../project-settings/project-settings.md) (domyślnie 512 pikseli na dłuższym boku). Rozmiar określa, jak duża jest rysowana kafelka; rozdzielczość określa, ile szczegółów jest pobieranych w celu jej wypełnienia.
+
+***
 
 ## Pasek narzędzi siatki
 

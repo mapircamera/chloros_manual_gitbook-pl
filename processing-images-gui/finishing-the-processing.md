@@ -112,7 +112,9 @@ Odbicie jest przechowywane jako liczba całkowita DN, a **wartość DN odpowiada
 | LATTICE (M3C/M3M) | **32768** (zakres do ρ 2,0) | W pliku umieszczono tag XMP `Chloros:PixelScale=32768` |
 | Survey3          | **65535** (ograniczone do ρ 1,0)     | Brak tagu `Chloros:PixelScale` — ten brak jest sygnałem (produkty Survey3 zawierają inne tagi przetwarzania typu `Chloros:*`) |
 
-**Odczytaj tag `Chloros:PixelScale` i podziel przez tę wartość** zamiast zakładać uniwersalną wartość 65535 — podzielenie odbicia LATTICE przez 65535 w sposób niewidoczny zmniejsza każdą wartość o połowę. Plik współczynników odbicia sprzed wersji 1.3.0 zapisany w formacie 8-bitowym został przycięty, a nie przeskalowany, i nie zawiera tagu skali: należy go ponownie wyeksportować w formacie 16-bitowym lub 32-bitowym zamiast go dzielić. Pełne wyjaśnienie znajduje się w sekcji [Formaty obrazów wyjściowych](../output-image-formats.md).***
+**Odczytaj tag `Chloros:PixelScale` i podziel przez tę wartość** zamiast zakładać uniwersalną wartość 65535 — podzielenie odbicia LATTICE przez 65535 w sposób niewidoczny zmniejsza każdą wartość o połowę. Plik współczynników odbicia sprzed wersji 1.3.0 zapisany w formacie 8-bitowym został przycięty, a nie przeskalowany, i nie zawiera tagu skali: należy go ponownie wyeksportować w formacie 16-bitowym lub 32-bitowym zamiast go dzielić. Pełne wyjaśnienie znajduje się w sekcji [Formaty obrazów wyjściowych](../output-image-formats.md).
+
+***
 
 ## Metadane przenoszone do eksportowanych plików
 
@@ -166,7 +168,9 @@ Aby zachować zapis przebiegu przetwarzania lub przesłać go do działu pomocy 
 
 2. Zapisz jako plik tekstowy w folderze projektu
 3. Dołącz do dokumentacji projektu
-4. W razie napotkanych problemów wyślij go do pomocy technicznej MAPIR Aby zgłosić problem bezpośrednio do MAPIR, użyj ikony błędu (**Zgłoś błąd**) u góry zakładki „Dziennik debugowania” — zobacz [Zgłaszanie błędu z zakładki dziennika](monitoring-the-processing.md#reporting-a-bug-from-the-log-tab).***
+4. W razie napotkanych problemów wyślij go do pomocy technicznej MAPIR Aby zgłosić problem bezpośrednio do MAPIR, użyj ikony błędu (**Zgłoś błąd**) u góry zakładki „Dziennik debugowania” — zobacz [Zgłaszanie błędu z zakładki dziennika](monitoring-the-processing.md#reporting-a-bug-from-the-log-tab).
+
+***
 
 ## Typowe problemy z wynikami i ich rozwiązania
 

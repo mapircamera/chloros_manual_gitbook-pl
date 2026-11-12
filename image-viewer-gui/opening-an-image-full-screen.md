@@ -57,7 +57,9 @@ Powiększenie „efektywne” uwzględnia rozmiar bloku GSD: przy rozmiarze blok
 | **←**                           | Tryb pełnoekranowy | Poprzedni obraz                      |
 | **Ctrl + R**                    | Tryb pełnoekranowy | Resetuj indeks/środowisko testowe LUT         |
 | **Ctrl + `+`**/**Ctrl + `=`** | Siatka        | Większe miniatury (4 piksele na naciśnięcie)  |
-| **Ctrl + `−`**                  | Siatka        | Mniejsze miniatury (4 piksele na naciśnięcie) |***
+| **Ctrl + `−`**                  | Siatka        | Mniejsze miniatury (4 piksele na naciśnięcie) |
+
+***
 
 ## Wartości kursora
 
@@ -100,7 +102,9 @@ Przeglądarka, środowisko testowe indeksu/LUT oraz eksport indeksu wszystkie us
 Dwie konsekwencje, o których warto wiedzieć:
 
 * **32-bitowa wartość procentowa**TIFF przechowuje DN/65535 jako liczbę zmiennoprzecinkową, a**8-bitowa** PNG/JPG przechowuje wartość DN × 255/65535 — przeglądarka konwertuje obie wartości z powrotem przed wyświetleniem wartości procentowej.
-* Jednego przypadku nie da się odtworzyć: **8-bitowy eksport TIFF z 8-bitowego źródła** jest przycinany do zakresu 0–255 zamiast być przeskalowany i celowo nie zawiera znacznika skali. W przypadku tych plików panel wyświetla wyłącznie wartości DN, bez kolumny procentowej. Jest to zgodne z rzeczywistością, a nie błąd.***
+* Jednego przypadku nie da się odtworzyć: **8-bitowy eksport TIFF z 8-bitowego źródła** jest przycinany do zakresu 0–255 zamiast być przeskalowany i celowo nie zawiera znacznika skali. W przypadku tych plików panel wyświetla wyłącznie wartości DN, bez kolumny procentowej. Jest to zgodne z rzeczywistością, a nie błąd.
+
+***
 
 ## Histogram warstwy
 
@@ -126,7 +130,9 @@ Nad histogramem znajdują się trzy przyciski:
 | **INDEX**| Włączone      | Pojawia się tylko wtedy, gdy indeks jest aktywny. Przełącza histogram z pasm źródłowych na**rozkład wartości indeksu**, przy czym dwa progi klipowania są zaznaczone pomarańczowymi liniami przerywanymi, a wartość indeksu kursora — białą linią                                                          |
 | **RGB**| Wył.     | Przełącza z krzywej łącznej na krzywe dla poszczególnych kanałów. W przypadku czujnika monochromatycznego przycisk ten ma napis**MONO** i jest nieaktywny — do wyświetlenia jest tylko jeden kanał                                                                                                                                  |
 
-Histogram jest obliczany na podstawie **widocznych bloków**, a nie pikseli źródłowych znajdujących się za nimi: zmiana rozmiaru bloku GSD powoduje ponowne obliczenie rozkładu, dzięki czemu histogram, znacznik kursora i wyświetlany obraz są zawsze zgodne.***
+Histogram jest obliczany na podstawie **widocznych bloków**, a nie pikseli źródłowych znajdujących się za nimi: zmiana rozmiaru bloku GSD powoduje ponowne obliczenie rozkładu, dzięki czemu histogram, znacznik kursora i wyświetlany obraz są zawsze zgodne.
+
+***
 
 ## Rozmiar bloku GSD
 
@@ -185,7 +191,9 @@ Zastosuj indeksy wielospektralne i kolorowe tabele przeglądowe (LUT) z paska bo
 
 3. Wybierz filtr swojej kamery oraz wzór indeksu, a następnie przeciągnij koła kanałów na pola wzoru
 4. Dodaj tabelę LUT i wybierz gradient, progi oraz tryb przycinania
-5. Odczytaj wartości w miejscu kursora i zapisz wynik za pomocą opcji **Eksportuj/Zapisz obraz(y)**Pełny przewodnik znajdziesz w [Index/LUT Sandbox](index-lut-sandbox.md).***
+5. Odczytaj wartości w miejscu kursora i zapisz wynik za pomocą opcji **Eksportuj/Zapisz obraz(y)**Pełny przewodnik znajdziesz w [Index/LUT Sandbox](index-lut-sandbox.md).
+
+***
 
 ## Rozwiązywanie problemów
 

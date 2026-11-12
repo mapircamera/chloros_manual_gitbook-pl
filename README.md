@@ -64,7 +64,9 @@ Pełny przewodnik: [Korzystanie z Chloros a z asystentami AI](ai-assistants.md).
 * **Rzetelna semantyka błędów.** Uruchomienie `chloros-cli process`, które zażądało produktów, ale nie zapisało żadnego, teraz kończy się wyraźnym błędem i zwraca wynik niezerowy; udane uruchomienia zgłaszają, ile produktów obrazowych zostało zapisanych.
 * **Nowy układ wyników.** Produkty trafiają do folderów `<project>/<camera>/<format>/<Product>_Images/` i zachowują nazwę pliku źródłowego — to folder, a nie rozszerzenie nazwy pliku, identyfikuje produkt. Zobacz [Formaty obrazów wyjściowych](output-image-formats.md).
 * **Więcej danych wejściowych, planów i języków.** Obsługa danych wejściowych `.dng`; pełna obsługa wszystkich 38 języków interfejsu; limity sprzętowe dla poszczególnych planów z bezpłatnym (bez logowania) dostępem do maksymalnie 4 kamer i 2 czujników światła.
-* **Niezawodność.** Funkcja „Zatrzymaj przetwarzanie” kończy działanie w sposób uporządkowany, wyświetlając rzetelne podsumowanie przebiegu; projekty z wieloma kamerami eksportują dane z każdej kamery, a aktualizacje instalatora nie powodują już wylogowania użytkownika.***
+* **Niezawodność.** Funkcja „Zatrzymaj przetwarzanie” kończy działanie w sposób uporządkowany, wyświetlając rzetelne podsumowanie przebiegu; projekty z wieloma kamerami eksportują dane z każdej kamery, a aktualizacje instalatora nie powodują już wylogowania użytkownika.
+
+***
 
 Aplikacja Chloros jest dostępna w 3 wersjach:
 

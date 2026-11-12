@@ -181,7 +181,9 @@ Po uruchomieniu cały potok działa automatycznie:
 * Zatrzymany przebieg rzetelnie informuje o tym, co zostało ukończone (zobacz wiersze `[RUN-SUMMARY]` w dzienniku)
 * Nowe uruchomienie rozpoczyna potok od początku
 
-**Wskazówka dotycząca planowania:** W przypadku bardzo dużych projektów warto rozważyć przetwarzanie partiami lub korzystanie z interfejsu CLI w celu uzyskania lepszej kontroli.***
+**Wskazówka dotycząca planowania:** W przypadku bardzo dużych projektów warto rozważyć przetwarzanie partiami lub korzystanie z interfejsu CLI w celu uzyskania lepszej kontroli.
+
+***
 
 ## Monitorowanie przetwarzania
 

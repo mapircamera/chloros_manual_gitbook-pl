@@ -34,7 +34,9 @@ na lewym pasku bocznym
 * **Opcje**: `Default (512 px)`, `1024 px`, `2048 px`, `Full resolution`
 * **Domyślnie**: Domyślna (512 pikseli)
 * **Opis**: Rozdzielczość (najdłuższy bok, w pikselach), w której renderowane są miniatury w siatce obrazów. Wyższe wartości zapewniają ostrzejszy obraz po powiększeniu, ale powodują wolniejsze ładowanie i zużywają więcej pamięci. Pełna rozdzielczość odpowiada oryginalnemu rozmiarowi obrazu.
-* **Uwaga**: Tylko do wyświetlania — nie ma to żadnego wpływu na przetwarzanie ani na eksportowane pliki.***
+* **Uwaga**: Tylko do wyświetlania — nie ma to żadnego wpływu na przetwarzanie ani na eksportowane pliki.
+
+***
 
 ## Wykrywanie celów
 
@@ -186,7 +188,9 @@ Skanowanie **zmierzonych** celów w poszczególnych jednostkach jest wyszukiwane
   * Pojedyncza kamera + pojedynczy pin: Pin 2 jest automatycznie ustawiany na „Nie używaj”
   * Pojedyncza kamera + dwa piny: Pin 2 jest automatycznie ustawiany na „Nie używaj”
   * Wiele kamer: Wymagany jest wybór ręczny
-* **Uwaga**: Ta sama kamera nie może być przypisana jednocześnie do styku 1 i styku 2.***
+* **Uwaga**: Ta sama kamera nie może być przypisana jednocześnie do styku 1 i styku 2.
+
+***
 
 ## Czujnik światła DAQ
 
@@ -207,7 +211,9 @@ Każdy wiersz zawiera plik, model czujnika oraz korekcję nasadki rozpraszające
 * **Opis**: `Auto` wykorzystuje osłonę zarejestrowaną w każdym pliku (w przypadku braku rejestracji przyjmowana jest osłona typu „Sunshine”, jednak urządzenia DAQ-U, DAQ-M i DAQ-E są dostarczane bez osłony, a program Chloros nie jest w stanie rozpoznać, jaka osłona została zamontowana, więc podczas przetwarzania pojawia się ostrzeżenie dotyczące domyślnej nasadki: należy wybrać nasadkę, która była zamontowana). Wybranie konkretnej nasadki zastępuje ustawienia **wszystkich** plików pomiarów w kierunku w dół w projekcie, z wyjątkiem plików z DAQ-E-S, którego dyfuzor stanowi część kalibracji; w projekcie zawierającym wyłącznie dane z DAQ-E-S nie wyświetla się lista rozwijana: surowe zapisy są korygowane przy użyciu tej nasadki, a zapisy, które już zawierają korekcję, są ponownie kalibrowane (zapisana korekcja jest cofana, a zastosowana zostaje wybrana).
 * **Ważne**: Wybrana korekcja musi odpowiadać korekcji fizycznie zamontowanej podczas rejestracji. Ani czujnik, ani oprogramowanie nie są w stanie wykryć fizycznej korekcji — niezgodny identyfikator korekcji powoduje błędną korekcję widm.
 
-Celowo zastosowano **jedną** opcję kontrolną dla całego projektu zamiast list rozwijanych dla poszczególnych plików: ustawienie to dotyczy każdego źródła promieniowania padającego w projekcie.***
+Celowo zastosowano **jedną** opcję kontrolną dla całego projektu zamiast list rozwijanych dla poszczególnych plików: ustawienie to dotyczy każdego źródła promieniowania padającego w projekcie.
+
+***
 
 ## Wyrównanie macierzy
 

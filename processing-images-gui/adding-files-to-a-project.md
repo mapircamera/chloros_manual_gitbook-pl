@@ -62,7 +62,9 @@ output/
 * Folder sesji zapisany **bez** surowych plików importuje się i wyświetla normalnie, ale przetwarzanie pomija go i odnotowuje to w dzienniku. (Flaga CLI `--input-level` może wymusić punkt wejścia w tym przypadku — zobacz [Podręcznik CLI](../reference/cli-reference.md#what-a-captures-folder-looks-like).)
 * Od wersji 1.3.0 folder z ujęciami może również zawierać folder `clamp_masks/` (maski na poziom pikseli dla poziomów promieniowania i odbicia — zobacz [Formaty obrazów wyjściowych](../output-image-formats.md#clamp-masks)). Maska nie jest obrazem sceny, a program Chloros pomija je podczas importu niezależnie od tego, gdzie się znajdują.
 
-**Sesje z serwera LATTICE** importuje się w ten sam sposób: należy kliknąć opcję „Dodaj folder” i wskazać folder sesji skopiowany z hubu (zawiera on foldery `raw/` oraz `previews/`) wraz z dowolnym dziennikiem danych `.csv` z czujnika DAQ-M. Jeśli kalibracja kamery lub urządzenia DAQ nie została jeszcze zapisana w pamięci podręcznej na Twoim komputerze, program Chloros pobiera ją automatycznie na podstawie numeru seryjnego podczas importu (wymaga jednorazowego połączenia z Internetem).***
+**Sesje z serwera LATTICE** importuje się w ten sam sposób: należy kliknąć opcję „Dodaj folder” i wskazać folder sesji skopiowany z hubu (zawiera on foldery `raw/` oraz `previews/`) wraz z dowolnym dziennikiem danych `.csv` z czujnika DAQ-M. Jeśli kalibracja kamery lub urządzenia DAQ nie została jeszcze zapisana w pamięci podręcznej na Twoim komputerze, program Chloros pobiera ją automatycznie na podstawie numeru seryjnego podczas importu (wymaga jednorazowego połączenia z Internetem).
+
+***
 
 ## Omówienie tabeli przeglądarki plików
 
@@ -104,7 +106,9 @@ Kliknięcie przycisku przełączającego w prawym górnym rogu nad tabelą powod
 
 * Pliki `.daq` i `.csv` pojawiają się na liście przeglądarki plików, ale nie są obrazami, które można kliknąć — dostarczają one natężenie promieniowania padającego w dół do kalibracji współczynnika odbicia.
 * Każdy zaimportowany plik typu `.daq`/`.csv` jest wymieniony w sekcji **Ustawienia projektu → Czujnik światła DAQ**, gdzie można sprawdzić aktualną korektę nasadki rozpraszającej dla każdego pliku. Zobacz [Dostosowywanie ustawień projektu](adjusting-project-settings.md).
-* Nagrania wykonane w zakładce **Czujniki światła** są automatycznie dodawane do otwartego projektu — nie jest wymagany ręczny import.***
+* Nagrania wykonane w zakładce **Czujniki światła** są automatycznie dodawane do otwartego projektu — nie jest wymagany ręczny import.
+
+***
 
 ## Zarządzanie plikami w projekcie
 
@@ -221,7 +225,9 @@ Jeśli projekt zawiera obrazy z wielu kamer MAPIR:
 
 ### Ponownie otwarty projekt zgłasza brakujące pliki
 
-Jeśli pliki źródłowe zostały przeniesione lub usunięte od czasu ostatniego otwarcia projektu, Chloros poinformuje Cię, **które**pliki zniknęły, zamiast otwierać pustą siatkę. Jeśli sam folder projektu został przeniesiony, Chloros przekierowuje ścieżki źródłowe do folderu, w którym obecnie znajduje się `project.json`, i zachowuje kopię zapasową (`project.json.before-relink-<date>-<time>`). Gdy pliki nie zostaną znalezione, w oknie**Nie znaleziono plików źródłowych**pojawi się opcja**Przeglądaj**, umożliwiająca wskazanie nowej lokalizacji, a następnie opcje Utwórz nowy projekt lub Usuń projekt. Z poziomu interfejsu CLI należy użyć `chloros-cli project open PATH --relink FOLDER`; z poziomu SDK – `open_project(path, relink=...)`.***
+Jeśli pliki źródłowe zostały przeniesione lub usunięte od czasu ostatniego otwarcia projektu, Chloros poinformuje Cię, **które**pliki zniknęły, zamiast otwierać pustą siatkę. Jeśli sam folder projektu został przeniesiony, Chloros przekierowuje ścieżki źródłowe do folderu, w którym obecnie znajduje się `project.json`, i zachowuje kopię zapasową (`project.json.before-relink-<date>-<time>`). Gdy pliki nie zostaną znalezione, w oknie**Nie znaleziono plików źródłowych**pojawi się opcja**Przeglądaj**, umożliwiająca wskazanie nowej lokalizacji, a następnie opcje Utwórz nowy projekt lub Usuń projekt. Z poziomu interfejsu CLI należy użyć `chloros-cli project open PATH --relink FOLDER`; z poziomu SDK – `open_project(path, relink=...)`.
+
+***
 
 ## Kolejne kroki
 

@@ -136,7 +136,9 @@ Liczby te podlegają dwóm zasadom:
 * Wątek, który jest **jedynym** aktywnym, otrzymuje maksymalny przydział określony w profilu.
 * Gdy aktywnych jest więcej niż jedno *obciążające* zadanie GPU, podstawowy przydział każdego z nich jest dzielony między te zadania (nigdy poniżej skonfigurowanego minimum).
 
-Wartością faktycznie stosowaną w czasie wykonywania jest **niższa** z dwóch wartości: przydział określony w profilu platformy oraz aktualna rekomendacja z monitora pamięci GPU, więc obciążona karta zawsze ma pierwszeństwo przed zbyt optymistycznym profilem.***
+Wartością faktycznie stosowaną w czasie wykonywania jest **niższa** z dwóch wartości: przydział określony w profilu platformy oraz aktualna rekomendacja z monitora pamięci GPU, więc obciążona karta zawsze ma pierwszeństwo przed zbyt optymistycznym profilem.
+
+***
 
 ## Przetwarzanie z uwzględnieniem tekstur
 

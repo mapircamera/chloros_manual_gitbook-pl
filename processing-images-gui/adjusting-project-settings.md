@@ -154,7 +154,9 @@ Ta sekcja pojawia się **tylko** wtedy, gdy co najmniej jeden obraz w projekcie 
 
 * **Zastosuj wyrównanie matrycy** (domyślnie: włączone): dopasowuje każdy przetworzony produkt (po usunięciu pikseli / podgląd / promieniowanie / odbicie / indeks) do wspólnej geometrii odniesienia matrycy. Wyłączone = eksport w natywnej geometrii czujnika.
 * **Przytnij do wspólnego nakładania się** (domyślnie: włączone): przycina wyrównane eksporty do obszaru wspólnego dla wszystkich modułów, dzięki czemu każde pasmo ma ten sam obszar pokrycia. Wyłączenie zachowuje pełny obszar czujnika (czarne wypełnienie poza źródłem).
-* **Próbkowanie**:**Biliniowe (wygładzone, domyślne)**,**Najbliższe (zachowujące dokładne wartości)**— bez mieszania pikseli, do ścisłej analizy radiometrycznej — lub**Kubiczne (najostrzejsze)**.***
+* **Próbkowanie**:**Biliniowe (wygładzone, domyślne)**,**Najbliższe (zachowujące dokładne wartości)**— bez mieszania pikseli, do ścisłej analizy radiometrycznej — lub**Kubiczne (najostrzejsze)**.
+
+***
 
 ## Zapisywanie i wczytywanie ustawień
 

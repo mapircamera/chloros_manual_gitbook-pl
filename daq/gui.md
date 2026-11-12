@@ -196,7 +196,9 @@ W przypadku ilościowych wartości natężenia promieniowania należy uśrednić
 
 * Łącz kilka czujników na jednym wykresie (wspólne osie), zachowuj oddzielne wykresy (automatyczny układ siatki), przenoś czujniki między wykresami, zmieniaj kolejność wierszy/kafelków poprzez przeciąganie oraz ukrywaj poszczególne czujniki za pomocą przełącznika w postaci ikony oka.
 * W ramach każdego projektu Chloros zachowuje: nazwy urządzeń, kolory wykresów, rozmiar wykresu, tryb wyświetlania oraz ustawienia każdego czujnika (czas integracji, uśrednianie klatek, stan AE, wybór nasadki).
-* **Ponowne otwarcie projektu powoduje automatyczne ponowne połączenie czujników** na podstawie adresu — portu COM dla DAQ-U, urządzenia BLE dla DAQ-M, nazwę hosta mDNS dla DAQ-E (rozpoznawaną nawet po zmianie adresu IP urządzenia) — oraz ponownie stosuje zapisany profil nakładki każdego czujnika, uśrednianie klatek, stan AE oraz ręcznie ustawiony czas integracji.***
+* **Ponowne otwarcie projektu powoduje automatyczne ponowne połączenie czujników** na podstawie adresu — portu COM dla DAQ-U, urządzenia BLE dla DAQ-M, nazwę hosta mDNS dla DAQ-E (rozpoznawaną nawet po zmianie adresu IP urządzenia) — oraz ponownie stosuje zapisany profil nakładki każdego czujnika, uśrednianie klatek, stan AE oraz ręcznie ustawiony czas integracji.
+
+***
 
 ## Parowanie kamery (DLS)
 

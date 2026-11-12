@@ -17,7 +17,9 @@ MAPIR mierzą oświetlenie otoczenia w postaci widm skalibrowanych radiometryczn
 | --- | --- | --- |
 | **DAQ-U** | USB (szeregowy) | skanowanie portu szeregowego |
 | **DAQ-M** | Bluetooth Low Energy | skanowanie BLE według nazwy |
-| **DAQ-E** | Ethernet (IPv4, zasilanie PoE) | mDNS `_daq-e._tcp` (nazwa hosta `daq-e-<id>.local`) |**DAQ-E-S (nowość w wersji 1.3.0).** Urządzenie DAQ-E z stałym dyfuzorem i czujnikiem pochylenia. W Chlorosie figuruje ono jako `DAQ-E-S` i działa dokładnie tak samo jak DAQ-E, z tą różnicą, że nie wymaga korekcji nakładki, a każdy odczyt zawiera informacje o pochyleniu, przechylu i nachyleniu urządzenia. Zobacz [DAQ-E-S: stały dyfuzor i czujnik pochylenia](caps-and-range.md#daq-e-s-fixed-diffuser-and-tilt).
+| **DAQ-E** | Ethernet (IPv4, zasilanie PoE) | mDNS `_daq-e._tcp` (nazwa hosta `daq-e-<id>.local`) |
+
+**DAQ-E-S (nowość w wersji 1.3.0).** Urządzenie DAQ-E z stałym dyfuzorem i czujnikiem pochylenia. W Chlorosie figuruje ono jako `DAQ-E-S` i działa dokładnie tak samo jak DAQ-E, z tą różnicą, że nie wymaga korekcji nakładki, a każdy odczyt zawiera informacje o pochyleniu, przechylu i nachyleniu urządzenia. Zobacz [DAQ-E-S: stały dyfuzor i czujnik pochylenia](caps-and-range.md#daq-e-s-fixed-diffuser-and-tilt).
 
 Wszystkie trzy urządzenia wykorzystują ten sam protokół komunikacyjny i dostarczają identyczne dane:
 
